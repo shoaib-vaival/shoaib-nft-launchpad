@@ -1,3 +1,39 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prefer-arrow-functions", "prettier"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "no-duplicate-imports": "error",
+    "prefer-arrow-callback": "error",
+    "no-unused-expressions": "off",
+    "prefer-arrow-functions/prefer-arrow-functions": [
+      "error",
+      {
+        "returnStyle": "unchanged",
+        "singleReturnOnly": false
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {},
+      "node": {
+        "paths": ["src"],
+        "extensions": [".ts", ".tsx"]
+      }
+    }
+  }
 }
