@@ -3,8 +3,10 @@ import { colors } from './colors';
 import { Button, Heading, Text, Checkbox, Badge, Table } from './components';
 
 const fonts = {
-  heading: `"Inter", sans-serif`,
+  heading: `Inter`,
   body: `"Inter", sans-serif`,
+
+  
 };
 
 const breakpoints = {
