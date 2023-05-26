@@ -1,7 +1,10 @@
-import axios from 'axios';
-import { DELETE, POST, PUT } from './consts'
-import { UseMutateFunction, useMutation as useRMutation } from '@tanstack/react-query';
-import { useToast } from '@chakra-ui/react';
+import axios from "axios";
+import { DELETE, POST, PUT } from "./consts";
+import {
+  UseMutateFunction,
+  useMutation as useRMutation,
+} from "@tanstack/react-query";
+import { useToast } from "@chakra-ui/react";
 
 type UseMutationReturn<T, K> = {
   data?: K;
@@ -10,14 +13,18 @@ type UseMutationReturn<T, K> = {
 };
 
 export type ApiResult<K> = {
+  data?: any;
   _metadata: {
     message: string;
     numOfRecords: number;
     outcome: string;
     outcomeCode: number;
+    Message?: string;
   };
   records: K;
-  errors: Array<string>;
+  errors?: Array<string>;
+  status?: number;
+  Message?: string;
 };
 
 type UseMutationProps<T, K> = {
@@ -26,6 +33,7 @@ type UseMutationProps<T, K> = {
   method?: typeof POST | typeof DELETE | typeof PUT;
   token?: boolean;
   showToast?: boolean;
+  showSuccessToast?: boolean;
   successMessage?: string;
   onSuccess?: (data: ApiResult<K>) => void;
   onError?: (data: ApiResult<K>) => void;
@@ -38,28 +46,29 @@ export const useMutation = <T, K = T>({
   data,
   method = POST,
   token = true,
-  showToast = true,
+  showToast,
   successMessage,
   onSuccess,
   onError,
   errorMessage,
   isFormData = false,
+  showSuccessToast,
 }: UseMutationProps<T, K>): UseMutationReturn<T, K> => {
   const toast = useToast();
 
   const headers = {
-    Accept: 'multipart/form-data',
-    'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
-    Authorization: `Bearer tokenId`,
+    Accept: "multipart/form-data",
+    "Content-Type": "multipart/form-data",
+    // Authorization: `Bearer tokenId`,
   };
 
   const config = {
     method,
-    url: `https:abc/${url}`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${url}`,
     data,
     headers,
   };
-  
+
   const {
     data: fetchedData,
     isLoading,
@@ -75,50 +84,29 @@ export const useMutation = <T, K = T>({
     },
     {
       onSuccess: (newData) => {
-        if (newData?.errors.length === 0 && newData?._metadata.outcomeCode !== 2) {
-          showToast &&
+        if (newData?.status == 200) {
+          showSuccessToast &&
             toast({
-              title: successMessage ?? newData._metadata.message,
-              status: 'success',
+              title: successMessage ?? newData?.Message,
+              status: "success",
               isClosable: true,
-              position: 'top-right',
+              position: "top-right",
             });
 
           onSuccess && onSuccess(newData);
-        } else {
-          if (newData?.errors.length > 0) {
-            newData?.errors.map((error) => {
-              showToast &&
-                toast({
-                  title: errorMessage ?? error,
-                  status: 'error',
-                  isClosable: true,
-                  position: 'top-right',
-                });
-            });
-          } else {
-            showToast &&
-              toast({
-                title: newData._metadata.message ?? 'Something went wrong',
-                status: 'error',
-                isClosable: true,
-                position: 'top-right',
-              });
-          }
         }
-
         onError && onError(newData);
       },
       onError: () => {
         showToast &&
           toast({
-            title: 'Something went wrong',
-            status: 'error',
+            title: "Something went wrong",
+            status: "error",
             isClosable: true,
-            position: 'top-right',
+            position: "top-right",
           });
       },
-    },
+    }
   );
 
   return { ...fetchedData, isLoading, mutate };
