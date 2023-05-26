@@ -1,27 +1,13 @@
-//Upload img on pinata cloud to get img url
+//Supported file types
+const supportedFileTypes = ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG", "svg", "SVG"];
 
-export const handleUpload = async (file: any) => {
-  if (file) {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PINATA_BASE_URL}/pinning/pinFileToIPFS`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_IPFS_JWT}`,
-        },
-        body: formData,
-      }
-    );
-    
-    if (response.ok) {
-      const result = await response.json();
-      let ImgUrl = `https://ipfs.io/ipfs/${result.IpfsHash}`;
-      return ImgUrl;
-    } else {
-      console.error("Error uploading file to Pinata:", response.statusText);
-    }
+// Function to handle file selection
+export const validateFile = (file?: File | null) => {
+  if (file && !supportedFileTypes?.includes(file?.type?.split("/")[1])) {
+    return "Only png and jpg files are allowed";
+  } else if (file && file?.size > 6e6) {
+    return "Please select a file upto 6MB";
+  } else {
+    return "ok";
   }
 };
