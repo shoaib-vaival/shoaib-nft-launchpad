@@ -3,7 +3,6 @@ const supportedFileTypes = ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG", "svg", "
 
 // Function to handle file selection
 export const validateFile = (file?: File | null) => {
-  console.log(file?.type?.split("/")[1])
   if (file && !supportedFileTypes?.includes(file?.type?.split("/")[1])) {
     return "Only png and jpg files are allowed";
   } else if (file && file?.size > 6e6) {
