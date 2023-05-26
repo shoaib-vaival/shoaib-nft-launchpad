@@ -1,32 +1,22 @@
-import { extendTheme } from '@chakra-ui/react';
-import { colors } from './colors';
-import { Button, Heading, Text, Checkbox, Badge, Table } from './components';
+import { extendTheme } from "@chakra-ui/theme-utils";
+import { colors } from "./colors";
+import { Button }from './components/Button'
 
-const fonts = {
-  heading: `Inter`,
-  body: `"Inter", sans-serif`,
 
-  
-};
 
-const breakpoints = {
-  sm: '320px',
-  md: '768px',
-  lg: '960px',
-  xl: '1200px',
-  '2xl': '1536px',
-};
+
 
 export const theme = extendTheme({
-  colors,
-  fonts,
-  components: {
-    Button,
-    Heading,
-    Text,
-    Checkbox,
-    Badge,
-    Table,
-  },
-  breakpoints,
-});
+    colors,
+    components:{
+        Button,
+    },
+    styles:{
+        global:{
+            h1:{
+                fontSize: '4xl',
+                
+            }
+        }
+    }
+})
