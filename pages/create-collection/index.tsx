@@ -4,6 +4,8 @@ import { Detail } from './consts'
 import { useQuery } from '../../src/hooks/useQuery';
 import { ApiUrl } from '../../src/apis/apiUrl'
 import { QUERY_KEYS } from '../../src/hooks/queryKeys'
+import {Container, FormControl} from "@chakra-ui/react"
+
 
 const CreateCollection = () => {
 
@@ -44,14 +46,16 @@ const CreateCollection = () => {
   }
 
   return (
-    <div>
+    <Container maxW="container.md">
       <h1>Create Collection</h1>
-     <div><ReactSelect options={filtredCat} isMultiple={false} getSelectedData={getSelectedData} identifier='cat'/></div>
-     <div><ReactSelect options={filtredTags} isMultiple={true} getSelectedData={getSelectedData} identifier='tag'/></div>
-     <FileUpload  label = "Logo Image *" detail ={Detail?.logoDetail} imgFor = 'logo' imgUrl = {getImgUrl} />
+      <FormControl>
+     <FileUpload  label = "Logo Image *" detail ={Detail?.logoDetail} imgFor = 'logo' imgUrl = {getImgUrl} width="220px" height="220px" onlyIcon={true}/>
      <FileUpload  label = "Featured Image" detail ={Detail?.featuredImg} imgFor = 'featured' imgUrl = {getImgUrl}/>
      <FileUpload  label = "Banner Image" detail ={Detail?.bannerImg} imgFor = 'banner' imgUrl = {getImgUrl}/>
-    </div>
+     <div><ReactSelect options={filtredCat} isMultiple={false} getSelectedData={getSelectedData} identifier='cat'/></div>
+     <div><ReactSelect options={filtredTags} isMultiple={true} getSelectedData={getSelectedData} identifier='tag'/></div>
+     </FormControl>
+    </Container>
   )
 }
 

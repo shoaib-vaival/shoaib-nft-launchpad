@@ -1,5 +1,6 @@
+import { ComponentStyleConfig } from "@chakra-ui/react";
 
-export const Menu = {
+export const Menu: ComponentStyleConfig = {
     baseStyle:{},
     variants:{
         button:{

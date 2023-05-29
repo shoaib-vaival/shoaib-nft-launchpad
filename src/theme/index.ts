@@ -3,6 +3,8 @@ import { colors } from "./colors";
 import { Button } from './components/Button';
 import { Input } from './components/input';
 import { Menu } from './components/menu';
+import {Card} from './components/card'
+import {Form} from './components/form'
 
 
 
@@ -17,10 +19,15 @@ export const theme = extendTheme({
     components:{
         Button,
         Input,
-        Menu
+        Menu,
+        Card,
+        Form
     },
     styles:{
         global:{
+            body:{
+                color: colors.black
+            },
             h1:{
                 fontSize: '4xl',
                 

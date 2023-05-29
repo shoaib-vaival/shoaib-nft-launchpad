@@ -23,6 +23,7 @@ export function useWeb3Context() {
 
 export function Web3ContextProvider({ children }: { children: React.ReactNode }) {
     const { useChainId, useAccount } = metaMaskHooks
+    console.log(metaMaskHooks);
     const chainId = useChainId()
     const account = useAccount()
     const isWalletConnected = getFromLocalStorage('isWalletConnected');
