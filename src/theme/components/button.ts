@@ -2,9 +2,10 @@
 
 export const Button = {
     baseStyle: {
-        fontWeight: 'regular',
+        fontWeight: '600px',
         borderRadius: '8px',
-        lineHeight:'0px'
+        lineHeight:'0px',
+        fontStyle:'normal',
     },
     sizes:{
         xs:{
@@ -32,5 +33,11 @@ export const Button = {
                 bg: 'purple.600',
             },
         }, 
+        secondary:{
+            bg:'white',
+            color:'purple.500',
+            border: '1px solid',
+            borderColor:'purple.500'
+        }
     }
 }

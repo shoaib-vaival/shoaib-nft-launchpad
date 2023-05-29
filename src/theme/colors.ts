@@ -9,9 +9,6 @@ export const colors = {
         '700':'#8C89F3',
         '800':'#D4D3F8'
     },
-    secondary:{
-        
-    },
     purple:{
         "100":'#dbd9fc',
         "300":"#adaaf8",
