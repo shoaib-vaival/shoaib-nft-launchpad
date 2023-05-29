@@ -1,6 +1,4 @@
-const QUERY_KEYS = {
-    CONTACTS: 'contacts',
-  };
-  
-  export default QUERY_KEYS;
-  
+export const QUERY_KEYS = {
+  GET_CAT: "get-categories",
+  GET_TAGS: "get-tags",
+};
