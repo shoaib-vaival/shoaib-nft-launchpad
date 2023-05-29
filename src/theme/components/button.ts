@@ -1,6 +1,7 @@
+import { ComponentStyleConfig } from "@chakra-ui/react";
 
 
-export const Button = {
+export const Button:ComponentStyleConfig = {
     baseStyle: {
         fontWeight: '600px',
         borderRadius: '8px',

@@ -1,6 +1,7 @@
+import { ComponentStyleConfig } from "@chakra-ui/react";
 
 
-export const Input = {
+export const Input: ComponentStyleConfig = {
     baseStyle:{
         field: {
             width: "100%",
