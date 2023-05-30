@@ -23,10 +23,10 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ md: '4xl', xl: '8xl' }}>
+      <Container maxW={{ sm:'4xl',md: '4xl', xl: '8xl' }}>
 
-        <Box padding={30}>
-          <Stack direction="row" alignItems="center">
+        <Box py={30}>
+          <Stack direction="row" alignItems="center" justifyContent='center'>
             <Box pt="8px" pb="8px">
               <Image src="/assets/images/Logo.png" alt="logo" maxW="138" maxH="45px" />
             </Box>
@@ -56,7 +56,7 @@ export const Header = () => {
             <Flex alignItems="center">
               {/* <Button variant="primary" mr="16px" size="md">Create</Button> */}
               <Menu autoSelect={false} ml={{ lg: '30px', xl: '100px' }}>
-                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '50px' }} variant="primary">
+                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary">
                   Create
                 </MenuButton>
                 <MenuList>
