@@ -10,7 +10,7 @@ export type FileType = {
   detail: string;
   imgFor: string;
   imgUrl: (imgUrl: ImgUrlFunParam) => void;
-  width:string;
-  height:string
-  onlyIcon:boolean
+  width?:string;
+  height?:string
+  onlyIcon?:boolean
 };
