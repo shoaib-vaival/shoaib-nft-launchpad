@@ -4,7 +4,7 @@ import { Detail } from './consts'
 import { useQuery } from '../../src/hooks/useQuery';
 import { ApiUrl } from '../../src/apis/apiUrl'
 import { QUERY_KEYS } from '../../src/hooks/queryKeys'
-import {Container, FormControl} from "@chakra-ui/react"
+import {Container, FormControl, Heading, Stack} from "@chakra-ui/react"
 
 
 const CreateCollection = () => {
@@ -46,14 +46,16 @@ const CreateCollection = () => {
   }
 
   return (
-    <Container maxW="container.md">
-      <h1>Create Collection</h1>
+    <Container maxW="952px" p={0}>
+      <Heading as="h1">Create Collection</Heading>
       <FormControl>
+      <Stack direction="column" spacing="40px">
      <FileUpload  label = "Logo Image *" detail ={Detail?.logoDetail} imgFor = 'logo' imgUrl = {getImgUrl} width="220px" height="220px" onlyIcon={true}/>
      <FileUpload  label = "Featured Image" detail ={Detail?.featuredImg} imgFor = 'featured' imgUrl = {getImgUrl}/>
      <FileUpload  label = "Banner Image" detail ={Detail?.bannerImg} imgFor = 'banner' imgUrl = {getImgUrl}/>
      <div><ReactSelect options={filtredCat} isMultiple={false} getSelectedData={getSelectedData} identifier='cat'/></div>
      <div><ReactSelect options={filtredTags} isMultiple={true} getSelectedData={getSelectedData} identifier='tag'/></div>
+     </Stack>
      </FormControl>
     </Container>
   )

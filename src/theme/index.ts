@@ -29,8 +29,7 @@ export const theme = extendTheme({
                 color: colors.black
             },
             h1:{
-                fontSize: '4xl',
-                
+                fontSize:'56px'
             }
         }
     }

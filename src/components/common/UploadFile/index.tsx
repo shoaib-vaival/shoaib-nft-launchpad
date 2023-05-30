@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { useMutation } from "../../../hooks/useMutation";
 import { POST } from "../../../hooks/consts";
 import { ApiUrl } from "../../../apis/apiUrl";
-import {Box,FormLabel, FormHelperText, Flex, Text} from '@chakra-ui/react'
+import {Box,FormLabel, FormHelperText, Flex, Text, Image} from '@chakra-ui/react'
 
 const FileUpload = ({ label, detail, imgFor, imgUrl, height, width, onlyIcon }: FileType) => {
   const [fileError, setFileError] = useState<string>("");
@@ -46,23 +46,43 @@ const FileUpload = ({ label, detail, imgFor, imgUrl, height, width, onlyIcon }: 
   };
 
   return (
-    <Box color="#756C99">
+    <>
+    {
+      preview && showImgPreview ?
+      <>
+            {
+      preview.map((upFile: any, index: any) => {
+                return (
+                  <Image src={upFile.preview} w="100%" h="300px" objectFit="cover" borderRadius="16px"></Image>
+                  // <div className="previewImage" key={index}>
+                  //   <img src={upFile.preview} alt="preview" />
+                  //   <span className="removeImg" onClick={() => setPreview([])}>
+                  //     X
+                  //   </span>
+                  // </div>
+                );
+              })
+      }
+      </>
+      :
+      <Box color="#756C99">
       {/* <div className="mx-auto"> */}
         {label && <FormLabel marginBottom="16px">{label}</FormLabel>}
         {detail && <FormHelperText marginBottom="16px">{detail}</FormHelperText>}
         {
-          <Flex {...getRootProps()} bg='red' maxH="300px" justifyContent="center" alignItems="center" h={height?height:'300px'} w={width?width:'952px'} border="1px solid rgba(111, 107, 243, 0.4)" background= 'rgba(255, 255, 255, 0.4)' boxShadow="2px 2px 8px rgba(13, 13, 13, 0.1)" backdrop-filter= 'blur(30px)' borderRadius= '16px'>
+          <Flex {...getRootProps()} bg='red' maxH="300px" justifyContent="center" alignItems="center" h={height?height:'300px'} w={width? width:'952px'} border="1px solid rgba(111, 107, 243, 0.4)" background= 'rgba(255, 255, 255, 0.4)' boxShadow="2px 2px 8px rgba(13, 13, 13, 0.1)" backdrop-filter= 'blur(30px)' borderRadius= '16px'>
             <input {...getInputProps()} />
 
             {(preview && showImgPreview) &&
               preview.map((upFile: any, index: any) => {
                 return (
-                  <div className="previewImage" key={index}>
-                    <img src={upFile.preview} alt="preview" />
-                    <span className="removeImg" onClick={() => setPreview([])}>
-                      X
-                    </span>
-                  </div>
+                  <Image src={upFile.preview} w="100%" h="100%" objectFit="cover" borderRadius="16px"></Image>
+                  // <div className="previewImage" key={index}>
+                  //   <img src={upFile.preview} alt="preview" />
+                  //   <span className="removeImg" onClick={() => setPreview([])}>
+                  //     X
+                  //   </span>
+                  // </div>
                 );
               })}
 
@@ -84,6 +104,9 @@ const FileUpload = ({ label, detail, imgFor, imgUrl, height, width, onlyIcon }: 
         {fileError && <p>{fileError}</p>}
       {/* </div> */}
     </Box>
+}
+    </>
+    
   );
 };
 export default FileUpload;
