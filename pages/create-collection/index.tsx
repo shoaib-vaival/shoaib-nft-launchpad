@@ -11,7 +11,13 @@ import { QUERY_KEYS } from "../../src/hooks/queryKeys";
 import { Field, Form, Formik } from "formik";
 import InputField from "../../src/components/InputField";
 import ChakraTextarea from "../../src/components/Textarea";
-import { Button, FormErrorMessage } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  FormControl,
+  Heading,
+  Stack,
+} from "@chakra-ui/react";
 import { collectionSchema } from "./schema";
 
 const CreateCollection = () => {
@@ -78,8 +84,8 @@ const CreateCollection = () => {
   };
 
   return (
-    <div>
-      <h1>Create Collection</h1>
+    <Container maxW="952px" p={0}>
+      <Heading as="h1">Create Collection</Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -88,146 +94,154 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <Field
-              as={InputField}
-              size="md"
-              label="Name *"
-              type="text"
-              placeholder="Name your collection"
-              name="name"
-              errorText={
-                touched["name"] && errors["name"] ? errors["name"] : undefined
-              }
-              maxLength={50}
-            />
-            <Field
-              as={InputField}
-              size="md"
-              label="Website URL"
-              type="text"
-              placeholder="https://"
-              name="website_url"
-              errorText={
-                touched["website_url"] && errors["website_url"]
-                  ? errors["website_url"]
-                  : undefined
-              }
-              maxLength={50}
-            />
-            <Field
-              as={InputField}
-              size="md"
-              label="Etherscan"
-              type="text"
-              placeholder="https://"
-              name="etherscan"
-              errorText={
-                touched["etherscan"] && errors["etherscan"]
-                  ? errors["etherscan"]
-                  : undefined
-              }
-              maxLength={50}
-            />
-            <Field
-              as={InputField}
-              size="md"
-              label="Telegram"
-              type="text"
-              placeholder="Telegram ID"
-              name="telegram"
-              errorText={
-                touched["telegram"] && errors["telegram"]
-                  ? errors["telegram"]
-                  : undefined
-              }
-              maxLength={50}
-            />
-            <Field
-              as={InputField}
-              size="md"
-              label="Twitter"
-              type="text"
-              placeholder="https://"
-              name="twitter"
-              errorText={
-                touched["twitter"] && errors["twitter"]
-                  ? errors["twitter"]
-                  : undefined
-              }
-              maxLength={50}
-            />
-            <Field
-              as={InputField}
-              size="md"
-              label="Instagram"
-              type="text"
-              placeholder="https://"
-              name="instagram"
-              errorText={
-                touched["instagram"] && errors["instagram"]
-                  ? errors["instagram"]
-                  : undefined
-              }
-              maxLength={50}
-            />
-            <Field
-              as={InputField}
-              size="md"
-              label="Discord"
-              type="text"
-              placeholder="Discord ID"
-              name="Discord_id"
-              errorText={
-                touched["Discord_id"] && errors["Discord_id"]
-                  ? errors["Discord_id"]
-                  : undefined
-              }
-              maxLength={50}
-            />
-            <Field name="description" component={ChakraTextarea}  label="Description"
-              placeholder="Describe your collection, 1000 characters are allowed"
-              desc={Detail?.desc} />
-            <div>
-              <ReactSelect
-                options={filtredCat}
-                isMultiple={false}
-                getSelectedData={getSelectedData}
-                identifier="cat"
+            <FormControl>
+              <Stack direction="column" spacing="40px">
+                <FileUpload
+                  label="Logo Image *"
+                  detail={Detail?.logoDetail}
+                  imgFor="logo"
+                  imgUrl={getImgUrl}
+                  width="220px"
+                  height="220px"
+                  onlyIcon={true}
+                />
+                <FileUpload
+                  label="Featured Image"
+                  detail={Detail?.featuredImg}
+                  imgFor="featured"
+                  imgUrl={getImgUrl}
+                />
+                <FileUpload
+                  label="Banner Image"
+                  detail={Detail?.bannerImg}
+                  imgFor="banner"
+                  imgUrl={getImgUrl}
+                />
+                <ReactSelect
+                  options={filtredCat}
+                  isMultiple={false}
+                  getSelectedData={getSelectedData}
+                  identifier="cat"
+                />
+                <ReactSelect
+                  options={filtredTags}
+                  isMultiple={true}
+                  getSelectedData={getSelectedData}
+                  identifier="tag"
+                />
+              </Stack>
+
+              <Field
+                as={InputField}
+                size="md"
+                label="Name *"
+                type="text"
+                placeholder="Name your collection"
+                name="name"
+                errorText={
+                  touched["name"] && errors["name"] ? errors["name"] : undefined
+                }
+                maxLength={50}
               />
-            </div>
-            <div>
-              <ReactSelect
-                options={filtredTags}
-                isMultiple={true}
-                getSelectedData={getSelectedData}
-                identifier="tag"
+              <Field
+                as={InputField}
+                size="md"
+                label="Website URL"
+                type="text"
+                placeholder="https://"
+                name="website_url"
+                errorText={
+                  touched["website_url"] && errors["website_url"]
+                    ? errors["website_url"]
+                    : undefined
+                }
+                maxLength={50}
               />
-            </div>
-            <FileUpload
-              label="Logo Image *"
-              detail={Detail?.logoDetail}
-              imgFor="logo"
-              imgUrl={getImgUrl}
-            />
-            <FileUpload
-              label="Featured Image"
-              detail={Detail?.featuredImg}
-              imgFor="featured"
-              imgUrl={getImgUrl}
-            />
-            <FileUpload
-              label="Banner Image"
-              detail={Detail?.bannerImg}
-              imgFor="banner"
-              imgUrl={getImgUrl}
-            />
+              <Field
+                as={InputField}
+                size="md"
+                label="Etherscan"
+                type="text"
+                placeholder="https://"
+                name="etherscan"
+                errorText={
+                  touched["etherscan"] && errors["etherscan"]
+                    ? errors["etherscan"]
+                    : undefined
+                }
+                maxLength={50}
+              />
+              <Field
+                as={InputField}
+                size="md"
+                label="Telegram"
+                type="text"
+                placeholder="Telegram ID"
+                name="telegram"
+                errorText={
+                  touched["telegram"] && errors["telegram"]
+                    ? errors["telegram"]
+                    : undefined
+                }
+                maxLength={50}
+              />
+              <Field
+                as={InputField}
+                size="md"
+                label="Twitter"
+                type="text"
+                placeholder="https://"
+                name="twitter"
+                errorText={
+                  touched["twitter"] && errors["twitter"]
+                    ? errors["twitter"]
+                    : undefined
+                }
+                maxLength={50}
+              />
+              <Field
+                as={InputField}
+                size="md"
+                label="Instagram"
+                type="text"
+                placeholder="https://"
+                name="instagram"
+                errorText={
+                  touched["instagram"] && errors["instagram"]
+                    ? errors["instagram"]
+                    : undefined
+                }
+                maxLength={50}
+              />
+              <Field
+                as={InputField}
+                size="md"
+                label="Discord"
+                type="text"
+                placeholder="Discord ID"
+                name="Discord_id"
+                errorText={
+                  touched["Discord_id"] && errors["Discord_id"]
+                    ? errors["Discord_id"]
+                    : undefined
+                }
+                maxLength={50}
+              />
+              <Field
+                name="description"
+                component={ChakraTextarea}
+                label="Description"
+                placeholder="Describe your collection, 1000 characters are allowed"
+                desc={Detail?.desc}
+              />
+            </FormControl>
             <Button variant="success" type="submit" mt="1rem">
               Submit
             </Button>
           </Form>
         )}
       </Formik>
-    </div>
+    </Container>
   );
 };
 

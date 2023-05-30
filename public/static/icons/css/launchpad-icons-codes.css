@@ -1,0 +1,4 @@
+
+.icon-image:before { content: '\e801'; } /* '' */
+.icon-search:before { content: '\e802'; } /* '' */
+.icon-close:before { content: '\e803'; } /* '' */

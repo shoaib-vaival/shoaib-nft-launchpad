@@ -1,142 +1,97 @@
 import { ReactNode } from "react";
+import { useWeb3Context } from "../../context/Web3Provider";
 import {
-  Box,
-  Flex,
-  Avatar,
-  HStack,
-  Link,
-  IconButton,
-  Button,
+  Button, Stack, Box, Container, Input, InputGroup, InputLeftElement, Flex, Avatar,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
-  useDisclosure,
-  useColorModeValue,
-  Stack,
+  MenuItemOption,
   MenuGroup,
-} from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import Image from 'next/image';
-import { SearchBar } from '../Searchbar'
+  MenuOptionGroup,
+  MenuDivider,
+  IconButton,
+  HStack,
+  Image
 
-const Links = ["Home", "Explore"];
+} from '@chakra-ui/react'
+import Link from 'next/link'
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
-);
+export const Header = () => {
 
-export default function withAction() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { account, connect, disconnect } = useWeb3Context()
 
   return (
     <>
-      <Box px={4}>
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={"center"}>
-          <Image src="/favicon.svg" alt="My Image" width={78} height={40} />
-          <SearchBar />
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-              className="headerStyle"
-            >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-              <Menu>
-                <MenuButton 
-                  className="headerStyle"
-                  as={Button}
-                  rightIcon={<ChevronDownIcon />}
-                  rounded={"full"}
-                  variant={"link"}
-                  cursor={"pointer"}
-                  minW={0}
-                >
-                  <NavLink>Stats</NavLink>
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Ranking</MenuItem>
-                  <MenuItem>Activity</MenuItem>
-                </MenuList>
-              </Menu>
-            </HStack>
-          </HStack>
-          <Flex alignItems={"center"}>
-              <Menu>
-                <MenuButton 
-                colorScheme="blue"
-                mr="4"
-                  as={Button}
-                  cursor={"pointer"}
-                  minW={0}
-                >
+      <Container maxW={{ sm:'4xl',md: '4xl', xl: '8xl' }}>
+
+        <Box py={30}>
+          <Stack direction="row" alignItems="center" justifyContent='center'>
+            <Box pt="8px" pb="8px">
+              <Image src="/assets/images/Logo.png" alt="logo" maxW="138" maxH="45px" />
+            </Box>
+            <Box pl="30px" pr="20px" order={{md:'6',lg:'0'}}>
+              <InputGroup variant="custom" colorScheme="purple" w={{ xl: "md", lg: '2xs', sm: '3xs' }}>
+                <Input placeholder="Search..." />
+                <InputLeftElement>
+                  <img src="/assets/images/search-icon.svg" />
+                </InputLeftElement>
+              </InputGroup>
+            </Box>
+            <Box display={{ md: "none", xl: "block" }} >
+              <HStack spacing={{ xl: '24px', lg: '16px' }} >
+                <Link href="#">Home</Link>
+                <Link href="#">Explorer</Link>
+                <Menu autoSelect={false}>
+                  <MenuButton as={Button} variant="link" fontSize='16px' >
+                    Stats
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>Download</MenuItem>
+                    <MenuItem>Create a Copy</MenuItem>
+                  </MenuList>
+                </Menu>
+              </HStack>
+            </Box>
+            <Flex alignItems="center">
+              {/* <Button variant="primary" mr="16px" size="md">Create</Button> */}
+              <Menu autoSelect={false} ml={{ lg: '30px', xl: '100px' }}>
+                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary">
                   Create
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Create NFT</MenuItem>
-                  <MenuItem>Create Collection</MenuItem>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
                 </MenuList>
               </Menu>
-              <Button mr="4">Connect Wallet</Button>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-                minW={0}
-              >
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>My Collection</MenuItem>
-                <MenuItem>WatchList</MenuItem>
-                <MenuItem>Settings</MenuItem>
-                <MenuItem>Darkmode</MenuItem>
-                <MenuItem>Logout</MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
-        </Flex>
-
-        <Box pb={4} display={{ md: "none" }}>
-          <Stack as={"nav"} spacing={4}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
+              <Button variant="secondary" mx="16px" size="md">Connect Wallet</Button>
+              <Avatar size="sm" />
+            </Flex>
+            <Box display={{ md: "block", xl: "none" }}>
+              <Menu>
+                <MenuButton as={IconButton} aria-label='Options' variant='outline' />
+                <MenuList>
+                  <MenuItem command='⌘T'>
+                    New Tab
+                  </MenuItem>
+                  <MenuItem command='⌘N'>
+                    New Window
+                  </MenuItem>
+                  <MenuItem command='⌘⇧N'>
+                    Open Closed Tab
+                  </MenuItem>
+                  <MenuItem command='⌘O'>
+                    Open File...
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Box>
           </Stack>
         </Box>
-      </Box>
-
-      <Box p={4}>Main Content Here</Box>
+      </Container >
     </>
   );
 }
