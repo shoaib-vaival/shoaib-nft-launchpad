@@ -161,7 +161,7 @@ const myCollection: NextPage = () => {
             <Flex flexWrap='wrap' flexDirection='column' w='220px' border='1px solid #6f6bf35e'>
               <Box display='flex' alignItems='center' fontSize='14px' pt='20px' pb='24px' justifyContent='space-between'>
                 <Text>Stats</Text>
-                <Text fontWeight='bold'><i className='icon-Chevron'></i></Text>
+                <Text><i className='icon-Chevron'></i></Text>
               </Box>
               <Box display='flex' alignItems='center' fontSize='14px'>
                 <Text>Created:</Text>

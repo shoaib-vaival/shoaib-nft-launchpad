@@ -16,8 +16,10 @@ import {
 
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from "next/router";
 
 export const Header = () => {
+  const router = useRouter()
 
   const { account, connect, disconnect } = useWeb3Context()
 
@@ -59,11 +61,8 @@ export const Header = () => {
                   Create
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
+                  <MenuItem>Create NFT</MenuItem>
+                  <MenuItem onClick={()=>router.push('/create-collection')}>Create Collection</MenuItem>
                 </MenuList>
               </Menu>
               <Button variant="secondary" mx="16px" w={{base:'full',xl:'initial'}} size="md">Connect Wallet</Button>
