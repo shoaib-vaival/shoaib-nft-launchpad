@@ -1,9 +1,6 @@
 import type { NextPage } from 'next'
 import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button, SimpleGrid, Box, Container, Flex } from '@chakra-ui/react'
 
-import CardHover from '../CardHover'
-
-
 const CollectionCards: NextPage = () => {
 
 

@@ -8,7 +8,7 @@ import { Detail } from "./consts";
 import { useQuery } from "../../src/hooks/useQuery";
 import { ApiUrl } from "../../src/apis/apiUrl";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
 import InputField from "../../src/components/InputField";
 import ChakraTextarea from "../../src/components/Textarea";
 import {
@@ -17,8 +17,12 @@ import {
   FormControl,
   Heading,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { collectionSchema } from "./schema";
+import { POST } from "../../src/hooks/consts";
+import { useMutation } from "../../src/hooks/useMutation";
+import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types'
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<any>({});
@@ -33,6 +37,11 @@ const CreateCollection = () => {
     queryKey: [QUERY_KEYS.GET_TAGS],
     url: ApiUrl?.GET_TAGS,
     showToast: false,
+  });
+
+  const { mutate } = useMutation<any>({
+    method: POST,
+    url: ApiUrl?.CREATE_COLLECTION
   });
 
   const filtredCat =
@@ -52,7 +61,7 @@ const CreateCollection = () => {
     }
   };
 
-  const getSelectedData = (selectedValue: any, identifier: string) => {
+  const getSelectedData = (selectedValue: ReactSelectCatMap, identifier: string) => {
     if (identifier == "cat") {
       setCollection({ ...collection, category: selectedValue?.value });
     } else {
@@ -60,7 +69,7 @@ const CreateCollection = () => {
         ...collection,
         tags:
           selectedValue?.length > 0
-            ? selectedValue?.map((category: any) => category?.value)
+            ? selectedValue?.map((category) => category?.value)
             : [],
       });
     }
@@ -80,7 +89,7 @@ const CreateCollection = () => {
     twitter: "",
     instagram: "",
     Discord_id: "",
-    creatorFee: [],
+    creatorFee: [{ walletAddress: "", percentage: 0 }],
   };
 
   return (
@@ -90,7 +99,7 @@ const CreateCollection = () => {
         initialValues={initialValues}
         validationSchema={collectionSchema}
         enableReinitialize
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => mutate(values)}
       >
         {({ errors, touched, values }) => (
           <Form>
@@ -105,6 +114,9 @@ const CreateCollection = () => {
                   height="220px"
                   onlyIcon={true}
                 />
+                {touched["logoImageUrl"] && errors["logoImageUrl"] && (
+                  <Text>{errors["logoImageUrl"] as React.ReactNode}</Text>
+                )}
                 <FileUpload
                   label="Featured Image"
                   detail={Detail?.featuredImg}
@@ -122,12 +134,17 @@ const CreateCollection = () => {
                   isMultiple={false}
                   getSelectedData={getSelectedData}
                   identifier="cat"
+                  label="Category"
                 />
+                {touched["category"] && errors["category"] && (
+                  <Text>{errors["category"] as React.ReactNode}</Text>
+                )}
                 <ReactSelect
                   options={filtredTags}
                   isMultiple={true}
                   getSelectedData={getSelectedData}
                   identifier="tag"
+                  label="Tags"
                 />
               </Stack>
 
@@ -234,8 +251,56 @@ const CreateCollection = () => {
                 placeholder="Describe your collection, 1000 characters are allowed"
                 desc={Detail?.desc}
               />
+
+              <FieldArray name="creatorFee">
+                {({ push, remove }) => (
+                  <>
+                    {values.creatorFee.map((field: any, index: number) => (
+                      <div key={index}>
+                        <div>
+                          <Field
+                            as={InputField}
+                            size="md"
+                            label="Wallet Address"
+                            type="text"
+                            maxLength={50}
+                            name={`creatorFee.${[index]}.walletAddress`}
+                          />
+                          <ErrorMessage
+                        name={`creatorFee.${[index]}.walletAddress`}
+                        component="div"
+                      />
+                        </div>
+                        <div>
+                          <Field
+                            as={InputField}
+                            size="md"
+                            label="Percentage"
+                            type="number"
+                            maxLength={50}
+                            name={`creatorFee.${[index]}.percentage`}
+                          />
+                          <ErrorMessage
+                        name={`creatorFee.${[index]}.percentage`}
+                        component="div"
+                      />
+                        </div>
+                        {index > 0 && <button type="button" onClick={() => remove(index)}>
+                          Remove
+                        </button>}
+                      </div>
+                    ))}
+                    {values?.creatorFee?.length < 5 && <button
+                      type="button"
+                      onClick={() => push({ walletAddress: "", percentage: 0 })}
+                    >
+                      +Add Address
+                    </button>}
+                  </>
+                )}
+              </FieldArray>
             </FormControl>
-            <Button variant="success" type="submit" mt="1rem">
+            <Button type="submit" ml="3">
               Submit
             </Button>
           </Form>

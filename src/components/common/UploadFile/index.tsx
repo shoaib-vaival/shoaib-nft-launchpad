@@ -16,6 +16,7 @@ const FileUpload = ({ label, detail, imgFor, imgUrl, height, width, onlyIcon }: 
     method: POST,
     url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
     showSuccessToast: false,
+    isFileData: true,
     onSuccess: (data) => {
       setShowImgPreview(true)
       imgUrl({imgFor, url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.url}`})
