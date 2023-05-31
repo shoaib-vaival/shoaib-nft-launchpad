@@ -23,23 +23,23 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ sm:'4xl',md: '4xl', xl: '8xl' }}>
+      <Container maxW={{ sm:'xl',lg:'4xl', xl: '8xl' }}>
 
         <Box py={30}>
-          <Stack direction="row" alignItems="center" justifyContent='center'>
-            <Box pt="8px" pb="8px">
+          <Stack direction='row' alignItems={{base:"flex-start",xl:'center'}} justifyContent={{base:'flex-start',xl:'initial'}} flexWrap='wrap' spacing={{base:'2'}}>
+            <Box pt="8px" pb="8px" order={{base:'1', xl:'1'}} marginRight={{base:'auto',xl:'initial'}}>
               <Image src="/assets/images/Logo.png" alt="logo" maxW="138" maxH="45px" />
             </Box>
-            <Box pl="30px" pr="20px" order={{md:'6',lg:'0'}}>
-              <InputGroup variant="custom" colorScheme="purple" w={{ xl: "md", lg: '2xs', sm: '3xs' }}>
+            <Box order={{base:'4', xl:'2'}} w={{base:'full',xl:'initial'}}  pl={{base:'0',sm:"0", md:'30px'}} pr={{base:'0',sm:"0", md:'20px'}} >
+              <InputGroup variant="custom" colorScheme="purple" w={{ base:'full',xl:'lg' }} marginBottom={{base:'3', xl:'initial'}} >
                 <Input placeholder="Search..." />
                 <InputLeftElement>
                   <img src="/assets/images/search-icon.svg" />
                 </InputLeftElement>
               </InputGroup>
             </Box>
-            <Box display={{ md: "none", xl: "block" }} >
-              <HStack spacing={{ xl: '24px', lg: '16px' }} >
+            <Box order={{base:'6',xl:'3'}}  display={{base:'none',sm:'none',xl:'initial'}} >
+              <HStack alignItems={{base:'initial',xl:'center'}} flexDirection={{base:'column', sm:'column', md:'row',xl:'row'}} spacing={{ xl: '24px', lg: '16px' }} >
                 <Link href="#">Home</Link>
                 <Link href="#">Explorer</Link>
                 <Menu autoSelect={false}>
@@ -53,10 +53,9 @@ export const Header = () => {
                 </Menu>
               </HStack>
             </Box>
-            <Flex alignItems="center">
-              {/* <Button variant="primary" mr="16px" size="md">Create</Button> */}
-              <Menu autoSelect={false} ml={{ lg: '30px', xl: '100px' }}>
-                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary">
+            <Flex alignItems="center" w={{base:'full',sm:'2xs',xl:'initial'}} flexDirection={{base:'column', sm:'row',xl:'row'}} order={{base:'5',sm:'2', xl:'4'}}>
+              <Menu autoSelect={false}>
+                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary" w={{base:'full',xl:'initial'}} size="md">
                   Create
                 </MenuButton>
                 <MenuList>
@@ -67,10 +66,10 @@ export const Header = () => {
                   <MenuItem>Attend a Workshop</MenuItem>
                 </MenuList>
               </Menu>
-              <Button variant="secondary" mx="16px" size="md">Connect Wallet</Button>
-              <Avatar size="sm" />
+              <Button variant="secondary" mx="16px" w={{base:'full',xl:'initial'}} size="md">Connect Wallet</Button>
             </Flex>
-            <Box display={{ md: "block", xl: "none" }}>
+             
+            <Box order={{base:'3',xl:'5'}} display={{base:'block',xl:'none'}}>
               <Menu>
                 <MenuButton as={IconButton} aria-label='Options' variant='outline' />
                 <MenuList>
@@ -89,7 +88,18 @@ export const Header = () => {
                 </MenuList>
               </Menu>
             </Box>
+            <Avatar size="sm" order={{base:'2',xl:'6'}} />
           </Stack>
+          {/* <Stack>
+          <Box pl="30px" pr="20px" display={{ xs: "block",sm: "block", md: "none", xl: "none" }}>
+              <InputGroup variant="custom" colorScheme="purple" w={{ xl: "md", lg: '2xs', sm: '3xs' }}>
+                <Input placeholder="Search..." />
+                <InputLeftElement>
+                  <img src="/assets/images/search-icon.svg" />
+                </InputLeftElement>
+              </InputGroup>
+            </Box>
+          </Stack> */}
         </Box>
       </Container >
     </>

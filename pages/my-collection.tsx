@@ -12,7 +12,7 @@ const myCollection: NextPage = () => {
       <Box>
       <Container maxW={{ md: '4xl', xl: '8xl' }}>
           <Box pt='30px' pb='40px'>
-            <Flex justifyContent='space-between' alignItems='center'>
+            <Flex justifyContent='space-between' alignItems='center' textAlign={{base:'center',xl:'initial'}} flexDirection={{base:'column',md:'column', xl:'row'}}>
               <Box>
                 <Heading as='h1' fontSize='56px'>
                   My Collections
@@ -31,25 +31,25 @@ const myCollection: NextPage = () => {
         </Container>
         <Container maxW={{md: '4xl', xl: '8xl' }} pb={{ xl: '100px', md: '50px' }}>
           <Box>
-            <Flex direction={['column', 'row']} flexWrap='wrap'>
-              <Square w={{ xl: '25%', md: '50%',sm:'50%' }} display='initial'>
+            <Flex direction={['column', 'row']} flexWrap={{base:'nowrap',sm:'wrap',md:'wrap',lg:'wrap',xl:'wrap'}} >
+              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
                 <CollectionCards />
-              </Square>
-              <Square w={{ xl: '25%', md: '50%',sm:'50%' }} display='initial'>
+              </Box>
+              <Box w={{ xl: '25%', md: '50%',sm:'75%',base:'100%' }} display='initial'>
                 <CollectionCards />
-              </Square>
-              <Square w={{ xl: '25%', md: '50%',sm:'50%' }} display='initial'>
+              </Box>
+              <Box w={{ xl: '25%', md: '50%',sm:'75%',base:'100%' }} display='initial'>
                 <CollectionCards />
-              </Square>
-              <Square w={{ xl: '25%', md: '50%',sm:'50%' }} display='initial'>
+              </Box>
+              <Box w={{ xl: '25%', md: '50%',sm:'75%',base:'100%' }} display='initial'>
                 <CollectionCards />
-              </Square>
-              <Square w={{ xl: '25%', md: '50%',sm:'50%' }} display='initial'>
+              </Box>
+              <Box w={{ xl: '25%', md: '50%',sm:'75%',base:'100%' }} display='initial'>
                 <CollectionCards />
-              </Square>
-              <Square w={{ xl: '25%', md: '50%',sm:'50%' }} display='initial'>
+              </Box>
+              <Box w={{ xl: '25%', md: '50%',sm:'75%',base:'100%' }} display='initial'>
                 <CollectionCards />
-              </Square>
+              </Box>
             </Flex>
 
           </Box>
