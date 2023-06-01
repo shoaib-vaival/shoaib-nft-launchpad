@@ -39,3 +39,16 @@ export const validateFile = (file?: File | null) => {
     return "ok";
   }
 };
+
+export function queryStringToJSON(queryString: string): { [key: string]: string } {
+  if (queryString.indexOf('?') > -1) {
+    queryString = queryString.split('?')[1];
+  }
+  const pairs = queryString.split('&');
+  const result: { [key: string]: string } = {};
+  pairs.forEach(function(pair:string[]) {
+    pair = pair.split('=');
+    result[pair[0]] = decodeURIComponent(pair[1] || '');
+  });
+  return result;
+}

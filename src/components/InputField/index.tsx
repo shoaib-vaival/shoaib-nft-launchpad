@@ -38,7 +38,6 @@ const InputField = ({
   width,
   maxLength,
   fontSize = 'md',
-  borderColor = 'gray.600',
   minLength,
   ...restProps
 }: InputProps) => {
@@ -61,11 +60,11 @@ const InputField = ({
           placeholder={placeholder}
           name={name}
           onChange={onChange}
-          borderColor={borderColor}
           fontSize={fontSize ?? '1rem'}
           fontWeight='medium'
           maxLength={maxLength}
           minLength={minLength}
+          variant="custom"
           _placeholder={
             type === 'password'
               ? {
