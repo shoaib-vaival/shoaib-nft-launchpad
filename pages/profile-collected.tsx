@@ -1,6 +1,11 @@
 import type { NextPage } from 'next'
 import { Header } from '../src/components/Header'
 import CollectionCards from '../src/components/Cards/CollectionCard'
+import BannerImage from '../src/components/BannerImage/'
+import SocialIcon from '../src/components/SocialIcon/'
+import RectangularIcon from '../src/components/RectangularVal/'
+import Tabx from '../src/components/Tabs/'
+import ConnectionBar from '../src/components/ConnectionBar/'
 import { colors } from '../src/theme/colors'
 import { Box, Container, Flex, Heading, Text, Button, Image, HStack, Icon, IconButton, Tabs, TabList, Tab, TabPanels, TabPanel, Menu, MenuButton, MenuList, MenuItem, Checkbox, Stack, CheckboxGroup, Wrap, WrapItem, Center, InputGroup, Input, InputLeftElement } from '@chakra-ui/react'
 import Link from 'next/link'
@@ -15,84 +20,9 @@ const myCollection: NextPage = () => {
       <Box>
         <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
           <Box pt='30px' pb='40px'>
-            <Box position='relative' maxW='100%' height='415px' maxH='600px' >
-              <Image src='/assets/images/Maskgroup.png' alt='Maskgroup' w='100%' h='100%' objectFit='cover'
-                borderRadius='2xl' />
-
-              <Box position='absolute' bottom='-48px' left='48px' border='1px solid #fff' borderRadius='xl' w={220} h={220} >
-                <Image
-                  src='/assets/images/RectangleCardImg.png' alt='Maskgroup'
-                  w='100%' h='100%' objectFit='cover' borderRadius='2xl' />
-              </Box>
-            </Box>
+            <BannerImage/>
             <Box>
-              <HStack float='right' pt='8px'>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='#6863F3'
-                    aria-label='Send'
-                    fontSize='20px'
-                    icon={<i className='icon-internet'></i>}
-                  />
-                </Box>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='#6863F3'
-                    aria-label='Send email'
-                    fontSize='20px'
-                    icon={<i className=' icon-froggy'></i>}
-                  />
-                </Box>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='#6863F3'
-                    aria-label='Send email'
-                    fontSize='20px'
-                    icon={<i className='icon-instagram'></i>}
-                  />
-                </Box>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='#6863F3'
-                    aria-label='Send email'
-                    fontSize='20px'
-                    textAlign='center'
-                    display='initial'
-                    icon={<i className='icon-twitter'></i>}
-                  />
-                </Box>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='#6863F3'
-                    aria-label='Send email'
-                    fontSize='20px'
-                    icon={<i className='icon-groupbar'></i>}
-                  />
-                </Box>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='6863F3'
-                    aria-label='Send email'
-                    fontSize='20px'
-                    icon={<i className='icon-share'></i>}
-                  />
-                </Box>
-                <Box textAlign='center'>
-                  <IconButton color=' #756C99'
-                    variant='outline'
-                    colorScheme='6863F3'
-                    aria-label='Send email'
-                    fontSize='20px'
-                    icon={<i className='icon-telegram'></i>}
-                  />
-                </Box>
-              </HStack>
+              <SocialIcon/>
             </Box>
             <Flex alignItems='center' pt='60px'>
 
@@ -146,52 +76,13 @@ const myCollection: NextPage = () => {
                 </Box>
               </Box>
               <Box>
-                <Wrap spacing='16px'>
-                  <WrapItem>
-                    <Box w='180px' h='80px' borderRadius='16px' border='2px solid #6F6BF366' p='16px'>
-                      <Text fontSize="14px" color="#756C99">Volume</Text>
-                      <Text fontSize="20px" fontWeight='bold' color="#393F59">1,118 ETH</Text>
-                    </Box>
-                  </WrapItem>
-                  <WrapItem>
-                    <Box w='180px' h='80px' borderRadius='16px' border='2px solid #6F6BF366' p='16px'>
-                      <Text fontSize="14px" color="#756C99">Volume</Text>
-                      <Text fontSize="20px" fontWeight='bold' color="#393F59">1,118 ETH</Text>
-                    </Box>
-                  </WrapItem>
-                  <WrapItem>
-                    <Box w='180px' h='80px' borderRadius='16px' border='2px solid #6F6BF366' p='16px'>
-                      <Text fontSize="14px" color="#756C99">Volume</Text>
-                      <Text fontSize="20px" fontWeight='bold' color="#393F59">1,118 ETH</Text>
-                    </Box>
-                  </WrapItem>
-                  <WrapItem>
-                    <Box w='180px' h='80px' borderRadius='16px' border='2px solid #6F6BF366' p='16px'>
-                      <Text fontSize="14px" color="#756C99">Volume</Text>
-                      <Text fontSize="20px" fontWeight='bold' color="#393F59">1,118 ETH</Text>
-                    </Box>
-                  </WrapItem>
-                  <WrapItem>
-                    <Box w='180px' h='80px' borderRadius='16px' border='2px solid #6F6BF366' p='16px'>
-                      <Text fontSize="14px" color="#756C99">Volume</Text>
-                      <Text fontSize="20px" fontWeight='bold' color="#393F59">1,118 ETH</Text>
-                    </Box>
-                  </WrapItem>
-                </Wrap>
+                <RectangularIcon/>
               </Box>
             </Flex>
           </Box>
 
           <Box pt='30px' pb='40px'>
-            <Box>
-              <Tabs >
-                <TabList fontWeight='bold'>
-                  <Tab _selected={{ color: '#6863F3', borderBottom: '2px solid #6863F3', fontWeight: 'bold' }}>Collected</Tab>
-                  <Tab _selected={{ color: '#6863F3', borderBottom: '2px solid #6863F3', fontWeight: 'bold' }}>Created</Tab>
-                  <Tab _selected={{ color: '#6863F3', borderBottom: '2px solid #6863F3', fontWeight: 'bold' }}>Activity</Tab>
-                </TabList>
-              </Tabs>
-            </Box>
+            <Tabx/>
           </Box>
 
           <Box>
@@ -247,15 +138,7 @@ const myCollection: NextPage = () => {
 
           <Flex pt='30px' pb='40px'>
 
-            <Box as={'div'} mt={'12px'} minW='220px' height={'450px'} border='1px solid #6f6bf35e' borderRadius='16px' p='16px' pb='24px' justifyContent='space-between'>
-              <Heading pb='20px' fontSize='18px'>Stats</Heading>
-              <Stack mt={1} spacing={2} >
-                <Stack spacing={2} direction={'column'} fontSize={'14px'}>
-                  <Checkbox colorScheme='primary' defaultChecked><Text fontSize='14px'>Naruto</Text></Checkbox>
-                </Stack>
-              </Stack>
-
-            </Box>
+           <ConnectionBar/>
             <Box w={'auto'}>
               <Flex direction={['column', 'row']} flexWrap={{ base: 'nowrap', sm: 'wrap', md: 'wrap', lg: 'wrap', xl: 'wrap' }} >
                 <Box w={{ xl: '25%', md: '50%', sm: '100%' }} display='initial'>
