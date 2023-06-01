@@ -50,7 +50,6 @@ const CreateCollection = () => {
 
     //contract abi will goes here
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
-
   };
 
   const getSelectedData = (selectedValue: ReactSelectCatMap, identifier: string) => {
