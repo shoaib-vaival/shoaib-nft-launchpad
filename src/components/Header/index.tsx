@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from "next/router";
+import { HamburgerIcon } from "@chakra-ui/icons";
 
 export const Header = () => {
   const router = useRouter()
@@ -25,23 +26,26 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ sm:'xl',lg:'4xl', xl: '8xl' }}>
+      <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
 
         <Box py={30}>
-          <Stack direction='row' alignItems={{base:"flex-start",xl:'center'}} justifyContent={{base:'flex-start',xl:'initial'}} flexWrap='wrap' spacing={{base:'2'}}>
-            <Box pt="8px" pb="8px" order={{base:'1', xl:'1'}} marginRight={{base:'auto',xl:'initial'}}>
+          <Stack direction='row' alignItems={{ base: "flex-start", sm: 'center', xl: 'center' }} justifyContent={{ base: 'flex-start', xl: 'initial' }} flexWrap='wrap' >
+
+            <Box pb="8px" order={{ base: '1', sm: '1', md: '1', xl: '1' }} marginRight={{ base: 'auto', md: 'initial' }}>
               <Image src="/assets/images/Logo.png" alt="logo" maxW="138" maxH="45px" />
             </Box>
-            <Box order={{base:'4', xl:'2'}} w={{base:'full',xl:'initial'}}  pl={{base:'0',sm:"0", md:'30px'}} pr={{base:'0',sm:"0", md:'20px'}} >
-              <InputGroup variant="custom" colorScheme="purple" w={{ base:'full',xl:'lg' }} marginBottom={{base:'3', xl:'initial'}} >
+
+            <Box order={{ base: '4', sm: '5', md: '2', xl: '2' }} w={{ base: 'full', sm: 'full', md: 'initial', xl: 'initial' }} pl={{ base: '0', sm: "0", md: '30px' }} pr={{ base: '0', sm: "0", md: '20px' }} pt={{ base: '20px', md:'0',xl: '0' }} >
+              <InputGroup variant="custom" colorScheme="purple" w={{ base: 'full', sm: 'full', xl: 'lg' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
                 <Input placeholder="Search..." />
                 <InputLeftElement>
                   <img src="/assets/images/search-icon.svg" />
                 </InputLeftElement>
               </InputGroup>
             </Box>
-            <Box order={{base:'6',xl:'3'}}  display={{base:'none',sm:'none',xl:'initial'}} >
-              <HStack alignItems={{base:'initial',xl:'center'}} flexDirection={{base:'column', sm:'column', md:'row',xl:'row'}} spacing={{ xl: '24px', lg: '16px' }} >
+
+            <Box order={{ base: '6', sm: '6', md: '6', xl: '3' }} display={{ base: 'none', sm: 'none', xl: 'initial' }} >
+              <HStack alignItems={{ base: 'initial', xl: 'center' }} flexDirection={{ base: 'column', sm: 'column', md: 'row', xl: 'row' }} spacing={{ xl: '24px', lg: '16px' }} >
                 <Link href="#">Home</Link>
                 <Link href="#">Explorer</Link>
                 <Menu autoSelect={false}>
@@ -55,50 +59,54 @@ export const Header = () => {
                 </Menu>
               </HStack>
             </Box>
-            <Flex alignItems="center" w={{base:'full',sm:'2xs',xl:'initial'}} flexDirection={{base:'column', sm:'row',xl:'row'}} order={{base:'5',sm:'2', xl:'4'}}>
+
+            <Flex marginLeft={{ base: 'auto',md:'auto !important',lg:'auto !important', xl: 'auto !important' }} alignItems="center" justifyContent={{ sm: 'flex-end' }} order={{ base: '5', sm: '2', md: '3', xl: '4' }} w={{ base: 'full', sm: 'xs', md: 'xs', xl: 'initial' }} flexDirection={{ base: 'column', sm: 'row', xl: 'row' }}>
               <Menu autoSelect={false}>
-                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary" w={{base:'full',xl:'initial'}} size="md">
+                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary" w={{ base: 'full', sm: '40%', md: '75%', xl: 'initial' }} size={{ base: 'md', sm: 'sm', xl: "md", }}>
                   Create
                 </MenuButton>
                 <MenuList>
                   <MenuItem>Create NFT</MenuItem>
-                  <MenuItem onClick={()=>router.push('/create-collection')}>Create Collection</MenuItem>
+                  <MenuItem onClick={() => router.push('/create-collection')}>Create Collection</MenuItem>
                 </MenuList>
               </Menu>
-              <Button variant="secondary" mx="16px" w={{base:'full',xl:'initial'}} size="md">Connect Wallet</Button>
+              <Button variant="secondary" mx="16px" w={{ base: 'full', sm: '40%', md: '75%', xl: 'initial' }} size={{ base: 'md', sm: 'sm', xl: "md", }} mt={{ base: '10px', sm: '0' }}>Connect Wallet</Button>
             </Flex>
-             
-            <Box order={{base:'3',xl:'5'}} display={{base:'block',xl:'none'}}>
+
+            <Box order={{ base: '3', sm: '3', md: '2', xl: '5' }} display={{ base: 'block', xl: 'none' }}>
               <Menu>
-                <MenuButton as={IconButton} aria-label='Options' variant='outline' />
+                <MenuButton as={IconButton} mr={{base:'16px',xl:'16px'}} colorScheme='purple' variant='outline' icon={<HamburgerIcon />} aria-label='Options' />
+              </Menu>
+            </Box>
+
+            <Box order={{ base: '2', sm: '4', md: '3', xl: '6' }} >
+              <Menu>
+                <MenuButton as={Avatar} size="sm" icon={<Avatar />} aria-label='Options' />
                 <MenuList>
-                  <MenuItem command='⌘T'>
-                    New Tab
+                  <MenuItem>
+                    Profile
                   </MenuItem>
-                  <MenuItem command='⌘N'>
-                    New Window
+                  <MenuItem>
+                    My Collection
                   </MenuItem>
-                  <MenuItem command='⌘⇧N'>
-                    Open Closed Tab
+                  <MenuItem>
+                    Watchlist
                   </MenuItem>
-                  <MenuItem command='⌘O'>
-                    Open File...
+                  <MenuItem>
+                    Settings
+                  </MenuItem>
+                  <MenuItem>
+                    Dark Mode
+                  </MenuItem>
+                  <MenuItem>
+                    Logout
                   </MenuItem>
                 </MenuList>
               </Menu>
             </Box>
-            <Avatar size="sm" order={{base:'2',xl:'6'}} />
           </Stack>
-          {/* <Stack>
-          <Box pl="30px" pr="20px" display={{ xs: "block",sm: "block", md: "none", xl: "none" }}>
-              <InputGroup variant="custom" colorScheme="purple" w={{ xl: "md", lg: '2xs', sm: '3xs' }}>
-                <Input placeholder="Search..." />
-                <InputLeftElement>
-                  <img src="/assets/images/search-icon.svg" />
-                </InputLeftElement>
-              </InputGroup>
-            </Box>
-          </Stack> */}
+
+
         </Box>
       </Container >
     </>
