@@ -12,7 +12,7 @@ const FileUpload = ({ label, detail, imgFor, imgUrl, height, width, onlyIcon }: 
   const [preview, setPreview] = useState<any>([]);
   const [showImgPreview, setShowImgPreview] = useState<boolean>(false);
 
-  const { mutate } = useMutation<UploadFileOnServer>({
+  const { mutate: uploadFileOnServerFunc } = useMutation<UploadFileOnServer>({
     method: POST,
     url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
     showSuccessToast: false,
@@ -42,7 +42,9 @@ const FileUpload = ({ label, detail, imgFor, imgUrl, height, width, onlyIcon }: 
           })
         )
       );
-      mutate({ photo: selectedFile, label: imgFor });
+
+      uploadFileOnServerFunc({ photo: selectedFile, label: imgFor });
+
     }
   };
 

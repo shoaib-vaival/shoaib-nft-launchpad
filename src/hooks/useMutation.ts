@@ -86,11 +86,13 @@ export const useMutation = <T, K = T>({
       onSuccess: (newData) => {
         if (newData?.status == 200) {
           showSuccessToast &&
+          console.log("toasttttt", newData)
             toast({
               title: successMessage ?? newData?.Message,
               status: "success",
-              isClosable: true,
               position: "top-right",
+              duration: 3000,
+              isClosable: true,
             });
 
           onSuccess && onSuccess(newData);

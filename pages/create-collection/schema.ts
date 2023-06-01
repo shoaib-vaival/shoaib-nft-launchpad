@@ -11,7 +11,7 @@ export const collectionSchema = Yup.object().shape({
       .required('Logo image is required'),
       creatorFee: Yup.array().of(
         Yup.object().shape({
-          walletAddress: Yup.string().required('Wallet address is required'),
+          // walletAddress: Yup.string().required('Wallet address is required'),
           percentage: Yup
           .number()
           .max(10, 'Percentage should be less than 10')

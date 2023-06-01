@@ -41,7 +41,8 @@ const CreateCollection = () => {
 
   const { mutate } = useMutation<any>({
     method: POST,
-    url: ApiUrl?.CREATE_COLLECTION
+    url: ApiUrl?.CREATE_COLLECTION,
+    showSuccessToast: true
   });
 
   const filtredCat =
