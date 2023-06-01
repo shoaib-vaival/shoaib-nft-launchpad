@@ -4,16 +4,20 @@ import CollectionCard from '../src/components/Cards/CollectionCard'
 import { Box, Container, Flex, Heading, Text, Button, Square } from '@chakra-ui/react'
 import { useQuery } from '../src/hooks/useQuery'
 import { Loader } from '../src/components/Loader'
+import { useInfiniteQuery } from '../src/hooks/useInfiniteQuery'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { useEffect } from 'react'
+
 
 
 const myCollection: NextPage = () => {
 
-  const {isLoading, data} = useQuery<any>({
+
+  const {data, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<any>({
     queryKey: ['get-collection'],
     url: 'collection/getCollectionsByWalletAddress/0x0000',
-    showToast: false,
-  });
-
+  })
+  console.log('data', data, error)
   return (
     <div>
       <Header />
@@ -39,6 +43,12 @@ const myCollection: NextPage = () => {
         </Container>
         <Container maxW={{md: '4xl', xl: '8xl' }} pb={{ xl: '100px', md: '50px' }}>
           <Box>
+            <InfiniteScroll
+             dataLength={data ? data.length : 0}
+             next={() => fetchNextPage()}
+             hasMore={!!hasNextPage}
+             loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>}
+            >
             <Flex direction={['column', 'row']} flexWrap='wrap'>
               {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
               data.map((nftCollection, index)=>{
@@ -46,6 +56,7 @@ const myCollection: NextPage = () => {
                 })
               }
             </Flex>
+            </InfiniteScroll>
 
           </Box>
         </Container>
