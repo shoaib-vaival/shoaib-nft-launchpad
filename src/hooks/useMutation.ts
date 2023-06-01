@@ -38,7 +38,7 @@ type UseMutationProps<T, K> = {
   onSuccess?: (data: ApiResult<K>) => void;
   onError?: (data: ApiResult<K>) => void;
   errorMessage?: string;
-  isFormData?: boolean;
+  isFileData?: boolean;
 };
 
 export const useMutation = <T, K = T>({
@@ -51,14 +51,14 @@ export const useMutation = <T, K = T>({
   onSuccess,
   onError,
   errorMessage,
-  isFormData = false,
+  isFileData,
   showSuccessToast,
 }: UseMutationProps<T, K>): UseMutationReturn<T, K> => {
   const toast = useToast();
 
   const headers = {
-    Accept: "multipart/form-data",
-    "Content-Type": "multipart/form-data",
+    Accept: isFileData && "multipart/form-data",
+    "Content-Type": isFileData && "multipart/form-data",
     // Authorization: `Bearer tokenId`,
   };
 
@@ -86,11 +86,13 @@ export const useMutation = <T, K = T>({
       onSuccess: (newData) => {
         if (newData?.status == 200) {
           showSuccessToast &&
+          console.log("toasttttt", newData)
             toast({
               title: successMessage ?? newData?.Message,
               status: "success",
-              isClosable: true,
               position: "top-right",
+              duration: 3000,
+              isClosable: true,
             });
 
           onSuccess && onSuccess(newData);

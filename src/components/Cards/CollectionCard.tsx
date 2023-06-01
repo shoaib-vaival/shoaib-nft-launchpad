@@ -1,7 +1,5 @@
 
-import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button, SimpleGrid, Box, Container, Flex } from '@chakra-ui/react'
-
-import CardHover from '../CardHover'
+import { Card, CardBody, Image, Stack, Heading, Text, CardFooter, Button, SimpleGrid, Box, Container } from '@chakra-ui/react'
 
 type collectionCard = {
 featureImage:string,
@@ -10,8 +8,8 @@ name:string,
 volume:string,
 price:string
 }
-const CollectionCard = ({featureImage, logoImage, name, volume, price }:collectionCard) => {
 
+const CollectionCard = ({featureImage, logoImage, name, volume, price }:collectionCard) => {
 
     return (
         <div>
