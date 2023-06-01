@@ -1,19 +1,19 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { ComponentStyleConfig } from '@chakra-ui/react';
 
 
 export const Input: ComponentStyleConfig = {
     baseStyle:{
         field: {
-            width: "100%",
+            width: '100%',
             minWidth: 0,
             outline: 0,
-            position: "relative",
-            appearance: "none",
-            transitionProperty: "common",
-            transitionDuration: "normal",
+            position: 'relative',
+            appearance: 'none',
+            transitionProperty: 'common',
+            transitionDuration: 'normal',
             _disabled: {
               opacity: 0.4,
-              cursor: "not-allowed",
+              cursor: 'not-allowed',
             },
         },
     },

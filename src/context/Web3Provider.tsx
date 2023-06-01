@@ -17,11 +17,11 @@ interface Web3Interface {
 
 const Context = createContext({} as Web3Interface);
 
-export function useWeb3Context() {
+export const useWeb3Context = () => {
     return useContext(Context);
 }
 
-export function Web3ContextProvider({ children }: { children: React.ReactNode }) {
+export const Web3ContextProvider = ({ children }: { children: React.ReactNode }) => {
     const { useChainId, useAccount } = metaMaskHooks
     const chainId = useChainId()
     const account = useAccount()

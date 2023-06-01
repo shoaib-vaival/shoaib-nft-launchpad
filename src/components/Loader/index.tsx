@@ -1,4 +1,4 @@
-import { Image , Box} from "@chakra-ui/react"
+import { Image , Box} from '@chakra-ui/react'
 
 
 
@@ -8,7 +8,7 @@ export const Loader=()=>{
     return(
         <>
         <Box >
-        <Image src="/assets/images/spinner.svg" w="50%"/>
+        <Image src='/assets/images/spinner.svg' w='50%'/>
         </Box>
         </>
     )

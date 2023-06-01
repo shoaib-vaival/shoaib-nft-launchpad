@@ -7,14 +7,15 @@ logoImage:string,
 name:string,
 volume:string,
 price:string
+key: number
 }
 
-const CollectionCard = ({featureImage, logoImage, name, volume, price }:collectionCard) => {
+const CollectionCard = ({featureImage, logoImage, name, volume, price, key }:collectionCard) => {
 
     return (
         <div>
             
-            <Container py='12px'>
+            <Container py='12px' key={key}>
             <Card maxW='sm' justifyContent="center" overflow='hidden'>
                 <CardBody display="flex" flexDirection="column" justifyContent="center">
                     <Box position='relative'>

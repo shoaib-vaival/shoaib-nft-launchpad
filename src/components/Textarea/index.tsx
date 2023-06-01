@@ -1,6 +1,5 @@
 import React from 'react';
-import { Textarea, Button, FormControl, FormLabel, FormErrorMessage, Text } from '@chakra-ui/react';
-import { TextareaProps } from '@chakra-ui/react';
+import { Textarea, Button, FormControl, FormLabel, FormErrorMessage, Text, TextareaProps } from '@chakra-ui/react';
 
   const ChakraTextarea: React.FC<TextareaProps> = ({ field, form, label, placeholder, descp,  ...rest }: any) => {
     return (

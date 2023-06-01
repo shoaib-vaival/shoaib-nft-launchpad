@@ -21,24 +21,24 @@ export const Header = () => {
       <Container maxW={{ sm:'4xl',md: '4xl', xl: '8xl' }}>
 
         <Box py={30}>
-          <Stack direction="row" alignItems="center" justifyContent='center'>
-            <Box pt="8px" pb="8px">
-              <Image src="/assets/images/Logo.png" alt="logo" maxW="138" maxH="45px" />
+          <Stack direction='row' alignItems='center' justifyContent='center'>
+            <Box pt='8px' pb='8px'>
+              <Image src='/assets/images/Logo.png' alt='logo' maxW='138' maxH='45px' />
             </Box>
-            <Box pl="30px" pr="20px" order={{md:'6',lg:'0'}}>
-              <InputGroup variant="custom" colorScheme="purple" w={{ xl: "md", lg: '2xs', sm: '3xs' }}>
-                <Input placeholder="Search..." />
+            <Box pl='30px' pr='20px' order={{md:'6',lg:'0'}}>
+              <InputGroup variant='custom' colorScheme='purple' w={{ xl: 'md', lg: '2xs', sm: '3xs' }}>
+                <Input placeholder='Search...' />
                 <InputLeftElement>
-                  <img src="/assets/images/search-icon.svg" />
+                  <img src='/assets/images/search-icon.svg' />
                 </InputLeftElement>
               </InputGroup>
             </Box>
-            <Box display={{ md: "none", xl: "block" }} >
+            <Box display={{ md: 'none', xl: 'block' }} >
               <HStack spacing={{ xl: '24px', lg: '16px' }} >
-                <Link href="#">Home</Link>
-                <Link href="#">Explorer</Link>
+                <Link href='#'>Home</Link>
+                <Link href='#'>Explorer</Link>
                 <Menu autoSelect={false}>
-                  <MenuButton as={Button} variant="link" fontSize='16px' >
+                  <MenuButton as={Button} variant='link' fontSize='16px' >
                     Stats
                   </MenuButton>
                   <MenuList>
@@ -48,9 +48,9 @@ export const Header = () => {
                 </Menu>
               </HStack>
             </Box>
-            <Flex alignItems="center"  ml={{ lg: '30px', xl: '100px' }}>
+            <Flex alignItems='center'  ml={{ lg: '30px', xl: '100px' }}>
               <Menu autoSelect={false}>
-                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary">
+                <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant='primary'>
                   Create
                 </MenuButton>
                 <MenuList>
@@ -58,10 +58,10 @@ export const Header = () => {
                   <MenuItem onClick={()=>router.push(pagePaths?.COLLECTION)}>Create Collection</MenuItem>
                 </MenuList>
               </Menu>
-              <Button variant="secondary" mx="16px" size="md">Connect Wallet</Button>
-              <Avatar size="sm" />
+              <Button variant='secondary' mx='16px' size='md'>Connect Wallet</Button>
+              <Avatar size='sm' />
             </Flex>
-            <Box display={{ md: "block", xl: "none" }}>
+            <Box display={{ md: 'block', xl: 'none' }}>
               <Menu>
                 <MenuButton as={IconButton} aria-label='Options' variant='outline' />
                 <MenuList>

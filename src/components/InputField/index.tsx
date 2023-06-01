@@ -64,7 +64,7 @@ const InputField = ({
           fontWeight='medium'
           maxLength={maxLength}
           minLength={minLength}
-          variant="custom"
+          variant='custom'
           _placeholder={
             type === 'password'
               ? {

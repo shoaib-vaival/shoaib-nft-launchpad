@@ -28,13 +28,13 @@ interface ExtendedChainInformation extends BasicChainInformation {
   blockExplorerUrls: AddEthereumChainParameter['blockExplorerUrls']
 }
 
-function isExtendedChainInformation(
+const isExtendedChainInformation = (
   chainInformation: BasicChainInformation | ExtendedChainInformation
-): chainInformation is ExtendedChainInformation {
+): chainInformation is ExtendedChainInformation => {
   return !!(chainInformation as ExtendedChainInformation).nativeCurrency
 }
 
-export function getAddChainParameters(chainId: number): AddEthereumChainParameter | number {
+export const getAddChainParameters = (chainId: number) : AddEthereumChainParameter | number => {
   const chainInformation = CHAINS[chainId]
   if (isExtendedChainInformation(chainInformation)) {
     return {

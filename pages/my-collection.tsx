@@ -50,7 +50,7 @@ const myCollection: NextPage = () => {
             <Flex direction={['column', 'row']} flexWrap='wrap'>
               {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
               data.map((nftCollection:any, index: number)=>{
-                  return <CollectionCard logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />
+                  return <CollectionCard key={index} logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />
                 })
               }
             </Flex>
