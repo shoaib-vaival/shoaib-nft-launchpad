@@ -2,11 +2,9 @@ import type { NextPage } from 'next'
 import { Header } from '../src/components/Header'
 import CollectionCard from '../src/components/Cards/CollectionCard'
 import { Box, Container, Flex, Heading, Text, Button, Square } from '@chakra-ui/react'
-import { useQuery } from '../src/hooks/useQuery'
 import { Loader } from '../src/components/Loader'
 import { useInfiniteQuery } from '../src/hooks/useInfiniteQuery'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useEffect } from 'react'
 
 
 
@@ -51,7 +49,7 @@ const myCollection: NextPage = () => {
             >
             <Flex direction={['column', 'row']} flexWrap='wrap'>
               {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
-              data.map((nftCollection, index)=>{
+              data.map((nftCollection:any, index: number)=>{
                   return <CollectionCard logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />
                 })
               }

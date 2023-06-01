@@ -15,6 +15,4 @@ export const Card:ComponentStyleConfig = {
 
         },
     },
-    size:{},
-    variants:{}
 }

@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/theme-utils";
 import { colors } from "./colors";
-import { Button } from './components/Button';
+import { Button } from './components/button';
 import { Input } from './components/input';
 import { Menu } from './components/menu';
 import {Card} from './components/card'

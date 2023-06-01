@@ -27,13 +27,6 @@ export function Web3ContextProvider({ children }: { children: React.ReactNode })
     const account = useAccount()
     const isWalletConnected = getFromLocalStorage('isWalletConnected');
 
-    useEffect(()=>{
-        if(isWalletConnected === true){
-            metaMask.connectEagerly()
-            console.log(chainId,'chainId',isWalletConnected )
-        }
-    },[])
-
     const  connect = async()=>{
         const result = await metaMask.activate(chainId)
         setToLocalStorage('isWalletConnected', true)

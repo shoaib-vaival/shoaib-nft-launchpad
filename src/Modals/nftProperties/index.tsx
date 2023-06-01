@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
 import InputField from "../../components/InputField";
-import { propertiesSchema } from "../../../pages/create-nft/schema";
+import { propertiesSchema } from "../../schemas";
 
 const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any) => {
   const initialValues = {

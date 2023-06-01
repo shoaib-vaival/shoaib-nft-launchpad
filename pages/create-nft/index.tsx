@@ -4,7 +4,7 @@ import {
   ReactSelect,
   ImgUrlFunParam,
 } from "../../src/components/common";
-import { Detail } from "./consts";
+import { nftDetail } from "../../src/constants";
 import { useQuery } from "../../src/hooks/useQuery";
 import { ApiUrl } from "../../src/apis/apiUrl";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
@@ -21,12 +21,12 @@ import {
   useDisclosure,
   Box,
 } from "@chakra-ui/react";
-import { collectionSchema } from "./schema";
+import { nftSchema } from "../../src/schemas";
 import { POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types'
 import NftPropertiesModal from '../../src/Modals/nftProperties'
-import { PropertyTypes } from './types'
+import { PropertyTypes } from '../../src/types'
 
 const CreateCollection = () => {
   const [collectionId, setCollectionId] = useState<string>("");
@@ -72,7 +72,7 @@ const CreateCollection = () => {
       <NftPropertiesModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} properties={properties} setProperties={setProperties}/>
       <Formik
         initialValues={initialValues}
-        validationSchema={collectionSchema}
+        validationSchema={nftSchema}
         enableReinitialize
         onSubmit={(values) => mutate(values)}
       >
@@ -82,7 +82,7 @@ const CreateCollection = () => {
               <Stack direction="column" spacing="40px">
                 <FileUpload
                   label="Image"
-                  detail={Detail?.bannerImg}
+                  detail={nftDetail?.bannerImg}
                   imgFor="nft"
                   imgUrl={getImgUrl}
                 />
@@ -106,7 +106,7 @@ const CreateCollection = () => {
                   component={ChakraTextarea}
                   label="Description"
                   placeholder="Describe your collection, 1000 characters are allowed"
-                  desc={Detail?.desc}
+                  desc={nftDetail?.desc}
                 />
                 <ReactSelect
                   options={filtredCollections}

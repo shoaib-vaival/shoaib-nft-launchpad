@@ -3,7 +3,6 @@ import { GET } from './consts';
 import { QueryKey as QueryKeyHook, useInfiniteQuery as useRInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useMemo } from 'react';
-import { queryStringToJSON } from '../utils';
 
 type useInfiniteQueryProps<T> = {
   url: string;
@@ -35,8 +34,10 @@ type UseInfinteQueryReturn<T> = {
         message: string;
       };
   isLoading?: boolean;
-  error:string
-
+  error:string;
+  fetchNextPage: ()=>void;
+  status: boolean;
+  hasNextPage: boolean;
 };
 export const useInfiniteQuery = <T>({
    url:endpoint,
@@ -67,7 +68,7 @@ export const useInfiniteQuery = <T>({
     data,
     headers,
   };
-   const { data:fetchedData, error, fetchNextPage, status, hasNextPage, isLoading } = useRInfiniteQuery(
+   const { data:fetchedData, error, fetchNextPage, status, hasNextPage, isLoading } = useRInfiniteQuery<any>(
      queryKey, 
      ({ pageParam = 1 }) => axios({...config, url:`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}${`${queryString}&currentPage=${pageParam}`  ? queryString:'?'}currentPage=${pageParam}`}).then((res) => res.data),
      {

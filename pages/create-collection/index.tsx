@@ -4,13 +4,13 @@ import {
   ReactSelect,
   ImgUrlFunParam,
 } from "../../src/components/common";
-import { Detail } from "./consts";
 import { useQuery } from "../../src/hooks/useQuery";
 import { ApiUrl } from "../../src/apis/apiUrl";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
 import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
 import InputField from "../../src/components/InputField";
 import ChakraTextarea from "../../src/components/Textarea";
+import { collectionDetail } from '../../src/constants'
 import {
   Button,
   Container,
@@ -19,7 +19,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { collectionSchema } from "./schema";
+import { collectionSchema } from "../../src/schemas";
 import { POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types'
@@ -108,7 +108,7 @@ const CreateCollection = () => {
               <Stack direction="column" spacing="40px">
                 <FileUpload
                   label="Logo Image *"
-                  detail={Detail?.logoDetail}
+                  detail={collectionDetail?.logoDetail}
                   imgFor="logo"
                   imgUrl={getImgUrl}
                   width="220px"
@@ -120,13 +120,13 @@ const CreateCollection = () => {
                 )}
                 <FileUpload
                   label="Featured Image"
-                  detail={Detail?.featuredImg}
+                  detail={collectionDetail?.featuredImg}
                   imgFor="featured"
                   imgUrl={getImgUrl}
                 />
                 <FileUpload
                   label="Banner Image"
-                  detail={Detail?.bannerImg}
+                  detail={collectionDetail?.bannerImg}
                   imgFor="banner"
                   imgUrl={getImgUrl}
                 />
@@ -250,7 +250,7 @@ const CreateCollection = () => {
                 component={ChakraTextarea}
                 label="Description"
                 placeholder="Describe your collection, 1000 characters are allowed"
-                desc={Detail?.desc}
+                desc={collectionDetail?.desc}
               />
 
               <FieldArray name="creatorFee">

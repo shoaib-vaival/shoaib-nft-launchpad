@@ -1,25 +1,20 @@
-import { ReactNode } from "react";
-import { useWeb3Context } from "../../context/Web3Provider";
 import {
   Button, Stack, Box, Container, Input, InputGroup, InputLeftElement, Flex, Avatar,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   IconButton,
   HStack,
   Image
 
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { pagePaths } from '../../constants'
+import { useRouter } from 'next/router'
 
 export const Header = () => {
-
-  const { account, connect, disconnect } = useWeb3Context()
+  const router = useRouter()
 
   return (
     <>
@@ -53,18 +48,14 @@ export const Header = () => {
                 </Menu>
               </HStack>
             </Box>
-            <Flex alignItems="center">
-              {/* <Button variant="primary" mr="16px" size="md">Create</Button> */}
-              <Menu autoSelect={false} ml={{ lg: '30px', xl: '100px' }}>
+            <Flex alignItems="center"  ml={{ lg: '30px', xl: '100px' }}>
+              <Menu autoSelect={false}>
                 <MenuButton as={Button} fontSize='16px' ml={{ lg: '30px', xl: '130px' }} variant="primary">
                   Create
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
+                  <MenuItem onClick={()=>router.push(pagePaths?.NFT)}>Create NFT</MenuItem>
+                  <MenuItem onClick={()=>router.push(pagePaths?.COLLECTION)}>Create Collection</MenuItem>
                 </MenuList>
               </Menu>
               <Button variant="secondary" mx="16px" size="md">Connect Wallet</Button>
