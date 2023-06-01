@@ -16,7 +16,7 @@ const CollectionCards: NextPage = () => {
                         alt='Green double couch with wooden legs'
                         borderRadius='lg' w='100%'/>
                         
-                        <Box position='absolute' bottom='-16px' left='24px'>
+                        <Box position='absolute' bottom='-16px' left='24px'  border='1px solid #fff'>
                             <Image 
                             src='/assets/images/RectangleCardImg.png'
                             alt='Green double couch with wooden legs'
@@ -37,7 +37,7 @@ const CollectionCards: NextPage = () => {
                         </SimpleGrid>
                     </Stack>
                 </CardBody>
-                <CardFooter marginBottom='-70px' transition='0.5s' visibility='hidden'>
+                <CardFooter>
                     <Button variant='primary' colorScheme='blue' w="100%">
                         Buy now
                     </Button>
