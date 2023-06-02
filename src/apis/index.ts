@@ -5,7 +5,7 @@ import { POST } from '../hooks/consts'
 export const handleUploadWithIpfs = async (file: File | null) => {
   if (file) {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append('file', file);
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_PINATA_BASE_URL}/${ApiUrl?.PIN_FILE_TO_IPS}`,
@@ -20,7 +20,7 @@ export const handleUploadWithIpfs = async (file: File | null) => {
     
     if (response.ok) {
       const result = await response.json();
-      let ImgUrl = `${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${result?.IpfsHash}`;
+      const ImgUrl = `${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${result?.IpfsHash}`;
       return ImgUrl;
     }
   }

@@ -17,24 +17,15 @@ interface Web3Interface {
 
 const Context = createContext({} as Web3Interface);
 
-export function useWeb3Context() {
+export const useWeb3Context = () => {
     return useContext(Context);
 }
 
-export function Web3ContextProvider({ children }: { children: React.ReactNode }) {
+export const Web3ContextProvider = ({ children }: { children: React.ReactNode }) => {
     const { useChainId, useAccount } = metaMaskHooks
-    console.log(metaMaskHooks);
     const chainId = useChainId()
     const account = useAccount()
     const isWalletConnected = getFromLocalStorage('isWalletConnected');
-
-    useEffect(()=>{
-        console.log(isWalletConnected)
-        if(isWalletConnected === true){
-            metaMask.connectEagerly()
-            console.log(chainId,'chainId',isWalletConnected )
-        }
-    },[])
 
     const  connect = async()=>{
         const result = await metaMask.activate(chainId)

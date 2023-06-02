@@ -7,11 +7,11 @@ interface GlobalContext {
 
 const Context = createContext({} as GlobalContext);
 
-export function useGlobalStateContext() {
+export const useGlobalStateContext = () => {
   return useContext(Context);
 }
 
-export function GlobalStateContextProvider({ children }: { children: React.ReactNode }) {
+export const GlobalStateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
 
   const value = React.useMemo(() => ({ token, setToken }), [token]);

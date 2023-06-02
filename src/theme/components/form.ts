@@ -1,4 +1,4 @@
-import { ComponentStyleConfig } from "@chakra-ui/theme";
+import { ComponentStyleConfig } from '@chakra-ui/theme';
 
 export const Form:ComponentStyleConfig={
     parts: ['container', 'requiredIndicator', 'helperText'],

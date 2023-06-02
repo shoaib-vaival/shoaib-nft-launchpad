@@ -1,4 +1,4 @@
-import { ComponentStyleConfig } from "@chakra-ui/theme";
+import { ComponentStyleConfig } from '@chakra-ui/theme';
 
 export const Card:ComponentStyleConfig = {
     baseStyle:{
@@ -7,7 +7,7 @@ export const Card:ComponentStyleConfig = {
             boxShadow: '2px 2px 8px 0px #0D0D0D1A',
             borderRadius:'16px',
             border:'none',
-            bg:"white",
+            bg:'white',
               
         },
         body:{
@@ -15,6 +15,4 @@ export const Card:ComponentStyleConfig = {
 
         },
     },
-    size:{},
-    variants:{}
 }

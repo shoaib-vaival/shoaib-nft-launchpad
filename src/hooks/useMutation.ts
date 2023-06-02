@@ -1,10 +1,10 @@
-import axios from "axios";
-import { DELETE, POST, PUT } from "./consts";
+import axios from 'axios';
+import { DELETE, POST, PUT } from './consts';
 import {
   UseMutateFunction,
   useMutation as useRMutation,
-} from "@tanstack/react-query";
-import { useToast } from "@chakra-ui/react";
+} from '@tanstack/react-query';
+import { useToast } from '@chakra-ui/react';
 
 type UseMutationReturn<T, K> = {
   data?: K;
@@ -57,8 +57,8 @@ export const useMutation = <T, K = T>({
   const toast = useToast();
 
   const headers = {
-    Accept: isFileData && "multipart/form-data",
-    "Content-Type": isFileData && "multipart/form-data",
+    Accept: isFileData && 'multipart/form-data',
+    'Content-Type': isFileData && 'multipart/form-data',
     // Authorization: `Bearer tokenId`,
   };
 
@@ -86,11 +86,11 @@ export const useMutation = <T, K = T>({
       onSuccess: (newData) => {
         if (newData?.status == 200) {
           showSuccessToast &&
-          console.log("toasttttt", newData)
+          console.log('toasttttt', newData)
             toast({
               title: successMessage ?? newData?.Message,
-              status: "success",
-              position: "top-right",
+              status: 'success',
+              position: 'top-right',
               duration: 3000,
               isClosable: true,
             });
@@ -102,10 +102,10 @@ export const useMutation = <T, K = T>({
       onError: () => {
         showToast &&
           toast({
-            title: "Something went wrong",
-            status: "error",
+            title: 'Something went wrong',
+            status: 'error',
             isClosable: true,
-            position: "top-right",
+            position: 'top-right',
           });
       },
     }

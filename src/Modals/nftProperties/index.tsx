@@ -8,14 +8,14 @@ import {
   ModalCloseButton,
   Button,
   FormControl,
-} from "@chakra-ui/react";
-import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
-import InputField from "../../components/InputField";
-import { propertiesSchema } from "../../../pages/create-nft/schema";
+} from '@chakra-ui/react';
+import { Field, Form, Formik, FieldArray, ErrorMessage } from 'formik';
+import InputField from '../../components/InputField';
+import { propertiesSchema } from '../../schemas';
 
 const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any) => {
   const initialValues = {
-    properties: properties?.length > 0 ? properties : [{ type: "", name: "" }],
+    properties: properties?.length > 0 ? properties : [{ type: '', name: '' }],
   };
 
   return (
@@ -38,7 +38,7 @@ const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any)
               <Form>
                 <FormControl>
                   <ModalBody pb={6}>
-                    <FieldArray name="properties">
+                    <FieldArray name='properties'>
                       {({ push, remove }) => (
                         <>
                           {values?.properties?.map(
@@ -47,36 +47,36 @@ const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any)
                                 <div>
                                   <Field
                                     as={InputField}
-                                    size="md"
-                                    label="Type"
-                                    type="text"
+                                    size='md'
+                                    label='Type'
+                                    type='text'
                                     maxLength={50}
-                                    placeholder="Enter proprty type"
+                                    placeholder='Enter proprty type'
                                     name={`properties.${[index]}.type`}
                                   />
                                   <ErrorMessage
                                     name={`properties.${[index]}.type`}
-                                    component="div"
+                                    component='div'
                                   />
                                 </div>
                                 <div>
                                   <Field
                                     as={InputField}
-                                    size="md"
-                                    label="Name"
-                                    type="name"
+                                    size='md'
+                                    label='Name'
+                                    type='name'
                                     maxLength={50}
-                                    placeholder="Enter proprty name"
+                                    placeholder='Enter proprty name'
                                     name={`properties.${[index]}.name`}
                                   />
                                   <ErrorMessage
                                     name={`properties.${[index]}.name`}
-                                    component="div"
+                                    component='div'
                                   />
                                 </div>
                                 {index > 0 && (
                                   <button
-                                    type="button"
+                                    type='button'
                                     onClick={() => remove(index)}
                                   >
                                     Delete icon
@@ -87,8 +87,8 @@ const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any)
                           )}
                           {values?.properties?.length < 12 && (
                             <button
-                              type="button"
-                              onClick={() => push({ type: "", name: "" })}
+                              type='button'
+                              onClick={() => push({ type: '', name: '' })}
                             >
                               +Add Property
                             </button>
@@ -100,7 +100,7 @@ const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any)
 
                   <ModalFooter>
                     <Button onClick={onClose}>Cancel</Button>
-                    <Button type="submit" colorScheme="blue" mr={3}>
+                    <Button type='submit' colorScheme='blue' mr={3}>
                       Save
                     </Button>
                   </ModalFooter>

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   FileUpload,
   ReactSelect,
   ImgUrlFunParam,
-} from "../../src/components/common";
-import { Detail } from "./consts";
-import { useQuery } from "../../src/hooks/useQuery";
-import { ApiUrl } from "../../src/apis/apiUrl";
-import { QUERY_KEYS } from "../../src/hooks/queryKeys";
-import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
-import InputField from "../../src/components/InputField";
-import ChakraTextarea from "../../src/components/Textarea";
+} from '../../src/components/common';
+import { useQuery } from '../../src/hooks/useQuery';
+import { ApiUrl } from '../../src/apis/apiUrl';
+import { QUERY_KEYS } from '../../src/hooks/queryKeys';
+import { Field, Form, Formik, FieldArray, ErrorMessage } from 'formik';
+import InputField from '../../src/components/InputField';
+import ChakraTextarea from '../../src/components/Textarea';
+import { collectionDetail } from '../../src/constants'
 import {
   Box,
   Button,
@@ -22,10 +22,10 @@ import {
   Spacer,
   Stack,
   Text,
-} from "@chakra-ui/react";
-import { collectionSchema } from "./schema";
-import { POST } from "../../src/hooks/consts";
-import { useMutation } from "../../src/hooks/useMutation";
+} from '@chakra-ui/react';
+import { collectionSchema } from '../../src/schemas';
+import { POST } from '../../src/hooks/consts';
+import { useMutation } from '../../src/hooks/useMutation';
 import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types'
 
 const CreateCollection = () => {
@@ -56,18 +56,18 @@ const CreateCollection = () => {
     tags && tags?.map((cat: any) => ({ label: cat?.name, value: cat?._id }));
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
-    if (imgUrlProp?.imgFor === "logo") {
+    if (imgUrlProp?.imgFor === 'logo') {
       setCollection({ ...collection, logoImageUrl: imgUrlProp?.url });
-    } else if (imgUrlProp?.imgFor === "featured") {
+    } else if (imgUrlProp?.imgFor === 'featured') {
       setCollection({ ...collection, featureImageUrl: imgUrlProp?.url });
     }
-    if (imgUrlProp?.imgFor === "banner") {
+    if (imgUrlProp?.imgFor === 'banner') {
       setCollection({ ...collection, bannerImageUrl: imgUrlProp?.url });
     }
   };
 
   const getSelectedData = (selectedValue: ReactSelectCatMap, identifier: string) => {
-    if (identifier == "cat") {
+    if (identifier == 'cat') {
       setCollection({ ...collection, category: selectedValue?.value });
     } else {
       setCollection({
@@ -84,22 +84,22 @@ const CreateCollection = () => {
     logoImageUrl: collection?.logoImageUrl,
     bannerImageUrl: collection?.bannerImageUrl,
     featureImageUrl: collection?.featureImageUrl,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     category: collection?.category,
     tags: collection?.tags,
-    website_url: "",
-    etherscan: "",
-    telegram: "",
-    twitter: "",
-    instagram: "",
-    Discord_id: "",
-    creatorFee: [{ walletAddress: "", percentage: 0 }],
+    website_url: '',
+    etherscan: '',
+    telegram: '',
+    twitter: '',
+    instagram: '',
+    Discord_id: '',
+    creatorFee: [{ walletAddress: '', percentage: 0 }],
   };
 
   return (
     <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '952px' }} p={{ sm: '30px', md: '30px', lg: '0', xl: '0' }}>
-      <Heading as="h1">Create Collection</Heading>
+      <Heading as='h1'>Create Collection</Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -109,68 +109,68 @@ const CreateCollection = () => {
         {({ errors, touched, values }) => (
           <Form>
             <FormControl>
-              <Stack direction="column" spacing="20px">
+              <Stack direction='column' spacing='20px'>
                 <FileUpload
-                  label="Logo Image *"
-                  detail={Detail?.logoDetail}
-                  imgFor="logo"
+                  label='Logo Image *'
+                  detail={collectionDetail?.logoDetail}
+                  imgFor='logo'
                   imgUrl={getImgUrl}
-                  width="220px"
-                  height="220px"
+                  width='220px'
+                  height='220px'
                   onlyIcon={true}
                 />
-                {touched["logoImageUrl"] && errors["logoImageUrl"] && (
-                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors["logoImageUrl"] as React.ReactNode}</Text>
+                {touched['logoImageUrl'] && errors['logoImageUrl'] && (
+                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors['logoImageUrl'] as React.ReactNode}</Text>
                 )}
                 <FileUpload
-                  label="Featured Image"
-                  detail={Detail?.featuredImg}
-                  imgFor="featured"
+                  label='Featured Image'
+                  detail={collectionDetail?.featuredImg}
+                  imgFor='featured'
                   imgUrl={getImgUrl}
                 />
                 <FileUpload
-                  label="Banner Image"
-                  detail={Detail?.bannerImg}
-                  imgFor="banner"
+                  label='Banner Image'
+                  detail={collectionDetail?.bannerImg}
+                  imgFor='banner'
                   imgUrl={getImgUrl}
                 />
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
                   getSelectedData={getSelectedData}
-                  identifier="cat"
-                  label="Category"
+                  identifier='cat'
+                  label='Category'
                 />
-                {touched["category"] && errors["category"] && (
-                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors["category"] as React.ReactNode}</Text>
+                {touched['category'] && errors['category'] && (
+                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors['category'] as React.ReactNode}</Text>
                 )}
                 <ReactSelect
                   options={filtredTags}
                   isMultiple={true}
                   getSelectedData={getSelectedData}
-                  identifier="tag"
-                  label="Tags"
+                  identifier='tag'
+                  label='Tags'
                 />
               </Stack>
 
               <Field
                 as={InputField}
-                size="md"
-                label="Name *"
-                type="text"
-                placeholder="Name your collection"
-                name="name"
+                size='md'
+                label='Name *'
+                type='text'
+                placeholder='Name your collection'
+                name='name'
                 errorText={
-                  touched["name"] && errors["name"] ? errors["name"] : undefined
+                  touched['name'] && errors['name'] ? errors['name'] : undefined
                 }
                 maxLength={50}
               />
               <Field
-                name="description"
+                name='description'
                 component={ChakraTextarea}
-                label="Description"
-                placeholder="Describe your collection, 1000 characters are allowed"
-                desc={Detail?.desc}
+                label='Description'
+                placeholder='Describe your collection, 1000 characters are allowed'
+                desc={collectionDetail?.desc}
               />
 
               <Box>
@@ -180,14 +180,14 @@ const CreateCollection = () => {
 
                   <Field
                     as={InputField}
-                    size="md"
-                    label="Website URL"
-                    type="text"
-                    placeholder="https://"
-                    name="website_url"
+                    size='md'
+                    label='Website URL'
+                    type='text'
+                    placeholder='https://'
+                    name='website_url'
                     errorText={
-                      touched["website_url"] && errors["website_url"]
-                        ? errors["website_url"]
+                      touched['website_url'] && errors['website_url']
+                        ? errors['website_url']
                         : undefined
                     }
                     maxLength={50}
@@ -195,14 +195,14 @@ const CreateCollection = () => {
                   <Spacer />
                   <Field
                     as={InputField}
-                    size="md"
-                    label="Etherscan"
-                    type="text"
-                    placeholder="https://"
-                    name="etherscan"
+                    size='md'
+                    label='Etherscan'
+                    type='text'
+                    placeholder='https://'
+                    name='etherscan'
                     errorText={
-                      touched["etherscan"] && errors["etherscan"]
-                        ? errors["etherscan"]
+                      touched['etherscan'] && errors['etherscan']
+                        ? errors['etherscan']
                         : undefined
                     }
                     maxLength={50}
@@ -211,28 +211,28 @@ const CreateCollection = () => {
                 <Flex gap={'6'} display={{base:'block',sm:'flex'}} justifyContent={{base:'initial',sm:'space-between',xl:'space-between'}}>
                   <Field
                     as={InputField}
-                    size="md"
-                    label="Telegram"
-                    type="text"
-                    placeholder="Telegram ID"
-                    name="telegram"
+                    size='md'
+                    label='Telegram'
+                    type='text'
+                    placeholder='Telegram ID'
+                    name='telegram'
                     errorText={
-                      touched["telegram"] && errors["telegram"]
-                        ? errors["telegram"]
+                      touched['telegram'] && errors['telegram']
+                        ? errors['telegram']
                         : undefined
                     }
                     maxLength={50}
                   />
                   <Field
                     as={InputField}
-                    size="md"
-                    label="Twitter"
-                    type="text"
-                    placeholder="https://"
-                    name="twitter"
+                    size='md'
+                    label='Twitter'
+                    type='text'
+                    placeholder='https://'
+                    name='twitter'
                     errorText={
-                      touched["twitter"] && errors["twitter"]
-                        ? errors["twitter"]
+                      touched['twitter'] && errors['twitter']
+                        ? errors['twitter']
                         : undefined
                     }
                     maxLength={50}
@@ -241,28 +241,28 @@ const CreateCollection = () => {
                 <Flex gap={'6'} display={{base:'block',sm:'flex'}} justifyContent={{base:'initial',sm:'space-between',xl:'space-between'}}>
                   <Field
                     as={InputField}
-                    size="md"
-                    label="Instagram"
-                    type="text"
-                    placeholder="https://"
-                    name="instagram"
+                    size='md'
+                    label='Instagram'
+                    type='text'
+                    placeholder='https://'
+                    name='instagram'
                     errorText={
-                      touched["instagram"] && errors["instagram"]
-                        ? errors["instagram"]
+                      touched['instagram'] && errors['instagram']
+                        ? errors['instagram']
                         : undefined
                     }
                     maxLength={50}
                   />
                   <Field
                     as={InputField}
-                    size="md"
-                    label="Discord"
-                    type="text"
-                    placeholder="Discord ID"
-                    name="Discord_id"
+                    size='md'
+                    label='Discord'
+                    type='text'
+                    placeholder='Discord ID'
+                    name='Discord_id'
                     errorText={
-                      touched["Discord_id"] && errors["Discord_id"]
-                        ? errors["Discord_id"]
+                      touched['Discord_id'] && errors['Discord_id']
+                        ? errors['Discord_id']
                         : undefined
                     }
                     maxLength={50}
@@ -271,7 +271,7 @@ const CreateCollection = () => {
               </Box>
 
 
-              <FieldArray name="creatorFee">
+              <FieldArray name='creatorFee'>
                 {({ push, remove }) => (
                   <>
                     {values.creatorFee.map((field: any, index: number) => (
@@ -281,42 +281,42 @@ const CreateCollection = () => {
                           <Box w={{base:'100%',sm:'80%',xl:'80%'}} >
                             <Field
                               as={InputField}
-                              size="md"
-                              label="Wallet Address"
-                              type="text"
+                              size='md'
+                              label='Wallet Address'
+                              type='text'
                               maxLength={50}
                               name={`creatorFee.${[index]}.walletAddress`}
                             />
                             <ErrorMessage
                               name={`creatorFee.${[index]}.walletAddress`}
-                              component="div"
+                              component='div'
                             />
                           </Box>
 
                           <Box w={{base:'100%',sm:'20%',xl:'20%'}}>
                             <Field
                               as={InputField}
-                              size="md"
-                              label="Percentage"
-                              type="number"
+                              size='md'
+                              label='Percentage'
+                              type='number'
                               maxLength={50}
                               name={`creatorFee.${[index]}.percentage`}
                             />
                             <ErrorMessage
                               name={`creatorFee.${[index]}.percentage`}
-                              component="div"
+                              component='div'
                             />
                           </Box>
 
-                          {index > 0 && <button type="button" onClick={() => remove(index)}>
+                          {index > 0 && <button type='button' onClick={() => remove(index)}>
                             <i className='icon-remove'></i>
                           </button>}
                         </Flex>
                       </div>
                     ))}
                     {values?.creatorFee?.length < 5 && <button
-                      type="button"
-                      onClick={() => push({ walletAddress: "", percentage: 0 })}
+                      type='button'
+                      onClick={() => push({ walletAddress: '', percentage: 0 })}
                     >
                       +Add Address
                     </button>}
@@ -325,7 +325,7 @@ const CreateCollection = () => {
               </FieldArray>
 
             </FormControl>
-            <Button type="submit" ml="3">
+            <Button type='submit' ml='3'>
               Submit
             </Button>
           </Form>
