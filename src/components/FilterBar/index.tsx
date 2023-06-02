@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { Box, Flex, IconButton, InputGroup, Input, InputLeftElement, Menu, MenuButton, MenuList, MenuItem, Button} from '@chakra-ui/react'
 
 
-const Tabx: NextPage = () => {
+const FilterBar = () => {
 
 
     return (
@@ -58,4 +58,4 @@ const Tabx: NextPage = () => {
     )
 }
 
-export default Tabx
+export default FilterBar

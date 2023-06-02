@@ -56,6 +56,7 @@ const ReactSelect = ({
             boxShadow: 'none',
             width: '100%',
             borderRadius: '6px',
+
           }),
           indicatorSeparator: () => ({}),
           multiValue: (styles, { data }) => ({

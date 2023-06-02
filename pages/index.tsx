@@ -1,7 +1,13 @@
 import type { NextPage } from 'next'
 import {Header} from '../src/components/Header'
+
 import {Footer} from '../src/components/Footer'
-import {Card, CardBody,Image, Stack,Heading, Text, CardFooter, Button, SimpleGrid, Box} from '@chakra-ui/react'
+
+import {Container,Stat, StatLabel, StatHelpText,StatNumber, Card, CardBody,Image, Stack,Heading, Text, Divider, CardFooter, Flex, Button, SimpleGrid, Box, Tabs, TabList, Tab, TabPanels, TabPanel} from '@chakra-ui/react'
+import { SlickSlider } from '../src/components/ReactSlick'
+import CollectionCard from '../src/components/Cards/CollectionCard'
+import { Banner } from '../src/components/Banner'
+
 
 
 const Home: NextPage = () => {
@@ -9,6 +15,20 @@ const Home: NextPage = () => {
   return (
     <div>
       <Header />
+      <Banner/>
+      <Container maxW="">
+        <SlickSlider >
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          </SlickSlider>
+      </Container>
       <Card maxW='sm' marginLeft="20px" justifyContent="center" >
   <CardBody display="flex" flexDirection="column" justifyContent="center">
     <Image
@@ -37,6 +57,31 @@ const Home: NextPage = () => {
   </CardFooter>
 </Card>
 <Footer/>
+<Stat mb="200px">
+  <StatLabel>Collected Fees</StatLabel>
+  <StatNumber>£0.00</StatNumber>
+  <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+</Stat>
+<Tabs>
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+    <Tab>Three</Tab>
+  </TabList>
+
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>three!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+
     </div>
   )
 }
