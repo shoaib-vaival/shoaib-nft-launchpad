@@ -82,39 +82,17 @@ const FileUpload = ({
         <>
           {preview.map((upFile: any, index: number) => {
             return (
-              <Image
-                key={index}
-                src={upFile.preview}
-                w='100%'
-                h='300px'
-                objectFit='cover'
-                borderRadius='16px'
-              ></Image>
+              <Image src={upFile.preview} key={index} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
             );
           })}
         </>
-      ) : (
-        <Box color='#756C99'>
-          {label && <FormLabel marginBottom='16px'>{label}</FormLabel>}
-          {detail && (
-            <FormHelperText marginBottom='16px'>{detail}</FormHelperText>
-          )}
-          {
-            <Flex
-              {...getRootProps()}
-              bg='red'
-              maxH='300px'
-              justifyContent='center'
-              alignItems='center'
-              h={height ? height : '300px'}
-              w={width ? width : '952px'}
-              border='1px solid rgba(111, 107, 243, 0.4)'
-              background='rgba(255, 255, 255, 0.4)'
-              boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)'
-              backdrop-filter='blur(30px)'
-              borderRadius='16px'
-            >
-              <input {...getInputProps()} />
+      ) : 
+      <Box color='#756C99'>
+        {label && <FormLabel marginBottom='16px'>{label}</FormLabel>}
+        {detail && <FormHelperText marginBottom='16px'>{detail}</FormHelperText>}
+        {
+          <Flex {...getRootProps()} bg='red' maxH='300px' justifyContent='center' alignItems='center' h={height?height:'300px'} maxW={width? width:'952px'} border='1px solid rgba(111, 107, 243, 0.4)' background= 'rgba(255, 255, 255, 0.4)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' backdrop-filter= 'blur(30px)' borderRadius= '16px'>
+            <input {...getInputProps()} />
 
               {preview &&
                 showImgPreview &&
@@ -158,9 +136,8 @@ const FileUpload = ({
             </Flex>
           }
           {fileError && <p>{fileError}</p>}
-          {/* </div> */}
         </Box>
-      )}
+      }
     </>
   );
 };

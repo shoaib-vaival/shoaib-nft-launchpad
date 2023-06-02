@@ -7,7 +7,7 @@ import RectangularIcon from '../src/components/RectangularVal/'
 import Tabx from '../src/components/Tabs/'
 import ConnectionBar from '../src/components/ConnectionBar/'
 import { colors } from '../src/theme/colors'
-import { Box, Container, Flex, Heading, Text, Button, Image, HStack, Icon, IconButton, Tabs, TabList, Tab, TabPanels, TabPanel, Menu, MenuButton, MenuList, MenuItem, Checkbox, Stack, CheckboxGroup, Wrap, WrapItem, Center, InputGroup, Input, InputLeftElement } from '@chakra-ui/react'
+import { Box, Container, Flex, Heading, Text, Button, IconButton, Menu, MenuButton, MenuList, MenuItem, InputGroup, Input, InputLeftElement } from '@chakra-ui/react'
 import Link from 'next/link'
 import { CheckIcon } from '@chakra-ui/icons'
 
@@ -18,7 +18,7 @@ const myCollection: NextPage = () => {
     <div>
       <Header />
       <Box>
-        <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
+        <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl'}}>
           <Box pt='30px' pb='40px'>
             <BannerImage/>
             <Box>
@@ -93,11 +93,11 @@ const myCollection: NextPage = () => {
                 aria-label='Send email'
                 icon={<i className='icon-funnel'></i>}
               />
-              <Box pl={{ base: '0', sm: "0", md: '20px' }} pt={{ base: '20px', md: '0', xl: '0' }} >
-                <InputGroup variant="custom" colorScheme="purple" w={{ base: 'full', sm: 'md', xl: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                  <Input placeholder="Search..." />
+              <Box pl={{ base: '0', sm: '0', md: '20px' }} pt={{ base: '20px', md: '0', xl: '0' }} >
+                <InputGroup variant='custom' colorScheme='purple' w={{ base: 'full', sm: 'md', xl: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
+                  <Input placeholder='Search...' />
                   <InputLeftElement>
-                    <img src="/assets/images/search-icon.svg" />
+                    <img src='/assets/images/search-icon.svg' />
                   </InputLeftElement>
                 </InputGroup>
               </Box>

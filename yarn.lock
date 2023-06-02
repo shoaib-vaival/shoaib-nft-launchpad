@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@adraffy/ens-normalize@https://github.com/ricmoo/ens-normalize.js":
+"@adraffy/ens-normalize@git+https://github.com/ricmoo/ens-normalize.js.git":
   version "1.9.0"
-  resolved "https://github.com/ricmoo/ens-normalize.js#2d040533e57e4f25f9a7cc4715e219658ad454b5"
+  resolved "git+https://github.com/ricmoo/ens-normalize.js.git#2d040533e57e4f25f9a7cc4715e219658ad454b5"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.21.4":
   version "7.21.4"
@@ -1362,9 +1362,9 @@
     "@floating-ui/core" "^1.2.6"
 
 "@humanwhocodes/config-array@^0.11.8":
-  version "0.11.8"
-  resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
-  integrity sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==
+  version "0.11.10"
+  resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.10.tgz#5a3ffe32cc9306365fb3fd572596cd602d5e12d2"
+  integrity sha512-KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ==
   dependencies:
     "@humanwhocodes/object-schema" "^1.2.1"
     debug "^4.1.1"
@@ -1714,9 +1714,9 @@
     "@types/react" "*"
 
 "@types/react@*":
-  version "18.2.7"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.7.tgz#dfb4518042a3117a045b8c222316f83414a783b3"
-  integrity sha512-ojrXpSH2XFCmHm7Jy3q44nXDyN54+EYKP2lBhJ2bqfyPj6cIUW/FZW/Csdia34NQgq7KYcAlHi5184m4X88+yw==
+  version "18.2.8"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.8.tgz#a77dcffe4e9af148ca4aa8000c51a1e8ed99e2c8"
+  integrity sha512-lTyWUNrd8ntVkqycEEplasWy2OxNlShj3zqS0LuB1ENUGis5HodmhM7DtCoUGbxj3VW/WsGA0DUhpG6XrM7gPA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3714,9 +3714,9 @@ ethereumjs-util@^7.1.0, ethereumjs-util@^7.1.1, ethereumjs-util@^7.1.2, ethereum
     rlp "^2.2.4"
 
 ethers@^6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-6.4.0.tgz#82c230a3a018a2627593d24ec4b9c20e9681c341"
-  integrity sha512-nksaMCwX+BOdV2NQ1/57OehSD2JtujbhrdC2+Fb9VpvBO0WO6h+WWwu3oMMw7aUiTa5lvQcWX1vl4aOy7Q3CTg==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-6.4.1.tgz#fdfb5b987f239980a416879930e89d1817ff22ca"
+  integrity sha512-dBY7rBmoqI7ndCOsaafWEk1Snh2ilSRrLcRghb1FwY51Jze0NKGgn4ZjYAqDcji1lvUzFPEG0/u6w/nH6xJ6pw==
   dependencies:
     "@adraffy/ens-normalize" "https://github.com/ricmoo/ens-normalize.js"
     "@noble/hashes" "1.1.2"

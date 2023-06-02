@@ -5,10 +5,11 @@ export const Form:ComponentStyleConfig={
   baseStyle: {
     /// The container styles the FormControl
     container: {
-      marginY: '20px',
+      marginY: '15px',
       label: {
-        fontSize: '24px',
+        fontSize: '16px',
         fontWeight: 'bold',
+        marginBottom:'10px',
       },
     },
     helperText:{

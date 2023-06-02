@@ -5,6 +5,7 @@ import { SlickSlider } from '../src/components/ReactSlick'
 import CollectionCard from '../src/components/Cards/CollectionCard'
 
 
+
 const Home: NextPage = () => {
 
   return (

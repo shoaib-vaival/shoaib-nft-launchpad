@@ -12,10 +12,14 @@ import InputField from '../../src/components/InputField';
 import ChakraTextarea from '../../src/components/Textarea';
 import { collectionDetail } from '../../src/constants'
 import {
+  Box,
   Button,
   Container,
+  Flex,
   FormControl,
   Heading,
+  Icon,
+  Spacer,
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -94,7 +98,7 @@ const CreateCollection = () => {
   };
 
   return (
-    <Container maxW='952px' p={0}>
+    <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '952px' }} p={{ sm: '30px', md: '30px', lg: '0', xl: '0' }}>
       <Heading as='h1'>Create Collection</Heading>
       <Formik
         initialValues={initialValues}
@@ -105,7 +109,7 @@ const CreateCollection = () => {
         {({ errors, touched, values }) => (
           <Form>
             <FormControl>
-              <Stack direction='column' spacing='40px'>
+              <Stack direction='column' spacing='20px'>
                 <FileUpload
                   label='Logo Image *'
                   detail={collectionDetail?.logoDetail}
@@ -116,7 +120,7 @@ const CreateCollection = () => {
                   onlyIcon={true}
                 />
                 {touched['logoImageUrl'] && errors['logoImageUrl'] && (
-                  <Text>{errors['logoImageUrl'] as React.ReactNode}</Text>
+                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors['logoImageUrl'] as React.ReactNode}</Text>
                 )}
                 <FileUpload
                   label='Featured Image'
@@ -138,7 +142,7 @@ const CreateCollection = () => {
                   label='Category'
                 />
                 {touched['category'] && errors['category'] && (
-                  <Text>{errors['category'] as React.ReactNode}</Text>
+                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors['category'] as React.ReactNode}</Text>
                 )}
                 <ReactSelect
                   options={filtredTags}
@@ -162,90 +166,6 @@ const CreateCollection = () => {
                 maxLength={50}
               />
               <Field
-                as={InputField}
-                size='md'
-                label='Website URL'
-                type='text'
-                placeholder='https://'
-                name='website_url'
-                errorText={
-                  touched['website_url'] && errors['website_url']
-                    ? errors['website_url']
-                    : undefined
-                }
-                maxLength={50}
-              />
-              <Field
-                as={InputField}
-                size='md'
-                label='Etherscan'
-                type='text'
-                placeholder='https://'
-                name='etherscan'
-                errorText={
-                  touched['etherscan'] && errors['etherscan']
-                    ? errors['etherscan']
-                    : undefined
-                }
-                maxLength={50}
-              />
-              <Field
-                as={InputField}
-                size='md'
-                label='Telegram'
-                type='text'
-                placeholder='Telegram ID'
-                name='telegram'
-                errorText={
-                  touched['telegram'] && errors['telegram']
-                    ? errors['telegram']
-                    : undefined
-                }
-                maxLength={50}
-              />
-              <Field
-                as={InputField}
-                size='md'
-                label='Twitter'
-                type='text'
-                placeholder='https://'
-                name='twitter'
-                errorText={
-                  touched['twitter'] && errors['twitter']
-                    ? errors['twitter']
-                    : undefined
-                }
-                maxLength={50}
-              />
-              <Field
-                as={InputField}
-                size='md'
-                label='Instagram'
-                type='text'
-                placeholder='https://'
-                name='instagram'
-                errorText={
-                  touched['instagram'] && errors['instagram']
-                    ? errors['instagram']
-                    : undefined
-                }
-                maxLength={50}
-              />
-              <Field
-                as={InputField}
-                size='md'
-                label='Discord'
-                type='text'
-                placeholder='Discord ID'
-                name='Discord_id'
-                errorText={
-                  touched['Discord_id'] && errors['Discord_id']
-                    ? errors['Discord_id']
-                    : undefined
-                }
-                maxLength={50}
-              />
-              <Field
                 name='description'
                 component={ChakraTextarea}
                 label='Description'
@@ -253,42 +173,145 @@ const CreateCollection = () => {
                 desc={collectionDetail?.desc}
               />
 
+              <Box>
+                <Heading fontSize={'24px'}>Social Links</Heading>
+                <Text fontSize={'16px'}>Add your existing social links to build a stronger reputation.</Text>
+                <Flex gap={'6'} display={{base:'block',sm:'flex'}} justifyContent={{base:'initial',sm:'space-between',xl:'space-between'}}>
+
+                  <Field
+                    as={InputField}
+                    size='md'
+                    label='Website URL'
+                    type='text'
+                    placeholder='https://'
+                    name='website_url'
+                    errorText={
+                      touched['website_url'] && errors['website_url']
+                        ? errors['website_url']
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                  <Spacer />
+                  <Field
+                    as={InputField}
+                    size='md'
+                    label='Etherscan'
+                    type='text'
+                    placeholder='https://'
+                    name='etherscan'
+                    errorText={
+                      touched['etherscan'] && errors['etherscan']
+                        ? errors['etherscan']
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                </Flex>
+                <Flex gap={'6'} display={{base:'block',sm:'flex'}} justifyContent={{base:'initial',sm:'space-between',xl:'space-between'}}>
+                  <Field
+                    as={InputField}
+                    size='md'
+                    label='Telegram'
+                    type='text'
+                    placeholder='Telegram ID'
+                    name='telegram'
+                    errorText={
+                      touched['telegram'] && errors['telegram']
+                        ? errors['telegram']
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                  <Field
+                    as={InputField}
+                    size='md'
+                    label='Twitter'
+                    type='text'
+                    placeholder='https://'
+                    name='twitter'
+                    errorText={
+                      touched['twitter'] && errors['twitter']
+                        ? errors['twitter']
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                </Flex>
+                <Flex gap={'6'} display={{base:'block',sm:'flex'}} justifyContent={{base:'initial',sm:'space-between',xl:'space-between'}}>
+                  <Field
+                    as={InputField}
+                    size='md'
+                    label='Instagram'
+                    type='text'
+                    placeholder='https://'
+                    name='instagram'
+                    errorText={
+                      touched['instagram'] && errors['instagram']
+                        ? errors['instagram']
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                  <Field
+                    as={InputField}
+                    size='md'
+                    label='Discord'
+                    type='text'
+                    placeholder='Discord ID'
+                    name='Discord_id'
+                    errorText={
+                      touched['Discord_id'] && errors['Discord_id']
+                        ? errors['Discord_id']
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                </Flex>
+              </Box>
+
+
               <FieldArray name='creatorFee'>
                 {({ push, remove }) => (
                   <>
                     {values.creatorFee.map((field: any, index: number) => (
                       <div key={index}>
-                        <div>
-                          <Field
-                            as={InputField}
-                            size='md'
-                            label='Wallet Address'
-                            type='text'
-                            maxLength={50}
-                            name={`creatorFee.${[index]}.walletAddress`}
-                          />
-                          <ErrorMessage
-                        name={`creatorFee.${[index]}.walletAddress`}
-                        component='div'
-                      />
-                        </div>
-                        <div>
-                          <Field
-                            as={InputField}
-                            size='md'
-                            label='Percentage'
-                            type='number'
-                            maxLength={50}
-                            name={`creatorFee.${[index]}.percentage`}
-                          />
-                          <ErrorMessage
-                        name={`creatorFee.${[index]}.percentage`}
-                        component='div'
-                      />
-                        </div>
-                        {index > 0 && <button type='button' onClick={() => remove(index)}>
-                          Remove
-                        </button>}
+                        <Flex gap={'6'} alignItems={{base:'baseline',sm:'center',xl:'center'}} flexDirection={{base:'column',sm:'row',xl:'row'}} w={'100%'}>
+
+                          <Box w={{base:'100%',sm:'80%',xl:'80%'}} >
+                            <Field
+                              as={InputField}
+                              size='md'
+                              label='Wallet Address'
+                              type='text'
+                              maxLength={50}
+                              name={`creatorFee.${[index]}.walletAddress`}
+                            />
+                            <ErrorMessage
+                              name={`creatorFee.${[index]}.walletAddress`}
+                              component='div'
+                            />
+                          </Box>
+
+                          <Box w={{base:'100%',sm:'20%',xl:'20%'}}>
+                            <Field
+                              as={InputField}
+                              size='md'
+                              label='Percentage'
+                              type='number'
+                              maxLength={50}
+                              name={`creatorFee.${[index]}.percentage`}
+                            />
+                            <ErrorMessage
+                              name={`creatorFee.${[index]}.percentage`}
+                              component='div'
+                            />
+                          </Box>
+
+                          {index > 0 && <button type='button' onClick={() => remove(index)}>
+                            <i className='icon-remove'></i>
+                          </button>}
+                        </Flex>
                       </div>
                     ))}
                     {values?.creatorFee?.length < 5 && <button
@@ -300,6 +323,7 @@ const CreateCollection = () => {
                   </>
                 )}
               </FieldArray>
+
             </FormControl>
             <Button type='submit' ml='3'>
               Submit
