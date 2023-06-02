@@ -14,7 +14,7 @@ import {
   Box,
   Container,
   Flex,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 type collectionCard = {
   type?: string;
@@ -44,65 +44,65 @@ const CollectionCard = ({
   isShowBody,
   key
 }: collectionCard) => {
-  if (type === "withBody") {
+  if (type === 'withBody') {
     return (
       <div>
-        <Container py="12px" key={key}>
-          <Card maxW="sm" justifyContent="center" overflow="hidden">
+        <Container py='12px' key={key}>
+          <Card maxW='sm' justifyContent='center' overflow='hidden'>
             <CardBody
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
+              display='flex'
+              flexDirection='column'
+              justifyContent='center'
             >
-              <Box position="relative">
+              <Box position='relative'>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
-                    alt="Green double couch with wooden legs"
-                    borderRadius="lg"
-                    w="100%"
+                    alt='Green double couch with wooden legs'
+                    borderRadius='lg'
+                    w='100%'
                   />
                 )}
 
                 <Box
-                  position="absolute"
-                  bottom="-16px"
-                  left="24px"
-                  border="1px solid #fff"
+                  position='absolute'
+                  bottom='-16px'
+                  left='24px'
+                  border='1px solid #fff'
                 >
                   {isShowLogoImage && (
                     <Image
                       src={
                         logoImage
                           ? logoImage
-                          : "/assets/images/RectangleCardImg.png"
+                          : '/assets/images/RectangleCardImg.png'
                       }
-                      alt="Green double couch with wooden legs"
-                      borderRadius="lg"
+                      alt='Green double couch with wooden legs'
+                      borderRadius='lg'
                       maxW={88}
                       maxH={88}
                     />
                   )}
                 </Box>
               </Box>
-              <Stack pt="16px" spacing="3" px="24px" pb="24px">
-                <Heading size="20px" fontWeight="700" color="#0D0D0D">
+              <Stack pt='16px' spacing='3' px='24px' pb='24px'>
+                <Heading size='20px' fontWeight='700' color='#0D0D0D'>
                   {name}
                 </Heading>
-                <SimpleGrid columns={[2, null, 2]} spacing="40px">
+                <SimpleGrid columns={[2, null, 2]} spacing='40px'>
                   <Box>
-                    <Text fontSize="14px" color="#756C99">
+                    <Text fontSize='14px' color='#756C99'>
                       Volume
                     </Text>
-                    <Text fontSize="20px" fontWeight="500" color="#393F59">
+                    <Text fontSize='20px' fontWeight='500' color='#393F59'>
                       {volume}
                     </Text>
                   </Box>
                   <Box>
-                    <Text fontSize="14px" color="#756C99">
+                    <Text fontSize='14px' color='#756C99'>
                       Floor Price
                     </Text>
-                    <Text fontSize="20px" fontWeight="500" color="#393F59">
+                    <Text fontSize='20px' fontWeight='500' color='#393F59'>
                       {price}
                     </Text>
                   </Box>
@@ -110,7 +110,7 @@ const CollectionCard = ({
               </Stack>
             </CardBody>
             {/* <CardFooter>
-                        <Button variant='primary' colorScheme='blue' w="100%">
+                        <Button variant='primary' colorScheme='blue' w='100%'>
                             Buy now
                         </Button>
                     </CardFooter> */}
@@ -119,26 +119,26 @@ const CollectionCard = ({
       </div>
     );
   }
-  if (type === "withoutBody") {
+  if (type === 'withoutBody') {
     return (
-      <Container py="12px">
-        <Card maxW="sm" justifyContent="center" overflow="hidden">
+      <Container py='12px'>
+        <Card maxW='sm' justifyContent='center' overflow='hidden'>
           <CardBody
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
+            display='flex'
+            flexDirection='column'
+            justifyContent='center'
           >
-            <Box position="relative">
+            <Box position='relative'>
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}
-                  alt="Green double couch with wooden legs"
-                  borderRadius="lg"
-                  w="100%"
+                  alt='Green double couch with wooden legs'
+                  borderRadius='lg'
+                  w='100%'
                 />
               )}
-              <Box position="absolute" bottom="32px" px="32px" w="100%">
-                <Heading size="20px" fontWeight="700" color="white">
+              <Box position='absolute' bottom='32px' px='32px' w='100%'>
+                <Heading size='20px' fontWeight='700' color='white'>
                   {name}
                 </Heading>
               </Box>
