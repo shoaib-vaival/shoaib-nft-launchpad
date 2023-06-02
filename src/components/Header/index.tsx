@@ -58,7 +58,7 @@ export const Header = () => {
                   <MenuItem onClick={() => router.push('/create-collection')}>Create Collection</MenuItem>
                 </MenuList>
               </Menu>
-              <Button variant='secondary' textTransform='uppercase' mx={{base:'0',md:'16px'}} fontSize='14px' w={{ base: 'full', sm: '50%', md: '75%', xl: 'initial' }} size='md' mt={{ base: '10px', sm: '0' }}>Connect Wallet</Button>
+              <Button variant='secondary' textTransform='uppercase' mx={{base:'0',md:'16px'}} fontSize='14px' w={{ base: 'full', sm: '50%', md: '100%', xl: 'initial' }} size='md' mt={{ base: '10px', sm: '0' }}>Connect Wallet</Button>
             </Flex>
             <Box order={{ base: '3', sm: '3', md: '4', lg: '5' }} display={{ base: 'block', lg: 'none' }} pl='16px'>
               <Menu>
