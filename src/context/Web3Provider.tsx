@@ -1,6 +1,13 @@
-import React, { useContext, useState, createContext, useEffect } from 'react';
-import { getFromLocalStorage, setToLocalStorage } from '../utils';
-import { metaMask , metaMaskHooks} from './../connectors/metaMask'
+import React, { useContext, useState, createContext, useEffect } from "react";
+import { getFromLocalStorage, setToLocalStorage } from "../utils";
+import { metaMask, metaMaskHooks } from "./../connectors/metaMask";
+import Web3 from "web3";
+import {
+  useWeb3React,
+  Web3ReactHooks,
+  Web3ReactProvider,
+} from "@web3-react/core";
+import { walletConnect, walletConnecthooks } from "../connectors/walletConnect";
 
 // const isActivating = useIsActivating()
 
@@ -10,44 +17,83 @@ import { metaMask , metaMaskHooks} from './../connectors/metaMask'
 // const ENSNames = useENSNames(provider)
 
 interface Web3Interface {
-    account: string | null;
-    connect: React.Dispatch<React.SetStateAction<string | null>>;
-    disconnect: React.Dispatch<React.SetStateAction<string | null>>;
+  account: string | null;
+  chainId: string | number | null;
+  walletConnectAccount: string | string[] | null;
+  connect: React.Dispatch<React.SetStateAction<string | null>>;
+  disconnect: React.Dispatch<React.SetStateAction<string | null>>;
+  connectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
+  disconnectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const Context = createContext({} as Web3Interface);
 
 export function useWeb3Context() {
-    return useContext(Context);
+  return useContext(Context);
 }
 
-export function Web3ContextProvider({ children }: { children: React.ReactNode }) {
-    const { useChainId, useAccount } = metaMaskHooks
-    console.log(metaMaskHooks);
-    const chainId = useChainId()
-    const account = useAccount()
-    const isWalletConnected = getFromLocalStorage('isWalletConnected');
+export function Web3ContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { useChainId, useAccount } = metaMaskHooks;
 
-    useEffect(()=>{
-        console.log(isWalletConnected)
-        if(isWalletConnected === true){
-            metaMask.connectEagerly()
-            console.log(chainId,'chainId',isWalletConnected )
-        }
-    },[])
+  const {
+    useAccounts,
+    useIsActivating,
+    useIsActive,
+    useProvider,
+    useENSNames,
+  } = walletConnecthooks;
 
-    const  connect = async()=>{
-        const result = await metaMask.activate(chainId)
-        setToLocalStorage('isWalletConnected', true)
+  const walletConnectAccount = useAccounts();
+  const chainId = useChainId();
+  const account = useAccount();
 
+  const isWalletConnected = getFromLocalStorage("isWalletConnected");
+
+  useEffect(() => {
+    console.log(isWalletConnected);
+    if (isWalletConnected === "true") {
+      metaMask.connectEagerly();
+      console.log(chainId, "chainId", isWalletConnected);
     }
-    const disconnect = ()=>{
-        if (metaMask?.resetState) {
-            metaMask?.resetState()
-           setToLocalStorage('isWalletConnected', false)
-        }
-        }
- 
+  }, []);
 
-  return <Context.Provider value={{account:account||'', connect:connect, disconnect:disconnect}}>{children}</Context.Provider>;
+  const connectWalletConnect = async () => {
+    const result = await walletConnect.activate(chainId);
+    setToLocalStorage("isWalletConnected", true);
+  };
+  const disconnectWalletConnect = () => {
+    walletConnect?.resetState();
+    setToLocalStorage("isWalletConnected", false);
+  };
+
+  const connect = async () => {
+    const result = await metaMask.activate(chainId);
+    setToLocalStorage("isWalletConnected", true);
+  };
+  const disconnect = () => {
+    if (metaMask?.resetState) {
+      metaMask?.resetState();
+      setToLocalStorage("isWalletConnected", false);
+    }
+  };
+
+  return (
+    <Context.Provider
+      value={{
+        account: account || "",
+        chainId: chainId || "",
+        walletConnectAccount: walletConnectAccount || "",
+        connect: connect,
+        disconnect: disconnect,
+        connectWalletConnect: connectWalletConnect,
+        disconnectWalletConnect: disconnectWalletConnect,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 }
