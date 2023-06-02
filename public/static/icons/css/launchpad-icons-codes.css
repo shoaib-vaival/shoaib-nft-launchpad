@@ -3,6 +3,7 @@
 .icon-image:before { content: '\e801'; } /* '' */
 .icon-search:before { content: '\e802'; } /* '' */
 .icon-close:before { content: '\e803'; } /* '' */
+.icon-ChevronDown:before { content: '\e804'; } /* '' */
 .icon-tick:before { content: '\e805'; } /* '' */
 .icon-internet:before { content: '\e806'; } /* '' */
 .icon-froggy:before { content: '\e807'; } /* '' */
@@ -15,3 +16,4 @@
 .icon-grid:before { content: '\e80e'; } /* '' */
 .icon-list:before { content: '\e80f'; } /* '' */
 .icon-funnel:before { content: '\e810'; } /* '' */
+.icon-remove:before { content: '\e811'; } /* '' */

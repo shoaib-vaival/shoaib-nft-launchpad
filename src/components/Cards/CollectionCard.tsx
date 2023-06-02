@@ -8,7 +8,7 @@ const CollectionCards: NextPage = () => {
         <div>
             
             <Container py='12px'>
-            <Card maxW='sm' justifyContent="center" overflow='hidden'>
+            <Card  justifyContent="center" overflow='hidden'>
                 <CardBody display="flex" flexDirection="column" justifyContent="center">
                     <Box position='relative'>
                     <Image

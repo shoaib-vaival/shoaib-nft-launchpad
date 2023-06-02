@@ -12,15 +12,15 @@ const myCollection: NextPage = () => {
       <Box>
       <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
           <Box pt='30px' pb='40px'>
-            <Flex justifyContent='space-between' alignItems='center' textAlign={{base:'center',xl:'initial'}} flexDirection={{base:'column',md:'column', xl:'row'}}>
-              <Box>
-                <Heading as='h1' fontSize='56px'>
+            <Flex justifyContent='space-between' alignItems='center' textAlign={{base:'center',md:'initial'}} flexDirection={{base:'column',md:'row'}}>
+              <Box pr={{base:'0',md:'50px'}}>
+                <Heading as='h1' fontSize={{base:'26px',sm:'36px',lg:'42px',xl:'56px'}} mb={{base:'10px', lg:'0'}}>
                   My Collections
                 </Heading>
-                <Text fontSize="24px">Create, curate, and manage collections of unique NFTs to share and sell.</Text>
+                <Text fontSize={{base:'18px',md:'24px'}}>Create, curate, and manage collections of unique NFTs to share and sell.</Text>
               </Box>
               <Box>
-                <Button variant='primary' fontSize='24px'>
+                <Button variant='primary' textTransform='uppercase' fontSize='14px' mt={{base:'30px', lg:'0'}}>
                   Create Collection
                 </Button>
               </Box>
@@ -31,23 +31,23 @@ const myCollection: NextPage = () => {
         </Container>
         <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }} pb={{ xl: '100px', md: '50px' }}>
           <Box>
-            <Flex direction={['column', 'row']} flexWrap={{base:'nowrap',sm:'wrap',md:'wrap',lg:'wrap',xl:'wrap'}} >
-              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+            <Flex direction={['column', 'row']} flexWrap='wrap' >
+              <Box w={{ xl: '25%', md: '50%',base:'100%' }} display='initial'>
                 <CollectionCards />
               </Box>
-              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+              <Box w={{ xl: '25%', md: '50%',base:'100%' }} display='initial'>
                 <CollectionCards />
               </Box>
-              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+              <Box w={{ xl: '25%', md: '50%',base:'100%' }} display='initial'>
                 <CollectionCards />
               </Box>
-              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+              <Box w={{ xl: '25%', md: '50%',base:'100%' }} display='initial'>
                 <CollectionCards />
               </Box>
-              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+              <Box w={{ xl: '25%', md: '50%',base:'100%' }} display='initial'>
                 <CollectionCards />
               </Box>
-              <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+              <Box w={{ xl: '25%', md: '50%',base:'100%' }} display='initial'>
                 <CollectionCards />
               </Box>
             </Flex>
