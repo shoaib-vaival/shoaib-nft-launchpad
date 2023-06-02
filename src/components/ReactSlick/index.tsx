@@ -1,5 +1,3 @@
-
-import { Container } from '@chakra-ui/react';
 import {  useState } from 'react';
 import Slider from 'react-slick';
 import { settings } from './settings'
