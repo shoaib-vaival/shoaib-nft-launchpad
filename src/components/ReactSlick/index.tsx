@@ -1,11 +1,11 @@
 
-import { Container } from "@chakra-ui/react";
-import {  useState } from "react";
-import Slider from "react-slick";
+import { Container } from '@chakra-ui/react';
+import {  useState } from 'react';
+import Slider from 'react-slick';
 import { settings } from './settings'
 import {Box} from '@chakra-ui/react'
-import { NextArrow } from "./NextArrow";
-import { PrevArrow } from "./PrevArrow";
+import { NextArrow } from './NextArrow';
+import { PrevArrow } from './PrevArrow';
 
 
 export const SlickSlider = ({children}:any)=>{
@@ -14,8 +14,8 @@ export const SlickSlider = ({children}:any)=>{
         // <>
         // {children}
         // </>
-        <Box position="relative" marginTop="2rem">
-            <Box position="absolute" height="100%" width="100%">
+        <Box position='relative' marginTop='2rem'>
+            <Box position='absolute' height='100%' width='100%'>
                 <PrevArrow prev={()=>carousalRef.slickPrev()}/>
                 <NextArrow next={()=>carousalRef.slickNext()}/>
             </Box>
