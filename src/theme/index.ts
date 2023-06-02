@@ -7,6 +7,7 @@ import { Card } from './components/card'
 import { Form } from './components/form'
 import { Stat } from './components/stat'
 import { Tabs } from './components/tabs'
+import { Container } from './components/container'
 
 
 
@@ -25,7 +26,8 @@ export const theme = extendTheme({
         Card,
         Form,
         Stat,
-        Tabs
+        Tabs,
+        Container
     },
     styles:{
         global:{
