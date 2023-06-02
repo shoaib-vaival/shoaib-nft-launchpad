@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import {Header} from '../src/components/Header'
+import {Footer} from '../src/components/Footer'
 import {Card, CardBody,Image, Stack,Heading, Text, CardFooter, Button, SimpleGrid, Box} from '@chakra-ui/react'
 
 
@@ -35,6 +36,7 @@ const Home: NextPage = () => {
       </Button>
   </CardFooter>
 </Card>
+<Footer/>
     </div>
   )
 }
