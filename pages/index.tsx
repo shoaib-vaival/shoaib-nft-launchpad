@@ -13,6 +13,19 @@ const Home: NextPage = () => {
     <div>
       <Header />
       <Banner/>
+      <Container maxW="">
+        <SlickSlider >
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+          </SlickSlider>
+      </Container>
       <Card maxW='sm' marginLeft="20px" justifyContent="center" >
   <CardBody display="flex" flexDirection="column" justifyContent="center">
     <Image
@@ -64,18 +77,7 @@ const Home: NextPage = () => {
     </TabPanel>
   </TabPanels>
 </Tabs>
-        <Container maxW="container.xl">
-<SlickSlider >
-  <CollectionCard type="withoutBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
-</SlickSlider>
-</Container>
+
     </div>
   )
 }

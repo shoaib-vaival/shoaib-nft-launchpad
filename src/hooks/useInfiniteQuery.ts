@@ -70,7 +70,7 @@ export const useInfiniteQuery = <T>({
   };
    const { data:fetchedData, error, fetchNextPage, status, hasNextPage, isLoading } = useRInfiniteQuery<any>(
      queryKey, 
-     ({ pageParam = 1 }) => axios({...config, url:`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}${`${queryString}&currentPage=${pageParam}`  ? queryString:'?'}currentPage=${pageParam}`}).then((res) => res.data),
+     ({ pageParam = 1 }) => axios({...config, url:`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}${queryString  ? `${queryString}&currentPage=${pageParam}`:'?'}currentPage=${pageParam}`}).then((res) => res.data),
      {
          getNextPageParam: (lastPage) => {
                 if (lastPage.nextPage === 0) return false;
