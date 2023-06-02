@@ -63,6 +63,7 @@ export function Web3ContextProvider({
 
   const connectWalletConnect = async () => {
     const result = await walletConnect.activate(chainId);
+
     setToLocalStorage("isWalletConnected", true);
   };
   const disconnectWalletConnect = () => {

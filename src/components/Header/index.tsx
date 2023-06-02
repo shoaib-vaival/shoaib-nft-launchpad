@@ -29,7 +29,6 @@ import { useWeb3React } from "@web3-react/core";
 
 export const Header = () => {
   const {
-    account,
     connect,
     disconnect,
     connectWalletConnect,
@@ -37,6 +36,8 @@ export const Header = () => {
     disconnectWalletConnect,
     chainId,
   } = useWeb3Context();
+  const { active, account, library, connector, activate, deactivate } =
+    useWeb3React();
 
   return (
     <>
@@ -86,9 +87,6 @@ export const Header = () => {
                   fontSize="16px"
                   ml={{ lg: "30px", xl: "130px" }}
                   variant="primary"
-                  onClick={(a) => {
-                    useBalances();
-                  }}
                 >
                   Create
                 </MenuButton>
@@ -115,6 +113,41 @@ export const Header = () => {
                 }}
               >
                 Connect Wallet
+              </Button>
+              <Button
+                variant="secondary"
+                mx="16px"
+                size="md"
+                onClick={(a) => {
+                  try {
+                    connect();
+                    chainId != "80001" ? getAddChainParameters(80001) : null;
+                  } catch {
+                    console.log("Try connecting again");
+                  }
+                }}
+              >
+                Connect Metamask
+              </Button>
+              <Button
+                variant="secondary"
+                mx="16px"
+                size="md"
+                onClick={(a) => {
+                  disconnectWalletConnect();
+                }}
+              >
+                Disconnect
+              </Button>
+              <Button
+                variant="secondary"
+                mx="16px"
+                size="md"
+                onClick={(a) => {
+                  disconnect();
+                }}
+              >
+                Disconnect Metamask
               </Button>
               <div>{account}</div>
               <Avatar size="sm" />
