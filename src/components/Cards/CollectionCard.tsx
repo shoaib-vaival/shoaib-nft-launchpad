@@ -15,7 +15,7 @@ const CollectionCard = ({featureImage, logoImage, name, volume, price, key }:col
     return (
         <div>
             
-            <Container py='12px'>
+            <Container py='12px' key={key}>
             <Card  justifyContent='center' overflow='hidden'>
                 <CardBody display='flex' flexDirection='column' justifyContent='center'>
                     <Box position='relative'>

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import {Header} from '../src/components/Header'
-import {Card, CardBody,Image, Stack,Heading, Text, Divider, CardFooter, ButtonGroup, Button, SimpleGrid, Box} from '@chakra-ui/react'
+import {Card, CardBody,Image, Stack,Heading, Text, CardFooter, Button, SimpleGrid, Box} from '@chakra-ui/react'
 
 
 const Home: NextPage = () => {

@@ -82,7 +82,7 @@ const FileUpload = ({
         <>
           {preview.map((upFile: any, index: number) => {
             return (
-              <Image src={upFile.preview} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
+              <Image src={upFile.preview} key={index} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
             );
           })}
         </>

@@ -14,11 +14,11 @@ const Tabx: NextPage = () => {
                 aria-label='Send email'
                 icon={<i className='icon-funnel'></i>}
               />
-              <Box pl={{ base: '0', sm: "0", md: '20px' }} pt={{ base: '20px', md: '0', xl: '0' }} >
-                <InputGroup variant="custom" colorScheme="purple" w={{ base: 'full', sm: 'md', xl: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                  <Input placeholder="Search..." />
+              <Box pl={{ base: '0', sm: '0', md: '20px' }} pt={{ base: '20px', md: '0', xl: '0' }} >
+                <InputGroup variant='custom' colorScheme='purple' w={{ base: 'full', sm: 'md', xl: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
+                  <Input placeholder='Search...' />
                   <InputLeftElement>
-                    <img src="/assets/images/search-icon.svg" />
+                    <img src='/assets/images/search-icon.svg' />
                   </InputLeftElement>
                 </InputGroup>
               </Box>
