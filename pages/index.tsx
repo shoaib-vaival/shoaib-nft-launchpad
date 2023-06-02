@@ -105,6 +105,7 @@ const Home: NextPage = () => {
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           </SlickSlider>
       </Container>
+      <Footer/>
  </div>
   )
 }
