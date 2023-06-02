@@ -20,9 +20,9 @@ const myCollection: NextPage = () => {
     <div>
       <Header />
       <Box>
-      <Container maxW={{ md: '4xl', xl: '8xl' }}>
+      <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
           <Box pt='30px' pb='40px'>
-            <Flex justifyContent='space-between' alignItems='center'>
+            <Flex justifyContent='space-between' alignItems='center' textAlign={{base:'center',xl:'initial'}} flexDirection={{base:'column',md:'column', xl:'row'}}>
               <Box>
                 <Heading as='h1' fontSize='56px'>
                   My Collections
@@ -39,7 +39,7 @@ const myCollection: NextPage = () => {
           </Box>
 
         </Container>
-        <Container maxW={{md: '4xl', xl: '8xl' }} pb={{ xl: '100px', md: '50px' }}>
+        <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }} pb={{ xl: '100px', md: '50px' }}>
           <Box>
             <InfiniteScroll
              dataLength={data ? data.length : 0}
@@ -47,12 +47,18 @@ const myCollection: NextPage = () => {
              hasMore={!!hasNextPage}
              loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>}
             >
-            <Flex direction={['column', 'row']} flexWrap='wrap'>
+            <Flex direction={['column', 'row']}  flexWrap={{base:'nowrap',sm:'wrap',md:'wrap',lg:'wrap',xl:'wrap'}}>
               {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
-              data.map((nftCollection:any, index: number)=>{
-                  return <CollectionCard key={index} logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />
+
+              data?.map((nftCollection:any, index: number)=>{
+                  return (
+                     <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
+                  <CollectionCard key={index}  logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />
+                  </Box>
+                  )
                 })
               }
+
             </Flex>
             </InfiniteScroll>
 

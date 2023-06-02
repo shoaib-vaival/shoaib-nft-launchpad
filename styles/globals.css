@@ -1,4 +1,4 @@
-html,
+/* html,
 body {
   padding: 0;
   margin: 0;
@@ -25,18 +25,15 @@ a {
   }
 }
 
-.headerStyle{
-  font-family: 'Inter';
+.headerStyle {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 500 !important;
   font-size: 16px !important;
   line-height: 24px !important;
   text-transform: uppercase;
-  color: #393F59 !important;
+  color: #393f59 !important;
 }
-
-
-
 
 .inputDrop {
   border: 2px dashed red;
@@ -74,4 +71,4 @@ a {
   right: 0;
   box-sizing: border-box;
   cursor: pointer;
-}
+} */

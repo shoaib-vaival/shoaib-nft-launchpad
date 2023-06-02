@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import {Header} from '../src/components/Header'
-import {Card, CardBody,Image, Stack,Heading, Text, Divider, CardFooter, ButtonGroup, Button, SimpleGrid, Box} from '@chakra-ui/react'
+import {Container,Stat, StatLabel, StatHelpText,StatNumber, Card, CardBody,Image, Stack,Heading, Text, Divider, CardFooter, Flex, Button, SimpleGrid, Box, Tabs, TabList, Tab, TabPanels, TabPanel} from '@chakra-ui/react'
+import { SlickSlider } from '../src/components/ReactSlick'
+import CollectionCard from '../src/components/Cards/CollectionCard'
 
 
 const Home: NextPage = () => {
@@ -35,6 +37,42 @@ const Home: NextPage = () => {
       </Button>
   </CardFooter>
 </Card>
+<Stat mb="200px">
+  <StatLabel>Collected Fees</StatLabel>
+  <StatNumber>£0.00</StatNumber>
+  <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+</Stat>
+<Tabs>
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+    <Tab>Three</Tab>
+  </TabList>
+
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>three!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+        <Container maxW="container.xl">
+<SlickSlider >
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+  <CollectionCard type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+</SlickSlider>
+</Container>
     </div>
   )
 }

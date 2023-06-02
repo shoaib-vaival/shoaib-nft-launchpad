@@ -11,7 +11,7 @@ export const Card:ComponentStyleConfig = {
               
         },
         body:{
-            padding:0,
+            padding:'0px',
 
         },
     },
