@@ -31,7 +31,7 @@ type collectionCard = {
   isShowHeading?: boolean;
   isShowSubHeading?: boolean;
   key?: number;
-  nftCollectionId: number;
+  nftCollectionId?: number;
 };
 
 
