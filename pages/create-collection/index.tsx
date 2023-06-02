@@ -27,9 +27,11 @@ import { collectionSchema } from '../../src/schemas';
 import { POST } from '../../src/hooks/consts';
 import { useMutation } from '../../src/hooks/useMutation';
 import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types'
+import { useRouter } from 'next/router';
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<any>({});
+  const router = useRouter()
 
   const { data: categories } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_CAT],
@@ -41,6 +43,13 @@ const CreateCollection = () => {
     queryKey: [QUERY_KEYS.GET_TAGS],
     url: ApiUrl?.GET_TAGS,
     showToast: false,
+  });
+
+  const { data: getCollectionById } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_COLLECTION],
+    url: `${ApiUrl?.GET_COLLECTION}/${router?.query?.id}`,
+    showToast: false,
+    enabled: router?.query?.id ? true: false,
   });
 
   const { mutate } = useMutation<any>({
@@ -79,7 +88,7 @@ const CreateCollection = () => {
       });
     }
   };
-
+  
   const initialValues = {
     logoImageUrl: collection?.logoImageUrl,
     bannerImageUrl: collection?.bannerImageUrl,

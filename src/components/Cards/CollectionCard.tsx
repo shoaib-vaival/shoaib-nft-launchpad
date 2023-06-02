@@ -15,6 +15,8 @@ import {
   Container,
   Flex,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { pagePaths } from '../../constants'
 
 type collectionCard = {
   type?: string;
@@ -28,7 +30,8 @@ type collectionCard = {
   isShowBody?: boolean;
   isShowHeading?: boolean;
   isShowSubHeading?: boolean;
-  key?: number
+  key?: number;
+  nftCollectionId: number;
 };
 
 
@@ -42,8 +45,10 @@ const CollectionCard = ({
   isShowFeatureImage,
   isShowLogoImage,
   isShowBody,
-  key
+  key,
+  nftCollectionId
 }: collectionCard) => {
+  const router = useRouter()
   if (type === 'withBody') {
     return (
       <div>
@@ -84,6 +89,7 @@ const CollectionCard = ({
                     />
                   )}
                 </Box>
+                  <Button onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>Edit collection</Button>
               </Box>
               <Stack pt='16px' spacing='3' px='24px' pb='24px'>
                 <Heading size='20px' fontWeight='700' color='#0D0D0D'>

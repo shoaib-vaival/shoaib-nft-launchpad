@@ -5,5 +5,6 @@ export const ApiUrl = {
     GET_TAGS: 'tag/get-tags',
     CREATE_COLLECTION: 'collection',
     GET_COLLECTIONS_NAME: 'collection/get-collection-name/0x0000',
-    CREATE_NFT: 'minting/create-nft'
+    CREATE_NFT: 'minting/create-nft',
+    GET_COLLECTION: 'collection/editCollectionById'
 }
