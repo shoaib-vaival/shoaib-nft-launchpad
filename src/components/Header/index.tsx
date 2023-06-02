@@ -50,7 +50,7 @@ export const Header = () => {
             </Box>
             <Flex order={{ base: '5', sm: '5', md: '2', lg: '4' }}  marginLeft={{ base: 'auto', md: 'auto !important' }} alignItems='center' justifyContent={{ sm: 'flex-end' }} w={{ base: 'full', md: 'xs', xl: 'initial' }} flexDirection={{ base: 'column', sm: 'row' }}>
               <Menu autoSelect={false}>
-                <MenuButton as={Button}  textTransform='uppercase' fontSize='16px' ml={{ base:'0', md:'30px',lg:'0', xl: '130px' }} mr={{base:'0',sm:'25px',md:'0'}} variant='primary' w={{ base: 'full', sm: '50%', md: '75%', xl: 'initial' }} size= 'md'>
+                <MenuButton as={Button}  textTransform='uppercase' fontSize='16px' ml={{ base:'0', md:'30px',lg:'0' }} mr={{base:'0',sm:'25px',md:'0'}} variant='primary' w={{ base: 'full', sm: '50%', md: '75%', xl: 'initial' }} size= 'md'>
                   Create
                 </MenuButton>
                 <MenuList>
@@ -58,7 +58,7 @@ export const Header = () => {
                   <MenuItem onClick={() => router.push('/create-collection')}>Create Collection</MenuItem>
                 </MenuList>
               </Menu>
-              <Button variant='secondary' textTransform='uppercase' mx={{base:'0',md:'16px'}} fontSize='14px' w={{ base: 'full', sm: '50%', md: '75%', xl: 'initial' }} size='md' mt={{ base: '10px', sm: '0' }}>Connect Wallet</Button>
+              <Button variant='secondary' textTransform='uppercase' mx={{base:'0',md:'16px'}} fontSize='14px' w={{ base: 'full', sm: '50%', md: '100%', xl: 'initial' }} size='md' mt={{ base: '10px', sm: '0' }}>Connect Wallet</Button>
             </Flex>
             <Box order={{ base: '3', sm: '3', md: '4', lg: '5' }} display={{ base: 'block', lg: 'none' }} pl='16px'>
               <Menu>
