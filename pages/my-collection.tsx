@@ -51,7 +51,7 @@ const myCollection: NextPage = () => {
               data?.map((nftCollection:any, index: number)=>{
                   return (
                      <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
-                       <CollectionCard key={index} type="withBody" logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />
+                       <CollectionCard key={index} type="withBody" logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id}  />
                     </Box>
                   )
                 })
