@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { Heading, Box, Stack, Checkbox,Text} from '@chakra-ui/react'
 
 
-const ConnectionBar: NextPage = () => {
+const ConnectionBar = () => {
 
 
     return (

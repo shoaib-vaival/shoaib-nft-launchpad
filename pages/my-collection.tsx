@@ -51,7 +51,7 @@ const myCollection: NextPage = () => {
             >
             <Flex direction={['column', 'row']}  flexWrap={{base:'nowrap',sm:'wrap',md:'wrap',lg:'wrap',xl:'wrap'}}>
               {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
-              data.map((nftCollection, index)=>{
+              data?.map((nftCollection, index)=>{
                   return (
                      <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial'>
                   <CollectionCard logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-'  />

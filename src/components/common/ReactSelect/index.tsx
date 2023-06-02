@@ -52,7 +52,7 @@ const ReactSelect = ({
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
-            borderColor: state.isFocused ? "#6863F3" : "#6863F3",
+            borderColor: value !== null ? "#6863F3" : "red",
             boxShadow: "none",
             width: "100%",
             borderRadius: "6px",
