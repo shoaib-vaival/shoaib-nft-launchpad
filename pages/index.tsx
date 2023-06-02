@@ -9,8 +9,6 @@ import CollectionCard from '../src/components/Cards/CollectionCard'
 import { Banner } from '../src/components/Banner'
 import {FilterTabs} from '../src/components/FilterTabs'
 
-
-
 const Home: NextPage = () => {
 
   return (
