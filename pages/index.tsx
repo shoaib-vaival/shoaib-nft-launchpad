@@ -8,18 +8,17 @@ import { SlickSlider } from '../src/components/ReactSlick'
 import CollectionCard from '../src/components/Cards/CollectionCard'
 import { Banner } from '../src/components/Banner'
 import {FilterTabs} from '../src/components/FilterTabs'
+import CustomSlider from '../src/components/Slider'
 
 const Home: NextPage = () => {
 
   return (
     <div>
-      <Header />
       <Box bgImage = '/assets/images/bg-lines.png'>
       <Banner/>
       </Box>
       <Container mt='80px'>
-        <Heading>Featured Collections</Heading>
-        <SlickSlider >
+       <CustomSlider name="Featured Collections">
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
@@ -29,11 +28,10 @@ const Home: NextPage = () => {
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
-          </SlickSlider>
+          </CustomSlider>
       </Container>
       <Container mt='80px'>
-        <Heading>Featured Collections</Heading>
-        <SlickSlider >
+        <CustomSlider name="Featured Collections">
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
@@ -43,7 +41,7 @@ const Home: NextPage = () => {
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
-          </SlickSlider>
+        </CustomSlider>
       </Container>
       <Container  mt='80px' >
         <Flex justifyContent = 'space-between' alignItems='center' mb='40px'>
@@ -103,7 +101,7 @@ const Home: NextPage = () => {
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           </SlickSlider>
       </Container>
-      <Footer/>
+      
  </div>
   )
 }
