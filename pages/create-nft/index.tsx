@@ -86,6 +86,7 @@ const CreateCollection = () => {
                   detail={nftDetail?.bannerImg}
                   imgFor='nft'
                   imgUrl={getImgUrl}
+      
                 />
                 {touched['nftImgUrl'] && errors['nftImgUrl'] && (
                   <Text>{errors['nftImgUrl'] as React.ReactNode}</Text>

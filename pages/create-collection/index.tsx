@@ -118,7 +118,7 @@ const CreateCollection = () => {
         {({ errors, touched, values }) => (
           <Form>
             <FormControl>
-              <Stack direction='column' spacing='20px'>
+              <Stack direction='column'>
                 <FileUpload
                   label='Logo Image *'
                   detail={collectionDetail?.logoDetail}
@@ -129,7 +129,7 @@ const CreateCollection = () => {
                   onlyIcon={true}
                 />
                 {touched['logoImageUrl'] && errors['logoImageUrl'] && (
-                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors['logoImageUrl'] as React.ReactNode}</Text>
+                  <Text marginTop={'8px!important'} fontWeight={'700'} color={'red.700'}>{errors['logoImageUrl'] as React.ReactNode}</Text>
                 )}
                 <FileUpload
                   label='Featured Image'
@@ -151,7 +151,7 @@ const CreateCollection = () => {
                   label='Category'
                 />
                 {touched['category'] && errors['category'] && (
-                  <Text marginTop={'8px!important'} fontWeight={'500'} color={'red.700'}>{errors['category'] as React.ReactNode}</Text>
+                  <Text marginTop={'8px!important'} fontWeight={'700'} color={'red.700'}>{errors['category'] as React.ReactNode}</Text>
                 )}
                 <ReactSelect
                   options={filtredTags}

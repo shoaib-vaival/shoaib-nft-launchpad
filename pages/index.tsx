@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <Box bgImage = '/assets/images/bg-lines.png'>
       <Banner/>
       </Box>
-      <Container mt='80px'>
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }} mt='80px'>
         <Heading>Featured Collections</Heading>
         <SlickSlider >
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           </SlickSlider>
       </Container>
-      <Container mt='80px'>
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }}mt='80px'>
         <Heading>Featured Collections</Heading>
         <SlickSlider >
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
@@ -45,14 +45,14 @@ const Home: NextPage = () => {
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           </SlickSlider>
       </Container>
-      <Container  mt='80px' >
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }} mt='80px' >
         <Flex justifyContent = 'space-between' alignItems='center' mb='40px'>
           <Heading>Browse by Categories</Heading>
           <Button variant='primary'>View All</Button>
         </Flex>
       <FilterTabs tabsList = {['All', 'Art', 'Gaming', 'Membership', 'PFPs']} getTabIndex={(index)=>console.log(index)}/>
       </Container>
-      <Container  mt='80px' >
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }} mt='80px' >
         <Flex justifyContent = 'space-between' alignItems='center' mb='40px'>
           <Heading>Trending Collections</Heading>
           <Button variant='primary'>View All</Button>
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           </SlickSlider>
       </Container>
-      <Container  mt='80px' >
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }} mt='80px' >
         <Flex justifyContent = 'space-between' alignItems='center' mb='40px'>
           <Heading>Trending in Art</Heading>
           <Button variant='primary'>View All</Button>
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           </SlickSlider>
       </Container>
-      <Container  mt='80px' >
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }} mt='80px' >
         <Flex justifyContent = 'space-between' alignItems='center' mb='40px'>
           <Heading>Recent Collections</Heading>
           <Button variant='primary'>View All</Button>
