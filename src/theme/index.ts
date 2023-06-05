@@ -8,6 +8,7 @@ import { Form } from './components/form'
 import { Stat } from './components/stat'
 import { Tabs } from './components/tabs'
 import { Container } from './components/container'
+import { Modal } from './components/modal'
 
 
 
@@ -27,7 +28,8 @@ export const theme = extendTheme({
         Form,
         Stat,
         Tabs,
-        Container
+        Container,
+        Modal,
     },
     styles:{
         global:{

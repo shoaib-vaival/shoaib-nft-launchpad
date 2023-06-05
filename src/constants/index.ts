@@ -11,6 +11,10 @@ export const nftDetail = {
     bannerImg: 'This image will appear at the top of your collection page. Avoid including too much text in it , as the dimentions change on different devices. 1320 X 360 recommended.',
     desc: 'Markdown syntax is supported. 0 of 1000 characters used.'
 }
+export const createnft={
+    bannerImg:'File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max size: 100 MB',
+
+}
 
 export const pagePaths = {
     NFT: '/create-nft',

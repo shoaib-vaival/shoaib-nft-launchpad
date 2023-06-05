@@ -12,6 +12,7 @@ import {
   Flex,
   Text,
   Image,
+  IconButton,
 } from '@chakra-ui/react';
 
 const FileUpload = ({
@@ -78,18 +79,22 @@ const FileUpload = ({
 
   return (
     <>
+    <Box color='#756C99'>
+    {label && <FormLabel marginBottom='16px'>{label}</FormLabel>}
+    {detail && <FormHelperText marginBottom='16px'>{detail}</FormHelperText>}
       {preview && showImgPreview ? (
         <>
           {preview.map((upFile: any, index: number) => {
             return (
-              <Image src={upFile.preview} key={index} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
+              <Box position='relative'>
+                <Image src={upFile.preview} key={index} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
+                <IconButton aria-label='close' position='absolute' top='10px' right='10px' bg='#8a8e8e5c' _hover={{bg:'#798c8c5c'}} icon={<i className='icon-close'></i>} />
+              </Box>
             );
           })}
         </>
       ) : 
-      <Box color='#756C99'>
-        {label && <FormLabel marginBottom='16px'>{label}</FormLabel>}
-        {detail && <FormHelperText marginBottom='16px'>{detail}</FormHelperText>}
+      <>
         {
           <Flex {...getRootProps()} bg='red' maxH='300px' justifyContent='center' alignItems='center' h={height?height:'300px'} maxW={width? width:'952px'} border='1px solid rgba(111, 107, 243, 0.4)' background= 'rgba(255, 255, 255, 0.4)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' backdrop-filter= 'blur(30px)' borderRadius= '16px'>
             <input {...getInputProps()} />
@@ -136,8 +141,9 @@ const FileUpload = ({
             </Flex>
           }
           {fileError && <p>{fileError}</p>}
-        </Box>
+        </>
       }
+      </Box>
     </>
   );
 };

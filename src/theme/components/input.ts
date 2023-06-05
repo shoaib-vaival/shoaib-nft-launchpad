@@ -21,9 +21,9 @@ export const Input: ComponentStyleConfig = {
         custom:{
             field:{
                borderWidth:'1px',
-               borderColor:'purple.500',
+               borderColor:'rgba(104, 99, 243, 0.3)',
                _placeholder:{
-                   color:'#756C99'
+                   color:'#393f5980',
                }
             },
              element: {

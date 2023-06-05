@@ -9,7 +9,7 @@ export const Footer = () => {
       <Box bg='#F4F4FE' position='relative'>
         <Box bgImage='url(/assets/images/linesBg.png)' bgSize='Cover' bgRepeat='no-repeat' bgPosition='initial' width='100%' height='100%'>
 
-          <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
+          <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }}>
 
             <Box pt='100px' pb='30px'>
               <Stack flexDirection={{base:'column',lg:'row'}} justifyContent='space-between' flexWrap={{md:'wrap',lg:'nowrap'}}>

@@ -6,19 +6,24 @@ import {
   MenuItem,
   IconButton,
   HStack,
-  Image
+  Image,
+  useDisclosure
 
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import ConnectionModal from '../../Modals/nftProperties/connectionModal'
+
 
 export const Header = () => {
+  const { isOpen:isConnectionModalOpen, onOpen:onConnectionModalOpen, onClose:onConnectionModalClose } = useDisclosure()
+
   const router = useRouter()
 
   return (
     <>
-      <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl' }}>
+      <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }}>
 
         <Box py={30}>
           <Stack direction='row' alignItems={{ base: 'flex-start', sm: 'center', xl: 'center' }} justifyContent={{ base: 'flex-start', xl: 'initial' }} flexWrap='wrap' >
@@ -50,7 +55,8 @@ export const Header = () => {
             </Box>
             <Flex order={{ base: '5', sm: '5', md: '2', lg: '4' }}  marginLeft={{ base: 'auto', md: 'auto !important' }} alignItems='center' justifyContent={{ sm: 'flex-end' }} w={{ base: 'full', md: 'xs', xl: 'initial' }} flexDirection={{ base: 'column', sm: 'row' }}>
               <Menu autoSelect={false}>
-                <MenuButton as={Button}  textTransform='uppercase' fontSize='16px' ml={{ base:'0', md:'30px',lg:'0' }} mr={{base:'0',sm:'25px',md:'0'}} variant='primary' w={{ base: 'full', sm: '50%', md: '75%', xl: 'initial' }} size= 'md'>
+              <ConnectionModal isOpen={isConnectionModalOpen} onOpen={onConnectionModalOpen} onClose={onConnectionModalClose}/>
+                <MenuButton as={Button}  onClick={onConnectionModalOpen} textTransform='uppercase' fontSize='16px' ml={{ base:'0', md:'30px',lg:'0' }} mr={{base:'0',sm:'25px',md:'0'}} variant='primary' w={{ base: 'full', sm: '50%', md: '75%', xl: 'initial' }} size= 'md'>
                   Create
                 </MenuButton>
                 <MenuList>
