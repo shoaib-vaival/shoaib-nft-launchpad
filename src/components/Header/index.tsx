@@ -36,8 +36,8 @@ export const Header = () => {
     disconnectWalletConnect,
     chainId,
   } = useWeb3Context();
-  const { active, account, library, connector, activate, deactivate } =
-    useWeb3React();
+
+  const { active, account } = useWeb3React();
 
   return (
     <>
