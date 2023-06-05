@@ -103,12 +103,12 @@ export const Header = () => {
                 variant="secondary"
                 mx="16px"
                 size="md"
-                onClick={(a) => {
+                onClick={async (a) => {
                   try {
-                    connectWalletConnect();
-                    chainId != "80001" ? getAddChainParameters(80001) : null;
-                  } catch {
-                    console.log("Try connecting again");
+                    await connectWalletConnect();
+                    // chainId != "80001" ? getAddChainParameters(80001) : null;
+                  } catch (error) {
+                    console.log("Try connecting again: ", error);
                   }
                 }}
               >

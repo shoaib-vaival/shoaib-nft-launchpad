@@ -58,7 +58,7 @@ export function getAddChainParameters(
       blockExplorerUrls: chainInformation.blockExplorerUrls,
     };
 
-    if (window.ethereum) {
+    if (window.ethereum && window.ethereum.isMetaMask) {
       try {
         window.ethereum.request(
           {

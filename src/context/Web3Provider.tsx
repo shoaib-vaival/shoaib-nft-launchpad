@@ -37,7 +37,7 @@ export function Web3ContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { useChainId, useAccount } = metaMaskHooks;
+  const { useAccount } = metaMaskHooks;
 
   const {
     useAccounts,
@@ -45,6 +45,7 @@ export function Web3ContextProvider({
     useIsActive,
     useProvider,
     useENSNames,
+    useChainId,
   } = walletConnecthooks;
 
   const walletConnectAccount = useAccounts();
