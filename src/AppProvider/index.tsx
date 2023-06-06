@@ -7,6 +7,10 @@ import { metaMaskHooks, metaMask } from './../connectors/metaMask'
 import { Web3ContextProvider } from '../context/Web3Provider';
 import { theme } from '../theme';
 import { ChakraProvider } from '@chakra-ui/provider';
+import { WalletConnect } from "@web3-react/walletconnect";
+import { walletConnect, walletConnecthooks } from "../connectors/walletConnect";
+
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,19 +19,22 @@ const queryClient = new QueryClient({
     },
   },
 });
-const connectors: [MetaMask , Web3ReactHooks][] = [
+const connectors: [MetaMask | WalletConnect, Web3ReactHooks][] = [
   [metaMask, metaMaskHooks],
-]
+  [walletConnect, walletConnecthooks],
+];
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <GlobalStateContextProvider>
       <ChakraProvider theme={theme}>
-      <Web3ReactProvider connectors = {connectors}>
-        <Web3ContextProvider>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </Web3ContextProvider>
-      </Web3ReactProvider>
+        <Web3ReactProvider connectors={connectors}>
+          <Web3ContextProvider>
+            <QueryClientProvider client={queryClient}>
+              {children}
+            </QueryClientProvider>
+          </Web3ContextProvider>
+        </Web3ReactProvider>
       </ChakraProvider>
     </GlobalStateContextProvider>
   );

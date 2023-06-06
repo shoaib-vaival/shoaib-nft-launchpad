@@ -12,6 +12,7 @@ import {
   Flex,
   Text,
   Image,
+  IconButton,
 } from "@chakra-ui/react";
 
 const FileUpload = ({
@@ -81,8 +82,12 @@ const FileUpload = ({
   
   return (
     <>
+    <Box color='#756C99'>
+    {label && <FormLabel marginBottom='16px'>{label}</FormLabel>}
+    {detail && <FormHelperText marginBottom='16px'>{detail}</FormHelperText>}
       {preview && (showImgPreview || !!editAbleUrl) ? (
         <>
+        <Box position='relative'>
           <Image
             src={preview[0]?.preview || editAbleUrl}
             w="100%"
@@ -90,6 +95,8 @@ const FileUpload = ({
             objectFit="cover"
             borderRadius="16px"
           ></Image>
+          <IconButton aria-label='close' position='absolute' top='10px' right='10px' bg='#8a8e8e5c' _hover={{bg:'#798c8c5c'}} icon={<i className='icon-close'></i>} />
+          </Box>
         </>
       ) : (
         <Box color="#756C99">
@@ -153,6 +160,7 @@ const FileUpload = ({
           {fileError && <p>{fileError}</p>}
         </Box>
       )}
+      </Box>
     </>
   );
 };

@@ -11,6 +11,7 @@
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
+    "@chakra-ui/css-reset": "^2.1.2",
     "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.11.0",
@@ -25,6 +26,7 @@
     "@web3-react/metamask": "^8.2.1",
     "@web3-react/types": "^8.2.0",
     "@web3-react/url": "^8.2.0",
+    "@web3-react/walletconnect": "^8.2.0",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "axios": "^1.4.0",
     "date-fns-tz": "^2.0.0",
