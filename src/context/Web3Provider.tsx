@@ -71,7 +71,7 @@ export const Web3ContextProvider = ({
   }, []);
 
   const connectWalletConnect = async () => {
-    const result = await walletConnect.activate(chainId);
+    const result = await walletConnect.activate(80001);
     setToLocalStorage("isWalletConnected", true);
   };
   const disconnectWalletConnect = () => {
@@ -81,7 +81,7 @@ export const Web3ContextProvider = ({
   };
 
   const connect = async () => {
-    const result = await metaMask.activate(chainId);
+    const result = await metaMask.activate(80001);
     setToLocalStorage("isWalletConnected", true);
   };
   const disconnect = () => {

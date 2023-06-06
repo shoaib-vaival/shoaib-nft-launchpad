@@ -51,7 +51,7 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                   justifyContent="flex start"
                   width={{ base: "100%", md: "250px" }}
                   onClick={async (a) => {
-                    // let check = IsMetaMaskInstalled();
+                    IsMetaMaskInstalled();
                     try {
                       await connect("");
                       chainId != "80001" ? switchChain(80001) : addChain(80001);
