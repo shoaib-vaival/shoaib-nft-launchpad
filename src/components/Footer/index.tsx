@@ -6,7 +6,7 @@ export const Footer = () => {
 
   return (
     <>
-      <Box bg='#F4F4FE' position='relative'>
+      <Box bg='#F4F4FE' position='relative' mt="80px">
         <Box bgImage='url(/assets/images/linesBg.png)' bgSize='Cover' bgRepeat='no-repeat' bgPosition='initial' width='100%' height='100%'>
 
           <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }}>

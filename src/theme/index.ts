@@ -9,6 +9,7 @@ import { Stat } from './components/stat'
 import { Tabs } from './components/tabs'
 import { Container } from './components/container'
 import { Modal } from './components/modal'
+import { Table } from './components/table'
 
 
 
@@ -30,6 +31,7 @@ export const theme = extendTheme({
         Tabs,
         Container,
         Modal,
+        Table
     },
     styles:{
         global:{
@@ -40,7 +42,7 @@ export const theme = extendTheme({
             },
             h1:{
                 fontSize:'56px'
-            }
+            },
         }
     }
 })
