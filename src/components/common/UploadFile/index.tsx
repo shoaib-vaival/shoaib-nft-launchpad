@@ -87,6 +87,7 @@ const FileUpload = ({
     {detail && <FormHelperText marginBottom='16px'>{detail}</FormHelperText>}
       {preview && (showImgPreview || !!editAbleUrl) ? (
         <>
+
         <Box position='relative'>
           <Image
             src={preview[0]?.preview || editAbleUrl}
@@ -97,6 +98,16 @@ const FileUpload = ({
           ></Image>
           <IconButton aria-label='close' position='absolute' top='10px' right='10px' bg='#8a8e8e5c' _hover={{bg:'#798c8c5c'}} icon={<i className='icon-close'></i>} />
           </Box>
+
+          {preview.map((upFile: any, index: number) => {
+            return (
+              <Box position='relative'>
+                <Image src={upFile.preview} key={index} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
+                <IconButton aria-label='close' position='absolute' top='10px' right='10px' color='red' borderRadius='50px' bg='#fbffff69' _hover={{bg:'#798c8c5c'}} icon={<i className='icon-close'></i>} />
+              </Box>
+            );
+          })}
+
         </>
       ) : (
         <Box color="#756C99">
