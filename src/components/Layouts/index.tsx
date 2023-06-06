@@ -2,7 +2,7 @@ import { Footer } from "../Footer";
 import { Header } from "../Header"
 
  
-export default function Layout({ children }:any) {
+export const Layout = ({ children }:any) => {
   return (
     <>
       <Header/>

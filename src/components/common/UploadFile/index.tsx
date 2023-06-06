@@ -101,7 +101,7 @@ const FileUpload = ({
 
           {preview.map((upFile: any, index: number) => {
             return (
-              <Box position='relative'>
+              <Box position='relative' key={index}>
                 <Image src={upFile.preview} key={index} w='100%' h='300px' objectFit='cover' borderRadius='16px'></Image>
                 <IconButton aria-label='close' position='absolute' top='10px' right='10px' color='red' borderRadius='50px' bg='#fbffff69' _hover={{bg:'#798c8c5c'}} icon={<i className='icon-close'></i>} />
               </Box>
