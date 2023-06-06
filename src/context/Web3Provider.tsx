@@ -30,11 +30,11 @@ const Context = createContext({} as Web3Interface);
 
 export const useWeb3Context = () => useContext(Context);
 
-export function Web3ContextProvider({
+export const Web3ContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   const { useAccount } = metaMaskHooks;
 
   const {
@@ -106,4 +106,4 @@ export function Web3ContextProvider({
       {children}
     </Context.Provider>
   );
-}
+};

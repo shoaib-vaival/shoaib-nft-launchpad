@@ -44,9 +44,9 @@ const isExtendedChainInformation = (
 //     return chainId;
 //   }
 // }
-export function getAddChainParameters(
+export const getAddChainParameters = (
   chainId: string
-): AddEthereumChainParameter | number | undefined {
+): AddEthereumChainParameter | number | undefined => {
   const chainInformation = CHAINS[+chainId];
 
   if (isExtendedChainInformation(chainInformation)) {
@@ -104,7 +104,7 @@ export function getAddChainParameters(
   } else {
     return +chainId;
   }
-}
+};
 
 // const getInfuraUrlFor = (network: string) =>
 //   process.env.infuraKey
