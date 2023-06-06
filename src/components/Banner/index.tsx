@@ -4,7 +4,7 @@ import { Container, Flex, Image,VStack, Heading, Text, Button , Box} from '@chak
 
 export const Banner = ()=>{
     return(
-        <Container variant='colorful' position="relative" >
+        <Container variant='colorful' position="relative"  >
             <Box position="absolute" bottom="0px" left="0px" opacity="0.4">
             <Image src = '/assets/images/banner-lines.png'/>
             </Box>
