@@ -1,5 +1,16 @@
+import { ReactNode } from "react";
+import { useWeb3Context } from "../../context/Web3Provider";
+import { useEffect, useState } from "react";
 import {
-  Button, Stack, Box, Container, Input, InputGroup, InputLeftElement, Flex, Avatar,
+  Button,
+  Stack,
+  Box,
+  Container,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Flex,
+  Avatar,
   Menu,
   MenuButton,
   MenuList,
@@ -14,10 +25,22 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import ConnectionModal from '../../Modals/nftProperties/connectionModal'
+import { getAddChainParameters } from "../../connectors/walletChains";
+import { useWeb3React } from "@web3-react/core";
 
 
 export const Header = () => {
   const { isOpen:isConnectionModalOpen, onOpen:onConnectionModalOpen, onClose:onConnectionModalClose } = useDisclosure()
+  const {
+    connect,
+    disconnect,
+    connectWalletConnect,
+    walletConnectAccount,
+    disconnectWalletConnect,
+    chainId,
+  } = useWeb3Context();
+  
+  const { active, account } = useWeb3React();
 
   const router = useRouter()
 
@@ -100,7 +123,7 @@ export const Header = () => {
 
 
         </Box>
-      </Container >
+      </Container>
     </>
   );
-}
+};

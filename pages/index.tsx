@@ -9,8 +9,12 @@ import CollectionCard from '../src/components/Cards/CollectionCard'
 import { Banner } from '../src/components/Banner'
 import {FilterTabs} from '../src/components/FilterTabs'
 
-const Home: NextPage = () => {
+import {
+  ButtonGroup,
 
+} from "@chakra-ui/react";
+
+const Home: NextPage = () => {
   return (
     <div>
       <Header />
@@ -108,4 +112,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;

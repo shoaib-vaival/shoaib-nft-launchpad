@@ -1,23 +1,34 @@
-import { MetaMask } from '@web3-react/metamask'
-import type { Connector } from '@web3-react/types'
+import { MetaMask } from "@web3-react/metamask";
+import type { Connector } from "@web3-react/types";
+import { WalletConnect as WalletConnect } from "@web3-react/walletconnect";
 
-export const getName = (connector: Connector) => {
-  if (connector instanceof MetaMask) return 'MetaMask'
-  return 'Unknown'
+export function getName(connector: Connector) {
+  if (connector instanceof MetaMask) return "MetaMask";
+  if (connector instanceof WalletConnect) return "WalletConnect"; 
+  return "Unknown";
 }
 
-export const setToLocalStorage = (key:string, value:any) => {
-    if(typeof window !== 'undefined' && window.localStorage){
-        localStorage.setItem(key, value)
-    }
+export function setToLocalStorage(key: string, value: any) {
+  if (typeof window !== "undefined" && window.localStorage) {
+    localStorage.setItem(key, value);
+  }
 }
-export const getFromLocalStorage = (key:string) => {
-    if(typeof window !== 'undefined' && window.localStorage){
-      return localStorage.getItem(key);
-    }
+export function getFromLocalStorage(key: string) {
+  if (typeof window !== "undefined" && window.localStorage) {
+    return localStorage.getItem(key);
+  }
 }
 //Supported file types
-const supportedFileTypes = ['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG', 'svg', 'SVG'];
+const supportedFileTypes = [
+  "png",
+  "PNG",
+  "jpg",
+  "JPG",
+  "jpeg",
+  "JPEG",
+  "svg",
+  "SVG",
+];
 
 // Function to handle file selection
 export const validateFile = (file?: File | null) => {
