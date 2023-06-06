@@ -1,6 +1,4 @@
-import { ReactNode } from "react";
 import { useWeb3Context } from "../../context/Web3Provider";
-import { useEffect, useState } from "react";
 import {
   Button,
   Stack,

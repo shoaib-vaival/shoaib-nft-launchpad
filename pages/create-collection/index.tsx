@@ -26,33 +26,34 @@ import {
 import { collectionSchema } from '../../src/schemas';
 import { POST } from '../../src/hooks/consts';
 import { useMutation } from '../../src/hooks/useMutation';
-import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types'
+import { ReactSelectCatMap } from '../../src/components/common/ReactSelect/types';
 import { useRouter } from 'next/router';
+import { collectionByIdTypes, categoriesAndTagsTypes, collectionStateTypes, createCollectionTypes } from '../../src/types/collection';
 
 const CreateCollection = () => {
-  const [collection, setCollection] = useState<any>({});
+  const [collection, setCollection] = useState<collectionStateTypes>();
   const router = useRouter()
 
-  const { data: categories } = useQuery<any>({
+  const { data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl?.GET_CATEGORIES,
     showToast: false,
   });
 
-  const { data: tags } = useQuery<any>({
+  const { data: tags } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_TAGS],
     url: ApiUrl?.GET_TAGS,
     showToast: false,
   });
 
-  const { data: getCollectionById } = useQuery<any>({
+  const { data: getCollectionById, isLoading: getCollectionByIdLoading } = useQuery<collectionByIdTypes>({
     queryKey: [QUERY_KEYS.GET_COLLECTION],
     url: `${ApiUrl?.GET_COLLECTION}/${router?.query?.id}`,
     showToast: false,
     enabled: router?.query?.id ? true: false,
   });
 
-  const { mutate } = useMutation<any>({
+  const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
     url: ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true
@@ -60,9 +61,10 @@ const CreateCollection = () => {
 
   const filtredCat =
     categories &&
-    categories?.map((cat: any) => ({ label: cat?.name, value: cat?._id }));
+    categories?.map((cat:categoriesAndTagsTypes) => ({ label: cat?.name, value: cat?._id }));
+    
   const filtredTags =
-    tags && tags?.map((cat: any) => ({ label: cat?.name, value: cat?._id }));
+    tags && tags?.map((cat: categoriesAndTagsTypes) => ({ label: cat?.name, value: cat?._id }));
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
     if (imgUrlProp?.imgFor === 'logo') {
@@ -88,22 +90,23 @@ const CreateCollection = () => {
       });
     }
   };
-  
+
   const initialValues = {
-    logoImageUrl: collection?.logoImageUrl,
-    bannerImageUrl: collection?.bannerImageUrl,
-    featureImageUrl: collection?.featureImageUrl,
-    name: '',
-    description: '',
-    category: collection?.category,
+    logoImageUrl: collection?.logoImageUrl || '',
+    bannerImageUrl: collection?.bannerImageUrl || '',
+    featureImageUrl: collection?.featureImageUrl || '',
+    name: getCollectionById?.name || '',
+    description: getCollectionById?.description || '',
+    category: getCollectionById?.category || collection?.category,
     tags: collection?.tags,
-    website_url: '',
-    etherscan: '',
-    telegram: '',
-    twitter: '',
-    instagram: '',
-    Discord_id: '',
-    creatorFee: [{ walletAddress: '', percentage: 0 }],
+    website_url: getCollectionById?.website_url || '',
+    etherscan: getCollectionById?.etherscan || '',
+    telegram: getCollectionById?.telegram || '',
+    twitter: getCollectionById?.twitter || '',
+    instagram: getCollectionById?.instagram || '',
+    Discord_id: getCollectionById?.Discord_id || '',
+    creatorFee: getCollectionByIdLoading ? [{ walletAddress: '', percentage: 0 }] : getCollectionById?.creatorFee,
+    collectionId: getCollectionById?._id || undefined
   };
 
   return (
@@ -127,6 +130,7 @@ const CreateCollection = () => {
                   width='220px'
                   height='220px'
                   onlyIcon={true}
+                  editAbleUrl={getCollectionById?.logoImageUrl}
                 />
                 {touched['logoImageUrl'] && errors['logoImageUrl'] && (
                   <Text marginTop={'8px!important'} fontWeight={'700'} color={'red.700'}>{errors['logoImageUrl'] as React.ReactNode}</Text>
@@ -136,12 +140,14 @@ const CreateCollection = () => {
                   detail={collectionDetail?.featuredImg}
                   imgFor='featured'
                   imgUrl={getImgUrl}
+                  editAbleUrl={getCollectionById?.featureImageUrl}
                 />
                 <FileUpload
                   label='Banner Image'
                   detail={collectionDetail?.bannerImg}
                   imgFor='banner'
                   imgUrl={getImgUrl}
+                  editAbleUrl={getCollectionById?.bannerImageUrl}
                 />
                 <ReactSelect
                   options={filtredCat}
@@ -283,7 +289,7 @@ const CreateCollection = () => {
               <FieldArray name='creatorFee'>
                 {({ push, remove }) => (
                   <>
-                    {values.creatorFee.map((field: any, index: number) => (
+                    {values && values?.creatorFee?.map((field: any, index: number) => (
                       <div key={index}>
                         <Flex gap={'6'} alignItems={{base:'baseline',sm:'center',xl:'center'}} flexDirection={{base:'column',sm:'row',xl:'row'}} w={'100%'}>
 
@@ -323,7 +329,7 @@ const CreateCollection = () => {
                         </Flex>
                       </div>
                     ))}
-                    {values?.creatorFee?.length < 5 && <button
+                    {values?.creatorFee && values?.creatorFee?.length < 5 && <button
                       type='button'
                       onClick={() => push({ walletAddress: '', percentage: 0 })}
                     >

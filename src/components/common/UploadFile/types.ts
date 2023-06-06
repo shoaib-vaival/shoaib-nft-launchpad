@@ -13,4 +13,5 @@ export type FileType = {
   width?:string;
   height?:string
   onlyIcon?:boolean
+  editAbleUrl? : string;
 };

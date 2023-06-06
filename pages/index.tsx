@@ -1,32 +1,7 @@
 import type { NextPage } from "next";
 import { Header } from "../src/components/Header";
-
 import { Footer } from "../src/components/Footer";
-
-import {
-  Container,
-  Stat,
-  StatLabel,
-  StatHelpText,
-  StatNumber,
-  Card,
-  CardBody,
-  Image,
-  Stack,
-  Heading,
-  Text,
-  Divider,
-  CardFooter,
-  Flex,
-  Button,
-  SimpleGrid,
-  Box,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Container, Heading, Flex, Button, Box } from "@chakra-ui/react";
 import { SlickSlider } from "../src/components/ReactSlick";
 import CollectionCard from "../src/components/Cards/CollectionCard";
 import { Banner } from "../src/components/Banner";
