@@ -53,7 +53,7 @@ const CollectionCard = ({
     return (
       <div>
         <Container py='12px' key={key}>
-          <Card maxW='sm' justifyContent='center' overflow='hidden'>
+          <Card maxW={{base:'100%',md:'sm'}} justifyContent='center' overflow='hidden'p={{base:'0!important',md:'12px'}}>
             <CardBody
               display='flex'
               flexDirection='column'
