@@ -12,7 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { useWeb3React } from "@web3-react/core";
 import { useWeb3Context } from "../../context/Web3Provider";
-import { getAddChainParameters } from "../../connectors/walletChains";
+import {
+  switchChain,
+  addChain,
+  IsMetaMaskInstalled,
+} from "../../connectors/walletChains";
 
 const ConnectionModal = ({ isOpen, onClose }: any) => {
   const {
@@ -47,11 +51,10 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                   justifyContent="flex start"
                   width={{ base: "100%", md: "250px" }}
                   onClick={async (a) => {
+                    // let check = IsMetaMaskInstalled();
                     try {
                       await connect("");
-                      chainId != "80001"
-                        ? getAddChainParameters("80001")
-                        : null;
+                      chainId != "80001" ? switchChain(80001) : addChain(80001);
                       onClose();
                     } catch {
                       console.log("Try connecting again");

@@ -22,7 +22,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
-import { getAddChainParameters } from "../../connectors/walletChains";
+// import { getAddChainParameters } from "../../connectors/walletChains";
 import { useWeb3React } from "@web3-react/core";
 
 export const Header = () => {

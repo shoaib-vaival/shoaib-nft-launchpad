@@ -45,10 +45,10 @@ export const Web3ContextProvider = ({
     useENSNames,
     useChainId,
   } = walletConnecthooks;
-  const { account, provider } = useWeb3React();
+  const { account, provider, chainId } = useWeb3React();
 
   const walletConnectAccount = useAccounts();
-  const chainId = useChainId();
+
   // const account = useAccount();
 
   const isWalletConnected = getFromLocalStorage("isWalletConnected");
