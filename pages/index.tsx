@@ -18,8 +18,9 @@ const Home: NextPage = () => {
       <Banner/>
       </Box>
       </Container>
-      <Container maxW={{sm:'2xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{base:'40px',lg:'80px'}}>
-        <CustomSlider name="Featured Collections">
+
+     <Container maxW={{sm:'2xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{base:'40px',lg:'80px'}}>
+       <CustomSlider name="Featured Collections">
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
@@ -32,8 +33,9 @@ const Home: NextPage = () => {
           </CustomSlider>
       </Container>
 
-      <Container maxW={{sm:'2xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{base:'40px',lg:'80px'}}>
-      <CustomSlider name="Featured Collections">
+       <Container maxW={{sm:'2xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{base:'40px',lg:'80px'}}>
+        <CustomSlider name="Featured Collections">
+
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>
           <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage = {true} isShowLogoImage={false} name='Peppy Road'/>

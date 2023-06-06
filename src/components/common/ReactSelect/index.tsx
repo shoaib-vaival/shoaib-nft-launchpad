@@ -24,6 +24,7 @@ const ReactSelect = ({
   getSelectedData,
   identifier,
   label,
+  placeholder
 }: ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(null);
 
@@ -49,6 +50,7 @@ const ReactSelect = ({
         onChange={(newValue) => handleChangeCategory(newValue)}
         options={options}
         value={value}
+        placeholder={placeholder}
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
