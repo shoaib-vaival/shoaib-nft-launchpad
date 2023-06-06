@@ -105,7 +105,7 @@ export const addChain = (
 
   if (isExtendedChainInformation(chainInformation)) {
     const addChainParameters: AddEthereumChainParameter = {
-      chainId: Web3.utils.toHex(chainId),
+      chainId: Number(Web3.utils.toHex(chainId)),
       chainName: chainInformation.name,
       nativeCurrency: chainInformation.nativeCurrency,
       rpcUrls: chainInformation.urls,

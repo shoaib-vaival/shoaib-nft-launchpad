@@ -84,7 +84,7 @@ const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any)
 
                                       {index > 0 && (
                                         <>
-                                          <IconButton aria-label='close' mt='35px' ml={'10px'} type='button' borderColor={'red'} onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                          <IconButton aria-label='close' bg='#6863F34D' mt='35px' ml={'10px'} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
                                         </>
 
                                       )}
@@ -96,9 +96,10 @@ const NftPropertiesModal = ({ isOpen, onClose, properties, setProperties }: any)
                           )}
                           {values?.properties?.length < 12 && (
 
-                            <Button type='button' textDecoration='none' variant='link'
+                            <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
                               onClick={() => push({ type: '', name: '' })} >
                               +Add Property</Button>
+                              
                           )}
                         </>
                       )}

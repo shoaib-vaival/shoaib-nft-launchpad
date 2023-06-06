@@ -12,7 +12,7 @@ export const SlickSlider = ({children}:any)=>{
         // <>
         // {children}
         // </>
-        <Box position='relative' marginTop='2rem'>
+        <Box position='relative' marginTop='24px'>
             <Box position='absolute' height='100%' width='100%'>
                 <PrevArrow prev={()=>carousalRef.slickPrev()}/>
                 <NextArrow next={()=>carousalRef.slickNext()}/>

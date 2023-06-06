@@ -17,7 +17,6 @@ const myCollection: NextPage = (props) => {
   console.log("data", data, error);
   return (
     <div>
-      <Header />
       <Box>
         <Container maxW={{ sm: "4xl", lg: "6xl", xl: "8xl" }}>
           <Box pt="30px" pb="40px">
@@ -64,20 +63,23 @@ const myCollection: NextPage = (props) => {
         >
           <Box>
             <InfiniteScroll
-              dataLength={data ? data.length : 0}
-              next={() => fetchNextPage()}
-              hasMore={!!hasNextPage}
-              loader={
-                <Flex
-                  width="100%"
-                  height="100%"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Loader />
-                </Flex>
-              }
+             dataLength={data ? data.length : 0}
+             next={() => fetchNextPage()}
+             hasMore={!!hasNextPage}
+             loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>}
             >
+            <Flex direction={['column', 'row']}  flexWrap={{base:'nowrap',sm:'wrap',md:'wrap',lg:'wrap',xl:'wrap'}}>
+              {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
+              data?.map((nftCollection:any, index: number)=>{
+                  return (
+                     <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial' key={index}>
+                       <CollectionCard key={index} type="withBody" logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id}  />
+                    </Box>
+                  )
+                })
+              }
+              <Loader />
+                </Flex>
               <Flex
                 direction={["column", "row"]}
                 flexWrap={{

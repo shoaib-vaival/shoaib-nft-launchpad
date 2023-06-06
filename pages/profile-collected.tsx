@@ -16,7 +16,6 @@ const myCollection: NextPage = () => {
 
   return (
     <div>
-      <Header />
       <Box>
         <Container maxW={{ sm: '4xl', lg: '6xl', xl: '8xl'}}>
           <Box pt='30px' pb='40px'>
