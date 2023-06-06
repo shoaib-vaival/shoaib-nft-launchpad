@@ -19,6 +19,7 @@ import {
   FormControl,
   Heading,
   Icon,
+  IconButton,
   Spacer,
   Stack,
   Text,
@@ -317,24 +318,24 @@ const CreateCollection = () => {
                             />
                           </Box>
 
-                          {index > 0 && <button type='button' onClick={() => remove(index)}>
-                            <i className='icon-remove'></i>
-                          </button>}
+                          {index > 0 && (
+                            <IconButton aria-label='close' bg='#6863F34D' mt='35px' ml={'10px'} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                          )
+                          }
                         </Flex>
                       </div>
                     ))}
-                    {values?.creatorFee?.length < 5 && <button
-                      type='button'
-                      onClick={() => push({ walletAddress: '', percentage: 0 })}
-                    >
-                      +Add Address
-                    </button>}
+                    {values?.creatorFee?.length < 5 && (
+                        <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
+                        onClick={() => push({ walletAddress: '', percentage: 0 })} >
+                        +Add Address</Button>
+                    )}
                   </>
                 )}
               </FieldArray>
 
             </FormControl>
-            <Button type='submit' ml='3'>
+            <Button type='submit' variant='primary'>
               Submit
             </Button>
           </Form>
