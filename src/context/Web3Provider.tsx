@@ -20,17 +20,15 @@ interface Web3Interface {
   account: string | null;
   chainId: string | number | null;
   walletConnectAccount: string | string[] | null;
-  connect: React.Dispatch<React.SetStateAction<string | null>>;
-  disconnect: React.Dispatch<React.SetStateAction<string | null>>;
+  connect: React.Dispatch<React.SetStateAction<string | null | undefined>>;
+  disconnect: React.Dispatch<React.SetStateAction<string | null | undefined>>;
   connectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
   disconnectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const Context = createContext({} as Web3Interface);
 
-export function useWeb3Context() {
-  return useContext(Context);
-}
+export const useWeb3Context = () => useContext(Context);
 
 export function Web3ContextProvider({
   children,
@@ -47,29 +45,39 @@ export function Web3ContextProvider({
     useENSNames,
     useChainId,
   } = walletConnecthooks;
+  const { account, provider } = useWeb3React();
 
   const walletConnectAccount = useAccounts();
   const chainId = useChainId();
-  const account = useAccount();
+  // const account = useAccount();
 
   const isWalletConnected = getFromLocalStorage("isWalletConnected");
 
   useEffect(() => {
-    console.log(isWalletConnected);
     if (isWalletConnected === "true") {
-      metaMask.connectEagerly();
-      console.log(chainId, "chainId", isWalletConnected);
+      try {
+        metaMask.connectEagerly();
+        console.log(chainId, "chainId", isWalletConnected);
+      } catch (error) {
+        walletConnect.connectEagerly();
+      }
     }
+
+    // if (provider?.connection.url == "metamask") {
+    //   metaMask.activate();
+    // } else {
+    //   walletConnect.activate();
+    // }
   }, []);
 
   const connectWalletConnect = async () => {
     const result = await walletConnect.activate(chainId);
-
     setToLocalStorage("isWalletConnected", true);
   };
   const disconnectWalletConnect = () => {
-    walletConnect?.resetState();
+    walletConnect?.deactivate();
     setToLocalStorage("isWalletConnected", false);
+    localStorage.removeItem("walletconnect");
   };
 
   const connect = async () => {

@@ -17,11 +17,11 @@ interface ExtendedChainInformation extends BasicChainInformation {
   blockExplorerUrls: AddEthereumChainParameter["blockExplorerUrls"];
 }
 
-function isExtendedChainInformation(
+const isExtendedChainInformation = (
   chainInformation: BasicChainInformation | ExtendedChainInformation
-): chainInformation is ExtendedChainInformation {
+): chainInformation is ExtendedChainInformation => {
   return !!(chainInformation as ExtendedChainInformation).nativeCurrency;
-}
+};
 
 // export function getAddChainParameters(
 //   chainId: number
@@ -45,13 +45,13 @@ function isExtendedChainInformation(
 //   }
 // }
 export function getAddChainParameters(
-  chainId: number
+  chainId: string
 ): AddEthereumChainParameter | number | undefined {
-  const chainInformation = CHAINS[chainId];
+  const chainInformation = CHAINS[+chainId];
 
   if (isExtendedChainInformation(chainInformation)) {
     const addChainParameters: AddEthereumChainParameter = {
-      chainId: Web3.utils.toHex(chainId),
+      chainId: +Web3.utils.toHex(chainId),
       chainName: chainInformation.name,
       nativeCurrency: chainInformation.nativeCurrency,
       rpcUrls: chainInformation.urls,
@@ -72,20 +72,22 @@ export function getAddChainParameters(
           (switchError: any) => {
             if (switchError && switchError.code === 4902) {
               try {
-                window.ethereum.request(
-                  {
-                    method: "wallet_addEthereumChain",
-                    params: [addChainParameters],
-                  },
-                  (addError: any, _response: any) => {
-                    if (addError) {
-                      console.error(
-                        "Error adding chain to MetaMask:",
-                        addError
-                      );
+                typeof window !== "undefined" &&
+                  window.ethereum &&
+                  window.ethereum.request(
+                    {
+                      method: "wallet_addEthereumChain",
+                      params: [addChainParameters],
+                    },
+                    (addError: any, _response: any) => {
+                      if (addError) {
+                        console.error(
+                          "Error adding chain to MetaMask:",
+                          addError
+                        );
+                      }
                     }
-                  }
-                );
+                  );
               } catch (addError) {
                 console.error("Error adding chain to MetaMask:", addError);
               }
@@ -100,7 +102,7 @@ export function getAddChainParameters(
     }
     return addChainParameters;
   } else {
-    return chainId;
+    return +chainId;
   }
 }
 
