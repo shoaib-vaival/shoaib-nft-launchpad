@@ -23,27 +23,6 @@ const isExtendedChainInformation = (
   return !!(chainInformation as ExtendedChainInformation).nativeCurrency;
 };
 
-// export function getAddChainParameters(
-//   chainId: number
-// ): AddEthereumChainParameter | number {
-//   const chainInformation = CHAINS[chainId];
-//   console.log(
-//     "🚀 ~ file: walletChains.ts:29 ~ chainInformation:",
-//     chainInformation
-//   );
-
-//   if (isExtendedChainInformation(chainInformation)) {
-//     return {
-//       chainId,
-//       chainName: chainInformation.name,
-//       nativeCurrency: chainInformation.nativeCurrency,
-//       rpcUrls: chainInformation.urls,
-//       blockExplorerUrls: chainInformation.blockExplorerUrls,
-//     };
-//   } else {
-//     return chainId;
-//   }
-// }
 export const getAddChainParameters = (
   chainId: string
 ): AddEthereumChainParameter | number | undefined => {
