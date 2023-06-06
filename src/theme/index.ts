@@ -8,6 +8,7 @@ import { Form } from './components/form'
 import { Stat } from './components/stat'
 import { Tabs } from './components/tabs'
 import { Container } from './components/container'
+import { Table } from './components/table'
 
 
 
@@ -27,7 +28,8 @@ export const theme = extendTheme({
         Form,
         Stat,
         Tabs,
-        Container
+        Container,
+        Table
     },
     styles:{
         global:{
@@ -38,7 +40,7 @@ export const theme = extendTheme({
             },
             h1:{
                 fontSize:'56px'
-            }
+            },
         }
     }
 })
