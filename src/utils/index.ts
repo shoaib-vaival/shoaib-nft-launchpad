@@ -2,18 +2,18 @@ import { MetaMask } from "@web3-react/metamask";
 import type { Connector } from "@web3-react/types";
 import { WalletConnect as WalletConnect } from "@web3-react/walletconnect";
 
-export function getName(connector: Connector) {
+export const getName = (connector: Connector) => {
   if (connector instanceof MetaMask) return "MetaMask";
   if (connector instanceof WalletConnect) return "WalletConnect"; 
   return "Unknown";
 }
 
-export function setToLocalStorage(key: string, value: any) {
+export const setToLocalStorage = (key: string, value: any) => {
   if (typeof window !== "undefined" && window.localStorage) {
     localStorage.setItem(key, value);
   }
 }
-export function getFromLocalStorage(key: string) {
+export const getFromLocalStorage = (key: string) => {
   if (typeof window !== "undefined" && window.localStorage) {
     return localStorage.getItem(key);
   }

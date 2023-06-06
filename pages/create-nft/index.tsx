@@ -137,12 +137,12 @@ const CreateNFT = () => {
                       <StatNumber>{items?.name}</StatNumber>
                     </Stat>
                       </>))}
-                      <Button onClick={onOpen} mt='5'>+Create Properties</Button>
+                      <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' variant='link' onClick={onOpen} mt='5'>+Create Properties</Button>
                     </Flex>
                   </Box>
                 </Stack>
               </FormControl>
-              <Button type='submit' ml='3' variant='primary'>
+              <Button type='submit' variant='primary'>
                 Submit
               </Button>
             </Form>
