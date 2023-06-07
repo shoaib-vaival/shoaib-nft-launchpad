@@ -52,8 +52,8 @@ const CollectionCard = ({
   if (type === 'withBody') {
     return (
       <div>
-        <Container py='12px' key={key}>
-          <Card maxW={{base:'100%',md:'sm'}} justifyContent='center' overflow='hidden'p={{base:'0!important',md:'12px'}}>
+        <Container py='12px' px={{base:'0',sm:'12px'}} key={key}>
+          <Card maxW={{base:'100%',md:'sm'}} justifyContent='center' overflow='hidden'p={{base:'0!important',sm:'12px'}}>
             <CardBody
               display='flex'
               flexDirection='column'
@@ -91,7 +91,7 @@ const CollectionCard = ({
                 </Box>
                   <Button onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>Edit collection</Button>
               </Box>
-              <Stack pt='16px' spacing='3' px='24px' pb='24px'>
+              <Stack pt='16px' spacing='3'  px={{base:'24px',sm:'16px',lg:'24px'}} pb='24px'>
                 <Heading size='20px' fontWeight='700' color='#0D0D0D'>
                   {name}
                 </Heading>
@@ -127,8 +127,8 @@ const CollectionCard = ({
   }
   if (type === 'withoutBody') {
     return (
-      <Container py='12px'>
-        <Card maxW='sm' justifyContent='center' overflow='hidden'>
+      <Container py='12px' px={{base:'0',sm:'12px'}}>
+        <Card maxW='sm' justifyContent='center' overflow='hidden' p={{base:'0!important',sm:'12px'}}>
           <CardBody
             display='flex'
             flexDirection='column'
@@ -143,7 +143,7 @@ const CollectionCard = ({
                   w='100%'
                 />
               )}
-              <Box position='absolute' bottom='32px' px='32px' w='100%'>
+              <Box position='absolute' bottom='32px' px={{base:'16px',md:'32px'}} w='100%'>
                 <Heading size='20px' fontWeight='700' color='white'>
                   {name}
                 </Heading>

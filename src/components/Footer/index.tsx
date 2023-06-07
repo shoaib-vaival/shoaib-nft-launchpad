@@ -6,12 +6,12 @@ export const Footer = () => {
 
   return (
     <>
-      <Box bg='#F4F4FE' position='relative' mt="80px">
+      <Box bg='#F4F4FE' position='relative' mt={{ base: '40px', lg: '80px' }}>
         <Box bgImage='url(/assets/images/linesBg.png)' bgSize='Cover' bgRepeat='no-repeat' bgPosition='initial' width='100%' height='100%'>
 
-          <Container maxW={{ md: '2xl', lg: '5xl', xl: '8xl' }}>
+          <Container maxW={{ sm: 'xl', md: '3xl', lg: '4xl', xl: '7xl' }}>
 
-            <Box pt='100px' pb='30px'>
+            <Box pt={{ base: '40px', lg: '80px', xl:'100px' }}  pb='30px'>
               <Stack flexDirection={{base:'column',lg:'row'}} justifyContent='space-between' flexWrap={{md:'wrap',lg:'nowrap'}}>
                 <Box pb='8px' maxW='390px'>
                   <Image src='/assets/images/Logo.png' alt='logo' maxW='138' maxH='45px' />
