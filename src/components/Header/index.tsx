@@ -67,9 +67,9 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{sm:'2xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
+      <Container maxW={{sm:'xl', md: '3xl', lg: '4xl', xl: '7xl' }}>
 
-        <Box py={30}>
+        <Box py='30px' px={{base:'0',sm:'17px'}}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -92,13 +92,13 @@ export const Header = () => {
               order={{ base: "4", sm: "4", md: "5", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
-              pr={{ base: "0", lg: "20px" }}
+              pr={{ base: "0", lg: "10px" }}
               pt={{ base: "20px", lg: "0" }}
             >
               <InputGroup
                 variant="custom"
                 colorScheme="purple"
-                w={{ base: "full", md: "full", lg: "200px", xl: "md" }}
+                w={{ base: "full", md: "full", lg: "200px", xl: "xs" }}
                 marginBottom={{ base: "3", md: "initial", xl: "initial" }}
               >
                 <Input placeholder="Search..." />
