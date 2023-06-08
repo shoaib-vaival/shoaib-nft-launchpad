@@ -32,6 +32,7 @@ type collectionCard = {
   isShowSubHeading?: boolean;
   key?: number;
   nftCollectionId?: number;
+  isEditable?:boolean;
 };
 
 
@@ -46,7 +47,8 @@ const CollectionCard = ({
   isShowLogoImage,
   isShowBody,
   key,
-  nftCollectionId
+  nftCollectionId,
+  isEditable
 }: collectionCard) => {
   const router = useRouter()
   if (type === 'withBody') {
@@ -89,7 +91,7 @@ const CollectionCard = ({
                     />
                   )}
                 </Box>
-                  <Button onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>Edit collection</Button>
+                 {isEditable && <Button onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>Edit collection</Button>}
               </Box>
               <Stack pt='16px' spacing='3'  px={{base:'24px',sm:'16px',lg:'24px'}} pb='24px'>
                 <Heading size='20px' fontWeight='700' color='#0D0D0D'>

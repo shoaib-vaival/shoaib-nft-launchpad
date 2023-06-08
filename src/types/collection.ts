@@ -14,7 +14,7 @@ export type collectionByIdTypes = {
     twitter: string;
     instagram: string;
     Discord_id: string;
-    _id: string;
+    id: string;
     logoImageUrl: string;
     featureImageUrl: string;
     bannerImageUrl: string;
@@ -24,7 +24,7 @@ export type collectionByIdTypes = {
   export type categoriesAndTagsTypes = {
     map(arg0: (cat: categoriesAndTagsTypes) => { label: string; value: string; }): unknown;
     name: string;
-    _id:string
+    id:string
 }
 
 export type imgUrlPropType = {
@@ -45,7 +45,7 @@ export type createCollectionTypes = {
     name: string; 
     description: string; 
     category: string | undefined; 
-    tags: any; 
+    tag: any; 
     website_url: string; 
     etherscan: string
   };

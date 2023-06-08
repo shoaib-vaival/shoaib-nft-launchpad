@@ -62,10 +62,10 @@ const CreateCollection = () => {
 
   const filtredCat =
     categories &&
-    categories?.map((cat:categoriesAndTagsTypes) => ({ label: cat?.name, value: cat?._id }));
+    categories?.map((cat:categoriesAndTagsTypes) => ({ label: cat?.name, value: cat?.id }));
     
   const filtredTags =
-    tags && tags?.map((cat: categoriesAndTagsTypes) => ({ label: cat?.name, value: cat?._id }));
+    tags && tags?.map((cat: categoriesAndTagsTypes) => ({ label: cat?.name, value: cat?.id }));
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
     if (imgUrlProp?.imgFor === 'logo') {
@@ -99,7 +99,7 @@ const CreateCollection = () => {
     name: getCollectionById?.name || '',
     description: getCollectionById?.description || '',
     category: getCollectionById?.category || collection?.category,
-    tags: collection?.tags,
+    tag: collection?.tags,
     website_url: getCollectionById?.website_url || '',
     etherscan: getCollectionById?.etherscan || '',
     telegram: getCollectionById?.telegram || '',
@@ -107,7 +107,7 @@ const CreateCollection = () => {
     instagram: getCollectionById?.instagram || '',
     Discord_id: getCollectionById?.Discord_id || '',
     creatorFee: getCollectionByIdLoading ? [{ walletAddress: '', percentage: 0 }] : getCollectionById?.creatorFee,
-    collectionId: getCollectionById?._id || undefined
+    collectionId: getCollectionById?.id || undefined
   };
 
   return (
