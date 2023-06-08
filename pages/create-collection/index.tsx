@@ -94,14 +94,14 @@ const CreateCollection = () => {
     categories &&
     categories?.map((cat: categoriesAndTagsTypes) => ({
       label: cat?.name,
-      value: cat?._id,
+      value: cat?.id,
     }));
 
   const filtredTags =
     tags &&
     tags?.map((cat: categoriesAndTagsTypes) => ({
       label: cat?.name,
-      value: cat?._id,
+      value: cat?.id,
     }));
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
@@ -139,7 +139,7 @@ const CreateCollection = () => {
     name: getCollectionById?.name || "",
     description: getCollectionById?.description || "",
     category: getCollectionById?.category || collection?.category,
-    tags: collection?.tags,
+    tag: collection?.tags,
     website_url: getCollectionById?.website_url || "",
     etherscan: getCollectionById?.etherscan || "",
     telegram: getCollectionById?.telegram || "",
@@ -149,23 +149,15 @@ const CreateCollection = () => {
     creatorFee: getCollectionByIdLoading
       ? [{ walletAddress: "", percentage: 0 }]
       : getCollectionById?.creatorFee,
-    collectionId: getCollectionById?._id || undefined,
+    collectionId: getCollectionById?.id || undefined,
   };
 
   return (
     <Container
-      maxW={{ sm: "2xl", md: "3xl", lg: "4xl", xl: "952px" }}
+      maxW={{ sm: "2xl", md: "3xl", lg: "5xl", xl: "952px" }}
       p={{ sm: "30px", md: "30px", lg: "0", xl: "0" }}
     >
       <Heading as="h1">Create Collection</Heading>
-      <button
-        onClick={(a) => {
-          deployy("FAT", "f");
-        }}
-      >
-        {" "}
-        DEEEPLOIII
-      </button>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}

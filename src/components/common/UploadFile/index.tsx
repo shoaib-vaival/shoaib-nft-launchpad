@@ -41,7 +41,7 @@ const FileUpload = ({
       setShowImgPreview(true);
       imgUrl({
         imgFor,
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.url}`,
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.path}`,
       });
     },
   });
@@ -116,11 +116,11 @@ const FileUpload = ({
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
-        {preview && (showImgPreview || !!editAbleUrl) ? (
+        {preview && showImgPreview ? (
           <>
             <Box position="relative">
               <Image
-                src={preview[0]?.path || editAbleUrl}
+                src={preview[0]?.preview}
                 w="100%"
                 h="300px"
                 objectFit="cover"
@@ -136,40 +136,9 @@ const FileUpload = ({
                 icon={<i className="icon-close"></i>}
               />
             </Box>
-
-            {preview.map((upFile: any, index: number) => {
-              return (
-                <Box position="relative" key={index}>
-                  <Image
-                    src={upFile.preview}
-                    key={index}
-                    w="100%"
-                    h="300px"
-                    objectFit="cover"
-                    borderRadius="16px"
-                  ></Image>
-
-                  <IconButton
-                    aria-label="close"
-                    position="absolute"
-                    top="10px"
-                    right="10px"
-                    color="red"
-                    borderRadius="50px"
-                    bg="#fbffff69"
-                    _hover={{ bg: "#798c8c5c" }}
-                    icon={<i className="icon-close"></i>}
-                  />
-                </Box>
-              );
-            })}
           </>
         ) : (
           <Box color="#756C99">
-            {label && <FormLabel marginBottom="16px">{label}</FormLabel>}
-            {detail && (
-              <FormHelperText marginBottom="16px">{detail}</FormHelperText>
-            )}
             {
               <Flex
                 {...getRootProps()}
@@ -186,16 +155,6 @@ const FileUpload = ({
                 borderRadius="16px"
               >
                 <input {...getInputProps()} />
-
-                {preview && (showImgPreview || !!editAbleUrl) && (
-                  <Image
-                    src={preview[0]?.preview || editAbleUrl}
-                    w="100%"
-                    h="100%"
-                    objectFit="cover"
-                    borderRadius="16px"
-                  ></Image>
-                )}
 
                 {isDragActive ? (
                   <p>Drop Image Here</p>

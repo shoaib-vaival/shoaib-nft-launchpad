@@ -5,7 +5,7 @@ import { Container, Flex, Image,VStack, Heading, Text, Button , Box} from '@chak
 export const Banner = ()=>{
     return(
         <Container variant='colorful' position='relative' padding={{base:'25px',md:'25px 54px'}}>
-            <Box position='absolute' bottom='0px' left='0px' opacity='0.4'>
+            <Box position='absolute' bottom='0px' left='0px' opacity='0.4' >
             <Image src = '/assets/images/banner-lines.png'/>
             </Box>
             <Flex justifyContent='space-between' flexWrap='wrap'>

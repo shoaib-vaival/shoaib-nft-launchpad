@@ -9,12 +9,28 @@ export const Table:ComponentStyleConfig = {
                 fontStyle:'normal',
                 fontWeight:'500',
                 paddingBottom:'16px',
-                borderBottom:'1px solid rgba(53, 53, 53, 0.2)'
+                borderBottom:'1px solid',
+                borderColor:'rgba(53, 53, 53, 0.2)'
             },
             td:{
                 border:'none',
                 fontSize:'16px',
                 color:'rgba(57, 63, 89, 1)'
+            }
+        },
+        bordered:{
+            th:{
+                py:'12px',
+                px:'24px',
+                borderBottom:'1px solid',
+                borderColor:'rgba(53, 53, 53, 0.2)',
+                color:'#756C99'
+                
+            },
+            td:{
+                py:'16px',
+                borderBottom:'1px solid',
+                borderColor:'rgba(53, 53, 53, 0.2)',
             }
         }
     }

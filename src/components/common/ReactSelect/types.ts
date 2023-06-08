@@ -9,6 +9,7 @@ export type ReactSelectPropsTypes = {
     getSelectedData: any;
     identifier: string;
     label?: string;
+    placeholder?:string
    }
 
    export type ReactSelectCatMap = {
