@@ -19,4 +19,6 @@
 .icon-remove:before { content: '\e811'; } /* '' */
 .icon-medium:before { content: '\e812'; } /* '' */
 .icon-reddit:before { content: '\e813'; } /* '' */
+.icon-document-eye:before { content: '\e815'; } /* '' */
+.icon-hash:before { content: '\e816'; } /* '' */
 .icon-menu:before { content: '\e818'; } /* '' */

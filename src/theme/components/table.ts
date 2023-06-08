@@ -17,6 +17,21 @@ export const Table:ComponentStyleConfig = {
                 fontSize:'16px',
                 color:'rgba(57, 63, 89, 1)'
             }
+        },
+        bordered:{
+            th:{
+                py:'12px',
+                px:'24px',
+                borderBottom:'1px solid',
+                borderColor:'rgba(53, 53, 53, 0.2)',
+                color:'#756C99'
+                
+            },
+            td:{
+                py:'16px',
+                borderBottom:'1px solid',
+                borderColor:'rgba(53, 53, 53, 0.2)',
+            }
         }
     }
 

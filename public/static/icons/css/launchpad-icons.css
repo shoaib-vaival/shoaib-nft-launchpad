@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'launchpad-icons';
-  src: url('../font/launchpad-icons.eot?99329509');
-  src: url('../font/launchpad-icons.eot?99329509#iefix') format('embedded-opentype'),
-       url('../font/launchpad-icons.woff2?99329509') format('woff2'),
-       url('../font/launchpad-icons.woff?99329509') format('woff'),
-       url('../font/launchpad-icons.ttf?99329509') format('truetype'),
-       url('../font/launchpad-icons.svg?99329509#launchpad-icons') format('svg');
+  src: url('../font/launchpad-icons.eot?7142291');
+  src: url('../font/launchpad-icons.eot?7142291#iefix') format('embedded-opentype'),
+       url('../font/launchpad-icons.woff2?7142291') format('woff2'),
+       url('../font/launchpad-icons.woff?7142291') format('woff'),
+       url('../font/launchpad-icons.ttf?7142291') format('truetype'),
+       url('../font/launchpad-icons.svg?7142291#launchpad-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'launchpad-icons';
-    src: url('../font/launchpad-icons.svg?99329509#launchpad-icons') format('svg');
+    src: url('../font/launchpad-icons.svg?7142291#launchpad-icons') format('svg');
   }
 }
 */
@@ -74,4 +74,6 @@
 .icon-remove:before { content: '\e811'; } /* '' */
 .icon-medium:before { content: '\e812'; } /* '' */
 .icon-reddit:before { content: '\e813'; } /* '' */
+.icon-document-eye:before { content: '\e815'; } /* '' */
+.icon-hash:before { content: '\e816'; } /* '' */
 .icon-menu:before { content: '\e818'; } /* '' */
