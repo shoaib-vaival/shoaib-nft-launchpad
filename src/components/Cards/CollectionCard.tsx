@@ -74,6 +74,9 @@ const CollectionCard = ({
                   bottom='-16px'
                   left='24px'
                   border='1px solid #fff'
+                  borderRadius='lg'
+                      maxW={88}
+                      maxH={88}
                 >
                   {isShowLogoImage && (
                     <Image
@@ -83,9 +86,8 @@ const CollectionCard = ({
                           : '/assets/images/RectangleCardImg.png'
                       }
                       alt='Green double couch with wooden legs'
-                      borderRadius='lg'
-                      maxW={88}
-                      maxH={88}
+                      maxW='100%'
+                      maxH='100%'
                     />
                   )}
                 </Box>
