@@ -111,7 +111,7 @@ const CreateCollection = () => {
   };
 
   return (
-    <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '952px' }} p={{ sm: '30px', md: '30px', lg: '0', xl: '0' }}>
+    <Container maxW={{ sm: '2xl', md: '3xl', lg: '5xl', xl: '952px' }} p={{ sm: '30px', md: '30px', lg: '0', xl: '0' }}>
       <Heading as='h1'>Create Collection</Heading>
       <Formik
         initialValues={initialValues}
