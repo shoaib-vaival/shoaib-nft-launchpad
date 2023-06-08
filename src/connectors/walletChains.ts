@@ -24,68 +24,6 @@ const isExtendedChainInformation = (
   return !!(chainInformation as ExtendedChainInformation).nativeCurrency;
 };
 
-// export const getAddChainParameters = (
-//   chainId: number
-// ): AddEthereumChainParameter | number | undefined => {
-//   const chainInformation = CHAINS[chainId];
-
-//   if (isExtendedChainInformation(chainInformation)) {
-//     const addChainParameters: AddEthereumChainParameter = {
-//       chainId: Web3.utils.toHex(chainId),
-//       chainName: chainInformation.name,
-//       nativeCurrency: chainInformation.nativeCurrency,
-//       rpcUrls: chainInformation.urls,
-//       blockExplorerUrls: chainInformation.blockExplorerUrls,
-//     };
-
-//     if (window.ethereum && window.ethereum.isMetaMask) {
-//       try {
-//         window.ethereum.request(
-//           {
-//             method: "wallet_switchEthereumChain",
-//             params: [
-//               {
-//                 chainId: addChainParameters.chainId,
-//               },
-//             ],
-//           },
-//           (switchError: any) => {
-//             if (switchError && switchError.code === 4902) {
-//               try {
-//                 typeof window !== "undefined" &&
-//                   window.ethereum &&
-//                   window.ethereum.request(
-//                     {
-//                       method: "wallet_addEthereumChain",
-//                       params: [addChainParameters],
-//                     },
-//                     (addError: any, _response: any) => {
-//                       if (addError) {
-//                         console.error(
-//                           "Error adding chain to MetaMask:",
-//                           addError
-//                         );
-//                       }
-//                     }
-//                   );
-//               } catch (addError) {
-//                 console.error("Error adding chain to MetaMask:", addError);
-//               }
-//             } else if (switchError) {
-//               console.error("Error switching chain in MetaMask:", switchError);
-//             }
-//           }
-//         );
-//       } catch (switchError) {
-//         console.error("Error switching chain in MetaMask:", switchError);
-//       }
-//     }
-//     return addChainParameters;
-//   } else {
-//     return chainId;
-//   }
-// };
-
 export const IsMetaMaskInstalled = () => {
   if (typeof window.ethereum === "undefined") {
     alert("MetaMask Not Installed");
@@ -178,11 +116,6 @@ export const switchChain = (chainId: number): void => {
     }
   }
 };
-
-// const getInfuraUrlFor = (network: string) =>
-//   process.env.infuraKey
-//     ? `https://${network}.infura.io/v3/${d12c8f7dd08e4772adc7e4b605ba6a77}`
-//     : undefined;
 
 type ChainConfig = {
   [chainId: number]: BasicChainInformation | ExtendedChainInformation;

@@ -20,6 +20,7 @@ interface Web3Interface {
   account: string | null;
   chainId: string | number | null;
   walletConnectAccount: string | string[] | null;
+  provider: ReturnType<Web3ReactHooks["useProvider"]>;
   connect: React.Dispatch<React.SetStateAction<string | null | undefined>>;
   disconnect: React.Dispatch<React.SetStateAction<string | null | undefined>>;
   connectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
@@ -45,11 +46,11 @@ export const Web3ContextProvider = ({
     useENSNames,
     useChainId,
   } = walletConnecthooks;
+
   const { account, provider, chainId } = useWeb3React();
+  console.log("🚀 ~ file: Web3Provider.tsx:51 ~ provider:", provider);
 
   const walletConnectAccount = useAccounts();
-
-  // const account = useAccount();
 
   const isWalletConnected = getFromLocalStorage("isWalletConnected");
 
@@ -97,6 +98,7 @@ export const Web3ContextProvider = ({
         account: account || "",
         chainId: chainId || "",
         walletConnectAccount: walletConnectAccount || "",
+        provider: provider,
         connect: connect,
         disconnect: disconnect,
         connectWalletConnect: connectWalletConnect,
