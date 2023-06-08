@@ -7,7 +7,7 @@ import CustomSlider from '../src/components/Slider';
 const Categories: NextPage = () => {
     return (
         <>
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '4xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
                 <Box px={{ base: '0', sm: '17px' }}>
                     <Container p={{base:'24px',sm:'24px 40px' ,md:'48px 84px'}} variant='colorful' position='relative' bgSize='cover' bgImage='/assets/images/cover-image1.png' backgroundRepeat='no-repeat' h='400px'> 
                         <Image src='/assets/images/cover-image1.png' boxSize='100px' objectFit='cover' mt='75px' border='1px solid white' borderRadius='16px' />
@@ -25,7 +25,7 @@ const Categories: NextPage = () => {
                     </Container>
                 </Box>
             </Container>
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '4xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
                 <CustomSlider name='Featured Collections'>
                     <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />
                     <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />
@@ -38,7 +38,7 @@ const Categories: NextPage = () => {
                     <CollectionCard type='withoutBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />
                 </CustomSlider>
             </Container>
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '4xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
                 <Flex justifyContent='space-between' alignItems='center' mb='40px'  px={{base:'0',sm:'12px'}}>
                     <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }}>Trending Collections</Heading>
                     <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
@@ -55,7 +55,7 @@ const Categories: NextPage = () => {
                     <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />
                 </SlickSlider>
             </Container>
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '4xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
                 <CustomSlider name='Recent Collection'>
                     <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />
                     <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />

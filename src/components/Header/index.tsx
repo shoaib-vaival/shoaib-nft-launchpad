@@ -67,7 +67,7 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{sm:'xl', md: '3xl', lg: '4xl', xl: '7xl' }}>
+      <Container maxW={{sm:'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
 
         <Box py='30px' px={{base:'0',sm:'17px'}}>
           <Stack
