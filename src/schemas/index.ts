@@ -14,8 +14,7 @@ export const collectionSchema = Yup.object().shape({
           // walletAddress: Yup.string().required('Wallet address is required'),
           percentage: Yup
           .number()
-          .max(10, 'Percentage should be less than 10')
-          .required('Value is required'),
+          .max(10, 'Percentage should be less than 10'),
         })
       ),
 });

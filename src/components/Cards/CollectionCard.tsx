@@ -35,6 +35,7 @@ type collectionCard = {
   isShowSubHeading?: boolean;
   key?: number;
   nftCollectionId?: number;
+  isEditable?:boolean;
 };
 
 
@@ -51,7 +52,8 @@ const CollectionCard = ({
   height,
   isEditAble,
   key,
-  nftCollectionId
+  nftCollectionId,
+  isEditable
 }: collectionCard) => {
   const router = useRouter()
    const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -87,6 +89,9 @@ const CollectionCard = ({
                   bottom='-16px'
                   left='24px'
                   border='1px solid #fff'
+                  borderRadius='lg'
+                      maxW={88}
+                      maxH={88}
                 >
                   {isShowLogoImage && (
                     <Image
@@ -96,13 +101,11 @@ const CollectionCard = ({
                           : '/assets/images/RectangleCardImg.png'
                       }
                       alt='Green double couch with wooden legs'
-                      borderRadius='lg'
-                      maxW={88}
-                      maxH={88}
+                      maxW='100%'
+                      maxH='100%'
                     />
                   )}
                 </Box>
-                  {/* <Button onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>Edit collection</Button> */}
               </Box>
               <Stack pt='16px' spacing='3'  px={{base:'24px',sm:'16px',lg:'24px'}} pb='24px'>
                 <Heading size='20px' fontWeight='700' color='#0D0D0D'>
