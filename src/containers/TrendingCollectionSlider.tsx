@@ -17,7 +17,7 @@ export const TrendingSlider = ({data}:collectionSliderProp) =>{
         </Flex>
         <SlickSlider>
             {data?.map((item, index)=>{
-                return <Link href="collection?id=1323232323"><CollectionCard type='withBody' featureImage={item.bannerImageUrl} key={index} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
+                return <Link href="collection?id=1323232323" key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}
           
         </SlickSlider>
