@@ -1,8 +1,9 @@
 import { Container, Heading, Flex, Box, Button, Text, Stat, StatLabel, StatNumber, Grid } from '@chakra-ui/react'
 
-
-
-const ProfileDetail = () => {
+type  profileDetailProps = {
+  showStats:boolean
+}
+const ProfileDetail = ({showStats}:profileDetailProps) => {
   return (
     <>
       <Container pl={{base:'0', md:'54px'}} mt='24px'  pr='0' pt='0'>
@@ -29,15 +30,15 @@ const ProfileDetail = () => {
               <Flex flexWrap='wrap' mb={{base:'4px',md:'initial'}}>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Joined:</Text>
-                  <Text fontWeight='bold'> Dec 2021</Text>
+                  <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Created:</Text>
-                  <Text fontWeight='bold'> Dec 2021</Text>
+                  <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Created:</Text>
-                  <Text fontWeight='bold'> Dec 2021</Text>
+                  <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
                 </Box>
               </Flex>
             </Box>
@@ -49,6 +50,7 @@ const ProfileDetail = () => {
               </Text>
             </Box>
           </Box>
+          {showStats &&
           <Box w={{base:'100%',lg:'50%'}}  mb={{base:'20px',lg:'initial'}}>
             <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap='3'>
               <Stat>
@@ -73,6 +75,7 @@ const ProfileDetail = () => {
               </Stat>
             </Grid>
           </Box>
+          }
         </Flex>
 
       </Container>
