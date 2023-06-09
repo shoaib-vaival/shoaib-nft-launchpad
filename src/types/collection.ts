@@ -49,3 +49,26 @@ export type createCollectionTypes = {
     website_url: string; 
     etherscan: string
   };
+
+  export type collectionSliderProp ={
+    data?:{
+        id:string,
+        name:string,
+        description:string,
+        website_url:string,
+        etherscan:string,
+        telegram:string,
+        twitter:string,
+        instagram:string,
+        discord_id:string,
+        logoImageUrl:string,
+        bannerImageUrl:string,
+        featureImageUrl:string,
+        creatorFee:{
+            walletAddress:string,
+            percentage:string
+        }[],
+        insertedDate:string,
+        updatedDate:string
+    }[]
+}

@@ -2,31 +2,9 @@ import { Container, Flex, Heading, Button } from "@chakra-ui/react"
 import { SlickSlider } from "../components/ReactSlick"
 import CollectionCard from "../components/Cards/CollectionCard"
 import Link from 'next/link'
+import { collectionSliderProp } from "../types/collection"
 
-type featureSlider ={
-    recentData?:{
-        id:string,
-        name:string,
-        description:string,
-        website_url:string,
-        etherscan:string,
-        telegram:string,
-        twitter:string,
-        instagram:string,
-        discord_id:string,
-        logoImageUrl:string,
-        bannerImageUrl:string,
-        featureImageUrl:string,
-        creatorFee:{
-            walletAddress:string,
-            percentage:string
-        }[],
-        insertedDate:string,
-        updatedDate:string
-    }[]
-}
-
-export const RecentSlider = ({recentData}:featureSlider) =>{
+export const RecentSlider = ({data}:collectionSliderProp) =>{
 
     return (
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
@@ -35,7 +13,7 @@ export const RecentSlider = ({recentData}:featureSlider) =>{
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <SlickSlider>
-            {recentData?.map((item, index)=>{
+            {data?.map((item, index)=>{
                 return <Link href="collection?id=1323232323"><CollectionCard type='withBody' featureImage={item.bannerImageUrl} key={index} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}
           
