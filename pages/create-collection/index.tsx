@@ -87,7 +87,8 @@ const CreateCollection = () => {
     showSuccessToast: true,
     onSuccess: async (data) => {
       console.log("Create Collection Success", data);
-      await deployy(data?.data?.name);
+      if (account) await deployy(data?.data?.name);
+      else alert("Connect the wallet first");
     },
   });
 
