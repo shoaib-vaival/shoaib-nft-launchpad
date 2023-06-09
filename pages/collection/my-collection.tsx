@@ -7,12 +7,17 @@ import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
+import Link from 'next/link'
+import { useRouter } from "next/router";
+import { ApiUrl } from "../../src/apis/apiUrl";
+import { QUERY_KEYS } from "../../src/hooks/queryKeys";
 
 const myCollection: NextPage = (props) => {
+  const router = useRouter()
   const { data, error, fetchNextPage, status, hasNextPage, isLoading } =
     useInfiniteQuery<any>({
-      queryKey: ["get-collection"],
-      url: "collection/getCollectionsByWalletAddress/0x0000",
+      queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
+      url: ApiUrl.GET_MY_COLLECTION,
     });
   return (
     <div>
@@ -49,8 +54,13 @@ const myCollection: NextPage = (props) => {
                   textTransform="uppercase"
                   fontSize="14px"
                   mt={{ base: "30px", lg: "0" }}
+                  onClick={()=>{
+                    router.push('/collection/create')
+                  }}
+
                 >
                   Create Collection
+
                 </Button>
               </Box>
             </Flex>

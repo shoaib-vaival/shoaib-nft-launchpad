@@ -7,5 +7,6 @@ export const ApiUrl = {
     GET_COLLECTIONS_NAME: 'collection/get-collection-name/0x0000',
     CREATE_NFT: 'minting/create-nft',
     GET_COLLECTION: 'collection/editCollectionById',
-    GET_DASHBOARD_COLLECTION:'minting/get-dashboard-collection-nfts'
+    GET_DASHBOARD_COLLECTION:'minting/get-dashboard-collection-nfts',
+    GET_MY_COLLECTION:'collection/getCollectionsByWalletAddress/0x0000'
 }

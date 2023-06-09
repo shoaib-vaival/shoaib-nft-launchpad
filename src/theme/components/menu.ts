@@ -1,7 +1,15 @@
 import { ComponentStyleConfig } from '@chakra-ui/react';
 
 export const Menu: ComponentStyleConfig = {
-    baseStyle:{},
+    baseStyle:{
+        item:{
+            bg:'transparent',
+            color:'black',
+            _hover:{
+                color:'purple.600'
+            }
+        }
+    },
     variants:{
         button:{
             button: {
@@ -9,6 +17,6 @@ export const Menu: ComponentStyleConfig = {
                 pl: '6',
                 bg:'red'
             },
-        }
+}
     }
 }
