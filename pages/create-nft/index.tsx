@@ -33,12 +33,17 @@ import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types
 import NftPropertiesModal from "../../src/Modals/nftProperties";
 import { PropertyTypes } from "../../src/types";
 import { Header } from "../../src/components/Header";
+import { useWeb3React } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+import { useNFTContract } from "../../src/connectors/erc721Provider";
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
   const [nftFile, setNftFile] = useState<any>();
   const [properties, setProperties] = useState<PropertyTypes[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const contractInst = useNFTContract();
+  const { account, provider } = useWeb3React<Web3Provider>();
 
   const { data: collections } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
@@ -49,11 +54,26 @@ const CreateNFT = () => {
     },
   });
 
+  const minting = async (uri: string) => {
+    try {
+      if (contractInst) {
+        const result = await contractInst.mint(account, uri);
+        console.log(result);
+      }
+      // Handle the returned result here
+    } catch (error) {
+      console.error(error);
+      // Handle errors here
+    }
+  };
+
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.CREATE_NFT,
     onSuccess: (data) => {
-      // contractAbi(data.ipfs);
+      console.log("🚀 ~ file: index.tsx:74 ~ CreateNFT ~ data:", data);
+
+      // minting(data)
     },
   });
 
@@ -61,7 +81,7 @@ const CreateNFT = () => {
     collections &&
     collections?.map((collection: any) => ({
       label: collection?.name,
-      value: collection?._id,
+      value: collection?.id,
     }));
 
   //contract abi will goes here
@@ -77,9 +97,7 @@ const CreateNFT = () => {
     selectedValue: ReactSelectCatMap,
     identifier: string
   ) => {
-    if (identifier == "nft") {
-      setCollectionId(selectedValue?.value);
-    }
+    setCollectionId(selectedValue?.value);
   };
 
   const initialValues = {
@@ -108,7 +126,9 @@ const CreateNFT = () => {
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
-          onSubmit={(values) => mutate({ ...values, imgUrl: nftFile })}
+          onSubmit={(values) =>
+            mutate({ ...values, imgUrl: nftFile, collectionId: collectionId })
+          }
         >
           {({ errors, touched }) => (
             <Form>

@@ -39,7 +39,7 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { chainUrls } from "../../src/connectors/consts";
 import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
-import { useContract } from "../../src/connectors/provider";
+import { useContract } from "../../src/connectors/collectionProvider";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -121,6 +121,7 @@ const CreateCollection = () => {
     selectedValue: ReactSelectCatMap,
     identifier: string
   ) => {
+    console.log(selectedValue);
     if (identifier == "cat") {
       setCollection({ ...collection, category: selectedValue?.value });
     } else {

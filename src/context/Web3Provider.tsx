@@ -48,10 +48,7 @@ export const Web3ContextProvider = ({
   } = walletConnecthooks;
 
   const { account, provider, chainId } = useWeb3React();
-  console.log("🚀 ~ file: Web3Provider.tsx:51 ~ provider:", provider);
-
   const walletConnectAccount = useAccounts();
-
   const isWalletConnected = getFromLocalStorage("isWalletConnected");
 
   useEffect(() => {
