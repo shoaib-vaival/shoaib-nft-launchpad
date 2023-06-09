@@ -49,9 +49,7 @@ const CreateNFT = () => {
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
     url: ApiUrl?.GET_COLLECTIONS_NAME,
     showToast: false,
-    onSuccess: (data) => {
-      console.log("🚀 ~ file: index.tsx:51 ~ CreateNFT ~ data:", data);
-    },
+    onSuccess: (data) => {},
   });
 
   const minting = async (uri: string) => {
@@ -70,10 +68,10 @@ const CreateNFT = () => {
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.CREATE_NFT,
-    onSuccess: (data) => {
-      console.log("🚀 ~ file: index.tsx:74 ~ CreateNFT ~ data:", data);
-
-      // minting(data)
+    isFileData: true,
+    onSuccess: async (data) => {
+      console.log("NFT Data", data);
+      await minting(data?.ipfsJsonUrl);
     },
   });
 
@@ -86,7 +84,7 @@ const CreateNFT = () => {
 
   //contract abi will goes here
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
-    console.log("🚀 ~ file: index.tsx:62 ~ getImgUrl ~ imgUrl:", imgUrl);
+    // console.log("🚀 ~ file: index.tsx:62 ~ getImgUrl ~ imgUrl:", imgUrl);
     setNftFile(imgUrl);
     // console.log(imgUrlProp);
     // imgUrl.url
@@ -127,7 +125,7 @@ const CreateNFT = () => {
           validationSchema={nftSchema}
           enableReinitialize
           onSubmit={(values) =>
-            mutate({ ...values, imgUrl: nftFile, collectionId: collectionId })
+            mutate({ ...values, photo: nftFile, collectionId: collectionId })
           }
         >
           {({ errors, touched }) => (
