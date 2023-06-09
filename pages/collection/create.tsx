@@ -163,8 +163,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          // mutate(values);
-          console.log("Collection Form Values", values);
+           mutate(values);
         }}
       >
         {({ errors, touched, values }) => (
