@@ -16,7 +16,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
          {/* <SimpleGrid columns={[1, 2, 2, 4]} spacingX='40px' spacingY='20px'> */}
          <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
          <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}}>
-        <CollectionCard isEditAble={true} height="471px"  type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+        <CollectionCard   type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
         </Box>
         <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}}>
         <CollectionCard  type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>

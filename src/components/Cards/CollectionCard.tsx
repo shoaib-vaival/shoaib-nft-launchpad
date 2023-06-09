@@ -18,25 +18,7 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { pagePaths } from '../../constants'
-
-type collectionCard = {
-  type?: string;
-  featureImage?: string;
-  logoImage?: string;
-  name?: string;
-  volume?: string;
-  price?: string;
-  isShowFeatureImage?: boolean;
-  isShowLogoImage?: boolean;
-  isShowBody?: boolean;
-  height?:string;
-  isEditAble?:boolean
-  isShowHeading?: boolean;
-  isShowSubHeading?: boolean;
-  key?: number;
-  nftCollectionId?: number;
-  isEditable?:boolean;
-};
+import { collectionCardProps } from '../../types/collectionCard';
 
 
 const CollectionCard = ({
@@ -54,7 +36,7 @@ const CollectionCard = ({
   key,
   nftCollectionId,
   isEditable
-}: collectionCard) => {
+}: collectionCardProps) => {
   const router = useRouter()
    const [isVisible, setIsVisible] = useState<boolean>(false);
    const onOver = () => {
