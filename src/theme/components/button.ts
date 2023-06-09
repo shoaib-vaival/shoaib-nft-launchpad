@@ -30,8 +30,10 @@ export const Button:ComponentStyleConfig = {
         primary:{
             bg:'purple.500',
             color:'white',
+            border:'1px solid purple.500',
             _hover: {
-                bg: 'purple.600',
+                bg: 'white',
+                color:'purple.500',
             },
         }, 
         secondary:{

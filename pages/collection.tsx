@@ -45,7 +45,7 @@ const Collection: NextPage = () => {
         <Box px={{base:'0',md:'17px'}}>
         <ProfileHeader socialIcons={socialIcons} />
         </Box>
-        <ProfileDetail />
+        <ProfileDetail showStats = {true}/>
       </Container>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
         <Box>
