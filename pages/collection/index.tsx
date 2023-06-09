@@ -15,10 +15,11 @@ import {
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
 import { useState } from "react";
-import CollectionCard from "../src/components/Cards/CollectionCard";
-import { ReactSelect } from "../src/components/common";
-import ProfileDetail from "../src/components/Profile/ProfileDetail";
-import ProfileHeader from "../src/components/Profile/ProfileHeader";
+import CollectionCard from "../../src/components/Cards/CollectionCard";
+import { ReactSelect } from "../../src/components/common";
+import ProfileDetail from "../../src/components/Profile/ProfileDetail";
+import ProfileHeader from "../../src/components/Profile/ProfileHeader";
+import Link from 'next/link'
 
 
 const Collection: NextPage = () => {
@@ -101,7 +102,7 @@ const Collection: NextPage = () => {
               {isGroupMode ?
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
                   <Box width={{ base: '100%', sm: '50%', md: '33%', xl: '25%' }}>
-                    <CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' />
+                    <Link href="nft/detail?id=1212131313123123"><CollectionCard type='withBody' featureImage='/assets/images/nft1.png' isShowFeatureImage={true} isShowLogoImage={false} name='Peppy Road' /></Link>
                   </Box>
 
                   <Box width={{ base: '100%', sm: '50%', md: '33%', xl: '25%' }}>

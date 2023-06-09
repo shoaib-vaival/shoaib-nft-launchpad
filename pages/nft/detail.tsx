@@ -5,8 +5,8 @@ import { Container, Flex, Box, Stack, Text, Heading, VStack, Grid} from "@chakra
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu"
 import { Stat, StatLabel, StatNumber } from "@chakra-ui/stat"
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
-import CollectionCard from "../src/components/Cards/CollectionCard"
-import { SlickSlider } from "../src/components/ReactSlick"
+import CollectionCard from "../../src/components/Cards/CollectionCard"
+import { SlickSlider } from "../../src/components/ReactSlick"
 
 
 
