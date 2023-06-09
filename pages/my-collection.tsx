@@ -35,7 +35,7 @@ const myCollection: NextPage = (props) => {
                     lg: "42px",
                     xl: "56px",
                   }}
-                  mb={{ base: "10px", lg: "0" }}
+                  mb={{ base: "10px", lg: "24px" }}
                 >
                   My Collections
                 </Heading>
