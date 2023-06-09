@@ -49,10 +49,10 @@ const CreateCollection = () => {
 
   // Call the contract
 
-  const deployy = async (name: string, symbol: string) => {
+  const deployy = async (name: string) => {
     try {
       if (contractInst) {
-        const result = await contractInst.deploy(name, symbol);
+        const result = await contractInst.deploy(name, "TOKEN");
       }
       // Handle the returned result here
     } catch (error) {
@@ -85,8 +85,9 @@ const CreateCollection = () => {
     method: POST,
     url: ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: async (data) => {
+      console.log("Create Collection Success", data);
+      await deployy(data?.data?.name);
     },
   });
 
@@ -163,8 +164,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          // mutate(values);
-          console.log("Collection Form Values", values);
+          mutate(values);
         }}
       >
         {({ errors, touched, values }) => (
