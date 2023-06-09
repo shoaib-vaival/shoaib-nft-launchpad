@@ -1,12 +1,9 @@
-import { Container, Flex, Box, VStack, Heading, Text } from "@chakra-ui/layout";
-import { Button, Checkbox, Icon, IconButton, InputGroup, InputLeftElement, InputRightElement, Select, Stack, Switch } from '@chakra-ui/react';
+import { Container, Flex, Box, Heading, Text } from "@chakra-ui/layout";
+import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
 import { useState } from "react";
-import CollectionCard from "../src/components/Cards/CollectionCard";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
-import { FormControl, FormLabel, Input, Textarea } from "@chakra-ui/react";
-import { ClassNames } from "@emotion/react";
 
 
 
