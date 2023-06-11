@@ -1,20 +1,24 @@
 import type { NextPage } from "next";
-import { Header } from "../src/components/Header";
-import CollectionCard from "../src/components/Cards/CollectionCard";
+import { Header } from "../../src/components/Header";
+import CollectionCard from "../../src/components/Cards/CollectionCard";
 import { Box, Container, Flex, Heading, Text, Button } from "@chakra-ui/react";
-import { useQuery } from "../src/hooks/useQuery";
-import { Loader } from "../src/components/Loader";
-import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
+import { useQuery } from "../../src/hooks/useQuery";
+import { Loader } from "../../src/components/Loader";
+import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
+import Link from 'next/link'
+import { useRouter } from "next/router";
+import { ApiUrl } from "../../src/apis/apiUrl";
+import { QUERY_KEYS } from "../../src/hooks/queryKeys";
 
 const myCollection: NextPage = (props) => {
+  const router = useRouter()
   const { data, error, fetchNextPage, status, hasNextPage, isLoading } =
     useInfiniteQuery<any>({
-      queryKey: ["get-collection"],
-      url: "collection/getCollectionsByWalletAddress/0x0000",
+      queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
+      url: ApiUrl.GET_MY_COLLECTION,
     });
-  console.log("data", data, error);
   return (
     <div>
       <Box>
@@ -35,7 +39,7 @@ const myCollection: NextPage = (props) => {
                     lg: "42px",
                     xl: "56px",
                   }}
-                  mb={{ base: "10px", lg: "0" }}
+                  mb={{ base: "10px", lg: "24px" }}
                 >
                   My Collections
                 </Heading>
@@ -50,8 +54,13 @@ const myCollection: NextPage = (props) => {
                   textTransform="uppercase"
                   fontSize="14px"
                   mt={{ base: "30px", lg: "0" }}
+                  onClick={()=>{
+                    router.push('/collection/create')
+                  }}
+
                 >
                   Create Collection
+
                 </Button>
               </Box>
             </Flex>
@@ -73,7 +82,7 @@ const myCollection: NextPage = (props) => {
               data?.map((nftCollection:any, index: number)=>{
                   return (
                      <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial' key={index}>
-                       <CollectionCard key={index} type="withBody" logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id}  />
+                       <CollectionCard isEditAble={true} key={index} type="withBody" logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id}  />
                     </Box>
                   )
                 })
