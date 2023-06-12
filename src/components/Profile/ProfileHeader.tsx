@@ -1,12 +1,7 @@
 import { Container } from "@chakra-ui/layout"
 import { Image, Flex, IconButton, Box, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
-import { boolean } from "yup"
 
-// type  profileHeaderProps = {
-//   showShareIcon:boolean
-// }
-
-const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon: string, url: string }[], showSocialIcons:boolean }) => {
+const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon?: string, url?: string }[], showSocialIcons?:boolean }) => {
   return (
     <>
       <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage="/assets/images/cover-image1.png" backgroundRepeat="no-repeat" h={{base:'220px',md:'400px'}}>
