@@ -13,6 +13,7 @@ type UseMutationReturn<T, K> = {
 };
 
 export type ApiResult<K> = {
+  ipfsJsonUrl: string;
   data?: any;
   _metadata: {
     message: string;
