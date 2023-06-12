@@ -68,6 +68,7 @@ const FileUpload = ({
 
   const handleFileChange = async (acceptedFiles: any) => {
     const selectedFile = acceptedFiles?.[0];
+    // console.log("selectedFileselectedFile", selectedFile);
 
     const isValidatedFile = await validateFile(selectedFile);
     if (isValidatedFile !== "ok") {
