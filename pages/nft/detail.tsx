@@ -127,7 +127,7 @@ const NftDetail = () => {
           </Box>
           <Box w={{base:'0%',lg:'55%' }}></Box>
         </Stack>
-        <Flex px={{ base: '0', sm: '17px' }} justifyContent="space-between" alignItems={{base:'flex-start',sm:'center'}} marginBottom="16px" marginTop="40px"  px={{base:'0',sm:'17px'}}flexWrap='wrap' flexDirection={{base:'column',sm:'row'}}>
+        <Flex px={{ base: '0', sm: '17px' }} justifyContent="space-between" alignItems={{base:'flex-start',sm:'center'}} marginBottom="16px" marginTop="40px" flexWrap='wrap' flexDirection={{base:'column',sm:'row'}}>
           <Heading mb={{base:'20px',sm:'0'}} fontSize="24px">Item Activity</Heading>
           <InputGroup variant="custom" w="286px">
             <InputLeftElement pointerEvents='none'>
