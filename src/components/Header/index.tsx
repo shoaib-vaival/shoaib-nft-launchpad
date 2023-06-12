@@ -122,23 +122,10 @@ export const Header = () => {
                 }}
                 spacing={{ xl: "24px", lg: "16px" }}
               >
-                <Link href="#">Home</Link>
-                <Link href="#">Explorer</Link>
-                <Menu autoSelect={false}>
-                  <MenuButton
-                    as={Button}
-                    textTransform="uppercase"
-                    variant="link"
-                    fontSize="17px"
-                    color="#0D0D0D"
-                  >
-                    Stats
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>Download</MenuItem>
-                    <MenuItem>Create a Copy</MenuItem>
-                  </MenuList>
-                </Menu>
+                <Link href="/">Home</Link>
+                <Link href="/categories">Explorer</Link>
+                <Link href="#">Activity</Link>
+          
               </HStack>
             </Box>
             <Flex
@@ -168,9 +155,11 @@ export const Header = () => {
                   Create
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Create NFT</MenuItem>
-                  <MenuItem onClick={() => router.push("/create-collection")}>
+                  <MenuItem><Link  href="/nft/create">Create NFT</Link></MenuItem>
+                  <MenuItem >
+                  <Link href="/collection/create">
                     Create Collection
+                    </Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -228,10 +217,9 @@ export const Header = () => {
                   aria-label="Options"
                 />
                 <MenuList>
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>My Collection</MenuItem>
-                  <MenuItem>Watchlist</MenuItem>
-                  <MenuItem>Settings</MenuItem>
+                  <MenuItem><Link href="/profile-created">Profile</Link></MenuItem>
+                  <MenuItem><Link href="/collection/my-collection">My Collection</Link></MenuItem>
+                  <MenuItem><Link href="/setting">Settings</Link></MenuItem>
                   <MenuItem>Dark Mode</MenuItem>
                   <MenuItem
                     onClick={(a) => {

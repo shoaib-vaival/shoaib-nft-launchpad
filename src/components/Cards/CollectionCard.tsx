@@ -16,24 +16,9 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { pagePaths } from '../../constants'
-
-type collectionCard = {
-  type?: string;
-  featureImage?: string;
-  logoImage?: string;
-  name?: string;
-  volume?: string;
-  price?: string;
-  isShowFeatureImage?: boolean;
-  isShowLogoImage?: boolean;
-  isShowBody?: boolean;
-  isShowHeading?: boolean;
-  isShowSubHeading?: boolean;
-  key?: number;
-  nftCollectionId?: number;
-  isEditable?:boolean;
-};
+import { collectionCardProps } from '../../types/collectionCard';
 
 
 const CollectionCard = ({
@@ -46,16 +31,25 @@ const CollectionCard = ({
   isShowFeatureImage,
   isShowLogoImage,
   isShowBody,
+  height,
+  isEditAble,
   key,
   nftCollectionId,
   isEditable
-}: collectionCard) => {
+}: collectionCardProps) => {
   const router = useRouter()
+   const [isVisible, setIsVisible] = useState<boolean>(false);
+   const onOver = () => {
+     setIsVisible(true)
+   }
+   const onOut = () =>{
+     setIsVisible(false)
+   }
   if (type === 'withBody') {
     return (
       <div>
         <Container py='12px' px={{base:'0',sm:'12px'}} key={key}>
-          <Card maxW={{base:'100%',md:'sm'}} justifyContent='center' overflow='hidden'p={{base:'0!important',sm:'12px'}}>
+          <Card maxW={{base:'100%',md:'sm'}} justifyContent='center' overflow='hidden'p={{base:'0!important',sm:'12px'}} onMouseOver={onOver} onMouseOut={onOut} h={height}>
             <CardBody
               display='flex'
               flexDirection='column'
@@ -68,6 +62,7 @@ const CollectionCard = ({
                     alt='Green double couch with wooden legs'
                     borderRadius='lg'
                     w='100%'
+
                   />
                 )}
 
@@ -93,7 +88,6 @@ const CollectionCard = ({
                     />
                   )}
                 </Box>
-                 {isEditable && <Button onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>Edit collection</Button>}
               </Box>
               <Stack pt='16px' spacing='3'  px={{base:'24px',sm:'16px',lg:'24px'}} pb='24px'>
                 <Heading size='20px' fontWeight='700' color='#0D0D0D'>
@@ -119,11 +113,14 @@ const CollectionCard = ({
                 </SimpleGrid>
               </Stack>
             </CardBody>
-            {/* <CardFooter>
-                        <Button variant='primary' colorScheme='blue' w='100%'>
-                            Buy now
+            <CardFooter>
+                  {isVisible && isEditAble?
+                        <Button variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
+                            Edit Collection
                         </Button>
-                    </CardFooter> */}
+                        :''}
+          
+                    </CardFooter>
           </Card>
         </Container>
       </div>
@@ -145,6 +142,7 @@ const CollectionCard = ({
                   alt='Green double couch with wooden legs'
                   borderRadius='lg'
                   w='100%'
+                  h="288px"
                 />
               )}
               <Box position='absolute' bottom='32px' px={{base:'16px',md:'32px'}} w='100%'>
