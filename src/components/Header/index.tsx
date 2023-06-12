@@ -113,6 +113,7 @@ export const Header = () => {
             >
               <HStack
                 textTransform="uppercase"
+                fontSize={{base:'15px',xl:'16px'}}
                 alignItems={{ base: "initial", xl: "center" }}
                 flexDirection={{
                   base: "column",
@@ -120,7 +121,7 @@ export const Header = () => {
                   md: "row",
                   xl: "row",
                 }}
-                spacing={{ xl: "24px", lg: "16px" }}
+                spacing={{ xl: "24px", lg: "12px" }}
               >
                 <Link href="#">Home</Link>
                 <Link href="#">Explorer</Link>
@@ -129,10 +130,10 @@ export const Header = () => {
                     as={Button}
                     textTransform="uppercase"
                     variant="link"
-                    fontSize="17px"
+                    fontSize={{base:'15px',xl:'16px'}}
                     color="#0D0D0D"
                   >
-                    Stats
+                    Activity
                   </MenuButton>
                   <MenuList>
                     <MenuItem>Download</MenuItem>
