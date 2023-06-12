@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import * as Yup from "yup";
 export const collectionSchema = Yup.object().shape({
   name: Yup.string()
@@ -7,12 +8,27 @@ export const collectionSchema = Yup.object().shape({
   description: Yup.string()
     .nullable()
     .max(1000, "Collection detail must not exceed 1000 characters"),
-  category: Yup.string().required("Categorye is required"),
-  logoImageUrl: Yup.string().required("Logo image is required"),
+  category: Yup.string().required("Category is required"),
+  // logoImageUrl: Yup.string().required("Logo image is required"),
   creatorFee: Yup.array().of(
     Yup.object().shape({
-      // walletAddress: Yup.string().required('Wallet address is required'),
-      percentage: Yup.number().max(10, "Percentage should be less than 10"),
+      walletAddress: Yup.string()
+        .required("Wallet address is required")
+        .test(
+          "checksum-validation",
+          "Invalid Address Checksum",
+          function (value) {
+            try {
+              const isValidChecksum = ethers.utils.isAddress(value);
+              return isValidChecksum;
+            } catch (error) {
+              return false;
+            }
+          }
+        ),
+      percentage: Yup.number()
+        .required("Percentage is required")
+        .max(10, "Total percentage should be less than 10"),
     })
   ),
 });

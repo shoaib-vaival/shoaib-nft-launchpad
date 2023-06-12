@@ -100,7 +100,7 @@ const CreateNFT = () => {
   };
 
   const initialValues = {
-    nftImgUrl: "",
+    nftImgUrl: "abc",
     name: nftName,
     description: "",
     collectionId: collectionId,

@@ -36,14 +36,13 @@ const FileUpload = ({
     url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
     showSuccessToast: false,
     isFileData: true,
-    onSuccess: (data) => {
-      console.log("🚀 ~ file: index.tsx:48 ~ data:", data);
-      setShowImgPreview(true);
-      imgUrl({
-        imgFor,
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.path}`,
-      });
-    },
+    // onSuccess: (data) => {
+    //   setShowImgPreview(true);
+    //   imgUrl({
+    //     imgFor,
+    //     url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.path}`,
+    //   });
+    // },
   });
 
   // const { mutate: getIpfsHash } = useMutation<any>({

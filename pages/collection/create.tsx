@@ -136,7 +136,7 @@ const CreateCollection = () => {
   };
 
   const initialValues = {
-    logoImageUrl: collection?.logoImageUrl || "",
+    logoImageUrl: collection?.logoImageUrl || "abc.png",
     bannerImageUrl: collection?.bannerImageUrl || "",
     featureImageUrl: collection?.featureImageUrl || "",
     name: getCollectionById?.name || "",
@@ -166,7 +166,9 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          mutate(values);
+          console.log("Values Collection", values);
+
+          // mutate(values);
         }}
       >
         {({ errors, touched, values }) => (

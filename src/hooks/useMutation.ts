@@ -111,15 +111,15 @@ export const useMutation = <T, K = T>({
     }
   );
 
-  let results = undefined;
+  // let results = undefined;
 
-  if (fetchedData) {
-    // Extract "records" and rename to "data"
-    const { records: data, ...rest } = fetchedData;
-    results = { data, ...rest };
-    const responsedData = results?.data;
-    onSuccess && onSuccess({ ...responsedData });
-  }
+  // if (fetchedData) {
+  //   // Extract "records" and rename to "data"
+  //   const { records: data, ...rest } = fetchedData;
+  //   results = { data, ...rest };
+  //   const responsedData = results?.data;
+  //   onSuccess && onSuccess({ ...responsedData });
+  // }
 
   return { ...fetchedData, isLoading, mutate };
 };
