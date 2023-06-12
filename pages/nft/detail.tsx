@@ -15,8 +15,8 @@ const NftDetail = () => {
     <>
       <Container maxW={{sm:'xl', md: '3xl', lg: '5xl', xl: '7xl' }} pt={{base:'20px',sm:'40px'}}>
         <Stack direction={{base:'column',lg:'row'}} spacing={{base:'18px',md:'48px'}}  px={{base:'0',sm:'17px'}}>
-          <Box w={{base:'100%',lg:'45%' }} maxH={{base:'initial',md:'500px',lg:'650px'}}>
-            <Image src="/assets/images/nft2.png" w="100%" h='100%' objectFit='cover' />
+          <Box w={{base:'100%',lg:'45%' }} maxH={{base:'initial',md:'500px',lg:'650px'}} borderRadius='lg'>
+            <Image src="/assets/images/nft2.png" w="100%" h='100%' objectFit='cover' borderRadius='lg'/>
           </Box>
           <Box w={{base:'100%',lg:'55%' }}>
             <Box paddingBottom={{base:'20px',sm:'28px'}} borderBottom="1px solid" borderColor="rgba(53, 53, 53, 0.2)">

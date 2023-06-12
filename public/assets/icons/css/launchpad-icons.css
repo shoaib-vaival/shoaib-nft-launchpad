@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'launchpad-icons';
-  src: url('../font/launchpad-icons.eot?91755856');
-  src: url('../font/launchpad-icons.eot?91755856#iefix') format('embedded-opentype'),
-       url('../font/launchpad-icons.woff2?91755856') format('woff2'),
-       url('../font/launchpad-icons.woff?91755856') format('woff'),
-       url('../font/launchpad-icons.ttf?91755856') format('truetype'),
-       url('../font/launchpad-icons.svg?91755856#launchpad-icons') format('svg');
+  src: url('../font/launchpad-icons.eot?345423');
+  src: url('../font/launchpad-icons.eot?345423#iefix') format('embedded-opentype'),
+       url('../font/launchpad-icons.woff2?345423') format('woff2'),
+       url('../font/launchpad-icons.woff?345423') format('woff'),
+       url('../font/launchpad-icons.ttf?345423') format('truetype'),
+       url('../font/launchpad-icons.svg?345423#launchpad-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'launchpad-icons';
-    src: url('../font/launchpad-icons.svg?91755856#launchpad-icons') format('svg');
+    src: url('../font/launchpad-icons.svg?345423#launchpad-icons') format('svg');
   }
 }
 */
@@ -27,9 +27,9 @@
 
   display: inline-block;
   text-decoration: inherit;
-  /* width: 1em; */
-  /* margin-right: .2em;
-  text-align: center; */
+  /* width: 1em;
+  margin-right: .2em; */
+  text-align: center;
   /* opacity: .8; */
 
   /* For safety - reset parent styles, that can break glyph codes*/
@@ -76,3 +76,5 @@
 .icon-right:before { content: '\e814'; } /* '' */
 .icon-froggy:before { content: '\e817'; } /* '' */
 .icon-menu:before { content: '\e818'; } /* '' */
+.icon-hash:before { content: '\e819'; } /* '' */
+.icon-document-eye:before { content: '\e81a'; } /* '' */
