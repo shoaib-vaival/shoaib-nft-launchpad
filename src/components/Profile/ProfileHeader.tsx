@@ -27,7 +27,7 @@ const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon:
               )
             })}
             
-          <Box  borderLeft={{base:'none',sm:'1px solid #A6A6A6'}} paddingLeft={{base:'0',sm:'2'}} ml={{base:'0',sm:'2'}} >
+          <Box borderLeft={{base:'none',sm:'1px solid #A6A6A6'}} paddingLeft={{base:'0',sm:'2'}} ml={{base:'0',sm:'2'}} >
           <IconButton color=' #756C99'mb={{base:'8px',sm:'0'}} ml={{base:'5px',sm:'0'}}
             variant='outline'
             colorScheme='#6863F3'
