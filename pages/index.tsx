@@ -17,6 +17,7 @@ import { useEffect } from 'react'
 import { RecentSlider } from '../src/containers/RecentCollectionSlider'
 import { TrendingSlider } from '../src/containers/TrendingCollectionSlider'
 import { TrendingCollectionInArtSlider } from '../src/containers/TrendingCollectionInArt'
+import { categoriesType, getCategoriesApiType } from '../src/types/homePage'
 
 const Home: NextPage = () => {
   const {data, isLoading} = useQuery<any>({
@@ -24,6 +25,11 @@ const Home: NextPage = () => {
     url:ApiUrl.GET_DASHBOARD_COLLECTION,
     showToast:false
   })
+  const {data:categories} = useQuery<categoriesType[]>({
+    queryKey:[QUERY_KEYS.GET_CAT],
+    url:ApiUrl.GET_CATEGORIES
+  })
+  console.log(categories,'categories')
   return (
     <div>
       <Box position='relative'>
@@ -43,7 +49,7 @@ const Home: NextPage = () => {
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <FilterTabs
-          tabsList={["All", "Art", "Gaming", "Membership", "PFPs"]}
+          tabsList={categories}
           getTabIndex={(index) => console.log(index)}
         />
       </Container>
