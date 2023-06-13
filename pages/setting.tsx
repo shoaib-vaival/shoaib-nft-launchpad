@@ -176,16 +176,7 @@ const Setting: NextPage = () => {
 
                         </Box>
                       </Box>
-                      <Flex gap={{ base: '0', sm: '2', md: '6' }} display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
-                        {/* 
-                        <Stack w={{ base: '100%', md: 'md' }}>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px'>Select Currency</FormLabel>
-                          <Select placeholder='Select option' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366'>
-                            <option value='option1'>Option 1</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                          </Select>
-                        </Stack> */}
+                      <Flex gap={{ base: '0', sm: '2', md: '6' }} display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}
                         <Stack w={{ base: '100%', md: '47%', lg: '48%' }}>
                           <FormLabel fontSize='16px' fontWeight='500' mb='16px'>Wallet Address</FormLabel>
                           <Button bg='rgba(104, 99, 243, 0.2);' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' color='#393F59' borderRadius='6px' p='14px 16px' fontSize='12px' height='initial' border='1px solid #6863F3'>
