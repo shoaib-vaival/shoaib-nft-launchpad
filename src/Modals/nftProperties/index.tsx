@@ -57,13 +57,7 @@ const NftPropertiesModal = ({
                           {values?.properties?.map(
                             (field: any, index: number) => (
                               <div key={index}>
-                                <Flex
-                                  flexDirection={{ base: "column", md: "row" }}
-                                  justifyContent={{
-                                    md: "initial",
-                                    xl: "flex-start",
-                                  }}
-                                >
+                                <Flex alignItems='center' flexDirection={{ base: 'column', md: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
                                   <div>
                                     <Field
                                       as={InputField}
@@ -80,10 +74,7 @@ const NftPropertiesModal = ({
                                     />
                                   </div>
                                   <div>
-                                    <Flex
-                                      alignItems={"center"}
-                                      ml={{ base: "0", md: "20px" }}
-                                    >
+                                    <Flex flexDirection='column' alignItems={'baseline'} ml={{ base: '0', md: '20px' }}>
                                       <Field
                                         as={InputField}
                                         size="md"
@@ -93,48 +84,28 @@ const NftPropertiesModal = ({
                                         placeholder="Enter proprty name"
                                         name={`properties.${[index]}.name`}
                                       />
-                                      <ErrorMessage
+                                      <ErrorMessage 
                                         name={`properties.${[index]}.name`}
                                         component="div"
                                       />
-
-                                      {index > 0 && (
-                                        <>
-                                          <IconButton
-                                            aria-label="close"
-                                            bg="#6863F34D"
-                                            mt="35px"
-                                            ml={"10px"}
-                                            type="button"
-                                            color="#6863F3"
-                                            border="1px solid #6863F3"
-                                            onClick={() => remove(index)}
-                                            icon={
-                                              <i className="icon-remove"></i>
-                                            }
-                                          />
-                                        </>
-                                      )}
                                     </Flex>
                                   </div>
+                                  {index > 0 && (
+                                    <>
+                                      <IconButton aria-label='close' bg='#6863F34D' mt='35px' ml={'10px'} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                    </>
+
+                                  )}
                                 </Flex>
                               </div>
                             )
                           )}
                           {values?.properties?.length < 12 && (
-                            <Button
-                              color="#6863F3"
-                              fontSize="14px"
-                              fontWeight="bold"
-                              bg="transparent"
-                              p="0"
-                              type="button"
-                              textDecoration="none"
-                              variant="link"
-                              onClick={() => push({ type: "", name: "" })}
-                            >
-                              +Add Property
-                            </Button>
+
+                            <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
+                              onClick={() => push({ type: '', name: '' })} >
+                              +Add Property</Button>
+
                           )}
                         </>
                       )}

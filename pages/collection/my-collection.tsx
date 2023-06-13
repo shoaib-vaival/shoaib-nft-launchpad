@@ -22,8 +22,8 @@ const myCollection: NextPage = (props) => {
   return (
     <div>
       <Box>
-        <Container maxW={{ sm: "4xl", lg: "6xl", xl: "8xl" }}>
-          <Box pt="30px" pb="40px">
+        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+          <Box pt="30px" pb="40px" px={{base:'0',sm:'17px'}}>
             <Flex
               justifyContent="space-between"
               alignItems="center"
@@ -54,7 +54,7 @@ const myCollection: NextPage = (props) => {
                   textTransform="uppercase"
                   fontSize="14px"
                   mt={{ base: "30px", lg: "0" }}
-                  onClick={()=>{
+                  onClick={() => {
                     router.push('/collection/create')
                   }}
 
@@ -66,29 +66,28 @@ const myCollection: NextPage = (props) => {
             </Flex>
           </Box>
         </Container>
-        <Container
-          maxW={{ sm: "4xl", lg: "6xl", xl: "8xl" }}
+        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}
           pb={{ xl: "100px", md: "50px" }}
         >
-          <Box>
+          <Box px={{base:'0',sm:'17px'}}>
             <InfiniteScroll
-             dataLength={data ? data.length : 0}
-             next={() => fetchNextPage()}
-             hasMore={!!hasNextPage}
-             loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>}
+              dataLength={data ? data.length : 0}
+              next={() => fetchNextPage()}
+              hasMore={!!hasNextPage}
+              loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
             >
-            <Flex direction={['column', 'row']}  flexWrap={{base:'nowrap',sm:'wrap',md:'wrap',lg:'wrap',xl:'wrap'}}>
-              {isLoading && data === undefined?<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader/></Flex>:
-              data?.map((nftCollection:any, index: number)=>{
-                  return (
-                     <Box w={{ xl: '25%', md: '50%',sm:'100%' }} display='initial' key={index}>
-                       <CollectionCard isEditAble={true} key={index} type="withBody" logoImage = {nftCollection.logoImageUrl} featureImage = {nftCollection.bannerImageUrl} name= {nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id}  />
-                    </Box>
-                  )
-                })
-              }
-              <Loader />
-                </Flex>
+              <Flex direction={['column', 'row']} flexWrap={{ base: 'nowrap', sm: 'wrap', md: 'wrap', lg: 'wrap', xl: 'wrap' }}>
+                {isLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
+                  data?.map((nftCollection: any, index: number) => {
+                    return (
+                      <Box w={{ xl: '25%', md: '50%', sm: '100%' }} display='initial' key={index}>
+                        <CollectionCard isEditAble={true} key={index} type="withBody" logoImage={nftCollection.logoImageUrl} featureImage={nftCollection.bannerImageUrl} name={nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id} />
+                      </Box>
+                    )
+                  })
+                }
+                <Loader />
+              </Flex>
               <Flex
                 direction={["column", "row"]}
                 flexWrap={{

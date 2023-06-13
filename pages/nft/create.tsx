@@ -50,7 +50,6 @@ const CreateNFT = () => {
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
     url: ApiUrl?.GET_COLLECTIONS_NAME,
     showToast: false,
-    onSuccess: (data) => {},
   });
 
   const minting = async (uri: string) => {
@@ -158,7 +157,7 @@ const CreateNFT = () => {
                     }
                     maxLength={50}
                   />
-                  <Field
+                  <Field 
                     name="description"
                     component={ChakraTextarea}
                     label="Description"

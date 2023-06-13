@@ -158,7 +158,7 @@ const CreateCollection = () => {
   return (
     <Container
       maxW={{ sm: "2xl", md: "3xl", lg: "5xl", xl: "952px" }}
-      p={{ sm: "30px", md: "30px", lg: "0", xl: "0" }}
+      pt='30px'
     >
       <Heading as="h1">Create Collection</Heading>
       <Formik
@@ -187,8 +187,8 @@ const CreateCollection = () => {
                 />
                 {touched["logoImageUrl"] && errors["logoImageUrl"] && (
                   <Text
-                    marginTop={"8px!important"}
-                    fontWeight={"700"}
+                    marginTop={"0px!important"}
+                    fontWeight={"500"}
                     color={"red.700"}
                   >
                     {errors["logoImageUrl"] as React.ReactNode}
@@ -217,8 +217,8 @@ const CreateCollection = () => {
                 />
                 {touched["category"] && errors["category"] && (
                   <Text
-                    marginTop={"8px!important"}
-                    fontWeight={"700"}
+                    marginTop={"0px!important"}
+                    fontWeight={"500"}
                     color={"red.700"}
                   >
                     {errors["category"] as React.ReactNode}
@@ -259,7 +259,7 @@ const CreateCollection = () => {
                   Add your existing social links to build a stronger reputation.
                 </Text>
                 <Flex
-                  gap={"6"}
+                  gap={"10"}
                   display={{ base: "block", sm: "flex" }}
                   justifyContent={{
                     base: "initial",
@@ -281,7 +281,6 @@ const CreateCollection = () => {
                     }
                     maxLength={50}
                   />
-                  <Spacer />
                   <Field
                     as={InputField}
                     size="md"
@@ -298,7 +297,7 @@ const CreateCollection = () => {
                   />
                 </Flex>
                 <Flex
-                  gap={"6"}
+                  gap={"10"}
                   display={{ base: "block", sm: "flex" }}
                   justifyContent={{
                     base: "initial",
@@ -336,7 +335,7 @@ const CreateCollection = () => {
                   />
                 </Flex>
                 <Flex
-                  gap={"6"}
+                  gap={"10"}
                   display={{ base: "block", sm: "flex" }}
                   justifyContent={{
                     base: "initial",

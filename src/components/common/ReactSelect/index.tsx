@@ -28,11 +28,7 @@ const ReactSelect = ({
   const [value, setValue] = useState<customTypes | null | undefined>(null);
 
   const handleChangeCategory = (cat: any) => {
-    // if (!isMultiple) {
     getSelectedData(cat, identifier);
-    // } else {
-    // getSelectedData(cat, identifier);
-    // }p
     setValue(cat);
     nftName && setNftName(nftName);
   };
@@ -54,19 +50,20 @@ const ReactSelect = ({
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
-            borderColor: state.isFocused ? "#6863F3" : "#6863F3",
-            boxShadow: "none",
-            width: "100%",
-            borderRadius: "6px",
+            borderColor: state.isFocused ? '#6863F3' : '#6f6bf366',
+            boxShadow: 'none',
+            width: '100%',
+            borderRadius: '6px',
+
           }),
           indicatorSeparator: () => ({}),
           multiValue: (styles, { data }) => ({
             ...styles,
-            backgroundColor: "rgba(104, 99, 243, 0.3)",
-            borderRadius: "6px",
-            border: "1px solid #6863F3",
-            height: "32px",
-            alignItems: "center",
+            backgroundColor: 'rgba(104, 99, 243, 0.3)',
+            borderRadius: '6px',
+            border: '1px solid #6f6bf366',
+            height: '32px',
+            alignItems: 'center',
           }),
           multiValueLabel: (styles, { data }) => ({
             ...styles,
