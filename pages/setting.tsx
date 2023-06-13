@@ -200,7 +200,7 @@ const Setting: NextPage = () => {
                   </Box>
                 </Container>
               </TabPanel>
-              <TabPanel>
+              <TabPanel p={0}>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} px={{ base: '0', md: '30px' }}>
                   <Flex flexDirection='row' mt='15px' >
                     <Box mb='10px'>
@@ -218,11 +218,11 @@ const Setting: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <FormControl p={{ base: '0px', md: '16px' }}>
+                  <FormControl py={{ base: '0px', md: '16px' }}>
                     <Flex alignItems='center' justifyContent='space-between' p='24px' borderRadius='6px' border='1px solid #6F6BF366' bg='#fff'>
                       <Box>
                         <FormLabel fontSize='20px' mb='12px' htmlFor='isRequired'>iBanera Newsletter</FormLabel>
-                        <Text fontSize={{ base: '14px', md: '16px' }} color='#393F59'>Occasional updates from the iBanera</Text>
+                        <Text fontSize={{ base: '14px', md: '16px' }} mr='18px' color='#393F59'>Occasional updates from the iBanera</Text>
                       </Box>
                       <Switch colorScheme='purple' id='isRequired' isRequired />
                     </Flex>
