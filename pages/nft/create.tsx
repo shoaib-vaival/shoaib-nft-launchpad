@@ -154,7 +154,7 @@ const CreateNFT = () => {
                     }
                     maxLength={50}
                   />
-                  <Field
+                  <Field 
                     name="description"
                     component={ChakraTextarea}
                     label="Description"
