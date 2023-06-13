@@ -167,8 +167,7 @@ const CreateCollection = () => {
         enableReinitialize
         onSubmit={(values) => {
           console.log("Values Collection", values);
-
-          // mutate(values);
+          mutate(values);
         }}
       >
         {({ errors, touched, values }) => (

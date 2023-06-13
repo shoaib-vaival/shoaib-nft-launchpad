@@ -17,7 +17,7 @@ export const collectionSchema = Yup.object().shape({
         .test(
           "checksum-validation",
           "Invalid Address Checksum",
-          function (value) {
+           (value) => {
             try {
               const isValidChecksum = ethers.utils.isAddress(value);
               return isValidChecksum;

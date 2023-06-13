@@ -41,7 +41,7 @@ const NftPropertiesModal = ({
             initialValues={initialValues}
             validationSchema={propertiesSchema}
             enableReinitialize
-            onSubmit={(values) => {}}
+            onSubmit={(values) => console.log(values)}
           >
             {({ values }) => (
               <Form>

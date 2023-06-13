@@ -70,7 +70,6 @@ const CreateNFT = () => {
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
     onSuccess: async (data) => {
-      console.log("NFT Data", data);
       await minting(data?.ipfsJsonUrl.toString());
     },
   });
