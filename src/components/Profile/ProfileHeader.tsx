@@ -1,11 +1,7 @@
 import { Container } from "@chakra-ui/layout"
 import { Image, Flex, IconButton, Box, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 
-// type  profileHeaderProps = {
-//   showShareIcon:boolean
-// }
-
-const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon: string, url: string }[], showSocialIcons?:boolean }) => {
+const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon?: string, url?: string }[], showSocialIcons?:boolean }) => {
   return (
     <>
       <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage="/assets/images/cover-image1.png" backgroundRepeat="no-repeat" h={{base:'220px',md:'400px'}}>
@@ -26,7 +22,7 @@ const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon:
               )
             })}
             
-          <Box  borderLeft={{base:'none',sm:'1px solid #A6A6A6'}} paddingLeft={{base:'0',sm:'2'}} ml={{base:'0',sm:'2'}} >
+          <Box borderLeft={{base:'none',sm:'1px solid #A6A6A6'}} paddingLeft={{base:'0',sm:'2'}} ml={{base:'0',sm:'2'}} >
           <IconButton color=' #756C99'mb={{base:'8px',sm:'0'}} ml={{base:'5px',sm:'0'}}
             variant='outline'
             colorScheme='#6863F3'

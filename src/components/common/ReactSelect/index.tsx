@@ -54,7 +54,7 @@ const ReactSelect = ({
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
-            borderColor: state.isFocused ? '#6863F3' : '#6863F3',
+            borderColor: state.isFocused ? '#6863F3' : '#6f6bf366',
             boxShadow: 'none',
             width: '100%',
             borderRadius: '6px',
@@ -65,7 +65,7 @@ const ReactSelect = ({
             ...styles,
             backgroundColor: 'rgba(104, 99, 243, 0.3)',
             borderRadius: '6px',
-            border: '1px solid #6863F3',
+            border: '1px solid #6f6bf366',
             height: '32px',
             alignItems: 'center',
           }),

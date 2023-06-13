@@ -37,7 +37,6 @@ const FileUpload = ({
     showSuccessToast: false,
     isFileData: true,
     onSuccess: (data) => {
-      console.log("🚀 ~ file: index.tsx:48 ~ data:", data);
       setShowImgPreview(true);
       imgUrl({
         imgFor,
