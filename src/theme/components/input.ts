@@ -11,6 +11,7 @@ export const Input: ComponentStyleConfig = {
             appearance: 'none',
             transitionProperty: 'common',
             transitionDuration: 'normal',
+            border:'1px solid #6f6bf366',
             _disabled: {
               opacity: 0.4,
               cursor: 'not-allowed',
@@ -22,6 +23,7 @@ export const Input: ComponentStyleConfig = {
             field:{
                borderWidth:'1px',
                borderColor:'rgba(104, 99, 243, 0.3)',
+               border:'1px solid #6f6bf366',
                _placeholder:{
                    color:'#393f5980',
                }

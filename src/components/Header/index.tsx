@@ -113,6 +113,7 @@ export const Header = () => {
             >
               <HStack
                 textTransform="uppercase"
+                fontSize={{base:'15px',xl:'16px'}}
                 alignItems={{ base: "initial", xl: "center" }}
                 flexDirection={{
                   base: "column",
@@ -120,7 +121,7 @@ export const Header = () => {
                   md: "row",
                   xl: "row",
                 }}
-                spacing={{ xl: "24px", lg: "16px" }}
+                spacing={{ xl: "24px", lg: "12px" }}
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
