@@ -56,7 +56,7 @@ const CreateNFT = () => {
     try {
       if (contractInst) {
         const result = await contractInst.safeMint(account, uri);
-        console.log(result);
+        console.log("NFTTTT", result);
       }
       // Handle the returned result here
     } catch (error) {
@@ -70,7 +70,8 @@ const CreateNFT = () => {
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
     onSuccess: async (data) => {
-      await minting(data?.ipfsJsonUrl.toString());
+      console.log("Dataa Resp", data);
+      await minting(String(data?.ipfsJsonUrl));
     },
   });
 
@@ -98,7 +99,7 @@ const CreateNFT = () => {
   };
 
   const initialValues = {
-    nftImgUrl: "abc",
+    photo: nftFile,
     name: nftName,
     description: "",
     collectionId: collectionId,
@@ -116,9 +117,10 @@ const CreateNFT = () => {
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
-          onSubmit={(values) =>
-            mutate({ ...values, photo: nftFile, collectionId: collectionId })
-          }
+          onSubmit={(values) => {
+            console.log("function call", values);
+            mutate({ ...values, photo: nftFile, collectionId: collectionId });
+          }}
         >
           {({ errors, touched, values }) => (
             <Form>
@@ -139,8 +141,8 @@ const CreateNFT = () => {
                     imgFor="nft"
                     imgUrl={getImgUrl}
                   />
-                  {touched["nftImgUrl"] && errors["nftImgUrl"] && (
-                    <Text>{errors["nftImgUrl"] as React.ReactNode}</Text>
+                  {touched["photo"] && errors["photo"] && (
+                    <Text>{errors["photo"] as React.ReactNode}</Text>
                   )}
                   <Field
                     as={InputField}
@@ -156,7 +158,7 @@ const CreateNFT = () => {
                     }
                     maxLength={50}
                   />
-                  <Field 
+                  <Field
                     name="description"
                     component={ChakraTextarea}
                     label="Description"
