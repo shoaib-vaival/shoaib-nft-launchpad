@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import CreatableSelect from 'react-select/creatable';
+import React, { useState } from "react";
+import CreatableSelect from "react-select/creatable";
 import {
   ReactSelectTypes as customTypes,
   ReactSelectPropsTypes,
-} from './types';
-import { components } from 'react-select';
-import {
-  FormLabel,
-  Flex,
-} from '@chakra-ui/react';
+} from "./types";
+import { components } from "react-select";
+import { FormLabel, Flex } from "@chakra-ui/react";
 
 const MultiValueRemove = (props: any) => {
   return (
@@ -24,24 +21,23 @@ const ReactSelect = ({
   getSelectedData,
   identifier,
   label,
-  placeholder
+  placeholder,
+  nftName,
+  setNftName,
 }: ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(null);
 
   const handleChangeCategory = (cat: any) => {
-    // if (!isMultiple) {
-      getSelectedData(cat, identifier);
-    // } else {
-      // getSelectedData(cat, identifier);
-    // }
+    getSelectedData(cat, identifier);
     setValue(cat);
+    nftName && setNftName(nftName);
   };
 
   return (
     <>
       {label && (
-        <Flex alignItems='center'>
-          <FormLabel color='black'>{label}</FormLabel>
+        <Flex alignItems="center">
+          <FormLabel color="black">{label}</FormLabel>
         </Flex>
       )}
       <CreatableSelect
@@ -71,14 +67,14 @@ const ReactSelect = ({
           }),
           multiValueLabel: (styles, { data }) => ({
             ...styles,
-            fontSize: '12px',
-            color: '#393F59',
+            fontSize: "12px",
+            color: "#393F59",
           }),
           multiValueRemove: (styles, { data }) => ({
             ...styles,
-            color: '#756C99',
-            ':hover': {
-              backgroundColor: 'transparent',
+            color: "#756C99",
+            ":hover": {
+              backgroundColor: "transparent",
             },
           }),
         }}

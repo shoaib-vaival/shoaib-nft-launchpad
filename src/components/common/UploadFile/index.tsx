@@ -13,6 +13,7 @@ import {
   Text,
   Image,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
 
 const FileUpload = ({
@@ -31,7 +32,7 @@ const FileUpload = ({
   );
   const [showImgPreview, setShowImgPreview] = useState<boolean>(false);
 
-  const { mutate: uploadFileOnServerFunc } = useMutation<UploadFileOnServer>({
+  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } = useMutation<UploadFileOnServer>({
     method: POST,
     url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
     showSuccessToast: false,
@@ -40,24 +41,10 @@ const FileUpload = ({
       setShowImgPreview(true);
       imgUrl({
         imgFor,
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.path}`,
+        url: data?.data?.path,
       });
     },
   });
-
-  // const { mutate: getIpfsHash } = useMutation<any>({
-  //   method: POST,
-  //   url: ApiUrl?.GET_IPFS_HASH,
-  //   showSuccessToast: false,
-  //   isFileData: true,
-  //   onSuccess: (data) => {
-  //     setShowImgPreview(true);
-  //     imgUrl({
-  //       imgFor,
-  //       url: data?.data?.url,
-  //     });
-  //   },
-  // });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -67,7 +54,6 @@ const FileUpload = ({
 
   const handleFileChange = async (acceptedFiles: any) => {
     const selectedFile = acceptedFiles?.[0];
-    // console.log("selectedFileselectedFile", selectedFile);
 
     const isValidatedFile = await validateFile(selectedFile);
     if (isValidatedFile !== "ok") {
@@ -91,21 +77,6 @@ const FileUpload = ({
           })
         )
       );
-
-      // if (imgFor == "nft") {
-      //   getIpfsHash({ imgData: selectedFile });
-      //   // IPFS HASH
-      // } else {
-      //   imgUrl(selectedFile);
-      //   setShowImgPreview(true);
-      //   setPreview(
-      //     acceptedFiles.map((upFile: any) =>
-      //       Object.assign(upFile, {
-      //         preview: URL.createObjectURL(upFile),
-      //       })
-      //     )
-      //   );
-      // }
     }
   };
 
@@ -116,6 +87,7 @@ const FileUpload = ({
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
+        {imgUploadLoading && <Box position="relative"><Spinner></Spinner></Box>}
         {preview && showImgPreview ? (
           <>
             <Box position="relative">
