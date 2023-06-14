@@ -19,6 +19,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { pagePaths } from '../../constants'
 import { collectionCardProps } from '../../types/collectionCard';
+import { string } from 'yup';
 
 
 const CollectionCard = ({
@@ -95,32 +96,33 @@ const CollectionCard = ({
                 </Heading>
                 <SimpleGrid columns={[2, null, 2]} spacing='40px'>
                   <Box>
-                    <Text fontSize='14px' color='#756C99'>
+                    <Text fontSize='14px' color='#756C99' mb='8px'>
                       Volume
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {volume}
+                      {volume?volume:'--'} ETH
                     </Text>
                   </Box>
                   <Box>
-                    <Text fontSize='14px' color='#756C99'>
+                    <Text fontSize='14px' color='#756C99' mb='8px'>
                       Floor Price
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {price}
+                      {price?price:'--'} ETH
                     </Text>
                   </Box>
                 </SimpleGrid>
               </Stack>
             </CardBody>
+            {isVisible && isEditAble?
             <CardFooter>
-                  {isVisible && isEditAble?
                         <Button variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
                             Edit Collection
                         </Button>
-                        :''}
+                        
           
                     </CardFooter>
+                    :''}
           </Card>
         </Container>
       </div>

@@ -1,10 +1,13 @@
+
 import { Tab, TabList, Tabs, SimpleGrid, Flex, Box, Menu, MenuButton, MenuList, MenuItem, Text} from "@chakra-ui/react"
 import { useState } from "react"
 import { ApiUrl } from "../../apis/apiUrl"
 import { QUERY_KEYS } from "../../hooks/queryKeys"
 import { useQuery } from "../../hooks/useQuery"
 import { categoriesType } from "../../types/homePage"
+import { Tab, TabList, Tabs, SimpleGrid, Flex, Box } from "@chakra-ui/react"
 import CollectionCard from "../Cards/CollectionCard"
+import { color } from "framer-motion"
 
 type FilterTabs = {
     tabsList?:categoriesType[],
@@ -51,5 +54,6 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
         </Flex>
  </Tabs>
 </>
+
     )
 }

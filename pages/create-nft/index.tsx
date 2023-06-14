@@ -39,7 +39,6 @@ import { useNFTContract } from "../../src/connectors/erc721Provider";
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
-  const [nftName, setNftName] = useState<string>("");
   const [nftFile, setNftFile] = useState<any>();
   const [properties, setProperties] = useState<PropertyTypes[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,11 +64,12 @@ const CreateNFT = () => {
     }
   };
 
-  const { mutate, isLoading } = useMutation<any>({
+  const { mutate } = useMutation<any, { ipfsJsonUrl: string }>({
     method: POST,
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
     onSuccess: async (data) => {
+      console.log("NFT Data", data);
       await minting(data?.ipfsJsonUrl.toString());
     },
   });
@@ -99,7 +99,7 @@ const CreateNFT = () => {
 
   const initialValues = {
     nftImgUrl: "abc",
-    name: nftName,
+    name: "",
     description: "",
     collectionId: collectionId,
     properties: properties || [],
@@ -111,6 +111,13 @@ const CreateNFT = () => {
         <Heading as="h1" pt={"60px"}>
           Create New Item
         </Heading>
+        <NftPropertiesModal
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
+          properties={properties}
+          setProperties={setProperties}
+        />
 
         <Formik
           initialValues={initialValues}
@@ -120,18 +127,9 @@ const CreateNFT = () => {
             mutate({ ...values, photo: nftFile, collectionId: collectionId })
           }
         >
-          {({ errors, touched, values }) => (
+          {({ errors, touched }) => (
             <Form>
               <FormControl>
-                <NftPropertiesModal
-                  isOpen={isOpen}
-                  onOpen={onOpen}
-                  onClose={onClose}
-                  nftName={values?.name}
-                  setNftName={setNftName}
-                  properties={properties}
-                  setProperties={setProperties}
-                />
                 <Stack direction="column">
                   <FileUpload
                     label="Image, Video, Audio, or 3D Model *"
@@ -156,7 +154,7 @@ const CreateNFT = () => {
                     }
                     maxLength={50}
                   />
-                  <Field 
+                  <Field
                     name="description"
                     component={ChakraTextarea}
                     label="Description"
@@ -169,8 +167,6 @@ const CreateNFT = () => {
                     getSelectedData={getSelectedData}
                     identifier="collection"
                     label="Collection"
-                    nftName={values?.name}
-                    setNftName={setNftName}
                   />
                   {touched["collectionId"] && errors["collectionId"] && (
                     <Text
@@ -213,7 +209,7 @@ const CreateNFT = () => {
                   </Box>
                 </Stack>
               </FormControl>
-              <Button isLoading={isLoading} type="submit" variant="primary">
+              <Button type="submit" variant="primary">
                 Submit
               </Button>
             </Form>

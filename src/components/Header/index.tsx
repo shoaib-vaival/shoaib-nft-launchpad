@@ -67,9 +67,8 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{sm:'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
-
-        <Box py='30px' px={{base:'0',sm:'17px'}}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
+        <Box py="30px" px={{ base: "0", sm: "17px" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -126,9 +125,9 @@ export const Header = () => {
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
                 <Link href="#">Activity</Link>
-          
               </HStack>
             </Box>
+
             <Flex
               order={{ base: "5", sm: "5", md: "2", lg: "4" }}
               marginLeft={{ base: "auto", md: "auto !important" }}
@@ -143,24 +142,26 @@ export const Header = () => {
                   onOpen={onConnectionModalOpen}
                   onClose={onConnectionModalClose}
                 />
-                <MenuButton
-                  as={Button}
-                  textTransform="uppercase"
-                  fontSize="16px"
-                  ml={{ base: "0", md: "30px", lg: "0" }}
-                  mr={{ base: "0", sm: "25px", md: "0" }}
-                  variant="primary"
-                  w={{ base: "full", sm: "50%", md: "75%", xl: "initial" }}
-                  size="md"
-                >
-                  Create
-                </MenuButton>
+                {!account ? null : (
+                  <MenuButton
+                    as={Button}
+                    textTransform="uppercase"
+                    fontSize="16px"
+                    ml={{ base: "0", md: "30px", lg: "0" }}
+                    mr={{ base: "0", sm: "25px", md: "0" }}
+                    variant="primary"
+                    w={{ base: "full", sm: "50%", md: "75%", xl: "initial" }}
+                    size="md"
+                  >
+                    Create
+                  </MenuButton>
+                )}
                 <MenuList>
-                  <MenuItem><Link  href="/nft/create">Create NFT</Link></MenuItem>
-                  <MenuItem >
-                  <Link href="/collection/create">
-                    Create Collection
-                    </Link>
+                  <MenuItem>
+                    <Link href="/nft/create">Create NFT</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/collection/create">Create Collection</Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -196,7 +197,6 @@ export const Header = () => {
             <Box
               order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
-              pl="16px"
             >
               <Menu>
                 <MenuButton
@@ -211,16 +211,24 @@ export const Header = () => {
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>
-                <MenuButton
-                  as={Avatar}
-                  size="sm"
-                  icon={<Avatar />}
+               {!account ? null : (
+                <MenuButton fontSize='20px' color='#6F6BF3' bg='#FFFFFF' border='1px solid #6F6BF3' borderRadius='50px' height='40px' w='40px'
+                  as={IconButton}
+                  icon={<i className='icon-vector'></i>}
                   aria-label="Options"
                 />
+                )}
+
                 <MenuList>
-                  <MenuItem><Link href="/profile-created">Profile</Link></MenuItem>
-                  <MenuItem><Link href="/collection/my-collection">My Collection</Link></MenuItem>
-                  <MenuItem><Link href="/setting">Settings</Link></MenuItem>
+                  <MenuItem>
+                    <Link href="/profile-created">Profile</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/collection/my-collection">My Collection</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/setting">Settings</Link>
+                  </MenuItem>
                   <MenuItem>Dark Mode</MenuItem>
                   <MenuItem
                     onClick={(a) => {

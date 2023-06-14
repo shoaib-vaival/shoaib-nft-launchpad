@@ -9,12 +9,13 @@ export const Tabs:ComponentStyleConfig = {
                  color:'#6863F3',
                  paddingBottom:'15px',
                  paddingLeft:'12px',
-             }
+             },
         },
          tablist: {
              borderBottom: '2x solid',
              borderColor: 'inherit',
              paddingLeft:'12px',
+             
             },
     }
 }

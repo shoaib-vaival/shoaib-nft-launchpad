@@ -1,5 +1,5 @@
 import { Container, Flex, Box, Heading, Text } from "@chakra-ui/layout";
-import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox } from '@chakra-ui/react';
+import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox, Image } from '@chakra-ui/react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { Field, Form, Formik } from "formik";
 import { NextPage } from "next";
@@ -12,6 +12,8 @@ import { PATCH } from "../src/hooks/consts";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useMutation } from "../src/hooks/useMutation";
 import { useQuery } from "../src/hooks/useQuery";
+import { EditUploadFile } from "../src/components/common/EditUploadFile";
+
 
 
 
@@ -81,8 +83,10 @@ const Setting: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '40px', md: '85px' }}>
-                  <ProfileHeader showSocialIcons={false} coverPhoto={profile?.profileCoverURL}  profilePhoto={profile?.profileUrl} />
+                <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '55px', md: '85px' }} position="relative">
+                  <EditUploadFile FileUploadOverlay={true}/>
+                  
+                  {/* <ProfileHeader showSocialIcons={false} FileUploadOverlay={true} /> */}
                 </Box>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} p={{ base: '0', md: '16px' }}>
                   <Box>
@@ -276,6 +280,7 @@ const Setting: NextPage = () => {
                     maxLength={50}
                   />
                 </Flex>
+
                       </Box>
                       <Flex gap={{ base: '0', sm: '2', md: '6' }} display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
                         <Stack w={{ base: '100%', md: '47%', lg: '48%' }}>
