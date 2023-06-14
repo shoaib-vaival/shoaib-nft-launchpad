@@ -1,18 +1,18 @@
 import { Container } from "@chakra-ui/layout"
 import { Image, Flex, IconButton, Box, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 
-const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon?: string, url?: string }[], showSocialIcons?:boolean }) => {
+const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto}: { socialIcons?: { icon?: string, url?: string }[], showSocialIcons?:boolean, coverPhoto?:string, profilePhoto?:string }) => {
   return (
     <>
-      <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage="/assets/images/cover-image1.png" backgroundRepeat="no-repeat" h={{base:'220px',md:'400px'}}>
-        <Image src="/assets/images/RectangleCardImg.png" w={{base:'100px',md:'200px'}} h={{base:'100px',md:'200px'}} borderRadius="16px" border="2px solid white" position="absolute" bottom='-35%' transform="translateY(-50%)" />
+      <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage={coverPhoto} h={{base:'220px',md:'400px'}}>
+        <Image src={profilePhoto} w={{base:'100px',md:'200px'}} h={{base:'100px',md:'200px'}} borderRadius="16px" border="2px solid white" position="absolute" bottom='-35%' transform="translateY(-50%)" />
       </Container>
       <Container maxW="1440" mt={{base:'50px',md:'8px'}} px='0'>
           {showSocialIcons && 
         <Flex justifyContent={{base:'flex-start',sm:'end'}} w="full" wrap="wrap" >
             {socialIcons?.map((icon, index) => {
               return (
-                <IconButton color=' #756C99' ml={{base:'5px',sm:'8px'}} mb={{base:'8px',sm:'0'}} key={index} as="a" href={icon.url}
+                <IconButton color=' #756C99' ml={{base:'5px',sm:'8px'}} mb={{base:'8px',sm:'0'}} key={index} as="a" target="_blank" href={icon.url}
                   variant='outline'
                   colorScheme='#6863F3'
                   aria-label='Send'

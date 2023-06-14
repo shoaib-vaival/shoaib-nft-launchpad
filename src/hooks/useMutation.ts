@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DELETE, POST, PUT } from "./consts";
+import { DELETE, PATCH, POST, PUT } from "./consts";
 import {
   UseMutateFunction,
   useMutation as useRMutation,
@@ -31,7 +31,7 @@ export type ApiResult<K> = {
 type UseMutationProps<T, K> = {
   url: string;
   data?: T;
-  method?: typeof POST | typeof DELETE | typeof PUT;
+  method?: typeof POST | typeof DELETE | typeof PUT | typeof PATCH;
   token?: boolean;
   showToast?: boolean;
   showSuccessToast?: boolean;

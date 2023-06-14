@@ -86,9 +86,9 @@ const myCollection: NextPage = (props) => {
                     )
                   })
                 }
-                <Loader />
+                {/* <Loader /> */}
               </Flex>
-              <Flex
+              {/* <Flex
                 direction={["column", "row"]}
                 flexWrap={{
                   base: "nowrap",
@@ -129,7 +129,7 @@ const myCollection: NextPage = (props) => {
                     );
                   })
                 )}
-              </Flex>
+              </Flex> */}
             </InfiniteScroll>
           </Box>
         </Container>

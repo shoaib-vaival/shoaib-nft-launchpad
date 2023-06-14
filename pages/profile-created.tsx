@@ -48,7 +48,7 @@ const ProfilCreated: NextPage = () => {
           <ProfileHeader socialIcons={socialIcons} showSocialIcons={true}/>
         </Box>
         <Box mb={{ base: '12px', md: '35px' }}>
-        <ProfileDetail showStats = {false} />
+        <ProfileDetail showStats = {false} name=""  isCollection={false}/>
         </Box>
       </Container>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>

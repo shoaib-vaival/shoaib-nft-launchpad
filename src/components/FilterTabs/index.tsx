@@ -30,7 +30,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
         <Menu>
             <TabList pl='0' mx='17px' flexWrap='wrap' borderBottom={{base:'0px solid rgba(53, 53, 53, 0.2)',sm:'1px solid rgba(53, 53, 53, 0.2)'}}>
         {tabsList && tabsList?.slice(0,5).map((category, index)=> <Tab onClick={()=>filterUsingTabs(category?.id)} key = {index}>{category?.name}</Tab>)}
-        <Tab as={MenuButton}>More</Tab>
+        {tabsList && tabsList?.length >= 5?<Tab as={MenuButton}>More</Tab>:''}
          </TabList>
          <MenuList >
         {tabsList && tabsList?.slice(5,tabsList.length).map((category, index)=> {return(

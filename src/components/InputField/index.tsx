@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   FormControl,
   Input,
@@ -11,6 +11,7 @@ import {
   Flex,
   FormLabelProps,
   FormLabel,
+  useClipboard
 } from '@chakra-ui/react';
 import { SearchIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
@@ -22,6 +23,7 @@ export type InputProps = ChakraUIInputProps & {
   type?: React.HTMLInputTypeAttribute | 'search';
   errorText?: string;
   icon?: JSX.Element;
+  ref?:string
 };
 
 const InputField = ({
@@ -38,10 +40,13 @@ const InputField = ({
   width,
   maxLength,
   fontSize = 'md',
+  ref,
   minLength,
   ...restProps
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { onCopy, value, setValue, hasCopied } = useClipboard("");
+  const inputRef = useRef();
   return (
     <FormControl width={width} {...formControlProps}>
           {label && (
@@ -64,6 +69,7 @@ const InputField = ({
           fontWeight='medium'
           maxLength={maxLength}
           minLength={minLength}
+          ref = {ref ?? inputRef}
           variant='custom'
           _placeholder={
             type === 'password'
@@ -79,6 +85,11 @@ const InputField = ({
           {...restProps}
           autoComplete='off'
         />
+        {type==='copy' && (
+          <InputRightElement color="#6863F3" cursor="pointer" onClick={()=>setValue('shoaib')}>
+          <i  className='icon-copy'></i>
+          </InputRightElement>
+        )}
         {type === 'password' && (
           <InputRightElement >
             <Button
