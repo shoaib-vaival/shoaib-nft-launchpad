@@ -36,6 +36,7 @@ import { Header } from "../../src/components/Header";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { useNFTContract } from "../../src/connectors/erc721Provider";
+import { useRouter } from "next/router";
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
@@ -45,6 +46,7 @@ const CreateNFT = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const contractInst = useNFTContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  const router = useRouter();
 
   const { data: collections } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
@@ -55,8 +57,18 @@ const CreateNFT = () => {
   const minting = async (uri: string) => {
     try {
       if (contractInst) {
-        const result = await contractInst.safeMint(account, uri);
-        console.log("NFTTTT", result);
+        const result = await contractInst
+          .safeMint(account, uri)
+          .on("transactionHash", async function (hash: any) {
+            console.log("Trx Hash", hash);
+          })
+          .then((r: any) => {
+            console.log("Mint Resp", r);
+            router.push("/profile-created");
+          })
+          .catch((e: any) => {
+            console.log("Mint Error", e);
+          });
       }
       // Handle the returned result here
     } catch (error) {
@@ -72,6 +84,7 @@ const CreateNFT = () => {
     onSuccess: async (data) => {
       console.log("Dataa Resp", data);
       await minting(String(data?.ipfsJsonUrl));
+      router.push("/profile-created");
     },
   });
 

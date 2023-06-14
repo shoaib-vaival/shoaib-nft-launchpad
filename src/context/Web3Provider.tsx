@@ -49,6 +49,7 @@ export const Web3ContextProvider = ({
 
   const { account, provider, chainId } = useWeb3React();
   const walletConnectAccount = useAccounts();
+  const metamaskAccount = useAccount();
   const isWalletConnected = getFromLocalStorage("isWalletConnected");
 
   useEffect(() => {

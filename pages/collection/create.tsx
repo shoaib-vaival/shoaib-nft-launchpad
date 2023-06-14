@@ -52,7 +52,18 @@ const CreateCollection = () => {
   const deployy = async (name: string) => {
     try {
       if (contractInst) {
-        const result = await contractInst.deploy(name, "TOKEN");
+        const result = await contractInst
+          .deploy(name, "TOKEN")
+          .on("transactionHash", async function (hash: any) {
+            console.log("Trx Hash", hash);
+          })
+          .then((r: any) => {
+            console.log("Create Collection Resp", r);
+            router.push("/profile-created");
+          })
+          .catch((e: any) => {
+            console.log("Collection Error", e);
+          });
       }
       // Handle the returned result here
     } catch (error) {
@@ -158,7 +169,7 @@ const CreateCollection = () => {
   return (
     <Container
       maxW={{ sm: "2xl", md: "3xl", lg: "5xl", xl: "952px" }}
-      pt='30px'
+      pt="30px"
     >
       <Heading as="h1">Create Collection</Heading>
       <Formik
