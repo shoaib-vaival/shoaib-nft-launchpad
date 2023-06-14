@@ -8,5 +8,10 @@ export const ApiUrl = {
     CREATE_NFT: 'minting/create-nft',
     GET_COLLECTION: 'collection/editCollectionById',
     GET_DASHBOARD_COLLECTION:'minting/get-dashboard-collection-nfts',
-    GET_MY_COLLECTION:'collection/getCollectionsByWalletAddress/0x0000'
+    GET_MY_COLLECTION:'collection/getCollectionsByWalletAddress/0x0000',
+    GET_COLLECTION_BY_CAT_ID:'collection/get-collections-by-category-id',
+    GET_PROFILE_BY_ID:'user/get-profile',
+    UPDATE_PROFILE:'user/update-user',
+    GET_COLLECTION_DETAIL:'collection/getCollectionsById',
+    GET_COLLECTION_NFTS_BY_ID:'minting/nfts-by-collection-id'
 }

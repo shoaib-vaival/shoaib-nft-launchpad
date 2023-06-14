@@ -5,7 +5,7 @@ import { Textarea, Button, FormControl, FormLabel, FormErrorMessage, Text, Texta
     return (
       <FormControl isInvalid={form.errors[field.name] && form.touched[field.name]}>
         <FormLabel htmlFor={field.name}>{label}</FormLabel>
-        <Textarea {...field} {...rest} placeholder={placeholder}/>
+        <Textarea {...field} {...rest} placeholder={placeholder} boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366'/>
         {descp && <Text>{descp}</Text>}
         <FormErrorMessage>{form.errors[field.name]}</FormErrorMessage>
       </FormControl>

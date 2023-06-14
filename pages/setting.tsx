@@ -1,27 +1,52 @@
 import { Container, Flex, Box, Heading, Text } from "@chakra-ui/layout";
 import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox, Image } from '@chakra-ui/react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
+import { Field, Form, Formik } from "formik";
 import { NextPage } from "next";
 import { useState } from "react";
+import { ApiUrl } from "../src/apis/apiUrl";
+import InputField from "../src/components/InputField";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
+import ChakraTextarea from "../src/components/Textarea";
+import { PATCH } from "../src/hooks/consts";
+import { QUERY_KEYS } from "../src/hooks/queryKeys";
+import { useMutation } from "../src/hooks/useMutation";
+import { useQuery } from "../src/hooks/useQuery";
 import { EditUploadFile } from "../src/components/common/EditUploadFile";
 
 
 
+
 const Setting: NextPage = () => {
-  const [isGroupMode, setIsGroupMode] = useState<boolean>(true)
-  const changeViewMode = (mode: string) => {
-    if (mode === 'group') {
-      setIsGroupMode(true)
-    }
-    if (mode === 'list') {
-      setIsGroupMode(false)
-    }
+
+  const {data:profile} = useQuery<any>({
+    queryKey:[QUERY_KEYS.GET_PROFILE],
+    url:`${ApiUrl.GET_PROFILE_BY_ID}/${1}`
+  })
+  
+   const { mutate } = useMutation<any>({
+    method: PATCH,
+    url: `${ApiUrl.UPDATE_PROFILE}/${1}`,
+    showSuccessToast: true,
+  });
+
+  const initialValues = {
+    displayName:profile?.displayName,
+    userName:profile?.userName,
+    bio:profile?.bio,
+    email:profile?.email,
+    websiteUrl:profile?.websiteUrl,
+    etherScanUrl:profile?.etherScanUrl,
+    walletAddress:profile?.walletAddress,
+    telegram: profile?.telegram,
+    twitter: profile?.twitter,
+    instagram: profile?.instagram,
+    discord: profile?.discord,
+
   }
+
   return (
     <>
-
-
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
         <Flex
           p={{ base: '0', md: '0 17px' }}
@@ -65,6 +90,16 @@ const Setting: NextPage = () => {
                 </Box>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} p={{ base: '0', md: '16px' }}>
                   <Box>
+                    <Formik
+                     initialValues={initialValues}
+                    //  validationSchema={{}}
+                     enableReinitialize
+                     onSubmit={(values) => {
+                       mutate(values)
+                      }}
+                    >
+                    {({ errors, touched, values }) => (
+                      <Form>
                     <FormControl>
                       <Flex mb='24px' gap={"10"}
                         display={{ base: "block", sm: "flex" }}
@@ -75,22 +110,46 @@ const Setting: NextPage = () => {
                         }}>
 
                         <Box w='100%' mb={{ base: '24px', md: '0' }}>
-                          <FormLabel fontSize='16px' fontWeight='700' mb='16px!important'>Display Name</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your display name' />
+                               <Field
+                               as={InputField}
+                               size="md"
+                               label="Display Name"
+                               type="text"
+                               placeholder="Enter your display name"
+                               name="displayName"
+                               formControlProps={{marginTop:'0px', marginBottom:'0px'}}
+                               maxLength={50}/>
                         </Box>
 
                         <Box w='100%'>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Display Name</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your username' />
+                            <Field
+                               as={InputField}
+                               size="md"
+                               label="UserName"
+                               type="text"
+                               placeholder="Enter your username"
+                               formControlProps={{marginTop:'0px', marginBottom:'0px'}}
+                               name="userName"
+                               maxLength={50}/>
+                          {/* <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Display Name</FormLabel>
+                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your username' /> */}
                         </Box>
                       </Flex>
                       <Box mb='24px'>
-                        <Text fontSize='16px' fontWeight='500!important' mb='16px!important'>Short Bio</Text>
+                         <Field
+                name="bio"
+                component={ChakraTextarea}
+                formControlProps={{marginTop:'0px', marginBottom:'0px'}}
+                label="Short Bio"
+                placeholder="Tel about your self in few words"
+                desc=''
+              />
+                        {/* <Text fontSize='16px' fontWeight='500!important' mb='16px!important'>Short Bio</Text>
                         <Textarea boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366'
                           value=''
                           placeholder='Tel about your self in few words'
                           size='md'
-                        />
+                        /> */}
                       </Box>
                       <Flex mb='24px' gap={"10"}
                         display={{ base: "block", sm: "flex" }}
@@ -101,96 +160,151 @@ const Setting: NextPage = () => {
                         }}>
 
                         <Box w='100%' mb={{ base: '24px', md: '0' }}>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Email</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your email' />
+                           <Field
+                               as={InputField}
+                               size="md"
+                               label="Email"
+                               type="text"
+                               placeholder="Enter your email"
+                               formControlProps={{marginTop:'0px', marginBottom:'0px'}}
+                               name="email"
+                               maxLength={50}/>
+                          {/* <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Email</FormLabel>
+                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your email' /> */}
                         </Box>
 
                         <Box w='100%'>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Email</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Email' />
+                           <Field
+                               as={InputField}
+                               size="md"
+                               label="Website URL"
+                               type="text"
+                               placeholder="https://"
+                               formControlProps={{marginTop:'0px', marginBottom:'0px'}}
+                               name="websiteUrl"
+                               maxLength={50}/>
+                         
                         </Box>
                       </Flex>
                       <Flex mb='24px' display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
 
                       <Box w={{ base: '100%', md: '47%', lg: '48%' }}>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Etherscan</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='https://' />
+                             <Field
+                               as={InputField}
+                               size="md"
+                               label="Etherscan"
+                               type="text"
+                               placeholder="https://"
+                               formControlProps={{marginTop:'0px', marginBottom:'0px'}} 
+                               name="etherScanUrl"
+                               maxLength={50}/>
                         </Box>
                       </Flex>
 
                       <Box mb='24px'>
                         <Heading fontSize={'24px'}>Social Links</Heading>
                         <Text fontSize={'16px'} m='16px 0 20px'>Add your existing social links to build a stronger reputation.</Text>
-                        <Box>
-                          <Flex mb='24px' columnGap={'10'} flexDirection={{ base: 'column', md: 'row' }} justifyContent={{ base: 'initial', sm: 'space-between' }}>
-                            <Box w='100%' display='flex' p={{ base: '22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='rgba(104, 99, 243, 0.1)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
-                              <Flex display='flex' alignItems='center'>
-                                <Box color=' #6863F3' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
-                                  <i className='icon-instagram'></i>
-                                </Box>
-                                <Text fontSize='18px' color='#6863F3'>Twitter</Text>
-                              </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
-                                <Checkbox id='label' color='white' display='none'></Checkbox>
-                                Disconnect
-                              </FormLabel>
-                            </Box>
-                            <Box w='100%' display='flex' p={{ base: ' 22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='#fff' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
-                              <Flex display='flex' alignItems='center'>
-                                <Box color=' #393F59' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
-                                  <i className='icon-instagram'></i>
-                                </Box>
-                                <Text fontSize='18px' color='#393F59'>Twitter</Text>
-                              </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
-                                <Checkbox id='label' color='white' display='none'></Checkbox>
-                                Disconnect
-                              </FormLabel>
-                            </Box>
-                          </Flex>
-                          <Flex mb='24px' columnGap={'10'} display={{ base: 'block', md: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between' }}>
-                            <Box w='100%' display='flex' p={{ base: '22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='rgba(104, 99, 243, 0.1)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
-                              <Flex display='flex' alignItems='center'>
-                                <Box color=' #6863F3' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
-                                  <i className='icon-instagram'></i>
-                                </Box>
-                                <Text fontSize='18px' color='#6863F3'>Twitter</Text>
-                              </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
-                                <Checkbox id='label' color='white' display='none'></Checkbox>
-                                Disconnect
-                              </FormLabel>
-                            </Box>
+                          <Flex
+                  gap={"10"}
+                  display={{ base: "block", sm: "flex" }}
+                  justifyContent={{
+                    base: "initial",
+                    sm: "space-between",
+                    xl: "space-between",
+                  }}
+                >
+                  <Field
+                    as={InputField}
+                    size="md"
+                    label="Telegram"
+                    type="text"
+                    placeholder="Telegram ID"
+                    name="telegram"
+                    errorText={
+                      touched["telegram"] && errors["telegram"]
+                        ? errors["telegram"]
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                  <Field
+                    as={InputField}
+                    size="md"
+                    label="Twitter"
+                    type="text"
+                    placeholder="https://"
+                    name="twitter"
+                    errorText={
+                      touched["twitter"] && errors["twitter"]
+                        ? errors["twitter"]
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                </Flex>
+                <Flex
+                  gap={"10"}
+                  display={{ base: "block", sm: "flex" }}
+                  justifyContent={{
+                    base: "initial",
+                    sm: "space-between",
+                    xl: "space-between",
+                  }}
+                >
+                  <Field
+                    as={InputField}
+                    size="md"
+                    label="Instagram"
+                    type="text"
+                    placeholder="https://"
+                    name="instagram"
+                    errorText={
+                      touched["instagram"] && errors["instagram"]
+                        ? errors["instagram"]
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                  <Field
+                    as={InputField}
+                    size="md"
+                    label="Discord"
+                    type="text"
+                    placeholder="Discord ID"
+                    name="discord"
+                    errorText={
+                      touched["discord"] && errors["discord"]
+                        ? errors["discord"]
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                </Flex>
 
-
-                            <Box w='100%' display='flex' p={{ base: ' 22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='#fff' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
-                              <Flex display='flex' alignItems='center'>
-                                <Box color=' #393F59' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
-                                  <i className='icon-instagram'></i>
-                                </Box>
-                                <Text fontSize='18px' color='#393F59'>Twitter</Text>
-                              </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
-                                <Checkbox id='label' color='white' display='none'></Checkbox>
-                                Disconnect
-                              </FormLabel>
-                            </Box>
-                          </Flex>
-
-                        </Box>
                       </Box>
                       <Flex gap={{ base: '0', sm: '2', md: '6' }} display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
                         <Stack w={{ base: '100%', md: '47%', lg: '48%' }}>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px'>Wallet Address</FormLabel>
-                          <Button bg='rgba(104, 99, 243, 0.2);' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' color='#393F59' borderRadius='6px' p='14px 16px' fontSize='12px' height='initial' border='1px solid #6863F3'>
-                            <Text mr='auto'>0x797970 … 8080</Text> <i className='icon-copy'></i>
-                          </Button>
+                            <Field
+                               as={InputField}
+                               size="md"
+                               label="Wallet Address"
+                               type="copy"
+                               placeholder="0X000000"
+                               formControlProps={{marginTop:'0px', marginBottom:'0px'}} 
+                               name="walletAddress"
+                               fontSize='12px'
+                               bg='rgba(104, 99, 243, 0.2)'
+                                color='#393F59'
+                               maxLength={50}/>
                         </Stack>
                       </Flex>
                     </FormControl>
                     <Button mt='30px' textTransform='uppercase' type='submit' variant='primary'>
                       Save Setting
                     </Button>
+                      </Form>
+                      )}
+                    </Formik>
                   </Box>
                 </Container>
               </TabPanel>
