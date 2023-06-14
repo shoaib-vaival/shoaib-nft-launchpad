@@ -1,9 +1,10 @@
 import { Container, Flex, Box, Heading, Text } from "@chakra-ui/layout";
-import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox } from '@chakra-ui/react';
+import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox, Image } from '@chakra-ui/react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
 import { useState } from "react";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
+import { EditUploadFile } from "../src/components/common/EditUploadFile";
 
 
 
@@ -57,8 +58,10 @@ const Setting: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '40px', md: '85px' }}>
-                  <ProfileHeader showSocialIcons={false} />
+                <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '55px', md: '85px' }} position="relative">
+                  <EditUploadFile FileUploadOverlay={true}/>
+                  
+                  {/* <ProfileHeader showSocialIcons={false} FileUploadOverlay={true} /> */}
                 </Box>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} p={{ base: '0', md: '16px' }}>
                   <Box>
@@ -120,54 +123,54 @@ const Setting: NextPage = () => {
                         <Text fontSize={'16px'} m='16px 0 20px'>Add your existing social links to build a stronger reputation.</Text>
                         <Box>
                           <Flex mb='24px' columnGap={'10'} flexDirection={{ base: 'column', md: 'row' }} justifyContent={{ base: 'initial', sm: 'space-between' }}>
-                            <Box w='100%' display='flex' p={{ base: '22px', md: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='rgba(104, 99, 243, 0.1)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
+                            <Box w='100%' display='flex' p={{ base: '22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='rgba(104, 99, 243, 0.1)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
                               <Flex display='flex' alignItems='center'>
                                 <Box color=' #6863F3' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
                                   <i className='icon-instagram'></i>
                                 </Box>
                                 <Text fontSize='18px' color='#6863F3'>Twitter</Text>
                               </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} mb='0!important'>
+                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
                                 <Checkbox id='label' color='white' display='none'></Checkbox>
                                 Disconnect
                               </FormLabel>
                             </Box>
-                            <Box w='100%' display='flex' p={{ base: ' 22px', md: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='#fff' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
+                            <Box w='100%' display='flex' p={{ base: ' 22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='#fff' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
                               <Flex display='flex' alignItems='center'>
                                 <Box color=' #393F59' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
                                   <i className='icon-instagram'></i>
                                 </Box>
                                 <Text fontSize='18px' color='#393F59'>Twitter</Text>
                               </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} mb='0!important'>
+                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
                                 <Checkbox id='label' color='white' display='none'></Checkbox>
                                 Disconnect
                               </FormLabel>
                             </Box>
                           </Flex>
                           <Flex mb='24px' columnGap={'10'} display={{ base: 'block', md: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between' }}>
-                            <Box w='100%' display='flex' p={{ base: '22px', md: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='rgba(104, 99, 243, 0.1)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
+                            <Box w='100%' display='flex' p={{ base: '22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='rgba(104, 99, 243, 0.1)' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
                               <Flex display='flex' alignItems='center'>
                                 <Box color=' #6863F3' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
                                   <i className='icon-instagram'></i>
                                 </Box>
                                 <Text fontSize='18px' color='#6863F3'>Twitter</Text>
                               </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} mb='0!important'>
+                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
                                 <Checkbox id='label' color='white' display='none'></Checkbox>
                                 Disconnect
                               </FormLabel>
                             </Box>
 
 
-                            <Box w='100%' display='flex' p={{ base: ' 22px', md: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='#fff' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
+                            <Box w='100%' display='flex' p={{ base: ' 22px', lg: '24px 32px' }} justifyContent='space-between' alignItems='center' bg='#fff' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='lg' border='1px solid rgba(111, 107, 243, 0.4)' mb={{ base: '24px', md: '0' }}>
                               <Flex display='flex' alignItems='center'>
                                 <Box color=' #393F59' fontSize='20px' mr={{ base: '8px', md: '16px' }}>
                                   <i className='icon-instagram'></i>
                                 </Box>
                                 <Text fontSize='18px' color='#393F59'>Twitter</Text>
                               </Flex>
-                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} mb='0!important'>
+                              <FormLabel htmlFor='label' border='1px solid #6863F3' borderRadius='8px' bg='purple.500' color='white' p={{ base: '12px 16px', md: '14px 32px' }} m='0!important'>
                                 <Checkbox id='label' color='white' display='none'></Checkbox>
                                 Disconnect
                               </FormLabel>
@@ -177,15 +180,6 @@ const Setting: NextPage = () => {
                         </Box>
                       </Box>
                       <Flex gap={{ base: '0', sm: '2', md: '6' }} display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
-                        {/* 
-                        <Stack w={{ base: '100%', md: 'md' }}>
-                          <FormLabel fontSize='16px' fontWeight='500' mb='16px'>Select Currency</FormLabel>
-                          <Select placeholder='Select option' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366'>
-                            <option value='option1'>Option 1</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                          </Select>
-                        </Stack> */}
                         <Stack w={{ base: '100%', md: '47%', lg: '48%' }}>
                           <FormLabel fontSize='16px' fontWeight='500' mb='16px'>Wallet Address</FormLabel>
                           <Button bg='rgba(104, 99, 243, 0.2);' boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' color='#393F59' borderRadius='6px' p='14px 16px' fontSize='12px' height='initial' border='1px solid #6863F3'>

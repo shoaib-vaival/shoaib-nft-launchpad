@@ -4,8 +4,9 @@ import { Image, Flex, IconButton, Box, Menu, MenuButton, MenuList, MenuItem } fr
 const ProfileHeader = ({ socialIcons, showSocialIcons }: { socialIcons?: { icon?: string, url?: string }[], showSocialIcons?:boolean }) => {
   return (
     <>
-      <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage="/assets/images/cover-image1.png" backgroundRepeat="no-repeat" h={{base:'220px',md:'400px'}}>
-        <Image src="/assets/images/RectangleCardImg.png" w={{base:'100px',md:'200px'}} h={{base:'100px',md:'200px'}} borderRadius="16px" border="2px solid white" position="absolute" bottom='-35%' transform="translateY(-50%)" />
+      <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage="/assets/images/cover-image1.png" backgroundRepeat="no-repeat" h={{ base: '250px', md: '358px' }}>
+        <Image src="/assets/images/RectangleCardImg.png" w={{ base: '100px',sm:'150px', md: '200px' }} h={{ base: '100px',sm:'150px', md: '200px' }} borderRadius="16px" border="2px solid white" position="absolute" bottom={{base:'-30%', sm:'-43%' ,md:'-45%'}} transform="translateY(-50%)" />
+        
       </Container>
       <Container maxW="1440" mt={{base:'50px',md:'8px'}} px='0'>
           {showSocialIcons && 

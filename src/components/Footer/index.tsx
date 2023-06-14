@@ -80,7 +80,7 @@ export const Footer = () => {
                       <IconButton color=' #6863F3'
                         variant='transparent'
                         aria-label='Send'
-                        fontSize='24px'
+                        fontSize='20px'
                         textAlign='center'
                         display='initial'
                         icon={<i className='icon-medium'></i>}

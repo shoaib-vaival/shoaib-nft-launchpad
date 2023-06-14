@@ -197,7 +197,6 @@ export const Header = () => {
             <Box
               order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
-              pl="16px"
             >
               <Menu>
                 <MenuButton
@@ -212,14 +211,14 @@ export const Header = () => {
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>
-                {!account ? null : (
-                  <MenuButton
-                    as={Avatar}
-                    size="sm"
-                    icon={<Avatar />}
-                    aria-label="Options"
-                  />
+               {!account ? null : (
+                <MenuButton fontSize='20px' color='#6F6BF3' bg='#FFFFFF' border='1px solid #6F6BF3' borderRadius='50px' height='40px' w='40px'
+                  as={IconButton}
+                  icon={<i className='icon-vector'></i>}
+                  aria-label="Options"
+                />
                 )}
+
                 <MenuList>
                   <MenuItem>
                     <Link href="/profile-created">Profile</Link>
