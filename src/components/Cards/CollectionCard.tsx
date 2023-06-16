@@ -56,14 +56,15 @@ const CollectionCard = ({
               flexDirection='column'
               justifyContent='center'
             >
-              <Box position='relative'>
+              <Box position='relative' h={{base:'auto',lg:'342px'}}>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
                     alt='Green double couch with wooden legs'
                     borderRadius='lg'
                     w='100%'
-
+                    h='100%'
+                    objectFit='cover'
                   />
                 )}
 

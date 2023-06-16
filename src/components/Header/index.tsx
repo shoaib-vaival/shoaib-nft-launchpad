@@ -69,7 +69,7 @@ export const Header = () => {
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
         <Box py="30px" px={{ base: "0", sm: "17px" }}>
-          <Stack
+          <Stack gap={{base:'0',lg:'0.5'}}
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
             justifyContent={{ base: "flex-start", xl: "initial" }}
@@ -93,6 +93,7 @@ export const Header = () => {
               pl={{ base: "0", lg: "10px", xl: "30px" }}
               pr={{ base: "0", lg: "10px" }}
               pt={{ base: "20px", lg: "0" }}
+              mb={{ base: "10px", lg: "0" }}
             >
               <InputGroup
                 variant="custom"
@@ -108,7 +109,7 @@ export const Header = () => {
             </Box>
             <Box
               order={{ base: "6", sm: "6", md: "6", lg: "3" }}
-              display={{ base: "none", lg: "initial" }}
+              display={{ base: "none", lg: "initial" }} w={{base:'100%',lg:'initial'}}
             >
               <HStack
                 textTransform="uppercase"
@@ -117,12 +118,16 @@ export const Header = () => {
                 flexDirection={{
                   base: "column",
                   sm: "column",
-                  md: "row",
+                  lg: "row",
                   xl: "row",
                 }}
-                spacing={{ xl: "24px", lg: "12px" }}
+                p={{base:'15px 10px',lg:'0'}}
+                bg={{base:'#fff',lg:'none'}}
+                spacing={{ base:'12px', xl: "24px", lg: "12px" }}
+                borderBottomRightRadius='16px'
+                borderBottomLeftRadius='16px'
               >
-                <Link href="/">Home</Link>
+                <Link  href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
                 <Link href="#">Activity</Link>
               </HStack>
@@ -197,6 +202,7 @@ export const Header = () => {
             <Box
               order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
+              ml={{ base: "10px", lg: "0" }}
             >
               <Menu>
                 <MenuButton
