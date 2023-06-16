@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { validateFile } from "../../../utils";
 import { FileType, UploadFileOnServer } from "./types";
 import { useDropzone } from "react-dropzone";
@@ -27,24 +27,34 @@ const FileUpload = ({
   editAbleUrl,
 }: FileType) => {
   const [fileError, setFileError] = useState<string>("");
-  const [preview, setPreview] = useState<any>(
-    editAbleUrl ? [{ preview: editAbleUrl }] : []
-  );
+  const [preview, setPreview] = useState<any>([]);
   const [showImgPreview, setShowImgPreview] = useState<boolean>(false);
 
-  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } = useMutation<UploadFileOnServer>({
-    method: POST,
-    url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
-    showSuccessToast: false,
-    isFileData: true,
-    onSuccess: (data) => {
-      setShowImgPreview(true);
-      imgUrl({
-        imgFor,
-        url: data?.data?.path,
-      });
-    },
-  });
+  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
+    useMutation<UploadFileOnServer>({
+      method: POST,
+      url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
+      showSuccessToast: false,
+      isFileData: true,
+      onSuccess: (data) => {
+        setShowImgPreview(true);
+        imgUrl({
+          imgFor,
+          url: data?.data?.path,
+        });
+      },
+    });
+
+  const setInitialPreview = () => {
+    setPreview(editAbleUrl)
+    setShowImgPreview(true)
+  }
+
+  useEffect(()=>{
+    if(editAbleUrl){
+    setInitialPreview()
+  }
+},[editAbleUrl])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -87,18 +97,30 @@ const FileUpload = ({
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
-        {imgUploadLoading && <Box position="relative"><Spinner></Spinner></Box>}
+        {imgUploadLoading && (
+          <Box position="relative">
+            <Spinner></Spinner>
+          </Box>
+        )}
         {preview && showImgPreview ? (
           <>
             <Box position="relative">
               <Image
-                src={preview[0]?.preview}
+                src={preview[0]?.preview || editAbleUrl}
                 w="100%"
                 h="300px"
                 objectFit="cover"
                 borderRadius="16px"
               ></Image>
               <IconButton
+              onClick={()=>{
+                setPreview([])
+                setShowImgPreview(false)
+                imgUrl({
+                  imgFor,
+                  url: "",
+                })
+              }}
                 aria-label="close"
                 position="absolute"
                 top="10px"

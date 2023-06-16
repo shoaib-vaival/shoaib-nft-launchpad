@@ -11,8 +11,9 @@ type nftType = {
         properties: any,
         ipfsJsonUrl: string,
         ipfsImageUrl: string,
-        owner: null,
-        minting_contract_address: null,
+        owner: string,
+        price: string,
+        minting_contract_address: string,
         id: string,
         insertedDate: string,
         updatedDate: string
@@ -32,18 +33,16 @@ export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropTy
               hasMore={!!hasNextPage}
               loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
             >
-                
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
-                  <Box width={{ base: '100%', sm: '50%', md: '33%', xl: '25%' }}>
+                
                       {data?.map((nft:nftType, index:number)=>{
                           return (
-                        <Link href="nft/detail?id=1212131313123123">
-                            {/* <CollectionCard type='withBody' name={nft?.name} featureImage={nft?.ipfsImageUrl} price={nft?.price} volume={nft?.volume} isShowFeatureImage={true} isShowLogoImage={false}/> */}
+                        <Link href={`/nft/detail/${nft?.id}`}>
+                            <CollectionCard type='withBody' name={nft?.name} featureImage={nft?.ipfsImageUrl} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
                         </Link>
                           )
                       })} 
-                  </Box>
-                </Flex>
+                      </Flex>
                   </InfiniteScroll>
         </>
     )

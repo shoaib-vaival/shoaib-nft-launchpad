@@ -44,27 +44,6 @@ export const Header = () => {
 
   const router = useRouter();
 
-  // <Button
-  //   variant="secondary"
-  //   mx="16px"
-  //   size="md"
-  //   onClick={(a) => {
-  //     disconnectWalletConnect();
-  //   }}
-  // >
-  //   Disconnect
-  // </Button>
-  // <Button
-  //   variant="secondary"
-  //   mx="16px"
-  //   size="md"
-  //   onClick={(a) => {
-  //     disconnect();
-  //   }}
-  // >
-  //   Disconnect Metamask
-  // </Button>
-
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
@@ -112,7 +91,7 @@ export const Header = () => {
             >
               <HStack
                 textTransform="uppercase"
-                fontSize={{base:'15px',xl:'16px'}}
+                fontSize={{ base: "15px", xl: "16px" }}
                 alignItems={{ base: "initial", xl: "center" }}
                 flexDirection={{
                   base: "column",
@@ -211,12 +190,19 @@ export const Header = () => {
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>
-               {!account ? null : (
-                <MenuButton fontSize='20px' color='#6F6BF3' bg='#FFFFFF' border='1px solid #6F6BF3' borderRadius='50px' height='40px' w='40px'
-                  as={IconButton}
-                  icon={<i className='icon-vector'></i>}
-                  aria-label="Options"
-                />
+                {!account ? null : (
+                  <MenuButton
+                    fontSize="20px"
+                    color="#6F6BF3"
+                    bg="#FFFFFF"
+                    border="1px solid #6F6BF3"
+                    borderRadius="50px"
+                    height="40px"
+                    w="40px"
+                    as={IconButton}
+                    icon={<i className="icon-vector"></i>}
+                    aria-label="Options"
+                  />
                 )}
 
                 <MenuList>
@@ -232,7 +218,7 @@ export const Header = () => {
                   <MenuItem>Dark Mode</MenuItem>
                   <MenuItem
                     onClick={(a) => {
-                      console.log("PROVIDER", provider?.connection.url);
+                      // console.log("PROVIDER", provider?.connection.url);
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
                       } else {

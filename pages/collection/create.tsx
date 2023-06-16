@@ -23,12 +23,14 @@ import {
   Spacer,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { collectionSchema } from "../../src/schemas";
 import { POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
+import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 import {
   collectionByIdTypes,
   categoriesAndTagsTypes,
@@ -40,24 +42,36 @@ import { useWeb3React } from "@web3-react/core";
 import { chainUrls } from "../../src/connectors/consts";
 import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
+import { getFromLocalStorage } from "../../src/utils";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  const {
+    isOpen: isConnectionModalOpen,
+    onOpen: onConnectionModalOpen,
+    onClose: onConnectionModalClose,
+  } = useDisclosure();
 
   // Call the contract
 
   const deployy = async (name: string) => {
-    try {
-      if (contractInst) {
+    if (contractInst) {
+      try {
         const result = await contractInst.deploy(name, "TOKEN");
+        if (result) {
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt) router.push("/profile-created");
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle errors here
       }
-      // Handle the returned result here
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
     }
   };
 
@@ -79,16 +93,18 @@ const CreateCollection = () => {
       url: `${ApiUrl?.GET_COLLECTION}/${router?.query?.id}`,
       showToast: false,
       enabled: router?.query?.id ? true : false,
+      token: true,
     });
 
   const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
-    url: ApiUrl?.CREATE_COLLECTION,
+    url: getCollectionById?.id
+      ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
+      : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
+    token: true,
     onSuccess: async (data) => {
-      console.log("Create Collection Success", data);
       if (account) await deployy(data?.data?.name);
-      else alert("Connect the wallet first");
     },
   });
 
@@ -104,6 +120,13 @@ const CreateCollection = () => {
     tags?.map((cat: categoriesAndTagsTypes) => ({
       label: cat?.name,
       value: cat?.id,
+    }));
+  console.log("getCollectionByIdgetCollectionById", getCollectionById);
+  const filtredTagsById =
+    getCollectionById?.tags &&
+    getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
+      label: tag?.name,
+      value: tag?.id,
     }));
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
@@ -121,7 +144,6 @@ const CreateCollection = () => {
     selectedValue: ReactSelectCatMap,
     identifier: string
   ) => {
-    console.log(selectedValue);
     if (identifier == "cat") {
       setCollection({ ...collection, category: selectedValue?.value });
     } else {
@@ -136,12 +158,15 @@ const CreateCollection = () => {
   };
 
   const initialValues = {
-    logoImageUrl: collection?.logoImageUrl || "abc.png",
-    bannerImageUrl: collection?.bannerImageUrl || "",
-    featureImageUrl: collection?.featureImageUrl || "",
+    logoImageUrl:
+      collection?.logoImageUrl || getCollectionById?.logoImageUrl || "",
+    bannerImageUrl:
+      collection?.bannerImageUrl || getCollectionById?.bannerImageUrl || "",
+    featureImageUrl:
+      collection?.featureImageUrl || collectionDetail?.featuredImg || "",
     name: getCollectionById?.name || "",
     description: getCollectionById?.description || "",
-    category: getCollectionById?.category || collection?.category,
+    category: getCollectionById?.category?.id || collection?.category,
     tag: collection?.tags,
     website_url: getCollectionById?.website_url || "",
     etherscan: getCollectionById?.etherscan || "",
@@ -158,7 +183,7 @@ const CreateCollection = () => {
   return (
     <Container
       maxW={{ sm: "2xl", md: "3xl", lg: "5xl", xl: "952px" }}
-      pt='30px'
+      pt="30px"
     >
       <Heading as="h1">Create Collection</Heading>
       <Formik
@@ -166,8 +191,11 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          console.log("Values Collection", values);
-          mutate(values);
+          if (getFromLocalStorage("accessToken")) {
+            mutate(values);
+          } else {
+            onConnectionModalOpen();
+          }
         }}
       >
         {({ errors, touched, values }) => (
@@ -213,6 +241,7 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="cat"
                   label="Category"
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
                 {touched["category"] && errors["category"] && (
                   <Text
@@ -229,10 +258,12 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  // defaultValue={filtredTagsById}
                 />
               </Stack>
 
               <Field
+                readOnly={router?.query?.id ? true : false}
                 as={InputField}
                 size="md"
                 label="Name *"
@@ -460,6 +491,11 @@ const CreateCollection = () => {
                 )}
               </FieldArray>
             </FormControl>
+            <ConnectionModal
+              isOpen={isConnectionModalOpen}
+              onOpen={onConnectionModalOpen}
+              onClose={onConnectionModalClose}
+            />
             <Button type="submit" variant="primary">
               Submit
             </Button>
