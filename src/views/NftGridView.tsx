@@ -37,8 +37,8 @@ export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropTy
                 
                       {data?.map((nft:nftType, index:number)=>{
                           return (
-                        <Link href={`/nft/detail/${nft?.id}`}>
-                            <CollectionCard type='withBody' name={nft?.name} featureImage={nft?.ipfsImageUrl} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
+                        <Link href={`/nft/detail/${nft?.id}`} key={index}>
+                            <CollectionCard  type='withBody' name={nft?.name} featureImage={nft?.ipfsImageUrl} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
                         </Link>
                           )
                       })} 

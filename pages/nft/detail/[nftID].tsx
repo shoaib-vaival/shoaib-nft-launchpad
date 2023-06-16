@@ -273,7 +273,7 @@ const NftDetail = ({param}:any) => {
   )
 }
 
-export async function getServerSideProps(context:any) {
+export const getServerSideProps = (context:any) => {
   // Fetch blog post data using the slug
   const param = context.params;
   return {
