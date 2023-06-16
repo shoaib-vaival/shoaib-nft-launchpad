@@ -23,12 +23,14 @@ import {
   Spacer,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { collectionSchema } from "../../src/schemas";
 import { POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
+import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 import {
   collectionByIdTypes,
   categoriesAndTagsTypes,
@@ -40,12 +42,18 @@ import { useWeb3React } from "@web3-react/core";
 import { chainUrls } from "../../src/connectors/consts";
 import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
+import { getFromLocalStorage } from "../../src/utils";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  const {
+    isOpen: isConnectionModalOpen,
+    onOpen: onConnectionModalOpen,
+    onClose: onConnectionModalClose,
+  } = useDisclosure();
 
   // Call the contract
 
@@ -90,12 +98,13 @@ const CreateCollection = () => {
 
   const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
-    url: getCollectionById?.id ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}` : ApiUrl?.CREATE_COLLECTION,
+    url: getCollectionById?.id
+      ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
+      : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
     token: true,
     onSuccess: async (data) => {
       if (account) await deployy(data?.data?.name);
-      else alert("Connect the wallet first");
     },
   });
 
@@ -112,8 +121,8 @@ const CreateCollection = () => {
       label: cat?.name,
       value: cat?.id,
     }));
-console.log("getCollectionByIdgetCollectionById", getCollectionById)
-    const filtredTagsById =
+  console.log("getCollectionByIdgetCollectionById", getCollectionById);
+  const filtredTagsById =
     getCollectionById?.tags &&
     getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
       label: tag?.name,
@@ -149,9 +158,12 @@ console.log("getCollectionByIdgetCollectionById", getCollectionById)
   };
 
   const initialValues = {
-    logoImageUrl: collection?.logoImageUrl || getCollectionById?.logoImageUrl || "",
-    bannerImageUrl: collection?.bannerImageUrl || getCollectionById?.bannerImageUrl|| "",
-    featureImageUrl: collection?.featureImageUrl || collectionDetail?.featuredImg || "",
+    logoImageUrl:
+      collection?.logoImageUrl || getCollectionById?.logoImageUrl || "",
+    bannerImageUrl:
+      collection?.bannerImageUrl || getCollectionById?.bannerImageUrl || "",
+    featureImageUrl:
+      collection?.featureImageUrl || collectionDetail?.featuredImg || "",
     name: getCollectionById?.name || "",
     description: getCollectionById?.description || "",
     category: getCollectionById?.category?.id || collection?.category,
@@ -179,7 +191,11 @@ console.log("getCollectionByIdgetCollectionById", getCollectionById)
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          mutate(values);
+          if (getFromLocalStorage("accessToken")) {
+            mutate(values);
+          } else {
+            onConnectionModalOpen();
+          }
         }}
       >
         {({ errors, touched, values }) => (
@@ -475,6 +491,11 @@ console.log("getCollectionByIdgetCollectionById", getCollectionById)
                 )}
               </FieldArray>
             </FormControl>
+            <ConnectionModal
+              isOpen={isConnectionModalOpen}
+              onOpen={onConnectionModalOpen}
+              onClose={onConnectionModalClose}
+            />
             <Button type="submit" variant="primary">
               Submit
             </Button>

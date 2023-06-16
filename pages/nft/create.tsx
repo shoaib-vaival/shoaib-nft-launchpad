@@ -38,6 +38,8 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useNFTContract } from "../../src/connectors/erc721Provider";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
+import { getFromLocalStorage } from "../../src/utils";
+import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
@@ -48,6 +50,12 @@ const CreateNFT = () => {
   const contractInst = useNFTContract();
   const { account, provider } = useWeb3React<Web3Provider>();
   const router = useRouter();
+
+  const {
+    isOpen: isConnectionModalOpen,
+    onOpen: onConnectionModalOpen,
+    onClose: onConnectionModalClose,
+  } = useDisclosure();
 
   const { data: collections } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
@@ -127,7 +135,11 @@ const CreateNFT = () => {
           validationSchema={nftSchema}
           enableReinitialize
           onSubmit={(values) => {
-            mutate({ ...values, photo: nftFile, collectionId: collectionId });
+            if (getFromLocalStorage("accessToken")) {
+              mutate({ ...values, photo: nftFile, collectionId: collectionId });
+            } else {
+              onConnectionModalOpen();
+            }
           }}
         >
           {({ errors, touched, values }) => (
@@ -223,6 +235,11 @@ const CreateNFT = () => {
                   </Box>
                 </Stack>
               </FormControl>
+              <ConnectionModal
+                isOpen={isConnectionModalOpen}
+                onOpen={onConnectionModalOpen}
+                onClose={onConnectionModalClose}
+              />
               <Button isLoading={isLoading} type="submit" variant="primary">
                 Submit
               </Button>
