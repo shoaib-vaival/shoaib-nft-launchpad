@@ -77,6 +77,7 @@ export const Web3ContextProvider = ({
     walletConnect?.deactivate();
     setToLocalStorage("isWalletConnected", false);
     localStorage.removeItem("walletconnect");
+    localStorage.removeItem("accessToken");
   };
 
   const connect = async () => {
@@ -84,10 +85,9 @@ export const Web3ContextProvider = ({
     setToLocalStorage("isWalletConnected", true);
   };
   const disconnect = () => {
-    if (metaMask?.resetState) {
-      metaMask?.resetState();
-      setToLocalStorage("isWalletConnected", false);
-    }
+    metaMask?.resetState();
+    setToLocalStorage("isWalletConnected", false);
+    localStorage.removeItem("accessToken");
   };
 
   return (

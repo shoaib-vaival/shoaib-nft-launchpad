@@ -22,13 +22,13 @@ import { POST } from "../../hooks/consts";
 import { ApiUrl } from "../../apis/apiUrl";
 import { useMutation } from "../../hooks/useMutation";
 import { useQuery } from "../../hooks/useQuery";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
 const ConnectionModal = ({ isOpen, onClose }: any) => {
   const {
-    account,
     connect,
     disconnect,
     connectWalletConnect,
@@ -37,46 +37,59 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
     chainId,
   } = useWeb3Context();
 
-  const { provider } = useWeb3React();
+  const { provider, account } = useWeb3React();
   const [address, setAddress] = useState<any>(null);
+  const [sign, setSign] = useState<any>(null);
 
-  useEffect(() => {
-    const getWalletAddress = async () => {
-      if (provider) {
-        const ethProvider = new ethers.providers.Web3Provider(
-          provider?.provider as any
-        );
-        const signer = ethProvider.getSigner();
-        const walletAddress = await signer.getAddress();
-        setAddress(walletAddress);
-      }
-    };
-    getWalletAddress();
-  }, [provider]);
+  // useEffect(() => {
+  //   const getWalletAddress = async () => {
+  //     if (provider) {
+  //       const ethProvider = new ethers.providers.Web3Provider(
+  //         provider?.provider as any
+  //       );
+  //       const signer = ethProvider?.getSigner();
+  //       const walletAddress = await signer?.getAddress();
+  //       console.log("useEffect Wallet fetch", walletAddress);
+  //       setAddress(walletAddress);
+  //     }
+  //   };
+  //   getWalletAddress();
+  // }, []);
 
   const { data: savedSign } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_SIGN],
     url: `${ApiUrl?.GET_SIGNATURE}/${address}`,
-    showToast: false,
+    showToast: true,
+    onSuccess: (data: any) => {
+      console.log("get saved Sign ", data);
+    },
+    enabled: address ? true : false,
   });
 
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.SAVE_SIGNATURE,
     showSuccessToast: true,
-    onSuccess: async (data: any) => {
-      console.log("Save Signature Resp", data);
+    onSuccess: (data: any) => {
+      setToLocalStorage("accessToken", data?.data?.access_token);
     },
   });
 
-  const signature = () => {
-    console.log("acc", address);
+  const signature = async () => {
+    console.log("PRovvv", provider);
+    const ethProvider = new ethers.providers.Web3Provider(
+      provider?.provider as any
+    );
+    const signer = ethProvider?.getSigner();
+    const wallet = await signer?.getAddress();
+    setAddress(wallet);
+
+    console.log("Saved Sign", savedSign);
     if (!savedSign) {
       signMessage(provider).then((signature) => {
-        console.log("Signature:", signature);
-        mutate({ walletAddress: address, walletHash: signature });
+        mutate({ walletAddress: wallet, walletHash: signature });
       });
-    } else return;
+    } else mutate({ walletAddress: wallet });
   };
 
   return (
@@ -105,7 +118,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                     try {
                       await connect("");
                       chainId != "80001" ? switchChain(80001) : addChain(80001);
-
                       signature();
                       onClose();
                     } catch {
