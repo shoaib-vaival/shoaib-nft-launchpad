@@ -9,6 +9,15 @@ export const ApiUrl = {
   GET_COLLECTION: "collection/editCollectionById",
   GET_DASHBOARD_COLLECTION: "minting/get-dashboard-collection-nfts",
   GET_MY_COLLECTION: "collection/getCollectionsByWalletAddress/0x0000",
+  GET_COLLECTION_BY_CAT_ID: "collection/get-collections-by-category-id",
+  GET_PROFILE_BY_ID: "user/get-profile",
+  UPDATE_PROFILE: "user/update-user",
+  GET_COLLECTION_DETAIL: "collection/getCollectionsById",
+  GET_COLLECTION_NFTS_BY_ID: "minting/nfts-by-collection-id",
+  GET_NFT_DETAIL: "minting/nfts-details-by-id/",
+  GET_MORE_NFTS_BY_COLLECTION: "minting/more-nfts-by-collection",
+  GET_BANNER_COLLECTION: "collection/get-banner-collection",
+  GET_ALL_COLLECTIONS: "collection/get-collections",
   SAVE_SIGNATURE: "user/connect-wallet", // NEW  SAVING SIGN
   GET_SIGNATURE: "user/get-user-walletAddress", // getting signature
 };
