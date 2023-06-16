@@ -5,6 +5,7 @@ import {
   useQuery as useRQuery,
 } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
+import { getFromLocalStorage } from "../utils";
 
 type UseQueryReturn<T> = {
   data?: T;
@@ -62,7 +63,7 @@ export const useQuery = <T>({
   url: endpoint,
   data,
   method = GET,
-  token = true,
+  token,
   queryKey,
   showToast = true,
   onSuccess,
@@ -74,7 +75,9 @@ export const useQuery = <T>({
 
   const headers = {
     Accept: "application/json",
-    Authorization: token ? `Bearer tokenId` : undefined,
+    Authorization: token
+      ? `Bearer ${getFromLocalStorage("accessToken")}`
+      : null,
   };
 
   let queryString = "";

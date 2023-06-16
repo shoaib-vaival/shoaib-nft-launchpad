@@ -50,25 +50,24 @@ const CreateCollection = () => {
   // Call the contract
 
   const deployy = async (name: string) => {
-    try {
-      if (contractInst) {
-        const result = await contractInst
-          .deploy(name, "TOKEN")
-          .on("transactionHash", async function (hash: any) {
-            console.log("Trx Hash", hash);
-          })
-          .then((r: any) => {
-            console.log("Create Collection Resp", r);
-            router.push("/profile-created");
-          })
-          .catch((e: any) => {
-            console.log("Collection Error", e);
-          });
+    if (contractInst) {
+      try {
+        const result = await contractInst.deploy(name, "TOKEN");
+        if (result) {
+          console.log("🚀 ~ file: create.tsx:62 ~ minting ~ result:", result);
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt) router.push("/profile-created");
+          console.log("Transaction confirmed");
+        }
+
+        // Handle the returned result here
+      } catch (error) {
+        console.error(error);
+        // Handle errors here
       }
-      // Handle the returned result here
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
     }
   };
 
@@ -96,6 +95,7 @@ const CreateCollection = () => {
     method: POST,
     url: ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
+    token: true,
     onSuccess: async (data) => {
       console.log("Create Collection Success", data);
       if (account) await deployy(data?.data?.name);

@@ -37,6 +37,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { useNFTContract } from "../../src/connectors/erc721Provider";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
@@ -55,25 +56,23 @@ const CreateNFT = () => {
   });
 
   const minting = async (uri: string) => {
-    try {
-      if (contractInst) {
-        const result = await contractInst
-          .safeMint(account, uri)
-          .on("transactionHash", async function (hash: any) {
-            console.log("Trx Hash", hash);
-          })
-          .then((r: any) => {
-            console.log("Mint Resp", r);
-            router.push("/profile-created");
-          })
-          .catch((e: any) => {
-            console.log("Mint Error", e);
-          });
+    if (contractInst) {
+      try {
+        const result = await contractInst.safeMint(account, uri);
+        if (result) {
+          console.log("🚀 ~ file: create.tsx:62 ~ minting ~ result:", result);
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt) router.push("/profile-created");
+          console.log("Transaction confirmed");
+        }
+        // Handle the returned result here
+      } catch (error) {
+        console.error(error);
+        // Handle errors here
       }
-      // Handle the returned result here
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
     }
   };
 
@@ -81,10 +80,10 @@ const CreateNFT = () => {
     method: POST,
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
+    token: true,
     onSuccess: async (data) => {
       console.log("Dataa Resp", data);
       await minting(String(data?.ipfsJsonUrl));
-      router.push("/profile-created");
     },
   });
 
