@@ -23,12 +23,14 @@ import {
   Spacer,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { collectionSchema } from "../../src/schemas";
 import { POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
+import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 import {
   collectionByIdTypes,
   categoriesAndTagsTypes,
@@ -40,12 +42,18 @@ import { useWeb3React } from "@web3-react/core";
 import { chainUrls } from "../../src/connectors/consts";
 import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
+import { getFromLocalStorage } from "../../src/utils";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  const {
+    isOpen: isConnectionModalOpen,
+    onOpen: onConnectionModalOpen,
+    onClose: onConnectionModalClose,
+  } = useDisclosure();
 
   // Call the contract
 
@@ -94,7 +102,6 @@ const CreateCollection = () => {
     token: true,
     onSuccess: async (data) => {
       if (account) await deployy(data?.data?.name);
-      else alert("Connect the wallet first");
     },
   });
 
@@ -171,8 +178,11 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          // console.log("Values Collection", values);
-          mutate(values);
+          if (getFromLocalStorage("accessToken")) {
+            mutate(values);
+          } else {
+            onConnectionModalOpen();
+          }
         }}
       >
         {({ errors, touched, values }) => (
@@ -465,6 +475,11 @@ const CreateCollection = () => {
                 )}
               </FieldArray>
             </FormControl>
+            <ConnectionModal
+              isOpen={isConnectionModalOpen}
+              onOpen={onConnectionModalOpen}
+              onClose={onConnectionModalClose}
+            />
             <Button type="submit" variant="primary">
               Submit
             </Button>
