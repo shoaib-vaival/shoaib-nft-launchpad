@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CollectionCard from "../../src/components/Cards/CollectionCard";
 import { ReactSelect } from "../../src/components/common";
 import ProfileDetail from "../../src/components/Profile/ProfileDetail";
@@ -27,12 +27,13 @@ import { ApiUrl } from "../../src/apis/apiUrl";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
-import { NftListView } from "../../src/views/nftListView";
-import { NftGridView } from "../../src/views/nftGridView";
+import { NftListView } from "../../src/views/NftListView";
+import { NftGridView } from "../../src/views/NftGridView";
 
 const Collection: NextPage = () => {
   const router = useRouter()
   const [view, setView] = useState<string>('grid')
+  const [collectionID, setCollectionID] = useState<string|undefined>('') 
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
@@ -43,8 +44,10 @@ const Collection: NextPage = () => {
   })
     const { data:collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<any>({
       queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID],
-      url: ApiUrl.GET_COLLECTION_NFTS_BY_ID,
+      url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
+      params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`},
     });
+
   const socialIcons = [
     { icon: 'icon-internet', url:collectionDetail?.website_url },
     { icon: 'icon-telegram', url: collectionDetail?.telegram },

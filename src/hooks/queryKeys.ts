@@ -8,5 +8,7 @@ export const QUERY_KEYS = {
   GET_COLLECTION_BY_CAT_ID:'get-collection-by-cat-id',
   GET_PROFILE : 'get-profile-by-id',
   GET_COLLECTION_DETAIL:'get-collection-detail',
-  GET_COLLECTION_NFTS_BY_ID:'get-collection-Nfts-by-id'
+  GET_COLLECTION_NFTS_BY_ID:'get-collection-Nfts-by-id',
+  GET_NFT_DETAIL:'get-nft-detail',
+  GET_MORE_NFTS_BY_COLLECTION:'get-more-nft-by-collection'
 };
