@@ -54,16 +54,12 @@ const CreateCollection = () => {
       try {
         const result = await contractInst.deploy(name, "TOKEN");
         if (result) {
-          console.log("🚀 ~ file: create.tsx:62 ~ minting ~ result:", result);
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt) router.push("/profile-created");
-          console.log("Transaction confirmed");
         }
-
-        // Handle the returned result here
       } catch (error) {
         console.error(error);
         // Handle errors here
@@ -97,7 +93,6 @@ const CreateCollection = () => {
     showSuccessToast: true,
     token: true,
     onSuccess: async (data) => {
-      console.log("Create Collection Success", data);
       if (account) await deployy(data?.data?.name);
       else alert("Connect the wallet first");
     },
@@ -132,7 +127,6 @@ const CreateCollection = () => {
     selectedValue: ReactSelectCatMap,
     identifier: string
   ) => {
-    console.log(selectedValue);
     if (identifier == "cat") {
       setCollection({ ...collection, category: selectedValue?.value });
     } else {
@@ -177,7 +171,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          console.log("Values Collection", values);
+          // console.log("Values Collection", values);
           mutate(values);
         }}
       >

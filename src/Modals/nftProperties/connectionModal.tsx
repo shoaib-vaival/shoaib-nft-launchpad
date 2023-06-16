@@ -60,9 +60,7 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
     queryKey: [QUERY_KEYS.GET_SIGN],
     url: `${ApiUrl?.GET_SIGNATURE}/${address}`,
     showToast: true,
-    onSuccess: (data: any) => {
-      console.log("get saved Sign ", data);
-    },
+    onSuccess: (data: any) => {},
     enabled: address ? true : false,
   });
 
@@ -76,15 +74,12 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
   });
 
   const signature = async () => {
-    console.log("PRovvv", provider);
     const ethProvider = new ethers.providers.Web3Provider(
       provider?.provider as any
     );
     const signer = ethProvider?.getSigner();
     const wallet = await signer?.getAddress();
     setAddress(wallet);
-
-    console.log("Saved Sign", savedSign);
     if (!savedSign) {
       signMessage(provider).then((signature) => {
         mutate({ walletAddress: wallet, walletHash: signature });

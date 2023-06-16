@@ -218,7 +218,7 @@ export const Header = () => {
                   <MenuItem>Dark Mode</MenuItem>
                   <MenuItem
                     onClick={(a) => {
-                      console.log("PROVIDER", provider?.connection.url);
+                      // console.log("PROVIDER", provider?.connection.url);
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
                       } else {
