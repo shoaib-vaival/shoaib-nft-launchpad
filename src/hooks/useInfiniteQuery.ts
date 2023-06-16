@@ -13,6 +13,7 @@ type useInfiniteQueryProps<T> = {
   onSuccess?: (data?: T) => void;
   enabled?: boolean;
   params?: { [key: string]: string | number | undefined };
+  token?:boolean;
   refetchInterval?: number;
 };
 
@@ -45,6 +46,7 @@ export const useInfiniteQuery = <T>({
    queryKey,
    method = GET,
    params,
+   token,
    enabled=true
 
 
@@ -53,6 +55,9 @@ export const useInfiniteQuery = <T>({
 
     const headers = {
     Accept: 'application/json',
+     Authorization: token
+      ? `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwid2FsbGV0QWRkcmVzcyI6IjB4MDAwMCIsImlhdCI6MTY4Njg5MDcwOX0.jIYRWhSilYO4yNjGAfVIDCsMfSChLLk0i5Kt6zpj2VY`
+      : null,
   };
 
   let queryString = ''; 

@@ -17,13 +17,13 @@ const NftDetail = ({param}:any) => {
   const {data} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
     url:ApiUrl.GET_NFT_DETAIL,
-    params:{nftId:param?.nftID}
+    params:{nftId:param?.nftID},
   })
   const {data:moreNftSByCollection} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
     params:{collectionId:data?.collectionId},
-    enabled:data?.collectionId ? true : false
+    enabled:data?.collectionId ? true : false,
   })
   return (
     <>

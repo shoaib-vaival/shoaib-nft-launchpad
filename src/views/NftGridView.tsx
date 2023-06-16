@@ -4,7 +4,7 @@ import { Loader } from "../components/Loader"
 import Link from 'next/link'
 import CollectionCard from "../components/Cards/CollectionCard"
 
-type nftType = {
+export type nftType = {
         collectionId: string,
         description: string,
         name: string,
@@ -24,7 +24,6 @@ type nftGridViewPropType = {
     hasNextPage:boolean
 }
 export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropType) => {
-    console.log('data', data)
     return (
         <>
             <InfiniteScroll

@@ -59,7 +59,7 @@ export const useQuery = <T>({
   url: endpoint,
   data,
   method = GET,
-  token = true,
+  token,
   queryKey,
   showToast = true,
   onSuccess,
@@ -72,8 +72,8 @@ export const useQuery = <T>({
   const headers = {
     Accept: 'application/json',
     Authorization: token
-      ? `Bearer tokenId`
-      : undefined,
+      ? `Bearer ${token}`
+      : null,
   };
 
   let queryString = '';

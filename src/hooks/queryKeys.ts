@@ -12,5 +12,8 @@ export const QUERY_KEYS = {
   GET_NFT_DETAIL:'get-nft-detail',
   GET_MORE_NFTS_BY_COLLECTION:'get-more-nft-by-collection',
   GET_BANNER_COLLECTION:'get-banner-collection',
-  GET_ALL_COLLECTIONS:'get-all-collections'
+  GET_ALL_COLLECTIONS:'get-all-collections', 
+  GET_ACTIVITIES: 'get-all-activities',
+  GET_USER:'get-profile',
+  GET_COLLECTION_BY_USER_ID:'get-collections-by-userId'
 };

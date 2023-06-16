@@ -32,8 +32,8 @@ import { NftGridView } from "../../src/views/NftGridView";
 
 const Collection: NextPage = () => {
   const router = useRouter()
-  const [view, setView] = useState<string>('grid')
   const [collectionID, setCollectionID] = useState<string|undefined>('') 
+  const [view, setView] = useState<string>('grid')
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
@@ -46,15 +46,16 @@ const Collection: NextPage = () => {
       queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID],
       url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
       params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`},
+      token:true
     });
 
   const socialIcons = [
     { icon: 'icon-internet', url:collectionDetail?.website_url },
     { icon: 'icon-telegram', url: collectionDetail?.telegram },
     { icon: 'icon-froggy', url: collectionDetail?.website_url },
-    { icon: 'icon-instagram', url: '#' },
-    { icon: 'icon-twitter', url: '#' },
-    { icon: 'icon-groupbar', url: '#' }
+    { icon: 'icon-instagram', url: collectionDetail?.instagram },
+    { icon: 'icon-twitter', url: collectionDetail?.twitter },
+    { icon: 'icon-groupbar', url: collectionDetail?.email }
   ]
   return (
     <>
@@ -64,7 +65,7 @@ const Collection: NextPage = () => {
         socialIcons={socialIcons}
         showSocialIcons={true} coverPhoto={collectionDetail?.bannerImageUrl} profilePhoto={collectionDetail?.logoImageUrl} />
         </Box>
-        <ProfileDetail showStats = {true} name={collectionDetail?.name} isCollection={true} description={collectionDetail?.description}/>
+        <ProfileDetail showStats = {true} data={collectionDetail} isCollection={true} description={collectionDetail?.description}/>
       </Container>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
         <Box>
@@ -118,7 +119,7 @@ const Collection: NextPage = () => {
                 <Box>
                 </Box>
               </Flex>
-              {view === 'grid'? <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : <NftListView data={collectionNfts} />}
+              {view === 'grid'? <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : <NftListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
             </TabPanel>
             <TabPanel pt='0'>
             <Flex justifyContent={'end'} alignItems="center"  pt='20px' flexWrap='wrap'>

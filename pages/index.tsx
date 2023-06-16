@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   const {data, isLoading} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_DASHBOARD_COLLECTIONS],
     url:ApiUrl.GET_DASHBOARD_COLLECTION,
-    showToast:false
+    showToast:false,
   })
   const {data:categories} = useQuery<categoriesType[]>({
     queryKey:[QUERY_KEYS.GET_CAT],
