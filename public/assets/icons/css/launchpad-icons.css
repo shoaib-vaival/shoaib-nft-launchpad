@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'launchpad-icons';
-  src: url('../font/launchpad-icons.eot?61117772');
-  src: url('../font/launchpad-icons.eot?61117772#iefix') format('embedded-opentype'),
-       url('../font/launchpad-icons.woff2?61117772') format('woff2'),
-       url('../font/launchpad-icons.woff?61117772') format('woff'),
-       url('../font/launchpad-icons.ttf?61117772') format('truetype'),
-       url('../font/launchpad-icons.svg?61117772#launchpad-icons') format('svg');
+  src: url('../font/launchpad-icons.eot?95733679');
+  src: url('../font/launchpad-icons.eot?95733679#iefix') format('embedded-opentype'),
+       url('../font/launchpad-icons.woff2?95733679') format('woff2'),
+       url('../font/launchpad-icons.woff?95733679') format('woff'),
+       url('../font/launchpad-icons.ttf?95733679') format('truetype'),
+       url('../font/launchpad-icons.svg?95733679#launchpad-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'launchpad-icons';
-    src: url('../font/launchpad-icons.svg?61117772#launchpad-icons') format('svg');
+    src: url('../font/launchpad-icons.svg?95733679#launchpad-icons') format('svg');
   }
 }
 */
@@ -61,6 +61,7 @@
 .icon-ChevronDown:before { content: '\e804'; } /* '' */
 .icon-tick:before { content: '\e805'; } /* '' */
 .icon-internet:before { content: '\e806'; } /* '' */
+.icon-transfer:before { content: '\e807'; } /* '' */
 .icon-instagram:before { content: '\e808'; } /* '' */
 .icon-twitter:before { content: '\e809'; } /* '' */
 .icon-groupbar:before { content: '\e80a'; } /* '' */
@@ -74,6 +75,7 @@
 .icon-medium:before { content: '\e812'; } /* '' */
 .icon-reddit:before { content: '\e813'; } /* '' */
 .icon-right:before { content: '\e814'; } /* '' */
+.icon-listed:before { content: '\e815'; } /* '' */
 .icon-froggy:before { content: '\e817'; } /* '' */
 .icon-menu:before { content: '\e818'; } /* '' */
 .icon-hash:before { content: '\e819'; } /* '' */

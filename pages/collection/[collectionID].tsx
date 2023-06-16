@@ -156,13 +156,15 @@ const Collection: NextPage = () => {
                   <Tbody>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -171,13 +173,15 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -186,13 +190,15 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -201,13 +207,15 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -216,13 +224,15 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -231,13 +241,15 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -246,13 +258,15 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
@@ -261,19 +275,22 @@ const Collection: NextPage = () => {
                     </Tr>
                     <Tr>
                       <Td p={{base:'12px',md:'17px 25px'}}>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                          <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />
-                          <VStack spacing="0.5">
-                            <Heading fontSize="18px">Panthera Leo</Heading>
-                            <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                          </VStack>
-                        </Flex>
+                      <Flex gap="2" alignItems="center" mr={{ base: '80px', md: '0' }}>
+                            <Text fontSize='20px' color='#6863F3'><i className="icon-transfer"></i></Text>
+                            <Text fontWeight='700'>Transfer</Text>
+                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '65px', md: '96px' }} h={{ base: '65px', md: '96px' }} />
+                            <VStack spacing="0.5">
+                              <Heading fontSize="18px">Panthera Leo</Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                            </VStack>
+                          </Flex>
                       </Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >#667</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >John Smith</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >CryotoDL</Td>
                       <Td p={{base:'12px',md:'17px 25px'}} >3m ago</Td>
                     </Tr>
+
                   </Tbody>
                 </Table>
               </TableContainer>

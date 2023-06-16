@@ -94,19 +94,19 @@ const NftDetail = ({param}:any) => {
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Token Standard</Text>
-                  <Text color="#6863F3" mb="auto">{data?.tokenStandard}</Text>
+                  <Text color="#393F59"  fontWeight='700' mb="auto">{data?.tokenStandard}</Text>
                 </Flex>
                 <Flex justifyContent="space-between"  mb='8px'>
                   <Text color="#756C99">Chain</Text>
-                  <Text color="#6863F3" mb="auto">{data?.chain}</Text>
+                  <Text color="#393F59"  fontWeight='700' mb="auto">{data?.chain}</Text>
                 </Flex>
                 <Flex justifyContent="space-between"  mb='8px'>
                   <Text color="#756C99">Metadata</Text>
-                  <Text color="#6863F3" mb="auto">{data?.metadata}</Text>
+                  <Text color="#393F59"  fontWeight='700' mb="auto">{data?.metadata}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Creator Earnings</Text>
-                  <Text color="#6863F3" mb="auto">{data?.creatorEarning}</Text>
+                  <Text color="#393F59"  fontWeight='700' mb="auto">{data?.creatorEarning}</Text>
                 </Flex>
               </Box>
 
