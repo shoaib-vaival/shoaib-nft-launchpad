@@ -14,6 +14,7 @@ export type ReactSelectPropsTypes = {
   placeholder?: string;
   nftName?: string;
   setNftName?: any;
+  defaultValue?: any;
 };
 
 export type ReactSelectCatMap = {

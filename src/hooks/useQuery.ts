@@ -1,7 +1,11 @@
-import axios from 'axios';
-import { GET } from './consts';
-import { QueryKey as QueryKeyHook, useQuery as useRQuery } from '@tanstack/react-query';
-import { useToast } from '@chakra-ui/react';
+import axios from "axios";
+import { GET } from "./consts";
+import {
+  QueryKey as QueryKeyHook,
+  useQuery as useRQuery,
+} from "@tanstack/react-query";
+import { useToast } from "@chakra-ui/react";
+import { getFromLocalStorage } from "../utils";
 
 type UseQueryReturn<T> = {
   data?: T;
@@ -70,19 +74,24 @@ export const useQuery = <T>({
   const toast = useToast();
 
   const headers = {
-    Accept: 'application/json',
+    Accept: "application/json",
     Authorization: token
-      ? `Bearer ${token}`
+      ? `Bearer ${getFromLocalStorage("accessToken")}`
       : null,
   };
 
-  let queryString = '';
+  let queryString = "";
 
   if (params) {
     queryString = `?${Object.keys(params)
-      .filter((key) => params[key] !== undefined && params[key] !== '')
-      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key] as string))
-      .join('&')}`;
+      .filter((key) => params[key] !== undefined && params[key] !== "")
+      .map(
+        (key) =>
+          encodeURIComponent(key) +
+          "=" +
+          encodeURIComponent(params[key] as string)
+      )
+      .join("&")}`;
   }
 
   const url = endpoint + queryString;
@@ -99,52 +108,60 @@ export const useQuery = <T>({
     isLoading,
     isFetching,
     refetch,
-  } = useRQuery<ApiResult<T>>(queryKey, () => axios(config).then((res) => res.data), {
-    enabled,
-    refetchInterval,
-    onError: () => {
-      if (showToast) {
-        toast({
-          title: 'Something went wrong',
-          status: 'error',
-          isClosable: true,
-          position: 'top-right',
-        });
-      }
-    },
-    onSuccess: ({ errors, records }) => {
-      if (typeof errors === 'string') {
-        toast({
-          title: errors ?? 'Something went wrong',
-          status: 'error',
-          isClosable: true,
-          position: 'top-right',
-        });
-      }
-
-      if (Array.isArray(errors)) {
-        errors.map((error) =>
+  } = useRQuery<ApiResult<T>>(
+    queryKey,
+    () => axios(config).then((res) => res.data),
+    {
+      enabled,
+      refetchInterval,
+      onError: () => {
+        if (showToast) {
           toast({
-            title: error.message ?? 'Something went wrong',
-            status: 'error',
+            title: "Something went wrong",
+            status: "error",
             isClosable: true,
-            position: 'top-right',
-          }),
-        );
-      }
+            position: "top-right",
+          });
+        }
+      },
+      onSuccess: ({ errors, records }) => {
+        if (typeof errors === "string") {
+          toast({
+            title: errors ?? "Something went wrong",
+            status: "error",
+            isClosable: true,
+            position: "top-right",
+          });
+        }
 
-      if (typeof errors === 'object' && !Array.isArray(errors) && errors !== null) {
-        toast({
-          title: errors.message ?? 'Something went wrong',
-          status: 'error',
-          isClosable: true,
-          position: 'top-right',
-        });
-      }
+        if (Array.isArray(errors)) {
+          errors.map((error) =>
+            toast({
+              title: error.message ?? "Something went wrong",
+              status: "error",
+              isClosable: true,
+              position: "top-right",
+            })
+          );
+        }
 
-      onSuccess && onSuccess(records);
-    },
-  });
+        if (
+          typeof errors === "object" &&
+          !Array.isArray(errors) &&
+          errors !== null
+        ) {
+          toast({
+            title: errors.message ?? "Something went wrong",
+            status: "error",
+            isClosable: true,
+            position: "top-right",
+          });
+        }
+
+        onSuccess && onSuccess(records);
+      },
+    }
+  );
 
   let results = undefined;
 
@@ -153,7 +170,7 @@ export const useQuery = <T>({
     const { records: data, ...rest } = fetchedData;
     results = { data, ...rest };
     const responsedData = results?.data;
-    onSuccess && onSuccess({...responsedData});
+    onSuccess && onSuccess({ ...responsedData });
   }
   return { ...results, isLoading, isFetching, refetch };
 };

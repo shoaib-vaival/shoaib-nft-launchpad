@@ -15,5 +15,6 @@ export const QUERY_KEYS = {
   GET_ALL_COLLECTIONS:'get-all-collections', 
   GET_ACTIVITIES: 'get-all-activities',
   GET_USER:'get-profile',
-  GET_COLLECTION_BY_USER_ID:'get-collections-by-userId'
+  GET_COLLECTION_BY_USER_ID:'get-collections-by-userId',
+  GET_SIGN: "get-sign",
 };
