@@ -45,6 +45,7 @@ export const useInfiniteQuery = <T>({
    queryKey,
    method = GET,
    params,
+   enabled=true
 
 
 }:useInfiniteQueryProps<T>):UseInfinteQueryReturn<T>=>{
@@ -68,22 +69,22 @@ export const useInfiniteQuery = <T>({
     data,
     headers,
   };
+  
    const { data:fetchedData, error, fetchNextPage, status, hasNextPage, isLoading } = useRInfiniteQuery<any>(
      queryKey, 
-     ({ pageParam = 1 }) => axios({...config, url:`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}${queryString  ? `${queryString}&currentPage=${pageParam}`:'?'}currentPage=${pageParam}`}).then((res) => res.data),
+     ( { pageParam = 1 }) => axios({...config, url:`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}${queryString  ? `${queryString}&currentPage=${pageParam}`:`?currentPage=${pageParam}`}`}).then((res) => res.data),
      {
+        //  enabled:enabled,
          getNextPageParam: (lastPage) => {
                 if (lastPage.nextPage === 0) return false;
                 return lastPage.nextPage 
             }
-     }
-   )
+     })
       const result = useMemo(() => fetchedData?.pages.reduce((prev, page) => {
         return {
             data: [...prev.data, ...page.data]
         }
     }), [fetchedData])
-
   return { ...result, error, fetchNextPage, status, hasNextPage, isLoading };
 
 }
