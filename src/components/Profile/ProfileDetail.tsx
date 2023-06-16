@@ -54,24 +54,24 @@ const ProfileDetail = ({showStats}:profileDetailProps) => {
           <Box w={{base:'100%',lg:'50%'}}  mb={{base:'20px',lg:'initial'}}>
             <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap='3'>
               <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+                <StatLabel>Total Volume</StatLabel>
+                <StatNumber>-- Eth</StatNumber>
               </Stat>
               <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+                <StatLabel>Floor Price</StatLabel>
+                <StatNumber>-- Eth</StatNumber>
               </Stat>
               <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+                <StatLabel>Items Listed</StatLabel>
+                <StatNumber>--%</StatNumber>
               </Stat>
               <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+                <StatLabel>Owners</StatLabel>
+                <StatNumber>--</StatNumber>
               </Stat>
               <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+                <StatLabel>Unique Owners</StatLabel>
+                <StatNumber>--%</StatNumber>
               </Stat>
             </Grid>
           </Box>
