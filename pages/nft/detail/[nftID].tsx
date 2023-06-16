@@ -86,27 +86,27 @@ const NftDetail = ({param}:any) => {
               <Box fontSize='16px'>
                 <Flex justifyContent="space-between" mb='8px'>
                   <Text color="#756C99">Contract Address</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.minting_contract_address}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Token ID</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.tokenId}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Token Standard</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.tokenStandard}</Text>
                 </Flex>
                 <Flex justifyContent="space-between"  mb='8px'>
                   <Text color="#756C99">Chain</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.chain}</Text>
                 </Flex>
                 <Flex justifyContent="space-between"  mb='8px'>
                   <Text color="#756C99">Metadata</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.metadata}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Creator Earnings</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.creatorEarning}</Text>
                 </Flex>
               </Box>
 

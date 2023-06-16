@@ -15,5 +15,7 @@ export const ApiUrl = {
     GET_COLLECTION_DETAIL:'collection/getCollectionsById',
     GET_COLLECTION_NFTS_BY_ID:'minting/nfts-by-collection-id',
     GET_NFT_DETAIL:'minting/nfts-details-by-id/',
-    GET_MORE_NFTS_BY_COLLECTION:'minting/more-nfts-by-collection'
+    GET_MORE_NFTS_BY_COLLECTION:'minting/more-nfts-by-collection',
+    GET_BANNER_COLLECTION:'collection/get-banner-collection',
+    GET_ALL_COLLECTIONS:'collection/get-collections'
 }
