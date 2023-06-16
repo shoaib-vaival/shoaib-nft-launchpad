@@ -56,13 +56,15 @@ const CollectionCard = ({
               flexDirection='column'
               justifyContent='center'
             >
-              <Box position='relative'>
+              <Box position='relative' h={{base:'auto',lg:'342px'}}>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
                     alt='Green double couch with wooden legs'
                     borderRadius='lg'
                     w='100%'
+                    h='100%'
+                    objectFit='cover'
 
                   />
                 )}
@@ -137,14 +139,15 @@ const CollectionCard = ({
             flexDirection='column'
             justifyContent='center'
           >
-            <Box position='relative'>
+            <Box position='relative' h={{base:'auto',lg:'342px'}}>
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}
                   alt='Green double couch with wooden legs'
                   borderRadius='lg'
                   w='100%'
-                  h="288px"
+                  h='100%'
+                  objectFit='cover'
                 />
               )}
               <Box position='absolute' bottom='32px' px={{base:'16px',md:'32px'}} w='100%'>
