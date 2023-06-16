@@ -50,14 +50,20 @@ const CreateCollection = () => {
   // Call the contract
 
   const deployy = async (name: string) => {
-    try {
-      if (contractInst) {
+    if (contractInst) {
+      try {
         const result = await contractInst.deploy(name, "TOKEN");
+        if (result) {
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt) router.push("/profile-created");
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle errors here
       }
-      // Handle the returned result here
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
     }
   };
 
@@ -85,8 +91,8 @@ const CreateCollection = () => {
     method: POST,
     url: ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
+    token: true,
     onSuccess: async (data) => {
-      console.log("Create Collection Success", data);
       if (account) await deployy(data?.data?.name);
       else alert("Connect the wallet first");
     },
@@ -121,7 +127,6 @@ const CreateCollection = () => {
     selectedValue: ReactSelectCatMap,
     identifier: string
   ) => {
-    console.log(selectedValue);
     if (identifier == "cat") {
       setCollection({ ...collection, category: selectedValue?.value });
     } else {
@@ -158,7 +163,7 @@ const CreateCollection = () => {
   return (
     <Container
       maxW={{ sm: "2xl", md: "3xl", lg: "5xl", xl: "952px" }}
-      pt='30px'
+      pt="30px"
     >
       <Heading as="h1">Create Collection</Heading>
       <Formik
@@ -166,7 +171,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          console.log("Values Collection", values);
+          // console.log("Values Collection", values);
           mutate(values);
         }}
       >

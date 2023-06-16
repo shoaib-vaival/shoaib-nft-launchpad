@@ -36,6 +36,8 @@ import { Header } from "../../src/components/Header";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { useNFTContract } from "../../src/connectors/erc721Provider";
+import { useRouter } from "next/router";
+import { ethers } from "ethers";
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
@@ -45,6 +47,7 @@ const CreateNFT = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const contractInst = useNFTContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  const router = useRouter();
 
   const { data: collections } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
@@ -53,15 +56,21 @@ const CreateNFT = () => {
   });
 
   const minting = async (uri: string) => {
-    try {
-      if (contractInst) {
+    if (contractInst) {
+      try {
         const result = await contractInst.safeMint(account, uri);
-        console.log(result);
+        if (result) {
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt) router.push("/profile-created");
+        }
+        // Handle the returned result here
+      } catch (error) {
+        console.error(error);
+        // Handle errors here
       }
-      // Handle the returned result here
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
     }
   };
 
@@ -69,8 +78,9 @@ const CreateNFT = () => {
     method: POST,
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
+    token: true,
     onSuccess: async (data) => {
-      await minting(data?.ipfsJsonUrl.toString());
+      await minting(String(data?.ipfsJsonUrl));
     },
   });
 
@@ -98,7 +108,7 @@ const CreateNFT = () => {
   };
 
   const initialValues = {
-    nftImgUrl: "abc",
+    photo: nftFile,
     name: nftName,
     description: "",
     collectionId: collectionId,
@@ -116,9 +126,9 @@ const CreateNFT = () => {
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
-          onSubmit={(values) =>
-            mutate({ ...values, photo: nftFile, collectionId: collectionId })
-          }
+          onSubmit={(values) => {
+            mutate({ ...values, photo: nftFile, collectionId: collectionId });
+          }}
         >
           {({ errors, touched, values }) => (
             <Form>
@@ -139,8 +149,8 @@ const CreateNFT = () => {
                     imgFor="nft"
                     imgUrl={getImgUrl}
                   />
-                  {touched["nftImgUrl"] && errors["nftImgUrl"] && (
-                    <Text>{errors["nftImgUrl"] as React.ReactNode}</Text>
+                  {touched["photo"] && errors["photo"] && (
+                    <Text>{errors["photo"] as React.ReactNode}</Text>
                   )}
                   <Field
                     as={InputField}
@@ -156,7 +166,7 @@ const CreateNFT = () => {
                     }
                     maxLength={50}
                   />
-                  <Field 
+                  <Field
                     name="description"
                     component={ChakraTextarea}
                     label="Description"

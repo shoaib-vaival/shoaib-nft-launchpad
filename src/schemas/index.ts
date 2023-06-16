@@ -14,18 +14,14 @@ export const collectionSchema = Yup.object().shape({
     Yup.object().shape({
       walletAddress: Yup.string()
         .required("Wallet address is required")
-        .test(
-          "checksum-validation",
-          "Invalid Address Checksum",
-           (value) => {
-            try {
-              const isValidChecksum = ethers.utils.isAddress(value);
-              return isValidChecksum;
-            } catch (error) {
-              return false;
-            }
+        .test("checksum-validation", "Invalid Address Checksum", (value) => {
+          try {
+            const isValidChecksum = ethers.utils.isAddress(value);
+            return isValidChecksum;
+          } catch (error) {
+            return false;
           }
-        ),
+        }),
       percentage: Yup.number()
         .required("Percentage is required")
         .max(10, "Total percentage should be less than 10"),
@@ -34,7 +30,7 @@ export const collectionSchema = Yup.object().shape({
 });
 
 export const nftSchema = Yup.object().shape({
-  nftImgUrl: Yup.string().required("NFT image is required"),
+  photo: Yup.string().required("NFT image is required"),
   name: Yup.string()
     .required("NFT name is required")
     .nullable()

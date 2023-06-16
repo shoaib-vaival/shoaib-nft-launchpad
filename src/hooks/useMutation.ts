@@ -5,6 +5,7 @@ import {
   useMutation as useRMutation,
 } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
+import { getFromLocalStorage } from "../utils";
 
 type UseMutationReturn<T, K> = {
   data?: K;
@@ -46,7 +47,7 @@ export const useMutation = <T, K = T>({
   url,
   data,
   method = POST,
-  token = true,
+  token,
   showToast,
   successMessage,
   onSuccess,
@@ -60,7 +61,9 @@ export const useMutation = <T, K = T>({
   const headers = {
     Accept: isFileData && "multipart/form-data",
     "Content-Type": isFileData && "multipart/form-data",
-    // Authorization: `Bearer tokenId`,
+    Authorization: token
+      ? `Bearer ${getFromLocalStorage("accessToken")}`
+      : null,
   };
 
   const config = {
@@ -85,7 +88,7 @@ export const useMutation = <T, K = T>({
     },
     {
       onSuccess: (newData) => {
-        if (newData?.status == 200) {
+        if (newData?.data) {
           showSuccessToast &&
             toast({
               title: successMessage ?? newData?.Message,

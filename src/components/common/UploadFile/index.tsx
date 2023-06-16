@@ -32,19 +32,20 @@ const FileUpload = ({
   );
   const [showImgPreview, setShowImgPreview] = useState<boolean>(false);
 
-  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } = useMutation<UploadFileOnServer>({
-    method: POST,
-    url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
-    showSuccessToast: false,
-    isFileData: true,
-    onSuccess: (data) => {
-      setShowImgPreview(true);
-      imgUrl({
-        imgFor,
-        url: data?.data?.path,
-      });
-    },
-  });
+  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
+    useMutation<UploadFileOnServer>({
+      method: POST,
+      url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
+      showSuccessToast: false,
+      isFileData: true,
+      onSuccess: (data) => {
+        setShowImgPreview(true);
+        imgUrl({
+          imgFor,
+          url: data?.data?.path,
+        });
+      },
+    });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -87,7 +88,11 @@ const FileUpload = ({
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
-        {imgUploadLoading && <Box position="relative"><Spinner></Spinner></Box>}
+        {imgUploadLoading && (
+          <Box position="relative">
+            <Spinner></Spinner>
+          </Box>
+        )}
         {preview && showImgPreview ? (
           <>
             <Box position="relative">
