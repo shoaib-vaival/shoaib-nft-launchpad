@@ -5,7 +5,6 @@ import { ApiUrl } from "../../apis/apiUrl"
 import { QUERY_KEYS } from "../../hooks/queryKeys"
 import { useQuery } from "../../hooks/useQuery"
 import { categoriesType } from "../../types/homePage"
-import { Tab, TabList, Tabs, SimpleGrid, Flex, Box } from "@chakra-ui/react"
 import CollectionCard from "../Cards/CollectionCard"
 import { color } from "framer-motion"
 

@@ -5,18 +5,32 @@ import { Container, Flex, Box, Stack, Text, Heading, VStack, Grid } from "@chakr
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu"
 import { Stat, StatLabel, StatNumber } from "@chakra-ui/stat"
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
-import CollectionCard from "../../src/components/Cards/CollectionCard"
-import { SlickSlider } from "../../src/components/ReactSlick"
+import { ApiUrl } from "../../../src/apis/apiUrl"
+import CollectionCard from "../../../src/components/Cards/CollectionCard"
+import { SlickSlider } from "../../../src/components/ReactSlick"
+import { QUERY_KEYS } from "../../../src/hooks/queryKeys"
+import { useQuery } from "../../../src/hooks/useQuery"
 
 
 
-const NftDetail = () => {
+const NftDetail = ({param}:any) => {
+  const {data} = useQuery<any>({
+    queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
+    url:ApiUrl.GET_NFT_DETAIL,
+    params:{nftId:param?.nftID}
+  })
+  const {data:moreNftSByCollection} = useQuery<any>({
+    queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
+    url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
+    params:{collectionId:data?.collectionId},
+    enabled:data?.collectionId ? true : false
+  })
   return (
     <>
       <Container maxW={{sm:'xl', md: '3xl', lg: '5xl', xl: '7xl' }} pt={{base:'20px',sm:'40px'}}>
         <Stack direction={{base:'column',lg:'row'}} spacing={{base:'18px',md:'48px'}}  px={{base:'0',sm:'17px'}}>
           <Box w={{base:'100%',lg:'45%' }} maxH={{base:'initial',md:'500px',lg:'650px'}} borderRadius='lg'>
-            <Image src="/assets/images/nft2.png" w="100%" h='100%' objectFit='cover' borderRadius='lg'/>
+            <Image src={data?.ipfsImageUrl} w="100%" h='100%' objectFit='cover' borderRadius='lg'/>
           </Box>
           <Box w={{base:'100%',lg:'55%' }}>
             <Box paddingBottom={{base:'20px',sm:'28px'}} borderBottom="1px solid" borderColor="rgba(53, 53, 53, 0.2)">
@@ -26,7 +40,7 @@ const NftDetail = () => {
                     variant='outline'
                     colorScheme='#6863F3'
                     aria-label='Send'
-                    fontSize='20px'
+                    fontSize='20p'
                     icon={<i className="icon-share"></i>}
                   />
                   <Menu>
@@ -51,12 +65,12 @@ const NftDetail = () => {
                   </Menu>
                 </Box>
               </Flex>
-              <Text marginTop="-15px" marginBottom="16px" fontSize='16px'>Angeli Sunstorm</Text>
-              <Heading fontSize="32px" marginBottom="10px">Dahlian Kamimusubi</Heading>
+              <Text marginTop="-15px" marginBottom="16px" fontSize='16px'>{data?.collection?.name}</Text>
+              <Heading fontSize="32px" marginBottom="10px">{data?.name}</Heading>
               <Stack direction="row" alignItems='center' flexWrap='wrap'>
                 <Flex mr="24px" fontSize='16px' >
-                  <Text>Owned By </Text>
-                  <Text>Alexa Greenholt </Text>
+                  <Text>Owned By</Text>
+                  <Text>{data?.owner}</Text>
                 </Flex>
                 <Flex alignItems='center'>
                 <Text fontSize='14px' mr='24px'><i className="icon-document-eye"></i>666 Views</Text>
@@ -66,33 +80,33 @@ const NftDetail = () => {
             </Box>
             <Box paddingTop={{base:'20px',sm:'32px'}}>
               <Heading fontSize="18px" marginBottom="16px">Description</Heading>
-              <Text>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </Text>
+              <Text>{data?.description}</Text>
               <Button marginTop="10px" marginBottom="20px" bg="transparent" paddingLeft="0px" _hover={{ bg: "transparent" }} fontWeight="600" fontSize="14px" color="#393F59">READ MORE</Button>
               <Heading fontSize="24px" marginBottom="16px">Details</Heading>
               <Box fontSize='16px'>
                 <Flex justifyContent="space-between" mb='8px'>
                   <Text color="#756C99">Contract Address</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.minting_contract_address}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Token ID</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.tokenId}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Token Standard</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.tokenStandard}</Text>
                 </Flex>
                 <Flex justifyContent="space-between"  mb='8px'>
                   <Text color="#756C99">Chain</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.chain}</Text>
                 </Flex>
                 <Flex justifyContent="space-between"  mb='8px'>
                   <Text color="#756C99">Metadata</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.metadata}</Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb='8px' >
                   <Text color="#756C99">Creator Earnings</Text>
-                  <Text color="#6863F3" mb="auto">0x495f…7b5e</Text>
+                  <Text color="#6863F3" mb="auto">{data?.creatorEarning}</Text>
                 </Flex>
               </Box>
 
@@ -236,69 +250,21 @@ const NftDetail = () => {
             <Button p={{ base: '5px 20px', md: '20px 32px' }} variant='primary'>View All</Button>
           </Flex>
           <SlickSlider>
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
-            <CollectionCard
-              type="withBody"
-              featureImage="/assets/images/nft1.png"
-              isShowFeatureImage={true}
-              isShowLogoImage={false}
-              name="Peppy Road"
-            />
+            {
+              moreNftSByCollection?.map((nft:any, index:number)=>{
+                return(
+                  <CollectionCard
+                    type="withBody"
+                    featureImage={nft?.ipfsImageUrl}
+                    isShowFeatureImage={true}
+                    isShowLogoImage={false}
+                    name={nft?.name}
+                    key={index}
+                  />
+                )
+              })
+            }
+
           </SlickSlider>
           </Box>
       </Container>
@@ -307,4 +273,14 @@ const NftDetail = () => {
   )
 }
 
+export async function getServerSideProps(context:any) {
+  // Fetch blog post data using the slug
+  const param = context.params;
+  return {
+    props: {
+      param:param,
+    },
+  };
+}
 export default NftDetail
+
