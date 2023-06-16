@@ -85,11 +85,12 @@ const CreateCollection = () => {
       url: `${ApiUrl?.GET_COLLECTION}/${router?.query?.id}`,
       showToast: false,
       enabled: router?.query?.id ? true : false,
+      token: true,
     });
 
   const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
-    url: ApiUrl?.CREATE_COLLECTION,
+    url: getCollectionById?.id ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}` : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
     token: true,
     onSuccess: async (data) => {
@@ -110,6 +111,13 @@ const CreateCollection = () => {
     tags?.map((cat: categoriesAndTagsTypes) => ({
       label: cat?.name,
       value: cat?.id,
+    }));
+console.log("getCollectionByIdgetCollectionById", getCollectionById)
+    const filtredTagsById =
+    getCollectionById?.tags &&
+    getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
+      label: tag?.name,
+      value: tag?.id,
     }));
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
@@ -141,12 +149,12 @@ const CreateCollection = () => {
   };
 
   const initialValues = {
-    logoImageUrl: collection?.logoImageUrl || "abc.png",
-    bannerImageUrl: collection?.bannerImageUrl || "",
-    featureImageUrl: collection?.featureImageUrl || "",
+    logoImageUrl: collection?.logoImageUrl || getCollectionById?.logoImageUrl || "",
+    bannerImageUrl: collection?.bannerImageUrl || getCollectionById?.bannerImageUrl|| "",
+    featureImageUrl: collection?.featureImageUrl || collectionDetail?.featuredImg || "",
     name: getCollectionById?.name || "",
     description: getCollectionById?.description || "",
-    category: getCollectionById?.category || collection?.category,
+    category: getCollectionById?.category?.id || collection?.category,
     tag: collection?.tags,
     website_url: getCollectionById?.website_url || "",
     etherscan: getCollectionById?.etherscan || "",
@@ -171,7 +179,6 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          // console.log("Values Collection", values);
           mutate(values);
         }}
       >
@@ -218,6 +225,7 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="cat"
                   label="Category"
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
                 {touched["category"] && errors["category"] && (
                   <Text
@@ -234,10 +242,12 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  // defaultValue={filtredTagsById}
                 />
               </Stack>
 
               <Field
+                readOnly={router?.query?.id ? true : false}
                 as={InputField}
                 size="md"
                 label="Name *"
