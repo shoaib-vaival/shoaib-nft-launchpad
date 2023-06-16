@@ -18,7 +18,6 @@ type useInfiniteQueryProps<T> = {
   onSuccess?: (data?: T) => void;
   enabled?: boolean;
   params?: { [key: string]: string | number | undefined };
-  token?:boolean;
   refetchInterval?: number;
 };
 
