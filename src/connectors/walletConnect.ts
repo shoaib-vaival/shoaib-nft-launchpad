@@ -9,7 +9,7 @@ export const [walletConnect, walletConnecthooks] =
       new WalletConnect({
         actions,
         options: {
-          rpc: URLS,
+          rpc: { 80001: "https://rpc-mumbai.maticvigil.com" },
         },
       })
   );

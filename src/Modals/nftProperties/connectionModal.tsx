@@ -80,11 +80,13 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
     const signer = ethProvider?.getSigner();
     const wallet = await signer?.getAddress();
     setAddress(wallet);
-    if (!savedSign) {
-      signMessage(provider).then((signature) => {
-        mutate({ walletAddress: wallet, walletHash: signature });
-      });
-    } else mutate({ walletAddress: wallet });
+    if (address) {
+      if (!savedSign) {
+        signMessage(provider).then((signature) => {
+          mutate({ walletAddress: wallet, walletHash: signature });
+        });
+      } else mutate({ walletAddress: wallet });
+    }
   };
 
   return (
@@ -112,7 +114,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                     IsMetaMaskInstalled();
                     try {
                       await connect("");
-                      chainId != "80001" ? switchChain(80001) : addChain(80001);
                       signature();
                       onClose();
                     } catch {
