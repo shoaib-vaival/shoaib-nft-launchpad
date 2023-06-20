@@ -20,7 +20,7 @@ export const signMessage = async (
       const signer = ethProvider.getSigner();
       const address = await signer.getAddress();
 
-      const message: string = `Welcome to Ibanera Launchpad!
+      const message = `Welcome to Ibanera Launchpad!
 Click to sign in and accept the Ibanera Terms of Service (https://ibanera-launchpad/terms) and Privacy Policy (https://ibanera-launchpad/privacy).
 
 This request will not trigger a blockchain transaction or cost any gas fees.

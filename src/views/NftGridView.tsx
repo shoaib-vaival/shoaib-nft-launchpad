@@ -1,8 +1,8 @@
-import { Flex, Box} from "@chakra-ui/layout"
-import InfiniteScroll from "react-infinite-scroll-component"
-import { Loader } from "../components/Loader"
-import Link from 'next/link'
-import CollectionCard from "../components/Cards/CollectionCard"
+import { Flex, Box } from "@chakra-ui/layout";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Loader } from "../components/Loader";
+import Link from "next/link";
+import CollectionCard from "../components/Cards/CollectionCard";
 
 export type nftType = {
         collectionId: string,
@@ -46,3 +46,4 @@ export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropTy
         </>
     )
 }
+
