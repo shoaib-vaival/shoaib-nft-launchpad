@@ -28,18 +28,22 @@ import { SlickSlider } from "../../../src/components/ReactSlick";
 import { QUERY_KEYS } from "../../../src/hooks/queryKeys";
 import { useQuery } from "../../../src/hooks/useQuery";
 
-const NftDetail = ({ param }: any) => {
-  const { data } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
-    url: ApiUrl.GET_NFT_DETAIL,
-    params: { nftId: param?.nftID },
-  });
-  const { data: moreNftSByCollection } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
-    url: ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
-    params: { collectionId: data?.collectionId },
-    enabled: data?.collectionId ? true : false,
-  });
+
+const NftDetail = ({param}:any) => {
+  const {data} = useQuery<any>({
+    queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
+    url:ApiUrl.GET_NFT_DETAIL,
+    params:{nftId:param?.nftID},
+    token:true
+  })
+  const {data:moreNftSByCollection} = useQuery<any>({
+    queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
+    url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
+    params:{collectionId:data?.collectionId},
+    enabled:data?.collectionId ? true : false,
+    token:true
+  })
+  
   return (
     <>
       <Container
@@ -497,7 +501,7 @@ const NftDetail = ({ param }: any) => {
   );
 };
 
-export const getServerSideProps = (context: any) => {
+export const getServerSideProps= async (context:any) => {
   // Fetch blog post data using the slug
   const param = context.params;
   return {

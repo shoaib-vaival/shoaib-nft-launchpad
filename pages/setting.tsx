@@ -1,18 +1,19 @@
 import { Container, Flex, Box, Heading, Text } from "@chakra-ui/layout";
 import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox, Image } from '@chakra-ui/react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { NextPage } from "next";
 import { useState } from "react";
 import { ApiUrl } from "../src/apis/apiUrl";
 import InputField from "../src/components/InputField";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
 import ChakraTextarea from "../src/components/Textarea";
-import { PATCH } from "../src/hooks/consts";
+import { PATCH, POST } from "../src/hooks/consts";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useMutation } from "../src/hooks/useMutation";
 import { useQuery } from "../src/hooks/useQuery";
 import { EditUploadFile } from "../src/components/common/EditUploadFile";
+import { UploadFileOnServer } from "../src/components/common/UploadFile/types";
 
 
 
@@ -21,15 +22,29 @@ const Setting: NextPage = () => {
 
   const {data:profile} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_PROFILE],
-    url:`${ApiUrl.GET_PROFILE_BY_ID}/${1}`
+    url:ApiUrl.GET_PROFILE_BY_ID,
+    token:true
   })
   
    const { mutate } = useMutation<any>({
     method: PATCH,
-    url: `${ApiUrl.UPDATE_PROFILE}/${1}`,
+    url: ApiUrl.UPDATE_PROFILE,
     showSuccessToast: true,
-  });
-
+    token:true
+  }); 
+  const {mutate:save} = useMutation<any>({
+     method: POST,
+    url: ApiUrl.CREATE_NOTIFICATION,
+    showSuccessToast: true,
+    token:true
+  })
+  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
+    useMutation<UploadFileOnServer>({
+      method: POST,
+      url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
+      showSuccessToast: false,
+      isFileData: true,
+    })
   const initialValues = {
     displayName:profile?.displayName,
     userName:profile?.userName,
@@ -44,6 +59,10 @@ const Setting: NextPage = () => {
     discord: profile?.discord,
 
   }
+
+  const initialSettings = {
+  status: false // Initialize the switch field value
+};
 
   return (
     <>
@@ -84,7 +103,12 @@ const Setting: NextPage = () => {
             <TabPanels>
               <TabPanel p={0}>
                 <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '55px', md: '85px' }} position="relative">
-                  <EditUploadFile FileUploadOverlay={true}/>
+                  <Box h={{ base: '250px', md: '358px' }}>
+                  <EditUploadFile image={profile?.profileCoverURL} id="coverPhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})}/>
+                  </Box>
+                  <Box w={{ base: '100px',sm:'150px', md: '200px' }} h={{ base: '100px',sm:'150px', md: '200px' }} borderRadius="16px" border="2px solid white" position="absolute" left='5%' bottom={{base:'-30%', sm:'-43%' ,md:'-45%'}} transform="translateY(-50%)">
+                  <EditUploadFile image={profile?.profileUrl} id="profilePhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})}/>
+                  </Box>
                   
                   {/* <ProfileHeader showSocialIcons={false} FileUploadOverlay={true} /> */}
                 </Box>
@@ -326,18 +350,33 @@ const Setting: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
+                  <Formik initialValues={initialSettings} onSubmit={(values) => {
+                       save(values)
+                      }}>
+                    <Form>
                   <FormControl py={{ base: '0px', md: '16px' }}>
                     <Flex alignItems='center' justifyContent='space-between' p='24px' borderRadius='6px' border='1px solid #6F6BF366' bg='#fff'>
                       <Box>
                         <FormLabel fontSize='20px' mb='12px' htmlFor='isRequired'>iBanera Newsletter</FormLabel>
                         <Text fontSize={{ base: '14px', md: '16px' }} mr='18px' color='#393F59'>Occasional updates from the iBanera</Text>
                       </Box>
-                      <Switch colorScheme='purple' id='isRequired' isRequired />
+                        <Field name="switchField">
+          {({ field }:{field:any}) => (
+            <Switch
+              id="switchField"
+              isChecked={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        </Field>
+        <ErrorMessage name="switchField" component="div" />
                     </Flex>
                   </FormControl>
                   <Button mt='30px' textTransform='uppercase' type='submit' variant='primary'>
                     Save Setting
                   </Button>
+                  </Form>
+                  </Formik>
                 </Container>
               </TabPanel>
             </TabPanels>
