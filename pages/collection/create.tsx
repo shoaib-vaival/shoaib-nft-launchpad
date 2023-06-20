@@ -182,9 +182,11 @@ const CreateCollection = () => {
 
   return (
     <Container
-      maxW={{ sm: "2xl", md: "3xl", lg: "5xl", xl: "952px" }}
+      maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
+      px={{base:'17px',sm:'34px',xl:'17px'}}
       pt="30px"
     >
+      
       <Heading as="h1">Create Collection</Heading>
       <Formik
         initialValues={initialValues}
@@ -411,9 +413,9 @@ const CreateCollection = () => {
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
                           <Flex
-                            gap={"6"}
+                            gap={{base:'0',sm:'6'}}
                             alignItems={{
-                              base: "baseline",
+                              base: "flex-start",
                               sm: "center",
                               xl: "center",
                             }}
@@ -458,8 +460,9 @@ const CreateCollection = () => {
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
-                                mt="35px"
-                                ml={"10px"}
+                                mt={{base:'0',sm:'35px'}}
+                                ml={{base:'0',sm:'10px'}}
+                                mb={{base:'10px',sm:'0'}}
                                 type="button"
                                 color="#6863F3"
                                 border="1px solid #6863F3"

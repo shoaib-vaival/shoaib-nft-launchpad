@@ -24,6 +24,16 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
 // import { getAddChainParameters } from "../../connectors/walletChains";
 import { useWeb3React } from "@web3-react/core";
+import { QUERY_KEYS } from "../../hooks/queryKeys";
+import { signMessage } from "../../context/signMessage";
+import { POST } from "../../hooks/consts";
+import { ApiUrl } from "../../apis/apiUrl";
+import { useMutation } from "../../hooks/useMutation";
+import { useQuery } from "../../hooks/useQuery";
+import { setToLocalStorage, getFromLocalStorage } from "../../utils";
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import { error } from "console";
 
 export const Header = () => {
   const {
@@ -40,9 +50,59 @@ export const Header = () => {
     chainId,
   } = useWeb3Context();
 
-  const { account, provider } = useWeb3React();
+  const { account, provider, isActive } = useWeb3React();
+  const [address, setAddress] = useState<any>(null);
+  const [checked, setChecked] = useState<any>(false);
 
   const router = useRouter();
+
+  // useEffect(() => {
+  //   signature();
+  // }, [account]);
+
+  const { mutate } = useMutation<any>({
+    method: POST,
+    url: ApiUrl?.SAVE_SIGNATURE,
+    showSuccessToast: true,
+    onSuccess: (data: any) => {
+      setToLocalStorage("accessToken", data?.data?.access_token);
+    },
+  });
+
+  const signature = async (savedSign: any) => {
+    console.log("My Account", account);
+    if (savedSign?.walletHash == null) {
+      signMessage(provider).then((signature) => {
+        console.log(
+          "🚀 ~ file: index.tsx:76 ~ signMessage ~ signature:",
+          signature
+        );
+        if (signature.length == 0) {
+          mutate({ walletAddress: account, walletHash: null });
+          if (provider?.connection.url == "metamask") {
+            disconnect("");
+          } else {
+            disconnectWalletConnect("");
+          }
+        } else mutate({ walletAddress: account, walletHash: signature });
+      });
+    } else mutate({ walletAddress: account });
+  };
+
+  const { data: savedSign } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_SIGN],
+    url: `${ApiUrl?.GET_SIGNATURE}/${account}`,
+    showToast: true,
+    onSuccess: (data: any) => {
+      // if (data.status == 220) {
+      //   console.log("Check Sign:", data);
+      signature(data);
+      // } else {
+      //   console.log("Check Sign Resp:", data);
+      // }
+    },
+    enabled: account ? true : false,
+  });
 
   return (
     <>

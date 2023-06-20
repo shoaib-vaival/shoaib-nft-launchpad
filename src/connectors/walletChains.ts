@@ -26,11 +26,9 @@ const isExtendedChainInformation = (
 
 export const IsMetaMaskInstalled = () => {
   if (typeof window.ethereum === "undefined") {
-    alert("MetaMask Not Installed");
     window.open("https://metamask.io/download.html", "_blank");
     return false;
   } else if (!window.ethereum.isMetaMask) {
-    alert("MetaMask Not Installed");
     window.open("https://metamask.io/download.html", "_blank");
     return false;
   } else {

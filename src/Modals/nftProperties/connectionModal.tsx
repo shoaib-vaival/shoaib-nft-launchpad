@@ -38,8 +38,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
   } = useWeb3Context();
 
   const { provider, account } = useWeb3React();
-  const [address, setAddress] = useState<any>(null);
-  const [sign, setSign] = useState<any>(null);
 
   // useEffect(() => {
   //   const getWalletAddress = async () => {
@@ -55,41 +53,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
   //   };
   //   getWalletAddress();
   // }, []);
-
-  const { data: savedSign } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_SIGN],
-    url: `${ApiUrl?.GET_SIGNATURE}/${address}`,
-    showToast: true,
-    onSuccess: (data: any) => {
-      console.log(data);
-    },
-    enabled: address ? true : false,
-  });
-
-  const { mutate } = useMutation<any>({
-    method: POST,
-    url: ApiUrl?.SAVE_SIGNATURE,
-    showSuccessToast: true,
-    onSuccess: (data: any) => {
-      setToLocalStorage("accessToken", data?.data?.access_token);
-    },
-  });
-
-  const signature = async () => {
-    const ethProvider = new ethers.providers.Web3Provider(
-      provider?.provider as any
-    );
-    const signer = ethProvider?.getSigner();
-    const wallet = await signer?.getAddress();
-    setAddress(wallet);
-    if (address) {
-      if (!savedSign) {
-        signMessage(provider).then((signature) => {
-          mutate({ walletAddress: wallet, walletHash: signature });
-        });
-      } else mutate({ walletAddress: wallet });
-    }
-  };
 
   return (
     <>
@@ -116,7 +79,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                     IsMetaMaskInstalled();
                     try {
                       await connect("");
-                      signature();
                       onClose();
                     } catch {
                       console.log("Try connecting again");
