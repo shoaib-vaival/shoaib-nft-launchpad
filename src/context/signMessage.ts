@@ -30,7 +30,6 @@ Wallet address: ${address} `;
 
       // Sign the message using the signer
       const signature = await signer.signMessage(message);
-
       // Return the signature
       return signature;
     } catch (error) {
