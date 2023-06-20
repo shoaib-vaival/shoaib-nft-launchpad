@@ -11,7 +11,7 @@ export const Footer = () => {
 
           <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
 
-            <Box pt={{ base: '40px', lg: '80px', xl:'100px' }}  pb={{ base: '10px', md: '30px' }} px={{base:'0',md:'17px'}}>
+            <Box pt={{ base: '40px', lg: '80px', xl:'100px' }}  pb={{ base: '10px', md: '30px' }} px={{base:'0',sm:'17px'}}>
               <Stack flexDirection={{base:'column',lg:'row'}} justifyContent='space-between' flexWrap={{md:'wrap',lg:'nowrap'}}>
                 <Box pb='8px' maxW='390px'>
                   <Image src='/assets/images/Logo.png' alt='logo' maxW='138' maxH='45px' />

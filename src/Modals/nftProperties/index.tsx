@@ -57,7 +57,7 @@ const NftPropertiesModal = ({
                           {values?.properties?.map(
                             (field: any, index: number) => (
                               <div key={index}>
-                                <Flex alignItems='center' flexDirection={{ base: 'column', md: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
+                                <Flex alignItems={{base:'flex-start',sm:'center'}} flexDirection={{ base: 'column', sm: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
                                   <div>
                                     <Field
                                       as={InputField}
@@ -74,7 +74,7 @@ const NftPropertiesModal = ({
                                     />
                                   </div>
                                   <div>
-                                    <Flex flexDirection='column' alignItems={'baseline'} ml={{ base: '0', md: '20px' }}>
+                                    <Flex flexDirection='column' alignItems={'baseline'} ml={{ base: '0', sm: '20px' }}>
                                       <Field
                                         as={InputField}
                                         size="md"
@@ -92,7 +92,7 @@ const NftPropertiesModal = ({
                                   </div>
                                   {index > 0 && (
                                     <>
-                                      <IconButton aria-label='close' bg='#6863F34D' mt='35px' ml={'10px'} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                      <IconButton aria-label='close' bg='#6863F34D' mt={{base:'0',sm:'35px'}} mb={{base:'10px',sm:'0'}}ml={{base:'0',sm:'10px'}} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
                                     </>
 
                                   )}
