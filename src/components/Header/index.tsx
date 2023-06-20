@@ -163,7 +163,7 @@ export const Header = () => {
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
-                <Link href="#">Activity</Link>
+                <Link href="/activity">Activity</Link>
               </HStack>
             </Box>
 

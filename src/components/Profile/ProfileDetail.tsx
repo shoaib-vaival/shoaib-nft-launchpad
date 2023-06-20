@@ -2,19 +2,19 @@ import { Container, Heading, Flex, Box, Button, Text, Stat, StatLabel, StatNumbe
 
 type  profileDetailProps = {
   showStats:boolean,
-  name:string,
+  data:any,
   isCollection:boolean,
   isVerified?:boolean,
   description?:string
 }
-const ProfileDetail = ({showStats, name, isVerified, isCollection, description}:profileDetailProps) => {
+const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}:profileDetailProps) => {
   return (
     <>
       <Container pl={{base:'0', md:'54px'}} mt='24px'  pr='0' pt='0'>
         <Flex alignItems={{base:'baseline',md:'center'}} flexDirection={{base:'column',sm:'row'}} >
           <Flex alignItems='center'>
             <Heading as='h4' fontSize={{base:'26px',md:'32px'}}>
-              {name}
+              {data?.displayName}
             </Heading>
             {
               isVerified ?  <Box mx='12px' color='#6863F3'>
@@ -40,15 +40,15 @@ const ProfileDetail = ({showStats, name, isVerified, isCollection, description}:
                 <> 
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>By:</Text>
-                  <Text fontWeight='bold' color='#6F6BF3'> Alexa Greenholt</Text>
+                  <Text fontWeight='bold' color='#6F6BF3'> {data?.name}</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Creator Fee</Text>
-                  <Text fontWeight='bold' color='#090C3D'> 10%</Text>
+                  <Text fontWeight='bold' color='#090C3D'> {data?.creatorFee[0].percentage}</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Chain:</Text>
-                  <Text fontWeight='bold' color='#090C3D'> Ethereum</Text>
+                  <Text fontWeight='bold' color='#090C3D'>{data?.chain} </Text>
                 </Box>
                 </>
 
@@ -59,11 +59,11 @@ const ProfileDetail = ({showStats, name, isVerified, isCollection, description}:
                   <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
-                  <Text>Created:</Text>
+                  <Text>Creator Fee:</Text>
                   <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
-                  <Text>Created:</Text>
+                  <Text>Chain:</Text>
                   <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
                 </Box>
                 </>

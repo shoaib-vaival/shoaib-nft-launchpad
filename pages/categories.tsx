@@ -15,11 +15,12 @@ import { getAbortController } from '@tanstack/query-core/build/lib/utils';
 const Categories: NextPage = () => {
     const {data:bannerCollection} = useQuery<any>({
         queryKey:[QUERY_KEYS],
-        url:ApiUrl.GET_BANNER_COLLECTION
+        url:ApiUrl.GET_BANNER_COLLECTION,
+        token:false
     })
     const {data:allCollections, error, fetchNextPage, status, hasNextPage, isLoading} = useInfiniteQuery<any>({
         queryKey:[QUERY_KEYS.GET_ALL_COLLECTIONS],
-        url:ApiUrl.GET_ALL_COLLECTIONS
+        url:ApiUrl.GET_ALL_COLLECTIONS,
     })
     console.log(allCollections)
     return (
@@ -47,13 +48,13 @@ const Categories: NextPage = () => {
                 <Flex justifyContent='space-between' alignItems='center' px={{ base: '0', sm: '12px' }}>
                     <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }}>Featured Collections</Heading>
                 </Flex>
-                <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
                      <InfiniteScroll
               dataLength={allCollections ? allCollections.length : 0}
               next={() => fetchNextPage()}
               hasMore={!!hasNextPage}
               loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
             >
+                <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
                 {allCollections?.map((collection:any, index:number)=>{
                     return(
                     <Box as={Link} href={`collection/${collection?.id}`} width={{ base: '100%', sm: '50%', md: '33%', xl: '25%' }} display='initial' key={index}>
@@ -61,8 +62,8 @@ const Categories: NextPage = () => {
                     </Box>
                     )
                 })}
-                    </InfiniteScroll>
                 </Flex>
+                    </InfiniteScroll>
             </Container>
         </>
     )
