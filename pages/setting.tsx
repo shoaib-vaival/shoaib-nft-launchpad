@@ -363,13 +363,13 @@ const Setting: NextPage = () => {
                         <Field name="switchField">
           {({ field }:{field:any}) => (
             <Switch
-              id="switchField"
+              id="status"
               isChecked={field.value}
               onChange={field.onChange}
             />
           )}
         </Field>
-        <ErrorMessage name="switchField" component="div" />
+        <ErrorMessage name="status" component="div" />
                     </Flex>
                   </FormControl>
                   <Button mt='30px' textTransform='uppercase' type='submit' variant='primary'>
