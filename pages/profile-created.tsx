@@ -44,7 +44,6 @@ const ProfilCreated: NextPage = () => {
     url:ApiUrl.GET_COLLECTION_BY_USER_ID,
     token:true
   })
-  console.log(userCollections,'userCollections')
   const {data:userNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<any>({
     queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
     url:ApiUrl.GET_NFT_DETAIL,

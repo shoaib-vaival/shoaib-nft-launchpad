@@ -7,6 +7,7 @@ import { useQuery } from "../../hooks/useQuery"
 import { categoriesType } from "../../types/homePage"
 import CollectionCard from "../Cards/CollectionCard"
 import { color } from "framer-motion"
+import { Loader } from "../Loader"
 
 type FilterTabs = {
     tabsList?:categoriesType[],
@@ -19,7 +20,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
        setCatId({categoryId:index})
     }
 
-    const {data} = useQuery<any>({
+    const {data, isLoading} = useQuery<any>({
         queryKey:[QUERY_KEYS.GET_COLLECTION_BY_CAT_ID, catId],
         url:ApiUrl.GET_COLLECTION_BY_CAT_ID,
         params:catId
@@ -41,12 +42,15 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
                 </MenuList>
         </Menu>
          <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
+             {isLoading && <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
              {data?.length <= 0 ?      
              <Text textAlign="center" w="100%">Data Not Found</Text>:
              data?.map((collection:any, index:number)=>{
+                 return (
              <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}} key={index}>
-                 <CollectionCard   type="withBody" featureImage="/assets/images/nft1.png" isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+                 <CollectionCard   type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
                  </Box>
+                 )
              })
             }
        
