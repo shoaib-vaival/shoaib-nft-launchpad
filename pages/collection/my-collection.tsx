@@ -18,6 +18,7 @@ const myCollection: NextPage = (props) => {
     useInfiniteQuery<any>({
       queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
       url: ApiUrl.GET_MY_COLLECTION,
+      token:true
     });
   return (
     <div>
@@ -86,9 +87,9 @@ const myCollection: NextPage = (props) => {
                     )
                   })
                 }
-                <Loader />
+                {/* <Loader /> */}
               </Flex>
-              <Flex
+              {/* <Flex
                 direction={["column", "row"]}
                 flexWrap={{
                   base: "nowrap",
@@ -129,7 +130,7 @@ const myCollection: NextPage = (props) => {
                     );
                   })
                 )}
-              </Flex>
+              </Flex> */}
             </InfiniteScroll>
           </Box>
         </Container>

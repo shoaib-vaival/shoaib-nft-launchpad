@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { validateFile } from "../../../utils";
 import { FileType, UploadFileOnServer } from "./types";
 import { useDropzone } from "react-dropzone";
@@ -13,6 +13,7 @@ import {
   Text,
   Image,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
 
 const FileUpload = ({
@@ -26,38 +27,34 @@ const FileUpload = ({
   editAbleUrl,
 }: FileType) => {
   const [fileError, setFileError] = useState<string>("");
-  const [preview, setPreview] = useState<any>(
-    editAbleUrl ? [{ preview: editAbleUrl }] : []
-  );
+  const [preview, setPreview] = useState<any>([]);
   const [showImgPreview, setShowImgPreview] = useState<boolean>(false);
 
-  const { mutate: uploadFileOnServerFunc } = useMutation<UploadFileOnServer>({
-    method: POST,
-    url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
-    showSuccessToast: false,
-    isFileData: true,
-    onSuccess: (data) => {
-      setShowImgPreview(true);
-      imgUrl({
-        imgFor,
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL_WITHOUT_PREFIX}/${data?.data?.path}`,
-      });
-    },
-  });
+  const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
+    useMutation<UploadFileOnServer>({
+      method: POST,
+      url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
+      showSuccessToast: false,
+      isFileData: true,
+      onSuccess: (data) => {
+        setShowImgPreview(true);
+        imgUrl({
+          imgFor,
+          url: data?.data?.path,
+        });
+      },
+    });
 
-  // const { mutate: getIpfsHash } = useMutation<any>({
-  //   method: POST,
-  //   url: ApiUrl?.GET_IPFS_HASH,
-  //   showSuccessToast: false,
-  //   isFileData: true,
-  //   onSuccess: (data) => {
-  //     setShowImgPreview(true);
-  //     imgUrl({
-  //       imgFor,
-  //       url: data?.data?.url,
-  //     });
-  //   },
-  // });
+  const setInitialPreview = () => {
+    setPreview(editAbleUrl)
+    setShowImgPreview(true)
+  }
+
+  useEffect(()=>{
+    if(editAbleUrl){
+    setInitialPreview()
+  }
+},[editAbleUrl])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -67,7 +64,6 @@ const FileUpload = ({
 
   const handleFileChange = async (acceptedFiles: any) => {
     const selectedFile = acceptedFiles?.[0];
-    // console.log("selectedFileselectedFile", selectedFile);
 
     const isValidatedFile = await validateFile(selectedFile);
     if (isValidatedFile !== "ok") {
@@ -91,21 +87,6 @@ const FileUpload = ({
           })
         )
       );
-
-      // if (imgFor == "nft") {
-      //   getIpfsHash({ imgData: selectedFile });
-      //   // IPFS HASH
-      // } else {
-      //   imgUrl(selectedFile);
-      //   setShowImgPreview(true);
-      //   setPreview(
-      //     acceptedFiles.map((upFile: any) =>
-      //       Object.assign(upFile, {
-      //         preview: URL.createObjectURL(upFile),
-      //       })
-      //     )
-      //   );
-      // }
     }
   };
 
@@ -116,17 +97,30 @@ const FileUpload = ({
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
+        {imgUploadLoading && (
+          <Box position="relative">
+            <Spinner></Spinner>
+          </Box>
+        )}
         {preview && showImgPreview ? (
           <>
             <Box position="relative">
               <Image
-                src={preview[0]?.preview}
+                src={preview[0]?.preview || editAbleUrl}
                 w="100%"
                 h="300px"
                 objectFit="cover"
                 borderRadius="16px"
               ></Image>
               <IconButton
+              onClick={()=>{
+                setPreview([])
+                setShowImgPreview(false)
+                imgUrl({
+                  imgFor,
+                  url: "",
+                })
+              }}
                 aria-label="close"
                 position="absolute"
                 top="10px"

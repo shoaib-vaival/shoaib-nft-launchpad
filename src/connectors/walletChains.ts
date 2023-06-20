@@ -38,14 +38,12 @@ export const IsMetaMaskInstalled = () => {
   }
 };
 
-export const addChain = (
-  chainId: number
-): AddEthereumChainParameter | number => {
+export const addChain = (chainId: number) => {
   const chainInformation = CHAINS[chainId];
 
   if (isExtendedChainInformation(chainInformation)) {
-    const addChainParameters: AddEthereumChainParameter = {
-      chainId: Number(Web3.utils.toHex(chainId)),
+    const addChainParameters: any = {
+      chainId: Web3.utils.toHex(chainId),
       chainName: chainInformation.name,
       nativeCurrency: chainInformation.nativeCurrency,
       rpcUrls: chainInformation.urls,
@@ -114,6 +112,21 @@ export const switchChain = (chainId: number): void => {
     } catch (switchError) {
       console.error("Error switching chain in MetaMask:", switchError);
     }
+  }
+};
+
+export const getAddChainParameters = (chainId: number): any => {
+  const chainInformation = CHAINS[chainId];
+  if (isExtendedChainInformation(chainInformation)) {
+    return {
+      chainId,
+      chainName: chainInformation.name,
+      nativeCurrency: chainInformation.nativeCurrency,
+      rpcUrls: chainInformation.urls,
+      blockExplorerUrls: chainInformation.blockExplorerUrls,
+    };
+  } else {
+    return chainId;
   }
 };
 

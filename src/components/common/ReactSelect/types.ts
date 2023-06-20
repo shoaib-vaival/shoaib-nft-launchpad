@@ -1,17 +1,25 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type ReactSelectTypes = {
- label: string;
- value: string;
-}
+  label: string;
+  value: string;
+};
 
 export type ReactSelectPropsTypes = {
-    options: any;
-    isMultiple: boolean;
-    getSelectedData: any;
-    identifier: string;
-    label?: string;
-    placeholder?:string
-   }
+  options: any;
+  isMultiple: boolean;
+  getSelectedData: any;
+  identifier: string;
+  label?: string;
+  placeholder?: string;
+  nftName?: string;
+  setNftName?: any;
+  defaultValue?: any;
+};
 
-   export type ReactSelectCatMap = {
-        map(arg0: (category: any) => any): unknown;label: string; value: string; length: number
-   }
+export type ReactSelectCatMap = {
+  map(arg0: (category: any) => any): unknown;
+  label: string;
+  value: string;
+  length: number;
+};
