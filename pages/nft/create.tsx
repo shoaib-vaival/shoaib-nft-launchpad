@@ -125,8 +125,8 @@ const CreateNFT = () => {
 
   return (
     <>
-      <Container maxW={{ md: "2xl", lg: "5xl", xl: "952px" }}>
-        <Heading as="h1" pt={"60px"}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }} px={{base:'17px',sm:'34px',xl:'17px'}}>
+        <Heading as="h1" pt={"30px"}>
           Create New Item
         </Heading>
 

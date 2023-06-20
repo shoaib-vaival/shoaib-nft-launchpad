@@ -36,7 +36,7 @@ type ApiResult<T> = {
     outcome: string;
     outcomeCode: number;
   };
-  records: T;
+  data: T;
   errors:
     | Array<{
         map: string;
@@ -124,7 +124,7 @@ export const useQuery = <T>({
           });
         }
       },
-      onSuccess: ({ errors, records }) => {
+      onSuccess: ({ errors, data }) => {
         if (typeof errors === "string") {
           toast({
             title: errors ?? "Something went wrong",
@@ -158,7 +158,7 @@ export const useQuery = <T>({
           });
         }
 
-        onSuccess && onSuccess(records);
+        onSuccess && onSuccess(data);
       },
     }
   );
@@ -167,10 +167,10 @@ export const useQuery = <T>({
 
   if (fetchedData) {
     // Extract "records" and rename to "data"
-    const { records: data, ...rest } = fetchedData;
+    const { data: data, ...rest } = fetchedData;
     results = { data, ...rest };
-    const responsedData = results?.data;
-    onSuccess && onSuccess({ ...responsedData });
+    // const responsedData = results?.data;
+    // onSuccess && onSuccess({ ...responsedData });
   }
   return { ...results, isLoading, isFetching, refetch };
 };

@@ -60,7 +60,7 @@ const ProfilCreated: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
-        <Box px={{ base: '0', md: '17px' }}>
+        <Box px={{ base: '0', sm: '17px' }}>
           <ProfileHeader socialIcons={socialIcons} showSocialIcons={true} coverPhoto={data?.profileCoverURL} profilePhoto={data?.profilePhoto}/>
         </Box>
         <Box mb={{ base: '12px', md: '35px' }}>
