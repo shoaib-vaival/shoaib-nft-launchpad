@@ -36,7 +36,7 @@ const ProfilCreated: NextPage = () => {
   }
   const {data} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_USER],
-    url:`${ApiUrl.GET_USER}/${1}`,
+    url:ApiUrl.GET_USER,
     token:true,
   })
   const {data:userCollections, isLoading:isUserCollectionLoading} = useQuery<any>({

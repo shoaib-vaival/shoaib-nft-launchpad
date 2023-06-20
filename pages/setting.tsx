@@ -22,18 +22,21 @@ const Setting: NextPage = () => {
 
   const {data:profile} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_PROFILE],
-    url:`${ApiUrl.GET_PROFILE_BY_ID}/${1}`
+    url:ApiUrl.GET_PROFILE_BY_ID,
+    token:true
   })
   
    const { mutate } = useMutation<any>({
     method: PATCH,
-    url: `${ApiUrl.UPDATE_PROFILE}/${1}`,
+    url: ApiUrl.UPDATE_PROFILE,
     showSuccessToast: true,
+    token:true
   }); 
   const {mutate:save} = useMutation<any>({
      method: POST,
-    url: `${ApiUrl.CREATE_NOTIFICATION}/${1}`,
+    url: ApiUrl.CREATE_NOTIFICATION,
     showSuccessToast: true,
+    token:true
   })
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
     useMutation<UploadFileOnServer>({

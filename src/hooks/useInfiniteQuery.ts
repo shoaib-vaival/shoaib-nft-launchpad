@@ -108,7 +108,6 @@ export const useInfiniteQuery = <T>({
       },
     }
   );
-  console.log(fetchedData?.pages,'jhkjh')
   const result = useMemo(
     () =>
       fetchedData?.pages.reduce((prev, page) => {
