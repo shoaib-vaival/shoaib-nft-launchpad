@@ -60,7 +60,9 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
     queryKey: [QUERY_KEYS.GET_SIGN],
     url: `${ApiUrl?.GET_SIGNATURE}/${address}`,
     showToast: true,
-    onSuccess: (data: any) => {},
+    onSuccess: (data: any) => {
+      console.log(data);
+    },
     enabled: address ? true : false,
   });
 
