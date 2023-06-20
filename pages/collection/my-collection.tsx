@@ -18,6 +18,7 @@ const myCollection: NextPage = (props) => {
     useInfiniteQuery<any>({
       queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
       url: ApiUrl.GET_MY_COLLECTION,
+      token:true
     });
   return (
     <div>

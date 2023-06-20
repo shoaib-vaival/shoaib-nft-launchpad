@@ -23,5 +23,6 @@ export const ApiUrl = {
     GET_COLLECTION_BY_USER_ID:'collection/getCollectionsByWalletAddress',
     SAVE_SIGNATURE: "user/connect-wallet", // NEW  SAVING SIGN
    GET_SIGNATURE: "user/get-user-walletAddress", // getting signature
+   CREATE_NOTIFICATION:'user/send-notification',
 }
 

@@ -82,7 +82,7 @@ const Categories: NextPage = () => {
                         <Tbody>
                             {data?.map((activity:any, index:number)=>{
                                 return(
-                            <Tr>
+                            <Tr key={index}>
                                 <Td>
                                     <Flex gap="2" alignItems="center" mr='48px'>
                                         <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />

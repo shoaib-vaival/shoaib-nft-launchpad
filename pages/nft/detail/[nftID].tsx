@@ -18,12 +18,14 @@ const NftDetail = ({param}:any) => {
     queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
     url:ApiUrl.GET_NFT_DETAIL,
     params:{nftId:param?.nftID},
+    token:true
   })
   const {data:moreNftSByCollection} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
     params:{collectionId:data?.collectionId},
     enabled:data?.collectionId ? true : false,
+    token:true
   })
   return (
     <>
@@ -273,7 +275,7 @@ const NftDetail = ({param}:any) => {
   )
 }
 
-export async function getServerSideProps(context:any) {
+export const getServerSideProps= async (context:any) => {
   // Fetch blog post data using the slug
   const param = context.params;
   return {

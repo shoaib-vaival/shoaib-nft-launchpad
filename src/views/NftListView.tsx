@@ -25,7 +25,7 @@ export const NftListView = ({data, fetchNextPage, hasNextPage}:nftListProp) => {
                       <Tbody>
                         {data?.map((nft:any, index:number)=>{
                           return(
-                        <Tr>
+                        <Tr key={index}>
                           <Td p={{base:'12px',md:'17px 25px'}}>
                             <Flex gap="2"  alignItems="center" mr='48px'>
                               <Image src={nft?.ipfsImageUrl} boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{base:'50px',md:'96px'}} h={{base:'50px',md:'96px'}} />

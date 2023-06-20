@@ -36,12 +36,15 @@ const ProfilCreated: NextPage = () => {
   }
   const {data} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_USER],
-    url:`${ApiUrl.GET_USER}/${1}`
+    url:`${ApiUrl.GET_USER}/${1}`,
+    token:true,
   })
-  const {data:userCollections} = useQuery<any>({
+  const {data:userCollections, isLoading:isUserCollectionLoading} = useQuery<any>({
     queryKey:[QUERY_KEYS.GET_COLLECTION_BY_USER_ID],
     url:ApiUrl.GET_COLLECTION_BY_USER_ID,
+    token:true
   })
+  console.log(userCollections,'userCollections')
   const {data:userNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<any>({
     queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
     url:ApiUrl.GET_NFT_DETAIL,
@@ -77,16 +80,13 @@ const ProfilCreated: NextPage = () => {
               <TabPanel p={0}>
 
                 <Box>
-                  {userCollections?.length <= 0? 
                   <SlickSlider >
                     {userCollections?.map((collection:any, index:number)=>{
-                      return <CollectionCard type='withBody' featureImage={collection?.bannerImageUrl} logoImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={true} name={collection.name} />
+                      return <CollectionCard type='withBody' key={index} featureImage={collection?.bannerImageUrl} logoImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={true} name={collection.name} />
                     })}
                   </SlickSlider>
-                  :''
-                }
                 </Box>
-                <Flex mt='15px' mx='12px'  borderTop={userCollections?.length <= 0?'1px solid rgba(53, 53, 53, 0.2)':''} justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
+                <Flex mt='15px' mx='12px'  borderTop={userCollections?.length?'1px solid rgba(53, 53, 53, 0.2)':''} justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
                   <Box order='1'>
                     <IconButton
                       variant='outline'
