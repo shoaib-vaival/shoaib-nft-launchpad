@@ -96,7 +96,7 @@ const CreateCollection = () => {
       token: true,
     });
 
-  const { mutate } = useMutation<createCollectionTypes>({
+  const { mutate, isLoading } = useMutation<createCollectionTypes>({
     method: POST,
     url: getCollectionById?.id
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
@@ -499,7 +499,7 @@ const CreateCollection = () => {
               onOpen={onConnectionModalOpen}
               onClose={onConnectionModalClose}
             />
-            <Button type="submit" variant="primary">
+            <Button isLoading={isLoading} type="submit" variant="primary">
               Submit
             </Button>
           </Form>

@@ -25,7 +25,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
-// import { getAddChainParameters } from "../../connectors/walletChains";
 import { useWeb3React } from "@web3-react/core";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { signMessage } from "../../context/signMessage";
@@ -59,10 +58,6 @@ export const Header = () => {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   signature();
-  // }, [account]);
-
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.SAVE_SIGNATURE,
@@ -73,23 +68,16 @@ export const Header = () => {
   });
 
   const signature = async (savedSign: any) => {
-    console.log("My Account", account);
-    if (savedSign?.walletHash == null) {
-      signMessage(provider).then((signature) => {
-        console.log(
-          "🚀 ~ file: index.tsx:76 ~ signMessage ~ signature:",
-          signature
-        );
-        if (signature.length == 0) {
-          mutate({ walletAddress: account, walletHash: null });
-          if (provider?.connection.url == "metamask") {
-            disconnect("");
-          } else {
-            disconnectWalletConnect("");
-          }
-        } else mutate({ walletAddress: account, walletHash: signature });
-      });
-    } else mutate({ walletAddress: account });
+    signMessage(provider).then((signature) => {
+      if (signature.length == 0) {
+        mutate({ walletAddress: account, walletHash: null });
+        if (provider?.connection.url == "metamask") {
+          disconnect("");
+        } else {
+          disconnectWalletConnect("");
+        }
+      } else mutate({ walletAddress: account, walletHash: signature });
+    });
   };
 
   const { data: savedSign } = useQuery<any>({
@@ -97,12 +85,13 @@ export const Header = () => {
     url: `${ApiUrl?.GET_SIGNATURE}/${account}`,
     showToast: true,
     onSuccess: (data: any) => {
-      // if (data.status == 220) {
-      //   console.log("Check Sign:", data);
-      signature(data);
-      // } else {
-      //   console.log("Check Sign Resp:", data);
-      // }
+      if (data.status == 220) {
+        signature(data);
+      } else {
+        console.log("Connect Wallet API Call");
+        mutate({ walletAddress: account });
+        console.log("Check Sign Resp:", data);
+      }
     },
     enabled: account ? true : false,
   });
