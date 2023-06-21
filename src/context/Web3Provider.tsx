@@ -36,7 +36,6 @@ import {
 const Context = createContext({} as Web3Interface);
 
 export const useWeb3Context = () => useContext(Context);
-import { getAddChainParameters } from "../config/chains";
 
 export const Web3ContextProvider = ({
   children,
@@ -88,7 +87,7 @@ export const Web3ContextProvider = ({
   useEffect(() => {
     if (metaMask) void changeChain();
     if (walletConnect.provider && chainId != 80001) {
-      console.log("Wallet Connect Chain", chainId);
+      // console.log("Wallet Connect Chain", chainId);
       void switchToChain(80001);
     }
   }, [chainId]);
