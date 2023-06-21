@@ -44,6 +44,7 @@ import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
   const [nftName, setNftName] = useState<string>("");
+  const [nftDesc, setNftDesc] = useState<string>("");
   const [nftFile, setNftFile] = useState<any>();
   const [properties, setProperties] = useState<PropertyTypes[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -118,14 +119,17 @@ const CreateNFT = () => {
   const initialValues = {
     photo: nftFile,
     name: nftName,
-    description: "",
+    description: nftDesc,
     collectionId: collectionId,
     properties: properties || [],
   };
 
   return (
     <>
-      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }} px={{base:'17px',sm:'34px',xl:'17px'}}>
+      <Container
+        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
+        px={{ base: "17px", sm: "34px", xl: "17px" }}
+      >
         <Heading as="h1" pt={"30px"}>
           Create New Item
         </Heading>
@@ -151,6 +155,8 @@ const CreateNFT = () => {
                   onClose={onClose}
                   nftName={values?.name}
                   setNftName={setNftName}
+                  nftDesc={values?.description}
+                  setNftDesc={setNftDesc}
                   properties={properties}
                   setProperties={setProperties}
                 />
@@ -193,6 +199,8 @@ const CreateNFT = () => {
                     label="Collection"
                     nftName={values?.name}
                     setNftName={setNftName}
+                    nftDesc={values?.description}
+                    setNftDesc={setNftDesc}
                   />
                   {touched["collectionId"] && errors["collectionId"] && (
                     <Text

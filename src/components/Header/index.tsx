@@ -54,8 +54,6 @@ export const Header = () => {
 
   const { account, provider, isActive } = useWeb3React();
   const [address, setAddress] = useState<any>(null);
-  const [checked, setChecked] = useState<any>(false);
-
   const router = useRouter();
 
   const { mutate } = useMutation<any>({
@@ -151,7 +149,7 @@ export const Header = () => {
                   md: "row",
                   xl: "row",
                 }}
-                spacing={{ base: "12px", lg: '11px', xl: "24px" }}
+                spacing={{ base: "12px", lg: "11px", xl: "24px" }}
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
@@ -201,7 +199,7 @@ export const Header = () => {
                 <Button
                   variant="secondary"
                   textTransform="uppercase"
-                  mx={{ base: "0", md: "10px", lg: '16px' }}
+                  mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
@@ -215,7 +213,7 @@ export const Header = () => {
                   variant="secondary"
                   textTransform="uppercase"
                   disabled={true}
-                  mx={{ base: "0", md: "10px", lg: '16px' }}
+                  mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
@@ -233,7 +231,7 @@ export const Header = () => {
                 <MenuButton
                   as={IconButton}
                   mr={{ base: "16px", xl: "16px" }}
-                  ml='5px'
+                  ml="5px"
                   colorScheme="purple"
                   variant="outline"
                   icon={<HamburgerIcon />}
@@ -258,7 +256,7 @@ export const Header = () => {
                   />
                 )}
 
-                <MenuList w='191px' minW='191px' h='232px' p='16px 8px'>
+                <MenuList w="191px" minW="191px" h="232px" p="16px 8px">
                   <MenuItem>
                     <Link href="/profile-created">Profile</Link>
                   </MenuItem>
@@ -269,11 +267,21 @@ export const Header = () => {
                     <Link href="/setting">Settings</Link>
                   </MenuItem>
                   <MenuItem>
-                    <FormControl m='0!important' w='100%' display='flex' alignItems='center' justifyContent='space-between'>
-                      <FormLabel fontWeight='normal!important' htmlFor='dark-theme' m='0!important'>
+                    <FormControl
+                      m="0!important"
+                      w="100%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <FormLabel
+                        fontWeight="normal!important"
+                        htmlFor="dark-theme"
+                        m="0!important"
+                      >
                         Dark Mode
                       </FormLabel>
-                      <Switch  m='0!important' id='dark-theme' />
+                      <Switch m="0!important" id="dark-theme" />
                     </FormControl>
                   </MenuItem>
 

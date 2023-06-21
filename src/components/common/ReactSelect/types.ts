@@ -13,7 +13,9 @@ export type ReactSelectPropsTypes = {
   label?: string;
   placeholder?: string;
   nftName?: string;
+  nftDesc?: string;
   setNftName?: any;
+  setNftDesc?: any;
   defaultValue?: any;
 };
 

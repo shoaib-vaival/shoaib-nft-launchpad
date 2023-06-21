@@ -46,6 +46,8 @@ import { getFromLocalStorage } from "../../src/utils";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
+  const [nftName, setNftName] = useState<string>("");
+  const [nftDesc, setNftDesc] = useState<string>("");
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
@@ -164,8 +166,8 @@ const CreateCollection = () => {
       collection?.bannerImageUrl || getCollectionById?.bannerImageUrl || "",
     featureImageUrl:
       collection?.featureImageUrl || collectionDetail?.featuredImg || "",
-    name: getCollectionById?.name || "",
-    description: getCollectionById?.description || "",
+    name: getCollectionById?.name || nftName || "",
+    description: getCollectionById?.description || nftDesc || "",
     category: getCollectionById?.category?.id || collection?.category,
     tag: collection?.tags,
     website_url: getCollectionById?.website_url || "",
@@ -183,10 +185,9 @@ const CreateCollection = () => {
   return (
     <Container
       maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
-      px={{base:'17px',sm:'34px',xl:'17px'}}
+      px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      
       <Heading as="h1">Create Collection</Heading>
       <Formik
         initialValues={initialValues}
@@ -243,6 +244,10 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="cat"
                   label="Category"
+                  nftName={values?.name}
+                  setNftName={setNftName}
+                  nftDesc={values?.description}
+                  setNftDesc={setNftDesc}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
                 {touched["category"] && errors["category"] && (
@@ -260,6 +265,10 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  nftName={values?.name}
+                  setNftName={setNftName}
+                  nftDesc={values?.description}
+                  setNftDesc={setNftDesc}
                   // defaultValue={filtredTagsById}
                 />
               </Stack>
@@ -413,7 +422,7 @@ const CreateCollection = () => {
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
                           <Flex
-                            gap={{base:'0',sm:'6'}}
+                            gap={{ base: "0", sm: "6" }}
                             alignItems={{
                               base: "flex-start",
                               sm: "center",
@@ -460,9 +469,9 @@ const CreateCollection = () => {
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
-                                mt={{base:'0',sm:'35px'}}
-                                ml={{base:'0',sm:'10px'}}
-                                mb={{base:'10px',sm:'0'}}
+                                mt={{ base: "0", sm: "35px" }}
+                                ml={{ base: "0", sm: "10px" }}
+                                mb={{ base: "10px", sm: "0" }}
                                 type="button"
                                 color="#6863F3"
                                 border="1px solid #6863F3"
