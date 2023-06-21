@@ -26,11 +26,17 @@ interface Web3Interface {
   connectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
   disconnectWalletConnect: React.Dispatch<React.SetStateAction<string | null>>;
 }
-import { addChain, switchChain } from "../connectors/walletChains";
+import {
+  addChainMetamask,
+  switchChainMetamask,
+  addMumbaiChain,
+  switchToChain,
+} from "../connectors/walletChains";
 
 const Context = createContext({} as Web3Interface);
 
 export const useWeb3Context = () => useContext(Context);
+import { getAddChainParameters } from "../config/chains";
 
 export const Web3ContextProvider = ({
   children,
@@ -74,18 +80,28 @@ export const Web3ContextProvider = ({
     if (provider) {
       // console.log("Chain Id Web3Provider:", chainId);
       if (chainId !== 80001) {
-        switchChain(80001);
+        switchChainMetamask(80001);
       }
     }
   };
 
   useEffect(() => {
     if (metaMask) void changeChain();
+    if (walletConnect.provider && chainId != 80001) {
+      console.log("Wallet Connect Chain", chainId);
+      void switchToChain(80001);
+    }
   }, [chainId]);
+  // Function to switch to a different chain
 
   const connectWalletConnect = async () => {
-    const result = await walletConnect.activate(80001);
-    setToLocalStorage("isWalletConnected", true);
+    try {
+      const result = await walletConnect.activate(80001);
+      setToLocalStorage("isWalletConnected", true);
+    } catch (error) {
+      addMumbaiChain(80001);
+      console.log("WalletConnect Connection Error: ", error);
+    }
   };
   const disconnectWalletConnect = () => {
     walletConnect?.deactivate();
@@ -99,8 +115,8 @@ export const Web3ContextProvider = ({
       const result = await metaMask.activate(80001);
       setToLocalStorage("isWalletConnected", true);
     } catch (error) {
-      addChain(80001);
-      console.log("Connection Error: ", error);
+      addChainMetamask(80001);
+      console.log("Metamask Connection Error: ", error);
     }
   };
   const disconnect = () => {
