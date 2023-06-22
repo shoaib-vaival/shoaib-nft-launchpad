@@ -97,7 +97,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
-        <Box py="30px" px={{ base: "0", sm: "17px" }}>
+        <Box py="30px" px={{ base: '0', md: '0 17px',xl:'0' }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -120,7 +120,7 @@ export const Header = () => {
               order={{ base: "4", sm: "4", md: "5", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
-              pr={{ base: "0", lg: "10px" }}
+              pr={{ base: "0", lg: "30px" }}
               pt={{ base: "20px", lg: "0" }}
             >
               <InputGroup

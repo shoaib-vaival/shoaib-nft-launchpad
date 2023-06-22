@@ -42,7 +42,7 @@ export const Banner = () => {
       <Flex justifyContent="space-between" flexWrap="wrap">
         <VStack
           alignItems="start"
-          width={{ md: "100%", xl: "60%" }}
+          width={{ base: "100%", xl: "60%" }}
           spacing={{ base: "4", lg: "6" }}
         >
           <Heading
@@ -95,11 +95,13 @@ export const Banner = () => {
             />
           </Flex>
         </VStack>
-        <Box w='373px' h='350px'>
+        <Box w='40%'>
+        <Box maxW='373px' maxH='350px' display={{base:'none',xl:'block'}} ml='auto' mr='20px'>
         <Image
           display={{ base: "none", xl: "block" }}
           src="/assets/images/banner-block.png" objectFit='cover' w='100%' h='100%'
         />
+        </Box>
         </Box>
       </Flex>
     </Container>

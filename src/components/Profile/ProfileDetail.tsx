@@ -25,7 +25,7 @@ const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}
           </Flex>
           <Box>
           {!isCollection ?
-            <Button color='#393F59' bg='transparent' borderRadius='xl' p='7px 8px' m={{base:'10px 0',md:'initial'}} fontSize='12px' height='initial' border='2px solid #6863F3'>
+            <Button color='#393F59' bg='#fff' borderRadius='xl' p='7px 8px' m={{base:'10px 0',md:'initial'}} fontSize='12px' height='initial' border='2px solid #6863F3'>
               <Text mr='8px'>0x797970 … 8080</Text> <i className='icon-copy'></i>
             </Button>:''}
           </Box>
@@ -40,15 +40,15 @@ const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}
                 <> 
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>By:</Text>
-                  <Text fontWeight='bold' color='#6F6BF3'> {data?.name}</Text>
+                  <Text fontWeight='bold' color='#6F6BF3' ml='5px'> {data?.name}</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
-                  <Text>Creator Fee</Text>
-                  <Text fontWeight='bold' color='#090C3D'> {data?.creatorFee[0].percentage}</Text>
+                  <Text>Creator Fee:</Text>
+                  <Text fontWeight='bold' color='#090C3D'ml='5px'> {data?.creatorFee[0].percentage}</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Chain:</Text>
-                  <Text fontWeight='bold' color='#090C3D'>{data?.chain} </Text>
+                  <Text fontWeight='bold' color='#090C3D'ml='5px'>{data?.chain} </Text>
                 </Box>
                 </>
 

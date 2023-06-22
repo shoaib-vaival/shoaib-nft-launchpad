@@ -52,7 +52,7 @@ const ProfilCreated: NextPage = () => {
     token:true
   })
   const socialIcons = [
-    { icon: 'icon-internet', url:data?.websiteUrl },
+    { icon: 'icon-internet', url: data?.websiteUrl },
     { icon: 'icon-telegram', url: data?.telegram },
     { icon: 'icon-froggy', url: data?.discord },
     { icon: 'icon-instagram', url: data?.instagram },
@@ -84,13 +84,13 @@ const ProfilCreated: NextPage = () => {
                 <Box>
                   {isUserCollectionLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
                   <SlickSlider >
-                    {userCollections?.map((collection:any, index:number)=>{
+                    {userCollections?.map((collection: any, index: number) => {
                       return <CollectionCard type='withBody' key={index} featureImage={collection?.bannerImageUrl} logoImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={true} name={collection.name} />
                     })}
                   </SlickSlider>
                   }
                 </Box>
-                <Flex mt='15px' mx='12px'  borderTop={userCollections?.length?'1px solid rgba(53, 53, 53, 0.2)':''} justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
+                <Flex mt='15px' mx='12px' borderTop={userCollections?.length ? '1px solid rgba(53, 53, 53, 0.2)' : ''} justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
                   <Box order='1'>
                     <IconButton
                       variant='outline'
@@ -114,8 +114,8 @@ const ProfilCreated: NextPage = () => {
                       aria-label='Send email'
                       icon={<i className='icon-list'></i>}
                       onClick={() => changeViewMode('list')}
-                      bg={view==='list' ? 'rgba(111, 107, 243, 0.3)':''}
-                      color={view === 'list' ? 'rgba(111, 107, 243, 0.3)': "#756C99"}
+                      bg={view === 'list' ? 'rgba(111, 107, 243, 0.3)' : ''}
+                      color={view === 'list' ? 'rgba(111, 107, 243, 0.3)' : "#756C99"}
                     />
                     <IconButton
                       variant='outline'
@@ -123,8 +123,8 @@ const ProfilCreated: NextPage = () => {
                       aria-label='Send email'
                       icon={<i className='icon-grid'></i>}
                       onClick={() => changeViewMode('grid')}
-                      bg={view==='grid' ? 'rgba(111, 107, 243, 0.3)':''}
-                      color={view === 'grid' ? 'rgba(111, 107, 243, 0.3)': "#756C99"}
+                      bg={view === 'grid' ? 'rgba(111, 107, 243, 0.3)' : ''}
+                      color={view === 'grid' ? 'rgba(111, 107, 243, 0.3)' : "#756C99"}
                     />
                   </ButtonGroup>
                   <Box>
@@ -171,6 +171,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                            <Box color='#6863F3'>
+                              <i className='icon-transfer'></i>
+                            </Box>
+                            <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -186,6 +190,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -201,6 +209,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -216,6 +228,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -231,6 +247,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -246,6 +266,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -261,6 +285,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>
@@ -276,6 +304,10 @@ const ProfilCreated: NextPage = () => {
                       <Tr>
                         <Td>
                           <Flex gap="2" alignItems="center" mr='48px'>
+                          <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                             <VStack spacing="0.5">
                               <Heading fontSize="18px">Panthera Leo</Heading>

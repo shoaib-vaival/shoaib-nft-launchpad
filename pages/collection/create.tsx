@@ -17,6 +17,7 @@ import {
   Container,
   Flex,
   FormControl,
+  FormLabel,
   Heading,
   Icon,
   IconButton,
@@ -188,7 +189,7 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      <Heading as="h1">Create Collection</Heading>
+      <Heading mb='45px' as="h1">Create Collection</Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -203,10 +204,13 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
+            <FormLabel display='flex' fontSize='16px' color='#393F59'><Text mr='8px' color='#FF0000'>*</Text>Required fields</FormLabel>
             <FormControl>
               <Stack direction="column">
+              <FormControl isRequired>
+                <Box mb='40px'>
                 <FileUpload
-                  label="Logo Image *"
+                  label="Logo Image"
                   detail={collectionDetail?.logoDetail}
                   imgFor="logo"
                   imgUrl={getImgUrl}
@@ -217,13 +221,17 @@ const CreateCollection = () => {
                 />
                 {touched["logoImageUrl"] && errors["logoImageUrl"] && (
                   <Text
-                    marginTop={"0px!important"}
+                    marginTop={"10px!important"}
+                    marginLeft={"5px!important"}
                     fontWeight={"500"}
                     color={"red.700"}
                   >
                     {errors["logoImageUrl"] as React.ReactNode}
                   </Text>
                 )}
+                </Box>
+                </FormControl>
+                <Box mb='40px'>
                 <FileUpload
                   label="Featured Image"
                   detail={collectionDetail?.featuredImg}
@@ -231,6 +239,8 @@ const CreateCollection = () => {
                   imgUrl={getImgUrl}
                   editAbleUrl={getCollectionById?.featureImageUrl}
                 />
+                </Box>
+                <Box mb='40px'>
                 <FileUpload
                   label="Banner Image"
                   detail={collectionDetail?.bannerImg}
@@ -238,6 +248,8 @@ const CreateCollection = () => {
                   imgUrl={getImgUrl}
                   editAbleUrl={getCollectionById?.bannerImageUrl}
                 />
+                </Box>
+                <FormControl isRequired>
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
@@ -259,6 +271,7 @@ const CreateCollection = () => {
                     {errors["category"] as React.ReactNode}
                   </Text>
                 )}
+                </FormControl>
                 <ReactSelect
                   options={filtredTags}
                   isMultiple={true}
@@ -272,12 +285,12 @@ const CreateCollection = () => {
                   // defaultValue={filtredTagsById}
                 />
               </Stack>
-
+              <FormControl isRequired>
               <Field
                 readOnly={router?.query?.id ? true : false}
                 as={InputField}
                 size="md"
-                label="Name *"
+                label="Name"
                 type="text"
                 placeholder="Name your collection"
                 name="name"
@@ -286,6 +299,7 @@ const CreateCollection = () => {
                 }
                 maxLength={50}
               />
+              </FormControl>
               <Field
                 name="description"
                 component={ChakraTextarea}
@@ -435,7 +449,8 @@ const CreateCollection = () => {
                             }}
                             w={"100%"}
                           >
-                            <Box w={{ base: "100%", sm: "80%", xl: "80%" }}>
+                            <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
+                            <FormControl isRequired>
                               <Field
                                 as={InputField}
                                 size="md"
@@ -444,10 +459,13 @@ const CreateCollection = () => {
                                 maxLength={50}
                                 name={`creatorFee.${[index]}.walletAddress`}
                               />
+                               
                               <ErrorMessage
                                 name={`creatorFee.${[index]}.walletAddress`}
                                 component="div"
                               />
+                               </FormControl>
+                            
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
