@@ -34,7 +34,7 @@ const Home: NextPage = () => {
     <div>
       <Box position='relative' pt='40px'>
       <Box bgImage='/assets/images/bg-lines.png' position='absolute' left='0' right='0' bottom='-60px'  w='100%' h='100%' bgSize='cover' bgPosition='bottom'></Box>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Box>
           <Banner />
         </Box>
@@ -42,15 +42,15 @@ const Home: NextPage = () => {
       </Box>
        {isLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
        <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }}>
       <Heading px={{ base: '0', md: '0 17px',xl:'0' }} fontSize={{base:'24px',md:'36px',xl:'48px'}}>Featured Collections</Heading>
        <SlickSlider>
        { data?.featured && data?.featured.map((item:collectionType, index:number)=>{
-                return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withoutBody' featureImage={item?.bannerImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item?.name} /></Link>
+                return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withoutBody' featureImage={item?.logoImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item?.name} /></Link>
             })}
         </SlickSlider>
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }} >
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }} >
         <Flex justifyContent='space-between' alignItems='center' mb='40px'>
           <Heading fontSize={{ base: '28px',sm:'32px', md: '36px', xl: '56px' }}>Browse by Categories</Heading>
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
@@ -60,33 +60,33 @@ const Home: NextPage = () => {
           getTabIndex={(index) => console.log(index)}
         />
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }}>
             <Flex justifyContent='space-between' alignItems='center' mb={{ base: '20px', lg: '40px' }} px={{ base: '0', md: '0 17px',xl:'0' }}>
           <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }}>Trending Collection</Heading>
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <SlickSlider>
             {data?.trending?.map((item:collectionType, index:number)=>{
-                return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
+                return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item?.logoImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}         
         </SlickSlider>
       </Container>
- <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+ <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }}>
             <Flex justifyContent='space-between' alignItems='center' mb={{ base: '20px', lg: '40px' }} px={{ base: '0', md: '0 17px',xl:'0' }}>
           <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }}>Trending in Art</Heading>
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <SlickSlider>
             {data?.trendingInArt?.map((item:collectionType, index:number)=>{
-                return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
+                return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}
           
         </SlickSlider>
       </Container>
-       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }}>
         <CustomSlider name="Recent Collection">
             {data?.recent?.map((item:collectionType, index:number)=>{
-                return <Link href={`collection/${item?.id}`}  key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
+                return <Link href={`collection/${item?.id}`}  key={index}><CollectionCard type='withBody' featureImage={item.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}
           
         </CustomSlider>
