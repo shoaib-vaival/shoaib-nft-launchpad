@@ -56,7 +56,7 @@ const CollectionCard = ({
               flexDirection='column'
               justifyContent='center'
             >
-              <Box position='relative' height={{base:'225px',md:'250px',xl:'342px'}}>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'308px'}}>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
@@ -139,7 +139,7 @@ const CollectionCard = ({
             flexDirection='column'
             justifyContent='center'
           >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}}>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'308px'}}>
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}

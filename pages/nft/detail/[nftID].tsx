@@ -116,12 +116,12 @@ const NftDetail = ({param}:any) => {
               </Heading>
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
-                  <Text>Owned By</Text>
+                  <Text mr='5px'>Owned By</Text>
                   <Text>{data?.owner}</Text>
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontSize="14px" mr="24px">
-                    <i className="icon-document-eye"></i>666 Views
+                    <i className="icon-document-eye"></i> 666 Views
                   </Text>
                   <Text
                     border="1px solid #6f6bf366"
@@ -131,7 +131,7 @@ const NftDetail = ({param}:any) => {
                     bg="#ffffff5e"
                     fontSize="14px"
                   >
-                    <i className="icon-hash"></i>666 Views
+                    <i className="icon-hash"></i> 666 
                   </Text>
                 </Flex>
               </Stack>
@@ -254,7 +254,7 @@ const NftDetail = ({param}:any) => {
             <InputLeftElement pointerEvents="none">
               <i className="icon-funnel"></i>
             </InputLeftElement>
-            <Input type="tel" placeholder="Phone number" />
+            <Input type="tel" placeholder="Filter" />
           </InputGroup>
         </Flex>
         <Box px={{ base: "0", sm: "17px" }}>

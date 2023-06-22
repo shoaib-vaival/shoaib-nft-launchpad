@@ -1,4 +1,4 @@
-import { Container, Image, Text, Flex, Heading, Button, Box, VStack, IconButton, InputGroup, Input, InputLeftElement } from '@chakra-ui/react';
+import { Container, Image, Text, Flex, Heading, Button, Box, VStack, IconButton, InputGroup, Input, InputLeftElement, Icon } from '@chakra-ui/react';
 import {
     Table,
     Thead,
@@ -42,7 +42,7 @@ const Categories: NextPage = () => {
             </Heading>
           </Box>
             <Flex justifyContent={'end'} alignItems="center"  pt='20px' mb='25px' flexWrap='wrap'>
-              <Box order='1'>
+            <Box order='1'>
                 <IconButton
                   variant='outline'
                   colorScheme='primary'
@@ -85,6 +85,10 @@ const Categories: NextPage = () => {
                             <Tr key={index}>
                                 <Td>
                                     <Flex gap="2" alignItems="center" mr='48px'>
+                                      <Box color='#6863F3'>
+                                      <i className='icon-transfer'></i>
+                                      </Box>
+                                      <Text fontWeight='700'>Transfer</Text>
                                         <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
                                         <VStack spacing="0.5">
                                             <Heading fontSize="18px">Panthera Leo</Heading>
