@@ -3,21 +3,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../components/Loader";
 import Link from "next/link";
 import CollectionCard from "../components/Cards/CollectionCard";
+import { nftType } from "../types";
 
-export type nftType = {
-        collectionId: string,
-        description: string,
-        name: string,
-        properties: any,
-        ipfsJsonUrl: string,
-        ipfsImageUrl: string,
-        owner: string,
-        price: string,
-        minting_contract_address: string,
-        id: string,
-        insertedDate: string,
-        updatedDate: string
-    }
+
 type nftGridViewPropType = {
     data:nftType[],
     fetchNextPage:()=>void,

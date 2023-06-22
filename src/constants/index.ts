@@ -18,5 +18,5 @@ export const createnft={
 
 export const pagePaths = {
     NFT: '/create-nft',
-    COLLECTION: '/create-collection',
+    COLLECTION: '/collection/create',
 }

@@ -13,11 +13,14 @@ import { useQuery } from '../src/hooks/useQuery'
 import { QUERY_KEYS } from '../src/hooks/queryKeys'
 import { ApiUrl } from '../src/apis/apiUrl'
 import { useEffect } from 'react'
-import { categoriesType, collectionForSliderType, getCategoriesApiType } from '../src/types/homePage'
+import { collectionForSliderType, getCategoriesApiType } from '../src/types/homePage'
+import { categoriesType, collectionType} from '../src/types'
 import Link from 'next/link'
+import { dashboardApiType } from '../src/types/response.type'
+import { Loader } from '../src/components/Loader'
 
 const Home: NextPage = () => {
-  const {data, isLoading} = useQuery<any>({
+  const {data, isLoading} = useQuery<dashboardApiType>({
     queryKey:[QUERY_KEYS.GET_DASHBOARD_COLLECTIONS],
     url:ApiUrl.GET_DASHBOARD_COLLECTION,
     showToast:false,
@@ -26,7 +29,7 @@ const Home: NextPage = () => {
     queryKey:[QUERY_KEYS.GET_CAT],
     url:ApiUrl.GET_CATEGORIES
   })
-  console.log(categories,'categories')
+
   return (
     <div>
       <Box position='relative'>
@@ -37,22 +40,24 @@ const Home: NextPage = () => {
         </Box>
       </Container>
       </Box>
+       {isLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
+       <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
       <Heading px={{base:'0',sm:'17px'}} fontSize={{base:'24px',md:'36px',xl:'48px'}}>Featured Collections</Heading>
        <SlickSlider>
-       { data?.featured && data?.featured.map((item:collectionForSliderType, index:number)=>{
+       { data?.featured && data?.featured.map((item:collectionType, index:number)=>{
                 return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withoutBody' featureImage={item?.bannerImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item?.name} /></Link>
             })}
         </SlickSlider>
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+      {/* <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
       <Heading px={{base:'0',sm:'17px'}} fontSize={{base:'24px',md:'36px',xl:'48px'}}>Featured Collections</Heading>
        <SlickSlider>
-       { data?.featured && data?.featured.map((item:collectionForSliderType, index:number)=>{
+       { data?.featured && data?.featured.map((item:collectionType, index:number)=>{
                 return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item?.bannerImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item?.name} /></Link>
             })}
         </SlickSlider>
-      </Container>
+      </Container> */}
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }} >
         <Flex justifyContent='space-between' alignItems='center' mb='40px' px={{ base: '0', sm: '17px' }}>
           <Heading fontSize={{ base: '28px',sm:'32px', md: '36px', xl: '56px' }}>Browse by Categories</Heading>
@@ -69,7 +74,7 @@ const Home: NextPage = () => {
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <SlickSlider>
-            {data?.trending?.map((item:collectionForSliderType, index:number)=>{
+            {data?.trending?.map((item:collectionType, index:number)=>{
                 return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl}  isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}         
         </SlickSlider>
@@ -80,7 +85,7 @@ const Home: NextPage = () => {
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <SlickSlider>
-            {data?.trendingInArt?.map((item:collectionForSliderType, index:number)=>{
+            {data?.trendingInArt?.map((item:collectionType, index:number)=>{
                 return <Link href={`collection/${item?.id}`} key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}
           
@@ -88,14 +93,14 @@ const Home: NextPage = () => {
       </Container>
        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
         <CustomSlider name="Recent Collection">
-            {data?.recent?.map((item:collectionForSliderType, index:number)=>{
+            {data?.recent?.map((item:collectionType, index:number)=>{
                 return <Link href={`collection/${item?.id}`}  key={index}><CollectionCard type='withBody' featureImage={item.bannerImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={item.name} /></Link>
             })}
           
         </CustomSlider>
       </Container>
-    
-
+        </>
+          }
     </div>
   )
 }

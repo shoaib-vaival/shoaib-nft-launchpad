@@ -101,16 +101,16 @@ export const useInfiniteQuery = <T>({
         }`,
       }).then((res) => res.data),
     {
-      //  enabled:enabled,
       getNextPageParam: (lastPage) => {
         if (lastPage.nextPage === 0) return false;
         return lastPage.nextPage;
       },
     }
   );
+  console.log(fetchedData, 'fetch data')
   const result = useMemo(
     () =>
-      fetchedData?.pages.reduce((prev, page) => {
+      fetchedData?.pages?.reduce((prev, page) => {
         return {
           data: [...prev.data, ...page.data],
         };
