@@ -50,11 +50,11 @@ const FileUpload = ({
     setShowImgPreview(true)
   }
 
-  useEffect(()=>{
-    if(editAbleUrl){
-    setInitialPreview()
-  }
-},[editAbleUrl])
+  useEffect(() => {
+    if (editAbleUrl) {
+      setInitialPreview()
+    }
+  }, [editAbleUrl])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -93,7 +93,8 @@ const FileUpload = ({
   return (
     <>
       <Box color="#756C99">
-        {label && <FormLabel marginBottom="16px">{label}</FormLabel>}
+        
+        {label && <FormLabel color='#0D0D0D' fontSize='24px!important' fontWeight='700' marginBottom="16px">{label}</FormLabel>}
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
@@ -113,14 +114,14 @@ const FileUpload = ({
                 borderRadius="16px"
               ></Image>
               <IconButton
-              onClick={()=>{
-                setPreview([])
-                setShowImgPreview(false)
-                imgUrl({
-                  imgFor,
-                  url: "",
-                })
-              }}
+                onClick={() => {
+                  setPreview([])
+                  setShowImgPreview(false)
+                  imgUrl({
+                    imgFor,
+                    url: "",
+                  })
+                }}
                 aria-label="close"
                 position="absolute"
                 top="10px"

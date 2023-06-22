@@ -42,7 +42,7 @@ export const Banner = () => {
       <Flex justifyContent="space-between" flexWrap="wrap">
         <VStack
           alignItems="start"
-          width={{ md: "100%", xl: "60%" }}
+          width={{ base: "100%", xl: "60%" }}
           spacing={{ base: "4", lg: "6" }}
         >
           <Heading
@@ -62,6 +62,7 @@ export const Banner = () => {
               mt={{ md: "0px", xl: "50px" }}
               color="#6863F3"
               textTransform="uppercase"
+              fontWeight='600'
               p={{ base: "18px 26px", md: "23px 32px" }}
               _hover={{
                 transitionDuration: "0.2s",
@@ -94,10 +95,14 @@ export const Banner = () => {
             />
           </Flex>
         </VStack>
+        <Box w='40%'>
+        <Box maxW='373px' maxH='350px' display={{base:'none',xl:'block'}} ml='auto' mr='20px'>
         <Image
           display={{ base: "none", xl: "block" }}
-          src="/assets/images/banner-block.png"
+          src="/assets/images/banner-block.png" objectFit='cover' w='100%' h='100%'
         />
+        </Box>
+        </Box>
       </Flex>
     </Container>
   );

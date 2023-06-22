@@ -11,7 +11,7 @@ export const Footer = () => {
 
           <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
 
-            <Box pt={{ base: '40px', lg: '80px', xl:'100px' }}  pb={{ base: '10px', md: '30px' }} px={{base:'0',sm:'17px'}}>
+            <Box pt={{ base: '40px', lg: '80px', xl:'100px' }}  pb={{ base: '10px', md: '30px' }}>
               <Stack flexDirection={{base:'column',lg:'row'}} justifyContent='space-between' flexWrap={{md:'wrap',lg:'nowrap'}}>
                 <Box pb='8px' maxW='390px'>
                   <Image src='/assets/images/Logo.png' alt='logo' maxW='138' maxH='45px' />
@@ -34,7 +34,7 @@ export const Footer = () => {
                 </Box>
                 <Box pb='8px'>
                   <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >Follow Us</Heading>
-                  <HStack spacing={{base:'7px',lg:'20px',xl:'60px'}}>
+                  <HStack spacing={{base:'7px',sm:'15px',lg:'20px',xl:'40px'}}>
                     <Box textAlign='center'>
                       <IconButton color=' #6863F3'
                         variant='transparent'
@@ -110,8 +110,8 @@ export const Footer = () => {
                   </Link>
                 </Text>
                 <HStack mt={{base:'20px',md:'0!important'}} spacing='24px' fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
-                  <Link href='#'>Categories</Link>
-                  <Link href='#'>Collections</Link>
+                  <Link href='#'>Privacy Policy</Link>
+                  <Link href='#'>Refund Policy</Link>
                 </HStack>
               </Flex>
             </Box>
