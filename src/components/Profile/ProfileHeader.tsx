@@ -1,5 +1,5 @@
 import { Container } from "@chakra-ui/layout"
-import { Image, Flex, IconButton, Box, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Image, Flex, IconButton, Box, Menu, MenuButton, MenuList, MenuItem, Icon } from '@chakra-ui/react'
 
 const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto}: { socialIcons?: { icon?: string, url?: string }[], showSocialIcons?:boolean, coverPhoto?:string, profilePhoto?:string }) => {
   return (
@@ -43,12 +43,13 @@ const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto
               icon={<i className='icon-menu'></i>} >
               Actions
             </MenuButton>
-            <MenuList>
-              <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuItem>Attend a Workshop</MenuItem>
+            <MenuList  w='191px' minW='191px' p='16px 8px'>
+            <MenuItem fontWeight='600'>Share Link</MenuItem>
+              <MenuItem> <Box mr='13px' color='#756C99'><i className='icon-fill-twiter'></i></Box><Box color='#393F59'>Twitter</Box></MenuItem>
+              <MenuItem> <Box mr='13px' color='#756C99'><i className='icon-facebook'></i></Box><Box color='#393F59'>Facebook</Box></MenuItem>
+              <MenuItem> <Box mr='13px' color='#756C99'><i className='icon-fill-tele'></i></Box><Box color='#393F59'>Telegram</Box></MenuItem>
+              <MenuItem> <Box mr='13px' color='#756C99'><i className='icon-at'></i></Box><Box color='#393F59'>Email</Box></MenuItem>
+              <MenuItem> <Box mr='13px' color='#756C99'><i className='icon-copy-1'></i></Box><Box color='#393F59'>Copy</Box></MenuItem>
             </MenuList>
           </Menu>
 

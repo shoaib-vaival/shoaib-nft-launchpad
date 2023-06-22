@@ -17,12 +17,14 @@ import {
   HStack,
   Image,
   useDisclosure,
+  Switch,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
-// import { getAddChainParameters } from "../../connectors/walletChains";
 import { useWeb3React } from "@web3-react/core";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { signMessage } from "../../context/signMessage";
@@ -52,13 +54,7 @@ export const Header = () => {
 
   const { account, provider, isActive } = useWeb3React();
   const [address, setAddress] = useState<any>(null);
-  const [checked, setChecked] = useState<any>(false);
-
   const router = useRouter();
-
-  // useEffect(() => {
-  //   signature();
-  // }, [account]);
 
   const { mutate } = useMutation<any>({
     method: POST,
@@ -70,23 +66,16 @@ export const Header = () => {
   });
 
   const signature = async (savedSign: any) => {
-    console.log("My Account", account);
-    if (savedSign?.walletHash == null) {
-      signMessage(provider).then((signature) => {
-        console.log(
-          "🚀 ~ file: index.tsx:76 ~ signMessage ~ signature:",
-          signature
-        );
-        if (signature.length == 0) {
-          mutate({ walletAddress: account, walletHash: null });
-          if (provider?.connection.url == "metamask") {
-            disconnect("");
-          } else {
-            disconnectWalletConnect("");
-          }
-        } else mutate({ walletAddress: account, walletHash: signature });
-      });
-    } else mutate({ walletAddress: account });
+    signMessage(provider).then((signature) => {
+      if (signature.length == 0) {
+        mutate({ walletAddress: account, walletHash: null });
+        if (provider?.connection.url == "metamask") {
+          disconnect("");
+        } else {
+          disconnectWalletConnect("");
+        }
+      } else mutate({ walletAddress: account, walletHash: signature });
+    });
   };
 
   const { data: savedSign } = useQuery<any>({
@@ -94,12 +83,13 @@ export const Header = () => {
     url: `${ApiUrl?.GET_SIGNATURE}/${account}`,
     showToast: true,
     onSuccess: (data: any) => {
-      // if (data.status == 220) {
-      //   console.log("Check Sign:", data);
-      signature(data);
-      // } else {
-      //   console.log("Check Sign Resp:", data);
-      // }
+      if (data.status == 220) {
+        signature(data);
+      } else {
+        console.log("Connect Wallet API Call");
+        mutate({ walletAddress: account });
+        console.log("Check Sign Resp:", data);
+      }
     },
     enabled: account ? true : false,
   });
@@ -159,7 +149,7 @@ export const Header = () => {
                   md: "row",
                   xl: "row",
                 }}
-                spacing={{ xl: "24px", lg: "12px" }}
+                spacing={{ base: "12px", lg: "11px", xl: "24px" }}
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
@@ -209,7 +199,7 @@ export const Header = () => {
                 <Button
                   variant="secondary"
                   textTransform="uppercase"
-                  mx={{ base: "0", md: "16px" }}
+                  mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
@@ -223,7 +213,7 @@ export const Header = () => {
                   variant="secondary"
                   textTransform="uppercase"
                   disabled={true}
-                  mx={{ base: "0", md: "16px" }}
+                  mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
@@ -241,6 +231,7 @@ export const Header = () => {
                 <MenuButton
                   as={IconButton}
                   mr={{ base: "16px", xl: "16px" }}
+                  ml="5px"
                   colorScheme="purple"
                   variant="outline"
                   icon={<HamburgerIcon />}
@@ -265,7 +256,7 @@ export const Header = () => {
                   />
                 )}
 
-                <MenuList>
+                <MenuList w="191px" minW="191px" h="232px" p="16px 8px">
                   <MenuItem>
                     <Link href="/profile-created">Profile</Link>
                   </MenuItem>
@@ -275,7 +266,25 @@ export const Header = () => {
                   <MenuItem>
                     <Link href="/setting">Settings</Link>
                   </MenuItem>
-                  <MenuItem>Dark Mode</MenuItem>
+                  <MenuItem>
+                    <FormControl
+                      m="0!important"
+                      w="100%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <FormLabel
+                        fontWeight="normal!important"
+                        htmlFor="dark-theme"
+                        m="0!important"
+                      >
+                        Dark Mode
+                      </FormLabel>
+                      <Switch m="0!important" id="dark-theme" />
+                    </FormControl>
+                  </MenuItem>
+
                   <MenuItem
                     onClick={(a) => {
                       // console.log("PROVIDER", provider?.connection.url);
