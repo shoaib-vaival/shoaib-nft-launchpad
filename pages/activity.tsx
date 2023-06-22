@@ -80,7 +80,7 @@ const Categories: NextPage = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {data?.map((activity:any, index:number)=>{
+                            {data && data?.map((activity:any, index:number)=>{
                                 return(
                             <Tr key={index}>
                                 <Td>

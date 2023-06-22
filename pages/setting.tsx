@@ -3,7 +3,7 @@ import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea,
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ApiUrl } from "../src/apis/apiUrl";
 import InputField from "../src/components/InputField";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
@@ -14,19 +14,25 @@ import { useMutation } from "../src/hooks/useMutation";
 import { useQuery } from "../src/hooks/useQuery";
 import { EditUploadFile } from "../src/components/common/EditUploadFile";
 import { UploadFileOnServer } from "../src/components/common/UploadFile/types";
+import { profileType } from "../src/types";
 
 
-
+type imagesType= {
+  imageUrl:string,
+  label:string
+}
 
 const Setting: NextPage = () => {
+  const [coverImage, setCoverImage] = useState<imagesType>()
+  const [profileImage, setProfileImage] = useState<imagesType>()
 
-  const {data:profile} = useQuery<any>({
+  const {data:profile} = useQuery<profileType>({
     queryKey:[QUERY_KEYS.GET_PROFILE],
     url:ApiUrl.GET_PROFILE_BY_ID,
     token:true
   })
   
-   const { mutate } = useMutation<any>({
+   const { mutate } = useMutation<profileType>({
     method: PATCH,
     url: ApiUrl.UPDATE_PROFILE,
     showSuccessToast: true,
@@ -44,7 +50,16 @@ const Setting: NextPage = () => {
       url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
       showSuccessToast: false,
       isFileData: true,
+      onSuccess:(data) => {
+        if(data?.data?.label === 'userCoverPhoto'){
+          setCoverImage({imageUrl:data?.data?.path, label:data?.data?.label})
+        }
+        if(data?.data?.label === "userProfilePhoto"){
+          setProfileImage({imageUrl:data?.data?.path, label:data?.data?.label})
+        }
+      }
     })
+    
   const initialValues = {
     displayName:profile?.displayName,
     userName:profile?.userName,
@@ -63,7 +78,9 @@ const Setting: NextPage = () => {
   const initialSettings = {
   status: false // Initialize the switch field value
 };
-
+useEffect(()=>{
+console.log(profileImage, coverImage)
+},[profileImage, coverImage])
   return (
     <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
@@ -104,7 +121,7 @@ const Setting: NextPage = () => {
               <TabPanel p={0}>
                 <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '55px', md: '85px' }} position="relative">
                   <Box h={{ base: '250px', md: '358px' }}>
-                  <EditUploadFile image={profile?.profileCoverURL} id="coverPhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})}/>
+                  <EditUploadFile image={profile?.profileCoverURL} id="coverPhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userCoverPhoto'})}/>
                   </Box>
                   <Box w={{ base: '100px',sm:'150px', md: '200px' }} h={{ base: '100px',sm:'150px', md: '200px' }} borderRadius="16px" border="2px solid white" position="absolute" left='5%' bottom={{base:'-30%', sm:'-43%' ,md:'-45%'}} transform="translateY(-50%)">
                   <EditUploadFile image={profile?.profileUrl} id="profilePhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})}/>
@@ -119,7 +136,7 @@ const Setting: NextPage = () => {
                     //  validationSchema={{}}
                      enableReinitialize
                      onSubmit={(values) => {
-                       mutate(values)
+                       mutate({...values, profileUrl:profileImage?.imageUrl, profileCoverURL:coverImage?.imageUrl})
                       }}
                     >
                     {({ errors, touched, values }) => (

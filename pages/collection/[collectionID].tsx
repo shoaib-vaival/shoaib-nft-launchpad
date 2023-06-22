@@ -29,25 +29,32 @@ import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
 import { NftListView } from "../../src/views/NftListView";
 import { NftGridView } from "../../src/views/NftGridView";
+import { collectionType, nftType } from "../../src/types";
+import {useDebounce} from './../../src/hooks/useDebounce'
 
 const Collection: NextPage = () => {
   const router = useRouter()
-  const [collectionID, setCollectionID] = useState<string | undefined>('')
+  const [collectionID, setCollectionID] = useState<string|undefined>('') 
+  const [search, setSearch] = useState<string>()
   const [view, setView] = useState<string>('grid')
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
-  const { data: collectionDetail } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL],
-    url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
-    enabled: router.query.collectionID ? true : false
+  const {data:collectionDetail} = useQuery<collectionType>({
+    queryKey:[QUERY_KEYS.GET_COLLECTION_DETAIL],
+    url:`${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
+    enabled:router.query.collectionID ? true : false
   })
-  const { data: collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<any>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID],
-    url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
-    params: { collectionId: `${typeof Window !== "undefined" && window.location?.pathname?.split("/")[2]}` },
-    token: true
-  });
+    const { data:collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<nftType[]>({
+      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, search],
+      url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
+      params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`, search},
+      token:true
+    });
+
+    const searchHandler = (e:any) => {
+      setSearch(e.target.value)
+    }
 
   const socialIcons = [
     { icon: 'icon-internet', url: collectionDetail?.website_url },
@@ -86,9 +93,10 @@ const Collection: NextPage = () => {
                   icon={<i className='icon-funnel'></i>}
                 />
                 </Box>
+
                 <Box order={{base:'3',sm:'2'}} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
                     <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "300px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' />
+                      <Input placeholder='Search...' onChange={(e)=>searchHandler(e)} value = {search}/>
                       <InputLeftElement>
                         <img src='/assets/images/search-icon.svg' />
                       </InputLeftElement>
@@ -119,11 +127,12 @@ const Collection: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid' ? <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : <NftListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                {view === 'grid' ?  collectionNfts !== undefined && <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <NftListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
                 <Box order='1'>
+
                 <IconButton
                   variant='outline'
                   colorScheme='primary'

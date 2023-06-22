@@ -11,14 +11,15 @@ import { useInfiniteQuery } from '../src/hooks/useInfiniteQuery';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Loader } from '../src/components/Loader';
 import { getAbortController } from '@tanstack/query-core/build/lib/utils';
+import { collectionType } from '../src/types';
 
 const Categories: NextPage = () => {
-    const {data:bannerCollection} = useQuery<any>({
+    const {data:bannerCollection} = useQuery<collectionType>({
         queryKey:[QUERY_KEYS],
         url:ApiUrl.GET_BANNER_COLLECTION,
         token:false
     })
-    const {data:allCollections, error, fetchNextPage, status, hasNextPage, isLoading} = useInfiniteQuery<any>({
+    const {data:allCollections, error, fetchNextPage, status, hasNextPage, isLoading} = useInfiniteQuery<collectionType[]>({
         queryKey:[QUERY_KEYS.GET_ALL_COLLECTIONS],
         url:ApiUrl.GET_ALL_COLLECTIONS,
     })
@@ -55,7 +56,7 @@ const Categories: NextPage = () => {
               loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
             >
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
-                {allCollections?.map((collection:any, index:number)=>{
+                {allCollections && allCollections?.map((collection:any, index:number)=>{
                     return(
                     <Box as={Link} href={`collection/${collection?.id}`} width={{ base: '100%', sm: '50%', md: '33%', xl: '25%' }} display='initial' key={index}>
                         <CollectionCard type="withBody" featureImage={collection?.bannerImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={collection?.name} />
