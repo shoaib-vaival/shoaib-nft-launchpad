@@ -27,16 +27,17 @@ import CollectionCard from "../../../src/components/Cards/CollectionCard";
 import { SlickSlider } from "../../../src/components/ReactSlick";
 import { QUERY_KEYS } from "../../../src/hooks/queryKeys";
 import { useQuery } from "../../../src/hooks/useQuery";
+import { nftType } from "../../../src/types";
 
 
 const NftDetail = ({param}:any) => {
-  const {data} = useQuery<any>({
+  const {data} = useQuery<nftType>({
     queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
     url:ApiUrl.GET_NFT_DETAIL,
     params:{nftId:param?.nftID},
     token:true
   })
-  const {data:moreNftSByCollection} = useQuery<any>({
+  const {data:moreNftSByCollection} = useQuery<nftType[]>({
     queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
     params:{collectionId:data?.collectionId},
@@ -482,7 +483,7 @@ const NftDetail = ({param}:any) => {
             </Button>
           </Flex>
           <SlickSlider>
-            {moreNftSByCollection?.map((nft: any, index: number) => {
+            {moreNftSByCollection && moreNftSByCollection?.map((nft: any, index: number) => {
               return (
                 <CollectionCard
                   type="withBody"

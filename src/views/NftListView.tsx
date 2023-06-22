@@ -1,10 +1,10 @@
 import { Image } from "@chakra-ui/image"
 import { Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
-import { nftType } from "./NftGridView"
+import { nftType } from "./../types"
 
 type nftListProp = {
-    data:nftType[],
+    data:nftType[] | [],
     fetchNextPage:()=>void,
     hasNextPage:boolean
 }

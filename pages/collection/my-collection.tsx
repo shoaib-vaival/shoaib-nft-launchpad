@@ -11,11 +11,12 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 import { ApiUrl } from "../../src/apis/apiUrl";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
+import { collectionType } from "../../src/types";
 
 const myCollection: NextPage = (props) => {
   const router = useRouter()
   const { data, error, fetchNextPage, status, hasNextPage, isLoading } =
-    useInfiniteQuery<any>({
+    useInfiniteQuery<collectionType[]>({
       queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
       url: ApiUrl.GET_MY_COLLECTION,
       token:true
@@ -82,7 +83,7 @@ const myCollection: NextPage = (props) => {
                   data?.map((nftCollection: any, index: number) => {
                     return (
                       <Box w={{ xl: '25%', md: '50%', sm: '100%' }} display='initial' key={index}>
-                        <CollectionCard isEditAble={true} key={index} type="withBody" logoImage={nftCollection.logoImageUrl} featureImage={nftCollection.bannerImageUrl} name={nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?._id} />
+                        <CollectionCard isEditAble={true} key={index} type="withBody" isShowLogoImage={true} isShowFeatureImage={true} logoImage={nftCollection.logoImageUrl} featureImage={nftCollection.bannerImageUrl} name={nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?.id} />
                       </Box>
                     )
                   })
