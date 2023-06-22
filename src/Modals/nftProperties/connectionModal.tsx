@@ -13,8 +13,8 @@ import {
 import { useWeb3React } from "@web3-react/core";
 import { useWeb3Context } from "../../context/Web3Provider";
 import {
-  switchChain,
-  addChain,
+  switchChainMetamask,
+  addChainMetamask,
   IsMetaMaskInstalled,
 } from "../../connectors/walletChains";
 import { signMessage } from "../../context/signMessage";
@@ -28,31 +28,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
 const ConnectionModal = ({ isOpen, onClose }: any) => {
-  const {
-    connect,
-    disconnect,
-    connectWalletConnect,
-    walletConnectAccount,
-    disconnectWalletConnect,
-    chainId,
-  } = useWeb3Context();
-
-  const { provider, account } = useWeb3React();
-
-  // useEffect(() => {
-  //   const getWalletAddress = async () => {
-  //     if (provider) {
-  //       const ethProvider = new ethers.providers.Web3Provider(
-  //         provider?.provider as any
-  //       );
-  //       const signer = ethProvider?.getSigner();
-  //       const walletAddress = await signer?.getAddress();
-  //       console.log("useEffect Wallet fetch", walletAddress);
-  //       setAddress(walletAddress);
-  //     }
-  //   };
-  //   getWalletAddress();
-  // }, []);
+  const { connect, disconnect, connectWalletConnect } = useWeb3Context();
 
   return (
     <>
@@ -109,7 +85,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                   onClick={async (a) => {
                     try {
                       await connectWalletConnect("");
-                      // chainId != "80001" ? getAddChainParameters(80001) : null;
                       onClose();
                     } catch (error) {
                       console.log("Try connecting again: ", error);

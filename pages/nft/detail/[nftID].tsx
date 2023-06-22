@@ -27,16 +27,17 @@ import CollectionCard from "../../../src/components/Cards/CollectionCard";
 import { SlickSlider } from "../../../src/components/ReactSlick";
 import { QUERY_KEYS } from "../../../src/hooks/queryKeys";
 import { useQuery } from "../../../src/hooks/useQuery";
+import { nftType } from "../../../src/types";
 
 
 const NftDetail = ({param}:any) => {
-  const {data} = useQuery<any>({
+  const {data} = useQuery<nftType>({
     queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
     url:ApiUrl.GET_NFT_DETAIL,
     params:{nftId:param?.nftID},
     token:true
   })
-  const {data:moreNftSByCollection} = useQuery<any>({
+  const {data:moreNftSByCollection} = useQuery<nftType[]>({
     queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
     params:{collectionId:data?.collectionId},
@@ -116,12 +117,12 @@ const NftDetail = ({param}:any) => {
               </Heading>
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
-                  <Text>Owned By</Text>
+                  <Text mr='5px'>Owned By</Text>
                   <Text>{data?.owner}</Text>
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontSize="14px" mr="24px">
-                    <i className="icon-document-eye"></i>666 Views
+                    <i className="icon-document-eye"></i> 666 Views
                   </Text>
                   <Text
                     border="1px solid #6f6bf366"
@@ -131,7 +132,7 @@ const NftDetail = ({param}:any) => {
                     bg="#ffffff5e"
                     fontSize="14px"
                   >
-                    <i className="icon-hash"></i>666 Views
+                    <i className="icon-hash"></i> 666 
                   </Text>
                 </Flex>
               </Stack>
@@ -254,7 +255,7 @@ const NftDetail = ({param}:any) => {
             <InputLeftElement pointerEvents="none">
               <i className="icon-funnel"></i>
             </InputLeftElement>
-            <Input type="tel" placeholder="Phone number" />
+            <Input type="tel" placeholder="Filter" />
           </InputGroup>
         </Flex>
         <Box px={{ base: "0", sm: "17px" }}>
@@ -482,7 +483,7 @@ const NftDetail = ({param}:any) => {
             </Button>
           </Flex>
           <SlickSlider>
-            {moreNftSByCollection?.map((nft: any, index: number) => {
+            {moreNftSByCollection && moreNftSByCollection?.map((nft: any, index: number) => {
               return (
                 <CollectionCard
                   type="withBody"

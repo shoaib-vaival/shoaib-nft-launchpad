@@ -1,6 +1,7 @@
 import type { AddEthereumChainParameter } from "@web3-react/types";
 import Web3 from "web3";
 import { chainUrls } from "./consts";
+import { walletConnect } from "./walletConnect";
 
 const MATIC: AddEthereumChainParameter["nativeCurrency"] = {
   name: "Matic",
@@ -36,7 +37,7 @@ export const IsMetaMaskInstalled = () => {
   }
 };
 
-export const addChain = (chainId: number) => {
+export const addChainMetamask = (chainId: number) => {
   const chainInformation = CHAINS[chainId];
 
   if (isExtendedChainInformation(chainInformation)) {
@@ -48,7 +49,7 @@ export const addChain = (chainId: number) => {
       blockExplorerUrls: chainInformation.blockExplorerUrls,
     };
 
-    if (window.ethereum && window.ethereum.isMetaMask) {
+    if (window.ethereum) {
       try {
         typeof window !== "undefined" &&
           window.ethereum &&
@@ -80,12 +81,12 @@ export const addChain = (chainId: number) => {
   }
 };
 
-export const switchChain = (chainId: number): void => {
+export const switchChainMetamask = (chainId: number): void => {
   const switchChainParameters = {
     chainId: Web3.utils.toHex(chainId),
   };
 
-  if (window.ethereum && window.ethereum.isMetaMask) {
+  if (window.ethereum) {
     try {
       (
         window.ethereum as {
@@ -113,13 +114,58 @@ export const switchChain = (chainId: number): void => {
   }
 };
 
+export const addMumbaiChain = async (chainId: number) => {
+  if (walletConnect.provider && walletConnect.provider.connected) {
+    try {
+      const chainData = {
+        chainId: Web3.utils.toHex(chainId),
+        chainName: "Mumbai Testnet",
+        nativeCurrency: {
+          name: "MATIC",
+          symbol: "MATIC",
+          decimals: 18,
+        },
+        rpcUrls: ["https://rpc-mumbai.maticvigil.com"], // Mumbai testnet RPC URL
+        blockExplorerUrls: ["https://mumbai.polygonscan.com"], // Mumbai testnet block explorer URL
+      };
+
+      await walletConnect.provider.request({
+        method: "wallet_addEthereumChain",
+        params: [chainData],
+      });
+      console.log("Mumbai chain added successfully");
+    } catch (error) {
+      console.error("Error adding Mumbai chain:", error);
+    }
+  } else {
+    console.error("WalletConnect provider is not connected.");
+  }
+};
+export const switchToChain = async (chainId: number) => {
+  if (walletConnect.provider && walletConnect.provider.connected) {
+    try {
+      await walletConnect.provider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: Web3.utils.toHex(chainId) }],
+      });
+      console.log("Switched to chain", chainId);
+    } catch (error) {
+      console.error("Error switching chain:", error);
+      if (error) {
+        addMumbaiChain(80001);
+      }
+    }
+  } else {
+    console.error("WalletConnect provider is not connected.");
+  }
+};
+
 export const getAddChainParameters = (chainId: number): any => {
   const chainInformation = CHAINS[chainId];
   if (isExtendedChainInformation(chainInformation)) {
     return {
       chainId,
       chainName: chainInformation.name,
-      nativeCurrency: chainInformation.nativeCurrency,
       rpcUrls: chainInformation.urls,
       blockExplorerUrls: chainInformation.blockExplorerUrls,
     };

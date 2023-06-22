@@ -17,6 +17,7 @@ import {
   Container,
   Flex,
   FormControl,
+  FormLabel,
   Heading,
   Icon,
   IconButton,
@@ -46,6 +47,8 @@ import { getFromLocalStorage } from "../../src/utils";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
+  const [nftName, setNftName] = useState<string>("");
+  const [nftDesc, setNftDesc] = useState<string>("");
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
@@ -96,7 +99,7 @@ const CreateCollection = () => {
       token: true,
     });
 
-  const { mutate } = useMutation<createCollectionTypes>({
+  const { mutate, isLoading } = useMutation<createCollectionTypes>({
     method: POST,
     url: getCollectionById?.id
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
@@ -164,8 +167,8 @@ const CreateCollection = () => {
       collection?.bannerImageUrl || getCollectionById?.bannerImageUrl || "",
     featureImageUrl:
       collection?.featureImageUrl || collectionDetail?.featuredImg || "",
-    name: getCollectionById?.name || "",
-    description: getCollectionById?.description || "",
+    name: getCollectionById?.name || nftName || "",
+    description: getCollectionById?.description || nftDesc || "",
     category: getCollectionById?.category?.id || collection?.category,
     tag: collection?.tags,
     website_url: getCollectionById?.website_url || "",
@@ -183,11 +186,10 @@ const CreateCollection = () => {
   return (
     <Container
       maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
-      px={{base:'17px',sm:'34px',xl:'17px'}}
+      px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      
-      <Heading as="h1">Create Collection</Heading>
+      <Heading mb='45px' as="h1">Create Collection</Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -202,10 +204,13 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
+            <FormLabel display='flex' fontSize='16px' color='#393F59'><Text mr='8px' color='#FF0000'>*</Text>Required fields</FormLabel>
             <FormControl>
               <Stack direction="column">
+              <FormControl isRequired>
+                <Box mb='40px'>
                 <FileUpload
-                  label="Logo Image *"
+                  label="Logo Image"
                   detail={collectionDetail?.logoDetail}
                   imgFor="logo"
                   imgUrl={getImgUrl}
@@ -216,13 +221,17 @@ const CreateCollection = () => {
                 />
                 {touched["logoImageUrl"] && errors["logoImageUrl"] && (
                   <Text
-                    marginTop={"0px!important"}
+                    marginTop={"10px!important"}
+                    marginLeft={"5px!important"}
                     fontWeight={"500"}
                     color={"red.700"}
                   >
                     {errors["logoImageUrl"] as React.ReactNode}
                   </Text>
                 )}
+                </Box>
+                </FormControl>
+                <Box mb='40px'>
                 <FileUpload
                   label="Featured Image"
                   detail={collectionDetail?.featuredImg}
@@ -230,6 +239,8 @@ const CreateCollection = () => {
                   imgUrl={getImgUrl}
                   editAbleUrl={getCollectionById?.featureImageUrl}
                 />
+                </Box>
+                <Box mb='40px'>
                 <FileUpload
                   label="Banner Image"
                   detail={collectionDetail?.bannerImg}
@@ -237,12 +248,18 @@ const CreateCollection = () => {
                   imgUrl={getImgUrl}
                   editAbleUrl={getCollectionById?.bannerImageUrl}
                 />
+                </Box>
+                <FormControl isRequired>
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
                   getSelectedData={getSelectedData}
                   identifier="cat"
                   label="Category"
+                  nftName={values?.name}
+                  setNftName={setNftName}
+                  nftDesc={values?.description}
+                  setNftDesc={setNftDesc}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
                 {touched["category"] && errors["category"] && (
@@ -254,21 +271,26 @@ const CreateCollection = () => {
                     {errors["category"] as React.ReactNode}
                   </Text>
                 )}
+                </FormControl>
                 <ReactSelect
                   options={filtredTags}
                   isMultiple={true}
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  nftName={values?.name}
+                  setNftName={setNftName}
+                  nftDesc={values?.description}
+                  setNftDesc={setNftDesc}
                   // defaultValue={filtredTagsById}
                 />
               </Stack>
-
+              <FormControl isRequired>
               <Field
                 readOnly={router?.query?.id ? true : false}
                 as={InputField}
                 size="md"
-                label="Name *"
+                label="Name"
                 type="text"
                 placeholder="Name your collection"
                 name="name"
@@ -277,6 +299,7 @@ const CreateCollection = () => {
                 }
                 maxLength={50}
               />
+              </FormControl>
               <Field
                 name="description"
                 component={ChakraTextarea}
@@ -413,7 +436,7 @@ const CreateCollection = () => {
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
                           <Flex
-                            gap={{base:'0',sm:'6'}}
+                            gap={{ base: "0", sm: "6" }}
                             alignItems={{
                               base: "flex-start",
                               sm: "center",
@@ -426,7 +449,8 @@ const CreateCollection = () => {
                             }}
                             w={"100%"}
                           >
-                            <Box w={{ base: "100%", sm: "80%", xl: "80%" }}>
+                            <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
+                            <FormControl isRequired>
                               <Field
                                 as={InputField}
                                 size="md"
@@ -435,10 +459,13 @@ const CreateCollection = () => {
                                 maxLength={50}
                                 name={`creatorFee.${[index]}.walletAddress`}
                               />
+                               
                               <ErrorMessage
                                 name={`creatorFee.${[index]}.walletAddress`}
                                 component="div"
                               />
+                               </FormControl>
+                            
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
@@ -460,9 +487,9 @@ const CreateCollection = () => {
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
-                                mt={{base:'0',sm:'35px'}}
-                                ml={{base:'0',sm:'10px'}}
-                                mb={{base:'10px',sm:'0'}}
+                                mt={{ base: "0", sm: "35px" }}
+                                ml={{ base: "0", sm: "10px" }}
+                                mb={{ base: "10px", sm: "0" }}
                                 type="button"
                                 color="#6863F3"
                                 border="1px solid #6863F3"
@@ -499,7 +526,7 @@ const CreateCollection = () => {
               onOpen={onConnectionModalOpen}
               onClose={onConnectionModalClose}
             />
-            <Button type="submit" variant="primary">
+            <Button isLoading={isLoading} type="submit" variant="primary">
               Submit
             </Button>
           </Form>

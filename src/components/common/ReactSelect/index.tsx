@@ -24,14 +24,17 @@ const ReactSelect = ({
   placeholder,
   nftName,
   setNftName,
-  // defaultValue,
-}: ReactSelectPropsTypes) => {
+  nftDesc,
+  setNftDesc,
+}: // defaultValue,
+ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(null);
 
   const handleChangeCategory = (cat: any) => {
     getSelectedData(cat, identifier);
     setValue(cat);
     nftName && setNftName(nftName);
+    nftDesc && setNftDesc(nftDesc);
   };
 
   // useEffect(() => {
@@ -42,7 +45,7 @@ const ReactSelect = ({
     <>
       {label && (
         <Flex alignItems="center">
-          <FormLabel color="black">{label}</FormLabel>
+          <FormLabel fontSize='24px!important' color="black">{label}</FormLabel>
         </Flex>
       )}
       <CreatableSelect
