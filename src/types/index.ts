@@ -70,7 +70,8 @@ export type collectionType = {
         updatedDate ?: Date,
         nfts?: nftType[],
         tags?: nftType[],
-        category?:categoriesType
+        category?:categoriesType,
+        user?:profileType
 } 
 
 export type fileUploadType = {

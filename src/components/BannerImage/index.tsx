@@ -7,7 +7,7 @@ const BannerImage: NextPage = () => {
 
     return (
         <div>
-           <Box position='relative' maxW='100%' height='415px' maxH='600px' >
+          <Box position='relative' maxW='100%' height='415px' maxH='600px' >
               <Image src='/assets/images/Maskgroup.png' alt='Maskgroup' w='100%' h='100%' objectFit='cover'
                 borderRadius='2xl' />
 

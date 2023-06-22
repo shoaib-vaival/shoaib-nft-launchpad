@@ -83,7 +83,7 @@ console.log(profileImage, coverImage)
 },[profileImage, coverImage])
   return (
     <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Flex
           p={{ base: '0', md: '0 17px' }}
           alignItems='initial'
@@ -109,7 +109,7 @@ console.log(profileImage, coverImage)
         </Flex>
 
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Box mt='24px'>
           <Tabs>
             <TabList ml='12px' pl='0'>
@@ -121,10 +121,10 @@ console.log(profileImage, coverImage)
               <TabPanel p={0}>
                 <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '55px', md: '85px' }} position="relative">
                   <Box h={{ base: '250px', md: '358px' }}>
-                  <EditUploadFile image={profile?.profileCoverURL} id="coverPhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userCoverPhoto'})}/>
+                  <EditUploadFile image={profile?.profileCoverURL ? profile?.profileCoverURL : ''} id="coverPhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userCoverPhoto'})} isShowLabel = {true}/>
                   </Box>
                   <Box w={{ base: '100px',sm:'150px', md: '200px' }} h={{ base: '100px',sm:'150px', md: '200px' }} borderRadius="16px" border="2px solid white" position="absolute" left='5%' bottom={{base:'-30%', sm:'-43%' ,md:'-45%'}} transform="translateY(-50%)">
-                  <EditUploadFile image={profile?.profileUrl} id="profilePhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})}/>
+                  <EditUploadFile image={profile?.profileUrl ? profile?.profileUrl : ''} id="profilePhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})} isShowLabel={false}/>
                   </Box>
                   
                   {/* <ProfileHeader showSocialIcons={false} FileUploadOverlay={true} /> */}

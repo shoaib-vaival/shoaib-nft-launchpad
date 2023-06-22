@@ -24,7 +24,7 @@ const myCollection: NextPage = (props) => {
   return (
     <div>
       <Box>
-        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
           <Box pt="30px" pb="40px" px={{base:'0',sm:'17px'}}>
             <Flex
               justifyContent="space-between"
@@ -68,7 +68,7 @@ const myCollection: NextPage = (props) => {
             </Flex>
           </Box>
         </Container>
-        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}
+        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}
           pb={{ xl: "100px", md: "50px" }}
         >
           <Box px={{base:'0',sm:'17px'}}>

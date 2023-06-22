@@ -27,7 +27,7 @@ const Categories: NextPage = () => {
     })
     return (
         <>
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
             <Box pr={{ base: "0", md: "50px" }}>
             <Heading
               as="h1"
