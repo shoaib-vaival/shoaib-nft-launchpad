@@ -61,7 +61,7 @@ const ProfilCreated: NextPage = () => {
   ]
   return (
     <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Box px={{ base: '0', sm: '17px' }}>
           {isProfileLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
           <ProfileHeader socialIcons={socialIcons} showSocialIcons={true} coverPhoto={data?.profileCoverURL} profilePhoto={data?.profileUrl}/>}
@@ -70,7 +70,7 @@ const ProfilCreated: NextPage = () => {
         <ProfileDetail showStats = {false} data={{...data, description:data?.bio}}  isCollection={false} />
         </Box>
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Box>
           <Tabs>
             <TabList ml='12px' pl='0'>

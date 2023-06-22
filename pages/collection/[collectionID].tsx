@@ -66,7 +66,7 @@ const Collection: NextPage = () => {
   ]
   return (
     <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Box px={{ base: '0', md: '17px' }}>
           <ProfileHeader
             socialIcons={socialIcons}
@@ -74,7 +74,7 @@ const Collection: NextPage = () => {
         </Box>
         <ProfileDetail showStats={true} data={collectionDetail} isCollection={true} description={collectionDetail?.description} />
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
+      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
         <Box>
           <Tabs>
             <TabList>
