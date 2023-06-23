@@ -31,7 +31,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
         <>
         <Tabs >
         <Menu>
-            <TabList pl='0' mx='17px' flexWrap='wrap' borderBottom={{base:'0px solid rgba(53, 53, 53, 0.2)',sm:'1px solid rgba(53, 53, 53, 0.2)'}}>
+            <TabList pl='0' overflowX={{base:'auto',md:'initial'}} maxH={{base:'52px',md:'initial'}} mx='17px' borderBottom={{base:'0px solid rgba(53, 53, 53, 0.2)',sm:'1px solid rgba(53, 53, 53, 0.2)'}}>
         {tabsList && tabsList?.slice(0,5).map((category, index)=> <Tab onClick={()=>filterUsingTabs(category?.id)} key = {index}>{category?.name}</Tab>)}
         {tabsList && tabsList?.length >= 5?<Tab as={MenuButton}>More</Tab>:''}
          </TabList>

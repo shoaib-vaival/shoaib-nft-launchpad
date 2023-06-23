@@ -188,7 +188,7 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      <Heading mb='45px' as="h1">Create Collection</Heading>
+      <Heading mb='35px' as="h1">Create Collection</Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -203,10 +203,10 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <FormLabel display='flex' fontSize='16px' color='#393F59'><Text mr='8px' color='#FF0000'>*</Text>Required fields</FormLabel>
+            <FormLabel m='0' display='flex' fontSize='16px' color='#393F59'><Text mr='6px' color='#E53E3E'>*</Text>Required fields</FormLabel>
             <FormControl>
               <Stack direction="column">
-                <FormControl isRequired>
+                <FormControl isRequired mt='0'>
                   <Box mb='40px'>
                     <FileUpload
                       label="Logo Image"
@@ -239,7 +239,7 @@ const CreateCollection = () => {
                     editAbleUrl={getCollectionById?.featureImageUrl}
                   />
                 </Box>
-                <Box mb='40px'>
+                <Box mb='30px'>
                   <FileUpload
                     label="Banner Image"
                     detail={collectionDetail?.bannerImg}
@@ -248,8 +248,8 @@ const CreateCollection = () => {
                     editAbleUrl={getCollectionById?.bannerImageUrl}
                   />
                 </Box>
-                <FormLabel fontSize='24px!important' fontWeight='700'>Details</FormLabel>
-                <FormControl>
+                <FormLabel fontSize='24px!important' mb='0!important' fontWeight='700'>Details</FormLabel>
+                <FormControl mt='0'>
                   <Field
                     readOnly={router?.query?.id ? true : false}
                     as={InputField}
@@ -265,6 +265,7 @@ const CreateCollection = () => {
                     maxLength={50}
                   />
                 </FormControl>
+                <FormControl  mt='0'>
                 <Field
                   name="description"
                   component={ChakraTextarea}
@@ -282,6 +283,7 @@ const CreateCollection = () => {
                   </Text>
                 )}
                 <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
                     options={filtredCat}
@@ -440,13 +442,13 @@ const CreateCollection = () => {
                   />
                 </Flex>
               </Box>
-              <Box>  
+              <Box>
                 <Heading fontSize={"24px"} mt='38px'>Creator Fees</Heading>
                 <Text fontSize={"16px"} mt='16px' color='#393F59'>
                   Collection owners can collect creator earnings when a user re-sells an item they created. Contact the collection owner to change the collection earnings percentage or the payout address.
                 </Text>
-                </Box>
-                
+              </Box>
+
               <FieldArray name="creatorFee">
 
                 {({ push, remove }) => (
@@ -470,17 +472,17 @@ const CreateCollection = () => {
                             w={"100%"}
                           >
                             <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
-                            <FormControl my={0} isRequired>
-                              <Field
-                                as={InputField}
-                                size="md"
-                                label="Wallet Address"
-                                type="text"
-                                maxLength={50}
-                                name={`creatorFee.${[index]}.walletAddress`}
-                              />
-                               </FormControl>
-                            
+                              <FormControl my={0} isRequired>
+                                <Field
+                                  as={InputField}
+                                  size="md"
+                                  label="Wallet Address"
+                                  type="text"
+                                  maxLength={50}
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                />
+                              </FormControl>
+
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
@@ -498,19 +500,19 @@ const CreateCollection = () => {
                               />
                             </Box>
 
-                              <IconButton
-                                aria-label="close"
-                                bg="#6863F34D"
-                                mt={{ base: "0", sm: "35px" }}
-                                ml={{ base: "0", sm: "10px" }}
-                                mb={{ base: "10px", sm: "0" }}
-                                type="button"
-                                color="#6863F3"
-                                border="1px solid #6863F3"
-                                onClick={() => remove(index)}
-                                icon={<i className="icon-remove"></i>}
-                                visibility={index > 0 ? 'visible': 'hidden'}
-                              />
+                            <IconButton
+                              aria-label="close"
+                              bg="#6863F34D"
+                              mt={{ base: "0", sm: "35px" }}
+                              ml={{ base: "0", sm: "10px" }}
+                              mb={{ base: "10px", sm: "0" }}
+                              type="button"
+                              color="#6863F3"
+                              border="1px solid #6863F3"
+                              onClick={() => remove(index)}
+                              icon={<i className="icon-remove"></i>}
+                              visibility={index > 0 ? 'visible' : 'hidden'}
+                            />
                           </Flex>
                         </div>
                       ))}

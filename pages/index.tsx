@@ -47,7 +47,7 @@ const Home: NextPage = () => {
       </Container>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }} >
         <Flex justifyContent='space-between' alignItems='center' mb='40px'>
-          <Heading fontSize={{ base: '28px',sm:'32px', md: '36px', xl: '56px' }}>Browse by Categories</Heading>
+          <Heading fontSize={{ base: '26px',sm:'32px', md: '36px', xl: '56px' }}>Browse by Categories</Heading>
           <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
         </Flex>
         <FilterTabs

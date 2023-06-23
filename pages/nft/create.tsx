@@ -127,11 +127,13 @@ const CreateNFT = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
         px={{ base: "17px", sm: "34px", xl: "17px" }}
       >
-        <Heading as="h1" pt={"30px"}>
+        <Heading  mb='35px' as="h1" pt={"30px"}>
           Create New Item
         </Heading>
+        <FormLabel m='0' display='flex' fontSize='16px' color='#393F59'><Text mr='6px' color='#E53E3E'>*</Text>Required fields</FormLabel>
 
         <Formik
+        
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
@@ -145,7 +147,7 @@ const CreateNFT = () => {
         >
           {({ errors, touched, values }) => (
             <Form>
-              <FormControl>
+              <FormControl mt='0'>
                 <NftPropertiesModal
                   isOpen={isOpen}
                   onOpen={onOpen}
@@ -160,7 +162,7 @@ const CreateNFT = () => {
                 <Stack direction="column">
                 <FormControl isRequired>
                   <FileUpload
-                    label="Image, Video, Audio, or 3D Model"
+                    label="Image"
                     detail={createnft?.bannerImg}
                     imgFor="nft"
                     imgUrl={getImgUrl}
@@ -178,7 +180,7 @@ const CreateNFT = () => {
                     label="Name"
                     type="text"
                     formControlProps={{ isRequired: true }}
-                    placeholder="Name your nft"
+                    placeholder="Name your NFT"
                     name="name"
                     errorText={
                       touched["name"] && errors["name"]
