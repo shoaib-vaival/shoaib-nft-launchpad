@@ -79,7 +79,6 @@ const Setting: NextPage = () => {
   status: false // Initialize the switch field value
 };
 useEffect(()=>{
-console.log(profileImage, coverImage)
 },[profileImage, coverImage])
   return (
     <>

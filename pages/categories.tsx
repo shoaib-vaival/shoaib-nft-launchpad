@@ -20,7 +20,6 @@ const Categories: NextPage = () => {
         queryKey:[QUERY_KEYS.GET_ALL_COLLECTIONS],
         url:ApiUrl.GET_ALL_COLLECTIONS,
     })
-    console.log(allCollections)
     return (
         <>
             <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px' }}>

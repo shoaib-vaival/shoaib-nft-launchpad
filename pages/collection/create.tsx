@@ -124,7 +124,6 @@ const CreateCollection = () => {
       label: cat?.name,
       value: cat?.id,
     }));
-  console.log("getCollectionByIdgetCollectionById", getCollectionById);
   const filtredTagsById =
     getCollectionById?.tags &&
     getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({

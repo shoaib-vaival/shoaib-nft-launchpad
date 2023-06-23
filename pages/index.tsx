@@ -1,7 +1,4 @@
 import type { NextPage } from 'next'
-import { Header } from '../src/components/Header'
-
-import { Footer } from '../src/components/Footer'
 
 import { Container, Heading, Flex, Button, Box } from '@chakra-ui/react'
 import { SlickSlider } from '../src/components/ReactSlick'
@@ -12,8 +9,6 @@ import CustomSlider from '../src/components/Slider'
 import { useQuery } from '../src/hooks/useQuery'
 import { QUERY_KEYS } from '../src/hooks/queryKeys'
 import { ApiUrl } from '../src/apis/apiUrl'
-import { useEffect } from 'react'
-import { collectionForSliderType, getCategoriesApiType } from '../src/types/homePage'
 import { categoriesType, collectionType} from '../src/types'
 import Link from 'next/link'
 import { dashboardApiType } from '../src/types/response.type'

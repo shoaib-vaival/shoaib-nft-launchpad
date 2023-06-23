@@ -99,14 +99,9 @@ const CreateNFT = () => {
       label: collection?.name,
       value: collection?.id,
     }));
-
-  //contract abi will goes here
+    
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
-    // console.log("🚀 ~ file: index.tsx:62 ~ getImgUrl ~ imgUrl:", imgUrl);
     setNftFile(imgUrl);
-    // console.log(imgUrlProp);
-    // imgUrl.url
-    // contract function call for minting
   };
 
   const getSelectedData = (
