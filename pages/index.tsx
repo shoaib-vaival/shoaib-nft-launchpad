@@ -1,7 +1,4 @@
 import type { NextPage } from 'next'
-import { Header } from '../src/components/Header'
-
-import { Footer } from '../src/components/Footer'
 
 import { Container, Heading, Flex, Button, Box } from '@chakra-ui/react'
 import { SlickSlider } from '../src/components/ReactSlick'
@@ -12,8 +9,6 @@ import CustomSlider from '../src/components/Slider'
 import { useQuery } from '../src/hooks/useQuery'
 import { QUERY_KEYS } from '../src/hooks/queryKeys'
 import { ApiUrl } from '../src/apis/apiUrl'
-import { useEffect } from 'react'
-import { collectionForSliderType, getCategoriesApiType } from '../src/types/homePage'
 import { categoriesType, collectionType} from '../src/types'
 import Link from 'next/link'
 import { dashboardApiType } from '../src/types/response.type'
@@ -53,7 +48,7 @@ const Home: NextPage = () => {
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }} >
         <Flex justifyContent='space-between' alignItems='center' mb='40px'>
           <Heading fontSize={{ base: '28px',sm:'32px', md: '36px', xl: '56px' }}>Browse by Categories</Heading>
-          <Button p={{ base: '15px', md: '20px 32px' }} variant='primary'>View All</Button>
+          <Button p={{ base: '15px', md: '20px 32px' }}  variant='primary'>View All</Button>
         </Flex>
         <FilterTabs
           tabsList={categories}

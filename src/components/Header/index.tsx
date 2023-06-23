@@ -36,6 +36,7 @@ import { setToLocalStorage, getFromLocalStorage } from "../../utils";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { error } from "console";
+import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
   const {
@@ -62,6 +63,7 @@ export const Header = () => {
     showSuccessToast: true,
     onSuccess: (data: any) => {
       setToLocalStorage("accessToken", data?.data?.access_token);
+      setCookie("accessToken", data?.data?.access_token);
     },
   });
 
@@ -86,9 +88,7 @@ export const Header = () => {
       if (data.status == 220) {
         signature(data);
       } else {
-        console.log("Connect Wallet API Call");
         mutate({ walletAddress: account });
-        console.log("Check Sign Resp:", data);
       }
     },
     enabled: account ? true : false,
@@ -97,7 +97,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
-        <Box py="30px" px={{ base: '0', md: '0 17px',xl:'0' }}>
+        <Box py="30px" px={{ base: "0", md: "0 17px", xl: "0" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -108,6 +108,8 @@ export const Header = () => {
               pb="8px"
               order={{ base: "1", sm: "1" }}
               marginRight={{ base: "auto", md: "initial" }}
+              as={Link}
+              href="/"
             >
               <Image
                 src="/assets/images/Logo.png"
@@ -287,7 +289,6 @@ export const Header = () => {
 
                   <MenuItem
                     onClick={(a) => {
-                      // console.log("PROVIDER", provider?.connection.url);
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
                       } else {

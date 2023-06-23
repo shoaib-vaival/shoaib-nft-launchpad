@@ -78,9 +78,7 @@ const Setting: NextPage = () => {
   const initialSettings = {
   status: false // Initialize the switch field value
 };
-useEffect(()=>{
-console.log(profileImage, coverImage)
-},[profileImage, coverImage])
+
   return (
     <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
@@ -114,7 +112,7 @@ console.log(profileImage, coverImage)
           <Tabs>
             <TabList ml='12px' pl='0'>
               <Tab>Account</Tab>
-              <Tab>Notifications</Tab>
+              {/* <Tab>Notifications</Tab> */}
             </TabList>
 
             <TabPanels>
@@ -127,7 +125,6 @@ console.log(profileImage, coverImage)
                   <EditUploadFile image={profile?.profileUrl ? profile?.profileUrl : ''} id="profilePhoto" onChange={(e)=>uploadFileOnServerFunc({photo:e.target.files[0], label:'userProfilePhoto'})} isShowLabel={false}/>
                   </Box>
                   
-                  {/* <ProfileHeader showSocialIcons={false} FileUploadOverlay={true} /> */}
                 </Box>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} p={{ base: '0', md: '16px' }}>
                   <Box>
@@ -172,8 +169,7 @@ console.log(profileImage, coverImage)
                                formControlProps={{marginTop:'0px', marginBottom:'0px'}}
                                name="userName"
                                maxLength={50}/>
-                          {/* <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Display Name</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your username' /> */}
+                          
                         </Box>
                       </Flex>
                       <Box mb='24px'>
@@ -185,12 +181,6 @@ console.log(profileImage, coverImage)
                 placeholder="Tel about your self in few words"
                 desc=''
               />
-                        {/* <Text fontSize='16px' fontWeight='500!important' mb='16px!important'>Short Bio</Text>
-                        <Textarea boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366'
-                          value=''
-                          placeholder='Tel about your self in few words'
-                          size='md'
-                        /> */}
                       </Box>
                       <Flex mb='24px' gap={"10"}
                         display={{ base: "block", sm: "flex" }}
@@ -210,8 +200,6 @@ console.log(profileImage, coverImage)
                                formControlProps={{marginTop:'0px', marginBottom:'0px'}}
                                name="email"
                                maxLength={50}/>
-                          {/* <FormLabel fontSize='16px' fontWeight='500' mb='16px!important'>Email</FormLabel>
-                          <Input boxShadow='2px 2px 8px rgba(13, 13, 13, 0.1)' borderRadius='6px' border='1px solid #6F6BF366' placeholder='Enter your email' /> */}
                         </Box>
 
                         <Box w='100%'>
@@ -349,7 +337,7 @@ console.log(profileImage, coverImage)
                   </Box>
                 </Container>
               </TabPanel>
-              <TabPanel p={0}>
+              {/* <TabPanel p={0}>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} px={{ base: '0', md: '30px' }}>
                   <Flex flexDirection='row' mt='15px' >
                     <Box mb='10px'>
@@ -395,7 +383,7 @@ console.log(profileImage, coverImage)
                   </Form>
                   </Formik>
                 </Container>
-              </TabPanel>
+              </TabPanel> */}
             </TabPanels>
           </Tabs></Box></Container >
     </>

@@ -50,13 +50,13 @@ const CollectionCard = ({
     return (
       <div>
         <Container py='12px' px={{base:'0',sm:'12px'}} key={key}>
-          <Card maxW={{base:'100%',md:'sm'}} justifyContent='center' overflow='hidden'p={{base:'0!important',sm:'12px'}} onMouseOver={onOver} onMouseOut={onOut} h={height}>
+          <Card maxH='459px' overflow='hidden' maxW={{base:'100%',md:'sm'}} justifyContent='center' p={{base:'0!important',sm:'12px'}} onMouseOver={onOver} onMouseOut={onOut} h={height}>
             <CardBody
               display='flex'
               flexDirection='column'
               justifyContent='center'
             >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'308px'}}>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'225px',md:'250px',xl:'342px'}} transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.5s'>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
@@ -66,19 +66,21 @@ const CollectionCard = ({
                     h='100%'
                     objectFit='cover'
 
+
+
                   />
                 )}
 
+                  {isShowLogoImage && (
                 <Box
                   position='absolute'
                   bottom='-16px'
                   left='24px'
                   border='1px solid #fff'
-                  borderRadius='lg'
-                      maxW={88}
-                      maxH={88}
+                  borderRadius='16px'
+                      w={88}
+                      h={88}
                 >
-                  {isShowLogoImage && (
                     <Image
                       src={
                         logoImage
@@ -86,13 +88,15 @@ const CollectionCard = ({
                           : '/assets/images/RectangleCardImg.png'
                       }
                       alt='Green double couch with wooden legs'
-                      maxW='100%'
-                      maxH='100%'
+                      w='100%'
+                      h='100%'
+                      borderRadius='16px'
+                      objectFit='cover'
                     />
-                  )}
                 </Box>
+                  )}
               </Box>
-              <Stack pt='16px' spacing='3'  px={{base:'24px',sm:'16px',lg:'24px'}} pb='24px'>
+              <Stack pt='24px' spacing='3'  px={{base:'24px',sm:'16px',lg:'24px'}}  transition='.4s' transform= {isVisible && isEditAble?'translate(0px, -20px)':'translate(0px, 0px)'} pb='24px'>
                 <Heading size='20px' fontWeight='700' color='#0D0D0D'>
                   {name}
                 </Heading>
@@ -102,7 +106,7 @@ const CollectionCard = ({
                       Volume
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {volume?volume:'--'} ETH
+                      {volume?volume:'--'} Matic
                     </Text>
                   </Box>
                   <Box>
@@ -110,21 +114,21 @@ const CollectionCard = ({
                       Floor Price
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {price?price:'--'} ETH
+                      {price?price:'--'} Matic
                     </Text>
                   </Box>
                 </SimpleGrid>
               </Stack>
             </CardBody>
-            {isVisible && isEditAble?
-            <CardFooter>
-                        <Button variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
+            <CardFooter transition='.5s'   h= {isVisible && isEditAble?'auto':'0'} transform= {isVisible && isEditAble?'translate(0px, -50px)':'translate(0px, 0px)'} >
+            { isEditAble?
+                        <Button transition='.3s'h='100%'  variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
                             Edit Collection
                         </Button>
                         
           
+                    :''} 
                     </CardFooter>
-                    :''}
           </Card>
         </Container>
       </div>
@@ -138,8 +142,9 @@ const CollectionCard = ({
             display='flex'
             flexDirection='column'
             justifyContent='center'
+            alignItems="center"
           >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'308px'}}>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'342px'}} w="100%" >
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}
