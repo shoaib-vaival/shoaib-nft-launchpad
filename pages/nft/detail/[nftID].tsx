@@ -75,7 +75,7 @@ const NftDetail = ({param}:any) => {
               borderBottom="1px solid"
               borderColor="rgba(53, 53, 53, 0.2)"
             >
-              <Flex justifyContent="end">
+              {/* <Flex justifyContent="end">
                 <Box>
                   <IconButton
                     color=" #756C99"
@@ -108,7 +108,7 @@ const NftDetail = ({param}:any) => {
                     </MenuList>
                   </Menu>
                 </Box>
-              </Flex>
+              </Flex> */}
               <Text marginTop="-15px" marginBottom="16px" fontSize="16px">
                 {data?.collection?.name}
               </Text>

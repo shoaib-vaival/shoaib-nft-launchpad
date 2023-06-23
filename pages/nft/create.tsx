@@ -203,7 +203,8 @@ const CreateNFT = () => {
                     isMultiple={false}
                     getSelectedData={getSelectedData}
                     identifier="collection"
-                    label="Collection"
+                    label=""
+                    placeholder="Select Collection"
                     nftName={values?.name}
                     setNftName={setNftName}
                     nftDesc={values?.description}
@@ -218,9 +219,9 @@ const CreateNFT = () => {
                       {errors["collectionId"] as React.ReactNode}
                     </Text>
                   )}
-                  <Flex justifyContent='space-between' alignItems='center'>
+                  <Flex justifyContent='space-between' mt='38px' alignItems='center'>
                   <Box>  
-                <Heading fontSize={"24px"} mt='38px'>Properties</Heading>
+                <Heading fontSize={"24px"} >Properties</Heading>
                 <Text fontSize={"16px"} mt='16px' color='#393F59'>
                 Textual traits that show up as rectangles
                   </Text>
@@ -276,8 +277,8 @@ const CreateNFT = () => {
                 onOpen={onConnectionModalOpen}
                 onClose={onConnectionModalClose}
               />
-              <Button isLoading={isLoading} type="submit" variant="primary">
-                Submit
+              <Button isLoading={isLoading} type="submit" variant="primary" textTransform="uppercase">
+                Create NFT
               </Button>
             </Form>
           )}

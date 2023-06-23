@@ -22,7 +22,7 @@ const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto
               )
             })}
             
-          <Box borderLeft={{base:'none',sm:'1px solid #A6A6A6'}} paddingLeft={{base:'0',sm:'2'}} ml={{base:'0',sm:'2'}} >
+          {/* <Box borderLeft={{base:'none',sm:'1px solid #A6A6A6'}} paddingLeft={{base:'0',sm:'2'}} ml={{base:'0',sm:'2'}} >
           <Menu>
             <MenuButton
               as={IconButton}
@@ -43,8 +43,8 @@ const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto
               <MenuItem> <Box mr='13px' color='#756C99'><i className='icon-copy-1'></i></Box><Box color='#393F59'>Copy</Box></MenuItem>
             </MenuList>
           </Menu>
-          </Box>
-          <Menu>
+          </Box> */}
+          {/* <Menu>
             <MenuButton
               as={IconButton}
               color='#756C99'
@@ -58,7 +58,7 @@ const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto
             <MenuList  w='191px' minW='191px' p='16px 8px'>
               <MenuItem> <Box color='#0D0D0D'>Report</Box></MenuItem>
             </MenuList>
-          </Menu>
+          </Menu> */}
 
         </Flex>
         }

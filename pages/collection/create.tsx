@@ -282,6 +282,7 @@ const CreateCollection = () => {
                     getSelectedData={getSelectedData}
                     identifier="cat"
                     label="Category"
+                    placeholder="Select category"
                     nftName={values?.name}
                     setNftName={setNftName}
                     nftDesc={values?.description}
@@ -304,6 +305,7 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  placeholder="Select Tag"
                   nftName={values?.name}
                   setNftName={setNftName}
                   nftDesc={values?.description}
@@ -471,6 +473,7 @@ const CreateCollection = () => {
                                   label="Wallet Address"
                                   type="text"
                                   maxLength={50}
+                                  placeholder="e.g: 0x1dff … 3845"
                                   name={`creatorFee.${[index]}.walletAddress`}
                                 />
 
@@ -488,6 +491,7 @@ const CreateCollection = () => {
                                 size="md"
                                 label="Percentage"
                                 type="number"
+                                placeholder="0"
                                 maxLength={50}
                                 name={`creatorFee.${[index]}.percentage`}
                               />
@@ -540,8 +544,8 @@ const CreateCollection = () => {
               onOpen={onConnectionModalOpen}
               onClose={onConnectionModalClose}
             />
-            <Button isLoading={isLoading} type="submit" variant="primary">
-              Save Changes
+            <Button isLoading={isLoading} type="submit" variant="primary" textTransform="uppercase">
+              Create Collection
             </Button>
           </Form>
         )}
