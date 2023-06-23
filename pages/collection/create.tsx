@@ -124,7 +124,7 @@ const CreateCollection = () => {
       label: cat?.name,
       value: cat?.id,
     }));
-  console.log("getCollectionByIdgetCollectionById", getCollectionById);
+
   const filtredTagsById =
     getCollectionById?.tags &&
     getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
@@ -236,6 +236,7 @@ const CreateCollection = () => {
                   label="Featured Image"
                   detail={collectionDetail?.featuredImg}
                   imgFor="featured"
+                  height="300px"
                   imgUrl={getImgUrl}
                   editAbleUrl={getCollectionById?.featureImageUrl}
                 />
@@ -245,6 +246,7 @@ const CreateCollection = () => {
                   label="Banner Image"
                   detail={collectionDetail?.bannerImg}
                   imgFor="banner"
+                  height="300px"
                   imgUrl={getImgUrl}
                   editAbleUrl={getCollectionById?.bannerImageUrl}
                 />

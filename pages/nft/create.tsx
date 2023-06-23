@@ -75,10 +75,8 @@ const CreateNFT = () => {
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt) router.push("/profile-created");
         }
-        // Handle the returned result here
       } catch (error) {
         console.error(error);
-        // Handle errors here
       }
     }
   };
@@ -102,11 +100,7 @@ const CreateNFT = () => {
 
   //contract abi will goes here
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
-    // console.log("🚀 ~ file: index.tsx:62 ~ getImgUrl ~ imgUrl:", imgUrl);
     setNftFile(imgUrl);
-    // console.log(imgUrlProp);
-    // imgUrl.url
-    // contract function call for minting
   };
 
   const getSelectedData = (
@@ -164,6 +158,7 @@ const CreateNFT = () => {
                   <FileUpload
                     label="Image, Video, Audio, or 3D Model *"
                     detail={createnft?.bannerImg}
+                    height="300px"
                     imgFor="nft"
                     imgUrl={getImgUrl}
                   />

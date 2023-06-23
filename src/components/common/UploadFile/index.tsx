@@ -15,6 +15,7 @@ import {
   IconButton,
   Spinner,
 } from "@chakra-ui/react";
+import { Loader } from "../../Loader";
 
 const FileUpload = ({
   label,
@@ -98,18 +99,14 @@ const FileUpload = ({
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
-        {imgUploadLoading && (
-          <Box position="relative">
-            <Spinner></Spinner>
-          </Box>
-        )}
         {preview && showImgPreview ? (
           <>
-            <Box position="relative">
+            <Box position="relative" w={width}
+                h={height}>
               <Image
                 src={preview[0]?.preview || editAbleUrl}
                 w="100%"
-                h="300px"
+                h="100%"
                 objectFit="cover"
                 borderRadius="16px"
               ></Image>
@@ -137,7 +134,6 @@ const FileUpload = ({
             {
               <Flex
                 {...getRootProps()}
-                bg="red"
                 maxH="300px"
                 justifyContent="center"
                 alignItems="center"
@@ -148,7 +144,13 @@ const FileUpload = ({
                 boxShadow="2px 2px 8px rgba(13, 13, 13, 0.1)"
                 backdrop-filter="blur(30px)"
                 borderRadius="16px"
+                cursor="pointer"
               >
+                 {imgUploadLoading && (
+          <Box position="relative">
+            <Loader/>
+          </Box>
+        )}
                 <input {...getInputProps()} />
 
                 {isDragActive ? (

@@ -78,9 +78,7 @@ const Setting: NextPage = () => {
   const initialSettings = {
   status: false // Initialize the switch field value
 };
-useEffect(()=>{
-console.log(profileImage, coverImage)
-},[profileImage, coverImage])
+
   return (
     <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
