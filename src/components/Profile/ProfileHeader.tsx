@@ -7,7 +7,7 @@ const ProfileHeader = ({ socialIcons, showSocialIcons , coverPhoto, profilePhoto
       <Container pl={{base:'24px', md:'54px'}} variant='colorful' position="relative" bgSize="cover" bgImage={coverPhoto} h={{base:'220px',md:'400px'}}>
         <Image src={profilePhoto} w={{base:'100px',md:'200px'}} h={{base:'100px',md:'200px'}} borderRadius="16px" border="2px solid white" position="absolute" bottom='-35%' transform="translateY(-50%)" objectFit="cover" />
       </Container>
-      <Container maxW="1440" mt={{base:'50px',md:'8px'}} px='0'>
+      <Container maxW="8xl" mt={{base:'50px',md:'8px'}} px='0'>
           {showSocialIcons && 
         <Flex justifyContent={{base:'flex-start',sm:'end'}} w="full" wrap="wrap" >
             {socialIcons?.map((icon, index) => {

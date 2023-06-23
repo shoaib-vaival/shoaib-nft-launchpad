@@ -101,14 +101,9 @@ const CreateNFT = () => {
       label: collection?.name,
       value: collection?.id,
     }));
-
-  //contract abi will goes here
+    
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
-    // console.log("🚀 ~ file: index.tsx:62 ~ getImgUrl ~ imgUrl:", imgUrl);
     setNftFile(imgUrl);
-    // console.log(imgUrlProp);
-    // imgUrl.url
-    // contract function call for minting
   };
 
   const getSelectedData = (
@@ -169,6 +164,7 @@ const CreateNFT = () => {
                     detail={createnft?.bannerImg}
                     imgFor="nft"
                     imgUrl={getImgUrl}
+                    maxFileSize={11e6}
                   />
                   {touched["photo"] && errors["photo"] && (
                     <Text>{errors["photo"] as React.ReactNode}</Text>

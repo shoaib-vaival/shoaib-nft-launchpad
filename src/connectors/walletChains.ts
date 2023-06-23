@@ -133,7 +133,6 @@ export const addMumbaiChain = async (chainId: number) => {
         method: "wallet_addEthereumChain",
         params: [chainData],
       });
-      console.log("Mumbai chain added successfully");
     } catch (error) {
       console.error("Error adding Mumbai chain:", error);
     }
@@ -148,7 +147,6 @@ export const switchToChain = async (chainId: number) => {
         method: "wallet_switchEthereumChain",
         params: [{ chainId: Web3.utils.toHex(chainId) }],
       });
-      console.log("Switched to chain", chainId);
     } catch (error) {
       console.error("Error switching chain:", error);
       if (error) {

@@ -57,7 +57,6 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                       await connect("");
                       onClose();
                     } catch {
-                      console.log("Try connecting again");
                     }
                   }}
                   leftIcon={
@@ -87,7 +86,7 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                       await connectWalletConnect("");
                       onClose();
                     } catch (error) {
-                      console.log("Try connecting again: ", error);
+                      console.log(error);
                     }
                   }}
                   leftIcon={

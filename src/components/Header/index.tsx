@@ -86,9 +86,7 @@ export const Header = () => {
       if (data.status == 220) {
         signature(data);
       } else {
-        console.log("Connect Wallet API Call");
         mutate({ walletAddress: account });
-        console.log("Check Sign Resp:", data);
       }
     },
     enabled: account ? true : false,
@@ -287,7 +285,6 @@ export const Header = () => {
 
                   <MenuItem
                     onClick={(a) => {
-                      // console.log("PROVIDER", provider?.connection.url);
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
                       } else {
