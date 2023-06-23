@@ -57,16 +57,11 @@ const CreateNFT = () => {
   const { account, provider } = useWeb3React<Web3Provider>();
   const router = useRouter();
 
-  const {
-    isOpen: isConnectionModalOpen,
-    onOpen: onConnectionModalOpen,
-    onClose: onConnectionModalClose,
-  } = useDisclosure();
-
   const { data: collections } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_COLLECTIONS_NAME],
     url: ApiUrl?.GET_COLLECTIONS_NAME,
     showToast: false,
+    token: true,
   });
 
   const minting = async (uri: string, contractAddress: any) => {
@@ -93,7 +88,7 @@ const CreateNFT = () => {
 
             const data = {
               contractAddress: receipt?.to,
-              tokenId: decodedLogs[0]?.events[2]?.value,
+              tokenId: Number(decodedLogs[0]?.events[2]?.value),
               fromAddress: decodedLogs[0]?.events[0]?.value,
               toAddress: decodedLogs[0]?.events[1]?.value,
               activityType: "mint",
@@ -101,7 +96,7 @@ const CreateNFT = () => {
             };
             updateNFT(data);
 
-            if (receipt) router.push("/profile-created");
+            // if (receipt) router.push("/profile-created");
           }
           // Handle the returned result here
         } catch (error) {
@@ -138,7 +133,7 @@ const CreateNFT = () => {
       value: collection?.id,
       contractAddress: collection?.contractAddress,
     }));
-    
+
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
     setNftFile(imgUrl);
   };
@@ -176,16 +171,12 @@ const CreateNFT = () => {
           validationSchema={nftSchema}
           enableReinitialize
           onSubmit={(values) => {
-            if (getFromLocalStorage("accessToken")) {
-              mutate({
-                ...values,
-                photo: nftFile,
-                collectionId: collectionId,
-                minting_contract_address: collectionAddress,
-              });
-            } else {
-              onConnectionModalOpen();
-            }
+            mutate({
+              ...values,
+              photo: nftFile,
+              collectionId: collectionId,
+              minting_contract_address: collectionAddress,
+            });
           }}
         >
           {({ errors, touched, values }) => (
@@ -203,19 +194,25 @@ const CreateNFT = () => {
                   setProperties={setProperties}
                 />
                 <Stack direction="column">
-                <FormControl isRequired>
-                  <FileUpload
-                    label="Image, Video, Audio, or 3D Model"
-                    detail={createnft?.bannerImg}
-                    imgFor="nft"
-                    imgUrl={getImgUrl}
-                    maxFileSize={11e6}
-                  />
-                  {touched["photo"] && errors["photo"] && (
-                    <Text>{errors["photo"] as React.ReactNode}</Text>
-                  )}
+                  <FormControl isRequired>
+                    <FileUpload
+                      label="Image, Video, Audio, or 3D Model"
+                      detail={createnft?.bannerImg}
+                      imgFor="nft"
+                      imgUrl={getImgUrl}
+                      maxFileSize={11e6}
+                    />
+                    {touched["photo"] && errors["photo"] && (
+                      <Text>{errors["photo"] as React.ReactNode}</Text>
+                    )}
                   </FormControl>
-                  <FormLabel fontSize='24px!important' fontWeight='700' mb='0!important'>Details</FormLabel>
+                  <FormLabel
+                    fontSize="24px!important"
+                    fontWeight="700"
+                    mb="0!important"
+                  >
+                    Details
+                  </FormLabel>
 
                   <Field
                     as={InputField}
@@ -239,10 +236,21 @@ const CreateNFT = () => {
                     placeholder="Describe your collection, 1000 characters are allowed"
                     desc={nftDetail?.desc}
                   />
-                                  <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                  <Text color="#393F59">
+                    Markdown syntax is supported. 0 of 1000 characters used.
+                  </Text>
 
-                   <FormLabel fontSize='24px!important'mt='30px' fontWeight='700' mb='0!important'>Collection</FormLabel>
-                   <Text color='#393F59'>This is the collection where your item will appear.</Text>
+                  <FormLabel
+                    fontSize="24px!important"
+                    mt="30px"
+                    fontWeight="700"
+                    mb="0!important"
+                  >
+                    Collection
+                  </FormLabel>
+                  <Text color="#393F59">
+                    This is the collection where your item will appear.
+                  </Text>
 
                   <ReactSelect
                     options={filtredCollections}
@@ -264,23 +272,28 @@ const CreateNFT = () => {
                       {errors["collectionId"] as React.ReactNode}
                     </Text>
                   )}
-                  <Flex justifyContent='space-between' alignItems='center'>
-                  <Box>  
-                <Heading fontSize={"24px"} mt='38px'>Properties</Heading>
-                <Text fontSize={"16px"} mt='16px' color='#393F59'>
-                Textual traits that show up as rectangles
-                  </Text>
-                </Box>
-                <Box>
-                <IconButton color=' #756C99'mb={{base:'8px',sm:'0'}} ml={{base:'5px',sm:'0'}}
-            variant='outline'
-            colorScheme='#6863F3'
-            aria-label='Send'
-            fontSize='20px'
-            onClick={onOpen}
-            icon={<i className='icon-plus'></i>}
-          />
-                </Box>
+                  <Flex justifyContent="space-between" alignItems="center">
+                    <Box>
+                      <Heading fontSize={"24px"} mt="38px">
+                        Properties
+                      </Heading>
+                      <Text fontSize={"16px"} mt="16px" color="#393F59">
+                        Textual traits that show up as rectangles
+                      </Text>
+                    </Box>
+                    <Box>
+                      <IconButton
+                        color=" #756C99"
+                        mb={{ base: "8px", sm: "0" }}
+                        ml={{ base: "5px", sm: "0" }}
+                        variant="outline"
+                        colorScheme="#6863F3"
+                        aria-label="Send"
+                        fontSize="20px"
+                        onClick={onOpen}
+                        icon={<i className="icon-plus"></i>}
+                      />
+                    </Box>
                   </Flex>
                   <Box>
                     <Flex flexWrap={"wrap"}>
@@ -299,7 +312,7 @@ const CreateNFT = () => {
                           </>
                         ))}
                       <Button
-                      display='none'
+                        display="none"
                         color="#6863F3"
                         fontSize="14px"
                         fontWeight="bold"
@@ -313,15 +326,9 @@ const CreateNFT = () => {
                       </Button>
                     </Flex>
                   </Box>
-
-                  
                 </Stack>
               </FormControl>
-              <ConnectionModal
-                isOpen={isConnectionModalOpen}
-                onOpen={onConnectionModalOpen}
-                onClose={onConnectionModalClose}
-              />
+
               <Button isLoading={isLoading} type="submit" variant="primary">
                 Submit
               </Button>

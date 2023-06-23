@@ -36,6 +36,7 @@ import { setToLocalStorage, getFromLocalStorage } from "../../utils";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { error } from "console";
+import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
   const {
@@ -62,6 +63,7 @@ export const Header = () => {
     showSuccessToast: true,
     onSuccess: (data: any) => {
       setToLocalStorage("accessToken", data?.data?.access_token);
+      setCookie("accessToken", data?.data?.access_token);
     },
   });
 
@@ -95,7 +97,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
-        <Box py="30px" px={{ base: '0', md: '0 17px',xl:'0' }}>
+        <Box py="30px" px={{ base: "0", md: "0 17px", xl: "0" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}

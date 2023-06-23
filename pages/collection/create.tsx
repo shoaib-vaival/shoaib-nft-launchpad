@@ -27,7 +27,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { collectionSchema } from "../../src/schemas";
-import { POST } from "../../src/hooks/consts";
+import { PATCH, POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
@@ -54,11 +54,6 @@ const CreateCollection = () => {
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
-  const {
-    isOpen: isConnectionModalOpen,
-    onOpen: onConnectionModalOpen,
-    onClose: onConnectionModalClose,
-  } = useDisclosure();
 
   // Call the contract
 
@@ -80,7 +75,7 @@ const CreateCollection = () => {
           };
           update(data);
 
-          if (receipt) router.push("/profile-created");
+          // if (receipt) router.push("/profile-created");
         }
       } catch (error) {
         console.error(error);
@@ -90,7 +85,7 @@ const CreateCollection = () => {
   };
 
   const { mutate: update } = useMutation<any>({
-    method: POST,
+    method: PATCH,
     url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
     showSuccessToast: true,
     token: true,
@@ -214,11 +209,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          if (getFromLocalStorage("accessToken")) {
-            mutate(values);
-          } else {
-            onConnectionModalOpen();
-          }
+          mutate(values);
         }}
       >
         {({ errors, touched, values }) => (
@@ -579,11 +570,7 @@ const CreateCollection = () => {
                 )}
               </FieldArray>
             </FormControl>
-            <ConnectionModal
-              isOpen={isConnectionModalOpen}
-              onOpen={onConnectionModalOpen}
-              onClose={onConnectionModalClose}
-            />
+
             <Button isLoading={isLoading} type="submit" variant="primary">
               Save Changes
             </Button>
