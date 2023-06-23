@@ -106,7 +106,7 @@ const CollectionCard = ({
                       Volume
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {volume?volume:'--'} ETH
+                      {volume?volume:'--'} Matic
                     </Text>
                   </Box>
                   <Box>
@@ -114,7 +114,7 @@ const CollectionCard = ({
                       Floor Price
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {price?price:'--'} ETH
+                      {price?price:'--'} Matic
                     </Text>
                   </Box>
                 </SimpleGrid>
