@@ -1,6 +1,6 @@
 
 import { Tab, TabList, Tabs, SimpleGrid, Flex, Box, Menu, MenuButton, MenuList, MenuItem, Text} from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ApiUrl } from "../../apis/apiUrl"
 import { QUERY_KEYS } from "../../hooks/queryKeys"
 import { useQuery } from "../../hooks/useQuery"
@@ -10,12 +10,12 @@ import { color } from "framer-motion"
 import { Loader } from "../Loader"
 
 type FilterTabs = {
-    tabsList?:categoriesType[],
+    tabsList?:categoriesType[] | undefined,
     getTabIndex: (index:number) => void
 }
 
 export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
-    const [catId, setCatId] = useState<{categoryId:string}>()
+    const [catId, setCatId] = useState<{categoryId:any}>()
     const filterUsingTabs = (index: string)=>{
        setCatId({categoryId:index})
     }
@@ -23,9 +23,9 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
     const {data, isLoading} = useQuery<any>({
         queryKey:[QUERY_KEYS.GET_COLLECTION_BY_CAT_ID, catId],
         url:ApiUrl.GET_COLLECTION_BY_CAT_ID,
-        params:catId
-
+        params:catId ? catId : {categoryId: tabsList && tabsList[0]?.id}
     })
+
 
     return(
         <>
@@ -48,7 +48,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
              data?.map((collection:any, index:number)=>{
                  return (
              <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}} key={index}>
-                 <CollectionCard   type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage = {true} isShowLogoImage={false} name="Peppy Road"/>
+                 <CollectionCard   type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage = {true} isShowLogoImage={false} name={collection?.name}/>
                  </Box>
                  )
              })

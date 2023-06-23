@@ -255,23 +255,25 @@ const CreateCollection = () => {
                     )}
                   </Box>
                 </FormControl>
-                <Box mb="40px">
-                  <FileUpload
-                    label="Featured Image"
-                    detail={collectionDetail?.featuredImg}
-                    imgFor="featured"
-                    imgUrl={getImgUrl}
-                    editAbleUrl={getCollectionById?.featureImageUrl}
-                  />
+                <Box mb='40px'>
+                <FileUpload
+                  label="Featured Image"
+                  detail={collectionDetail?.featuredImg}
+                  imgFor="featured"
+                  height="300px"
+                  imgUrl={getImgUrl}
+                  editAbleUrl={getCollectionById?.featureImageUrl}
+                />
                 </Box>
-                <Box mb="40px">
-                  <FileUpload
-                    label="Banner Image"
-                    detail={collectionDetail?.bannerImg}
-                    imgFor="banner"
-                    imgUrl={getImgUrl}
-                    editAbleUrl={getCollectionById?.bannerImageUrl}
-                  />
+                <Box mb='40px'>
+                <FileUpload
+                  label="Banner Image"
+                  detail={collectionDetail?.bannerImg}
+                  imgFor="banner"
+                  height="300px"
+                  imgUrl={getImgUrl}
+                  editAbleUrl={getCollectionById?.bannerImageUrl}
+                />
                 </Box>
                 <FormLabel fontSize="24px!important" fontWeight="700">
                   Details
@@ -311,6 +313,7 @@ const CreateCollection = () => {
                     getSelectedData={getSelectedData}
                     identifier="cat"
                     label="Category"
+                    placeholder="Select category"
                     nftName={values?.name}
                     setNftName={setNftName}
                     nftDesc={values?.description}
@@ -333,6 +336,7 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  placeholder="Select Tag"
                   nftName={values?.name}
                   setNftName={setNftName}
                   nftDesc={values?.description}
@@ -507,6 +511,7 @@ const CreateCollection = () => {
                                   label="Wallet Address"
                                   type="text"
                                   maxLength={50}
+                                  placeholder="e.g: 0x1dff … 3845"
                                   name={`creatorFee.${[index]}.walletAddress`}
                                   onKeyPress={(event: any) => {
                                     if (
@@ -532,6 +537,7 @@ const CreateCollection = () => {
                                 size="md"
                                 label="Percentage"
                                 type="number"
+                                placeholder="0"
                                 maxLength={50}
                                 name={`creatorFee.${[index]}.percentage`}
                               />
@@ -584,8 +590,8 @@ const CreateCollection = () => {
               onOpen={onConnectionModalOpen}
               onClose={onConnectionModalClose}
             />
-            <Button isLoading={isLoading} type="submit" variant="primary">
-              Save Changes
+            <Button isLoading={isLoading} type="submit" variant="primary" textTransform="uppercase">
+              Create Collection
             </Button>
           </Form>
         )}
