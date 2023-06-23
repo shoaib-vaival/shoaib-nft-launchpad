@@ -471,7 +471,7 @@ const CreateCollection = () => {
               </Box>
 
               <FieldArray name="creatorFee">
-                {({ push, remove }) => (
+                {({ push, remove }: {push: any; remove:any}) => (
                   <>
                     {values &&
                       values?.creatorFee?.map((field: any, index: number) => (

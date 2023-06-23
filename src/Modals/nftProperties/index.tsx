@@ -10,22 +10,34 @@ import {
   FormControl,
   IconButton,
   Flex,
-  Center,
   Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
 import InputField from "../../components/InputField";
 import { propertiesSchema } from "../../schemas";
-import { ClassNames } from "@emotion/react";
 
 const NftPropertiesModal = ({
   isOpen,
+  onOpen,
   onClose,
-  properties,
-  setProperties,
   nftName,
   setNftName,
-}: any) => {
+  nftDesc,
+  setNftDesc,
+  properties,
+  setProperties,
+}: {
+  isOpen?:any,
+  onOpen?:any,
+  onClose?:any,
+  nftName?:any,
+  setNftName?:any,
+  nftDesc?:any,
+  setNftDesc?:any,
+  properties?:any,
+  setProperties?:any,
+}) => {
+
   const initialValues = {
     properties: properties?.length > 0 ? properties : [{ type: "", name: "" }],
   };
@@ -56,7 +68,7 @@ const NftPropertiesModal = ({
                       <Text w='42%' alignItems='baseline'  fontWeight='700'>Name</Text>
                     </Flex>
                     <FieldArray name="properties">
-                      {({ push, remove }) => (
+                      {({ push, remove }: {push: any; remove:any}) => (
                         <>
                           {values?.properties?.map(
                             (field: any, index: number) => (
