@@ -40,15 +40,18 @@ import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { getFromLocalStorage } from "../../src/utils";
 import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
+import { erc721Abi } from "../../src/connectors/erc721Abi";
+const abiDecoder = require("abi-decoder");
 
 const CreateNFT = () => {
   const [collectionId, setCollectionId] = useState<string>("");
+  const [collectionAddress, setCollectionAddress] = useState<string>("");
   const [nftName, setNftName] = useState<string>("");
   const [nftDesc, setNftDesc] = useState<string>("");
   const [nftFile, setNftFile] = useState<any>();
   const [properties, setProperties] = useState<PropertyTypes[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const contractInst = useNFTContract();
+
   const { account, provider } = useWeb3React<Web3Provider>();
   const router = useRouter();
 
@@ -64,24 +67,57 @@ const CreateNFT = () => {
     showToast: false,
   });
 
-  const minting = async (uri: string) => {
-    if (contractInst) {
-      try {
-        const result = await contractInst.safeMint(account, uri);
-        if (result) {
-          const ethProvider = new ethers.providers.Web3Provider(
-            provider?.provider as any
-          );
-          const receipt = await ethProvider.waitForTransaction(result.hash);
-          if (receipt) router.push("/profile-created");
+  const minting = async (uri: string, contractAddress: any) => {
+    if (provider) {
+      const ethProvider = new ethers.providers.Web3Provider(
+        provider?.provider as any
+      );
+
+      const contractInstance = new ethers.Contract(
+        String(contractAddress),
+        erc721Abi,
+        ethProvider.getSigner()
+      );
+      if (contractInstance) {
+        try {
+          const result = await contractInstance.safeMint(account, uri);
+          if (result) {
+            const ethProvider = new ethers.providers.Web3Provider(
+              provider?.provider as any
+            );
+            const receipt = await ethProvider.waitForTransaction(result.hash);
+            abiDecoder.addABI(erc721Abi);
+            const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+
+            const data = {
+              contractAddress: receipt?.to,
+              tokenId: decodedLogs[0]?.events[2]?.value,
+              fromAddress: decodedLogs[0]?.events[0]?.value,
+              toAddress: decodedLogs[0]?.events[1]?.value,
+              activityType: "mint",
+              transactionId: receipt?.transactionHash,
+            };
+            updateNFT(data);
+
+            if (receipt) router.push("/profile-created");
+          }
+          // Handle the returned result here
+        } catch (error) {
+          console.error(error);
+          // Handle errors here
         }
-        // Handle the returned result here
-      } catch (error) {
-        console.error(error);
-        // Handle errors here
       }
     }
   };
+  const { mutate: updateNFT } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_NFT_MINT_DATA,
+    showSuccessToast: true,
+    token: true,
+    onSuccess: async (data) => {
+      console.log("Update NFT", data);
+    },
+  });
 
   const { mutate, isLoading } = useMutation<any>({
     method: POST,
@@ -89,7 +125,7 @@ const CreateNFT = () => {
     isFileData: true,
     token: true,
     onSuccess: async (data) => {
-      await minting(String(data?.ipfsJsonUrl));
+      await minting(String(data?.ipfsJsonUrl), collectionAddress);
     },
   });
 
@@ -98,6 +134,7 @@ const CreateNFT = () => {
     collections?.map((collection: any) => ({
       label: collection?.name,
       value: collection?.id,
+      contractAddress: collection?.contractAddress,
     }));
 
   //contract abi will goes here
@@ -109,11 +146,14 @@ const CreateNFT = () => {
     // contract function call for minting
   };
 
-  const getSelectedData = (
-    selectedValue: ReactSelectCatMap,
-    identifier: string
-  ) => {
+  const getSelectedData = (selectedValue: any, identifier: string) => {
+    console.log(
+      "🚀 ~ file: create.tsx:132 ~ CreateNFT ~ selectedValue:",
+      selectedValue
+    );
+
     setCollectionId(selectedValue?.value);
+    setCollectionAddress(selectedValue?.contractAddress);
   };
 
   const initialValues = {
@@ -140,7 +180,12 @@ const CreateNFT = () => {
           enableReinitialize
           onSubmit={(values) => {
             if (getFromLocalStorage("accessToken")) {
-              mutate({ ...values, photo: nftFile, collectionId: collectionId });
+              mutate({
+                ...values,
+                photo: nftFile,
+                collectionId: collectionId,
+                minting_contract_address: collectionAddress,
+              });
             } else {
               onConnectionModalOpen();
             }

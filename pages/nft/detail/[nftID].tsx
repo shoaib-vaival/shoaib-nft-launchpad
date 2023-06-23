@@ -28,23 +28,27 @@ import { SlickSlider } from "../../../src/components/ReactSlick";
 import { QUERY_KEYS } from "../../../src/hooks/queryKeys";
 import { useQuery } from "../../../src/hooks/useQuery";
 import { nftType } from "../../../src/types";
+import { signMessage } from "../../../src/context/signListing";
+import { useWeb3React } from "@web3-react/core";
 
+const NftDetail = ({ param }: any) => {
+  const { provider, account, chainId } = useWeb3React();
 
-const NftDetail = ({param}:any) => {
-  const {data} = useQuery<nftType>({
-    queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
-    url:ApiUrl.GET_NFT_DETAIL,
-    params:{nftId:param?.nftID},
-    token:true
-  })
-  const {data:moreNftSByCollection} = useQuery<nftType[]>({
-    queryKey:[QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
-    url:ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
-    params:{collectionId:data?.collectionId},
-    enabled:data?.collectionId ? true : false,
-    token:true
-  })
-  
+  const { data } = useQuery<nftType>({
+    queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
+    url: ApiUrl.GET_NFT_DETAIL,
+    params: { nftId: param?.nftID },
+    token: true,
+  });
+  console.log(data);
+  const { data: moreNftSByCollection } = useQuery<nftType[]>({
+    queryKey: [QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
+    url: ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
+    params: { collectionId: data?.collectionId },
+    enabled: data?.collectionId ? true : false,
+    token: true,
+  });
+
   return (
     <>
       <Container
@@ -117,7 +121,7 @@ const NftDetail = ({param}:any) => {
               </Heading>
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
-                  <Text mr='5px'>Owned By</Text>
+                  <Text mr="5px">Owned By</Text>
                   <Text>{data?.owner}</Text>
                 </Flex>
                 <Flex alignItems="center">
@@ -132,7 +136,7 @@ const NftDetail = ({param}:any) => {
                     bg="#ffffff5e"
                     fontSize="14px"
                   >
-                    <i className="icon-hash"></i> 666 
+                    <i className="icon-hash"></i> 666
                   </Text>
                 </Flex>
               </Stack>
@@ -483,18 +487,19 @@ const NftDetail = ({param}:any) => {
             </Button>
           </Flex>
           <SlickSlider>
-            {moreNftSByCollection && moreNftSByCollection?.map((nft: any, index: number) => {
-              return (
-                <CollectionCard
-                  type="withBody"
-                  featureImage={nft?.ipfsImageUrl}
-                  isShowFeatureImage={true}
-                  isShowLogoImage={false}
-                  name={nft?.name}
-                  key={index}
-                />
-              );
-            })}
+            {moreNftSByCollection &&
+              moreNftSByCollection?.map((nft: any, index: number) => {
+                return (
+                  <CollectionCard
+                    type="withBody"
+                    featureImage={nft?.ipfsImageUrl}
+                    isShowFeatureImage={true}
+                    isShowLogoImage={false}
+                    name={nft?.name}
+                    key={index}
+                  />
+                );
+              })}
           </SlickSlider>
         </Box>
       </Container>
@@ -502,7 +507,7 @@ const NftDetail = ({param}:any) => {
   );
 };
 
-export const getServerSideProps= async (context:any) => {
+export const getServerSideProps = async (context: any) => {
   // Fetch blog post data using the slug
   const param = context.params;
   return {

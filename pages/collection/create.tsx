@@ -32,6 +32,7 @@ import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
 import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
+const abiDecoder = require("abi-decoder");
 import {
   collectionByIdTypes,
   categoriesAndTagsTypes,
@@ -44,6 +45,7 @@ import { chainUrls } from "../../src/connectors/consts";
 import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
 import { getFromLocalStorage } from "../../src/utils";
+import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -69,6 +71,15 @@ const CreateCollection = () => {
             provider?.provider as any
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
+          abiDecoder.addABI(collectionContractABI);
+          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+
+          const data = {
+            contractAddress: decodedLogs[2]?.events[1]?.value,
+            collectionName: decodedLogs[2]?.events[0]?.value,
+          };
+          update(data);
+
           if (receipt) router.push("/profile-created");
         }
       } catch (error) {
@@ -77,6 +88,13 @@ const CreateCollection = () => {
       }
     }
   };
+
+  const { mutate: update } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
+    showSuccessToast: true,
+    token: true,
+  });
 
   const { data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
@@ -189,7 +207,9 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      <Heading mb='45px' as="h1">Create Collection</Heading>
+      <Heading mb="45px" as="h1">
+        Create Collection
+      </Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -204,73 +224,78 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <FormLabel display='flex' fontSize='16px' color='#393F59'><Text mr='8px' color='#FF0000'>*</Text>Required fields</FormLabel>
+            <FormLabel display="flex" fontSize="16px" color="#393F59">
+              <Text mr="8px" color="#FF0000">
+                *
+              </Text>
+              Required fields
+            </FormLabel>
             <FormControl>
               <Stack direction="column">
-              <FormControl isRequired>
-                <Box mb='40px'>
-                <FileUpload
-                  label="Logo Image"
-                  detail={collectionDetail?.logoDetail}
-                  imgFor="logo"
-                  imgUrl={getImgUrl}
-                  width="220px"
-                  height="220px"
-                  onlyIcon={true}
-                  editAbleUrl={getCollectionById?.logoImageUrl}
-                />
-                {touched["logoImageUrl"] && errors["logoImageUrl"] && (
-                  <Text
-                    marginTop={"10px!important"}
-                    marginLeft={"5px!important"}
-                    fontWeight={"500"}
-                    color={"red.700"}
-                  >
-                    {errors["logoImageUrl"] as React.ReactNode}
-                  </Text>
-                )}
-                </Box>
+                <FormControl isRequired>
+                  <Box mb="40px">
+                    <FileUpload
+                      label="Logo Image"
+                      detail={collectionDetail?.logoDetail}
+                      imgFor="logo"
+                      imgUrl={getImgUrl}
+                      width="220px"
+                      height="220px"
+                      onlyIcon={true}
+                      editAbleUrl={getCollectionById?.logoImageUrl}
+                    />
+                    {touched["logoImageUrl"] && errors["logoImageUrl"] && (
+                      <Text
+                        marginTop={"10px!important"}
+                        marginLeft={"5px!important"}
+                        fontWeight={"500"}
+                        color={"red.700"}
+                      >
+                        {errors["logoImageUrl"] as React.ReactNode}
+                      </Text>
+                    )}
+                  </Box>
                 </FormControl>
-                <Box mb='40px'>
-                <FileUpload
-                  label="Featured Image"
-                  detail={collectionDetail?.featuredImg}
-                  imgFor="featured"
-                  imgUrl={getImgUrl}
-                  editAbleUrl={getCollectionById?.featureImageUrl}
-                />
+                <Box mb="40px">
+                  <FileUpload
+                    label="Featured Image"
+                    detail={collectionDetail?.featuredImg}
+                    imgFor="featured"
+                    imgUrl={getImgUrl}
+                    editAbleUrl={getCollectionById?.featureImageUrl}
+                  />
                 </Box>
-                <Box mb='40px'>
-                <FileUpload
-                  label="Banner Image"
-                  detail={collectionDetail?.bannerImg}
-                  imgFor="banner"
-                  imgUrl={getImgUrl}
-                  editAbleUrl={getCollectionById?.bannerImageUrl}
-                />
+                <Box mb="40px">
+                  <FileUpload
+                    label="Banner Image"
+                    detail={collectionDetail?.bannerImg}
+                    imgFor="banner"
+                    imgUrl={getImgUrl}
+                    editAbleUrl={getCollectionById?.bannerImageUrl}
+                  />
                 </Box>
                 <FormControl isRequired>
-                <ReactSelect
-                  options={filtredCat}
-                  isMultiple={false}
-                  getSelectedData={getSelectedData}
-                  identifier="cat"
-                  label="Category"
-                  nftName={values?.name}
-                  setNftName={setNftName}
-                  nftDesc={values?.description}
-                  setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
-                />
-                {touched["category"] && errors["category"] && (
-                  <Text
-                    marginTop={"0px!important"}
-                    fontWeight={"500"}
-                    color={"red.700"}
-                  >
-                    {errors["category"] as React.ReactNode}
-                  </Text>
-                )}
+                  <ReactSelect
+                    options={filtredCat}
+                    isMultiple={false}
+                    getSelectedData={getSelectedData}
+                    identifier="cat"
+                    label="Category"
+                    nftName={values?.name}
+                    setNftName={setNftName}
+                    nftDesc={values?.description}
+                    setNftDesc={setNftDesc}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                  />
+                  {touched["category"] && errors["category"] && (
+                    <Text
+                      marginTop={"0px!important"}
+                      fontWeight={"500"}
+                      color={"red.700"}
+                    >
+                      {errors["category"] as React.ReactNode}
+                    </Text>
+                  )}
                 </FormControl>
                 <ReactSelect
                   options={filtredTags}
@@ -286,19 +311,21 @@ const CreateCollection = () => {
                 />
               </Stack>
               <FormControl isRequired>
-              <Field
-                readOnly={router?.query?.id ? true : false}
-                as={InputField}
-                size="md"
-                label="Name"
-                type="text"
-                placeholder="Name your collection"
-                name="name"
-                errorText={
-                  touched["name"] && errors["name"] ? errors["name"] : undefined
-                }
-                maxLength={50}
-              />
+                <Field
+                  readOnly={router?.query?.id ? true : false}
+                  as={InputField}
+                  size="md"
+                  label="Name"
+                  type="text"
+                  placeholder="Name your collection"
+                  name="name"
+                  errorText={
+                    touched["name"] && errors["name"]
+                      ? errors["name"]
+                      : undefined
+                  }
+                  maxLength={50}
+                />
               </FormControl>
               <Field
                 name="description"
@@ -449,23 +476,35 @@ const CreateCollection = () => {
                             }}
                             w={"100%"}
                           >
-                            <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
-                            <FormControl isRequired>
-                              <Field
-                                as={InputField}
-                                size="md"
-                                label="Wallet Address"
-                                type="text"
-                                maxLength={50}
-                                name={`creatorFee.${[index]}.walletAddress`}
-                              />
-                               
-                              <ErrorMessage
-                                name={`creatorFee.${[index]}.walletAddress`}
-                                component="div"
-                              />
-                               </FormControl>
-                            
+                            <Box
+                              w={{ base: "100%", sm: "80%", xl: "80%" }}
+                              display="flex"
+                              alignItems="baseline"
+                            >
+                              <FormControl isRequired>
+                                <Field
+                                  as={InputField}
+                                  size="md"
+                                  label="Wallet Address"
+                                  type="text"
+                                  maxLength={50}
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                  onKeyPress={(event: any) => {
+                                    if (
+                                      event.key === "-" ||
+                                      event.key === "+" ||
+                                      event.key === "_"
+                                    ) {
+                                      event.preventDefault();
+                                    }
+                                  }}
+                                />
+
+                                <ErrorMessage
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                  component="div"
+                                />
+                              </FormControl>
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
