@@ -13,22 +13,23 @@ import {
 import { useWeb3React } from "@web3-react/core";
 import { useWeb3Context } from "../../context/Web3Provider";
 import {
-  switchChain,
-  addChain,
+  switchChainMetamask,
+  addChainMetamask,
   IsMetaMaskInstalled,
 } from "../../connectors/walletChains";
+import { signMessage } from "../../context/signMessage";
+import { POST } from "../../hooks/consts";
+import { ApiUrl } from "../../apis/apiUrl";
+import { useMutation } from "../../hooks/useMutation";
+import { useQuery } from "../../hooks/useQuery";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils";
+import { QUERY_KEYS } from "../../hooks/queryKeys";
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
 
 const ConnectionModal = ({ isOpen, onClose }: any) => {
-  const {
-    connect,
-    disconnect,
-    connectWalletConnect,
-    walletConnectAccount,
-    disconnectWalletConnect,
-    chainId,
-  } = useWeb3Context();
+  const { connect, disconnect, connectWalletConnect } = useWeb3Context();
 
-  const { account } = useWeb3React();
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -54,10 +55,8 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                     IsMetaMaskInstalled();
                     try {
                       await connect("");
-                      chainId != "80001" ? switchChain(80001) : addChain(80001);
                       onClose();
                     } catch {
-                      console.log("Try connecting again");
                     }
                   }}
                   leftIcon={
@@ -85,10 +84,9 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
                   onClick={async (a) => {
                     try {
                       await connectWalletConnect("");
-                      // chainId != "80001" ? getAddChainParameters(80001) : null;
                       onClose();
                     } catch (error) {
-                      console.log("Try connecting again: ", error);
+                      console.log(error);
                     }
                   }}
                   leftIcon={

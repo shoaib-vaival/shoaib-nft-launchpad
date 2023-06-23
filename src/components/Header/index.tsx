@@ -17,13 +17,26 @@ import {
   HStack,
   Image,
   useDisclosure,
+  Switch,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
-// import { getAddChainParameters } from "../../connectors/walletChains";
 import { useWeb3React } from "@web3-react/core";
+import { QUERY_KEYS } from "../../hooks/queryKeys";
+import { signMessage } from "../../context/signMessage";
+import { POST } from "../../hooks/consts";
+import { ApiUrl } from "../../apis/apiUrl";
+import { useMutation } from "../../hooks/useMutation";
+import { useQuery } from "../../hooks/useQuery";
+import { setToLocalStorage, getFromLocalStorage } from "../../utils";
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import { error } from "console";
+import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
   const {
@@ -40,36 +53,51 @@ export const Header = () => {
     chainId,
   } = useWeb3Context();
 
-  const { account, provider } = useWeb3React();
-
+  const { account, provider, isActive } = useWeb3React();
+  const [address, setAddress] = useState<any>(null);
   const router = useRouter();
 
-  // <Button
-  //   variant="secondary"
-  //   mx="16px"
-  //   size="md"
-  //   onClick={(a) => {
-  //     disconnectWalletConnect();
-  //   }}
-  // >
-  //   Disconnect
-  // </Button>
-  // <Button
-  //   variant="secondary"
-  //   mx="16px"
-  //   size="md"
-  //   onClick={(a) => {
-  //     disconnect();
-  //   }}
-  // >
-  //   Disconnect Metamask
-  // </Button>
+  const { mutate } = useMutation<any>({
+    method: POST,
+    url: ApiUrl?.SAVE_SIGNATURE,
+    showSuccessToast: true,
+    onSuccess: (data: any) => {
+      setToLocalStorage("accessToken", data?.data?.access_token);
+      setCookie("accessToken", data?.data?.access_token);
+    },
+  });
+
+  const signature = async (savedSign: any) => {
+    signMessage(provider).then((signature) => {
+      if (signature.length == 0) {
+        mutate({ walletAddress: account, walletHash: null });
+        if (provider?.connection.url == "metamask") {
+          disconnect("");
+        } else {
+          disconnectWalletConnect("");
+        }
+      } else mutate({ walletAddress: account, walletHash: signature });
+    });
+  };
+
+  const { data: savedSign } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_SIGN],
+    url: `${ApiUrl?.GET_SIGNATURE}/${account}`,
+    showToast: true,
+    onSuccess: (data: any) => {
+      if (data.status == 220) {
+        signature(data);
+      } else {
+        mutate({ walletAddress: account });
+      }
+    },
+    enabled: account ? true : false,
+  });
 
   return (
     <>
-      <Container maxW={{sm:'xl', md: '3xl', lg: '5xl', xl: '7xl' }}>
-
-        <Box py='30px' px={{base:'0',sm:'17px'}}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
+        <Box py="30px" px={{ base: "0", md: "0 17px", xl: "0" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -80,6 +108,8 @@ export const Header = () => {
               pb="8px"
               order={{ base: "1", sm: "1" }}
               marginRight={{ base: "auto", md: "initial" }}
+              as={Link}
+              href="/"
             >
               <Image
                 src="/assets/images/Logo.png"
@@ -92,7 +122,7 @@ export const Header = () => {
               order={{ base: "4", sm: "4", md: "5", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
-              pr={{ base: "0", lg: "10px" }}
+              pr={{ base: "0", lg: "30px" }}
               pt={{ base: "20px", lg: "0" }}
             >
               <InputGroup
@@ -113,6 +143,7 @@ export const Header = () => {
             >
               <HStack
                 textTransform="uppercase"
+                fontSize={{ base: "15px", xl: "16px" }}
                 alignItems={{ base: "initial", xl: "center" }}
                 flexDirection={{
                   base: "column",
@@ -120,14 +151,14 @@ export const Header = () => {
                   md: "row",
                   xl: "row",
                 }}
-                spacing={{ xl: "24px", lg: "16px" }}
+                spacing={{ base: "12px", lg: "11px", xl: "24px" }}
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explorer</Link>
-                <Link href="#">Activity</Link>
-          
+                <Link href="/activity">Activity</Link>
               </HStack>
             </Box>
+
             <Flex
               order={{ base: "5", sm: "5", md: "2", lg: "4" }}
               marginLeft={{ base: "auto", md: "auto !important" }}
@@ -142,24 +173,26 @@ export const Header = () => {
                   onOpen={onConnectionModalOpen}
                   onClose={onConnectionModalClose}
                 />
-                <MenuButton
-                  as={Button}
-                  textTransform="uppercase"
-                  fontSize="16px"
-                  ml={{ base: "0", md: "30px", lg: "0" }}
-                  mr={{ base: "0", sm: "25px", md: "0" }}
-                  variant="primary"
-                  w={{ base: "full", sm: "50%", md: "75%", xl: "initial" }}
-                  size="md"
-                >
-                  Create
-                </MenuButton>
+                {!account ? null : (
+                  <MenuButton
+                    as={Button}
+                    textTransform="uppercase"
+                    fontSize="16px"
+                    ml={{ base: "0", md: "30px", lg: "0" }}
+                    mr={{ base: "0", sm: "25px", md: "0" }}
+                    variant="primary"
+                    w={{ base: "full", sm: "50%", md: "75%", xl: "initial" }}
+                    size="md"
+                  >
+                    Create
+                  </MenuButton>
+                )}
                 <MenuList>
-                  <MenuItem><Link  href="/nft/create">Create NFT</Link></MenuItem>
-                  <MenuItem >
-                  <Link href="/collection/create">
-                    Create Collection
-                    </Link>
+                  <MenuItem>
+                    <Link href="/nft/create">Create NFT</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/collection/create">Create Collection</Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -168,7 +201,7 @@ export const Header = () => {
                 <Button
                   variant="secondary"
                   textTransform="uppercase"
-                  mx={{ base: "0", md: "16px" }}
+                  mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
@@ -182,7 +215,7 @@ export const Header = () => {
                   variant="secondary"
                   textTransform="uppercase"
                   disabled={true}
-                  mx={{ base: "0", md: "16px" }}
+                  mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
@@ -195,12 +228,12 @@ export const Header = () => {
             <Box
               order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
-              pl="16px"
             >
               <Menu>
                 <MenuButton
                   as={IconButton}
                   mr={{ base: "16px", xl: "16px" }}
+                  ml="5px"
                   colorScheme="purple"
                   variant="outline"
                   icon={<HamburgerIcon />}
@@ -210,20 +243,52 @@ export const Header = () => {
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>
-                <MenuButton
-                  as={Avatar}
-                  size="sm"
-                  icon={<Avatar />}
-                  aria-label="Options"
-                />
-                <MenuList>
-                  <MenuItem><Link href="/profile-created">Profile</Link></MenuItem>
-                  <MenuItem><Link href="/collection/my-collection">My Collection</Link></MenuItem>
-                  <MenuItem><Link href="/setting">Settings</Link></MenuItem>
-                  <MenuItem>Dark Mode</MenuItem>
+                {!account ? null : (
+                  <MenuButton
+                    fontSize="20px"
+                    color="#6F6BF3"
+                    bg="#FFFFFF"
+                    border="1px solid #6F6BF3"
+                    borderRadius="50px"
+                    height="40px"
+                    w="40px"
+                    as={IconButton}
+                    icon={<i className="icon-vector"></i>}
+                    aria-label="Options"
+                  />
+                )}
+
+                <MenuList w="191px" minW="191px" h="232px" p="16px 8px">
+                  <MenuItem>
+                    <Link href="/profile-created">Profile</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/collection/my-collection">My Collection</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/setting">Settings</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <FormControl
+                      m="0!important"
+                      w="100%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <FormLabel
+                        fontWeight="normal!important"
+                        htmlFor="dark-theme"
+                        m="0!important"
+                      >
+                        Dark Mode
+                      </FormLabel>
+                      <Switch m="0!important" id="dark-theme" />
+                    </FormControl>
+                  </MenuItem>
+
                   <MenuItem
                     onClick={(a) => {
-                      console.log("PROVIDER", provider?.connection.url);
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
                       } else {

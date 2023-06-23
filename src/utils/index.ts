@@ -31,11 +31,11 @@ const supportedFileTypes = [
 ];
 
 // Function to handle file selection
-export const validateFile = (file?: File | null) => {
+export const validateFile = (file?: File | null, fileSizeLimit?: number) => {
   if (file && !supportedFileTypes?.includes(file?.type?.split("/")[1])) {
     return "Only png and jpg files are allowed";
-  } else if (file && file?.size > 6e6) {
-    return "Please select a file upto 6MB";
+  } else if (file && file?.size > (fileSizeLimit ? fileSizeLimit : 6e6)) {
+    return `Please select a file upto ${fileSizeLimit ? "11MB" : "6MB"}`;
   } else {
     return "ok";
   }

@@ -29,6 +29,7 @@
     "no-duplicate-imports": "error",
     "prefer-arrow-callback": "error",
     "no-unused-expressions": "off",
+    "@typescript-eslint/no-var-requires": "off",
     "prefer-arrow-functions/prefer-arrow-functions": [
       "error",
       {
