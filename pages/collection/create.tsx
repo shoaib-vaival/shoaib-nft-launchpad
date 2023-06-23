@@ -32,6 +32,7 @@ import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
 import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
+const abiDecoder = require("abi-decoder");
 import {
   collectionByIdTypes,
   categoriesAndTagsTypes,
@@ -44,6 +45,7 @@ import { chainUrls } from "../../src/connectors/consts";
 import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
 import { getFromLocalStorage } from "../../src/utils";
+import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -69,6 +71,15 @@ const CreateCollection = () => {
             provider?.provider as any
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
+          abiDecoder.addABI(collectionContractABI);
+          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+
+          const data = {
+            contractAddress: decodedLogs[2]?.events[1]?.value,
+            collectionName: decodedLogs[2]?.events[0]?.value,
+          };
+          update(data);
+
           if (receipt) router.push("/profile-created");
         }
       } catch (error) {
@@ -77,6 +88,13 @@ const CreateCollection = () => {
       }
     }
   };
+
+  const { mutate: update } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
+    showSuccessToast: true,
+    token: true,
+  });
 
   const { data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
@@ -188,7 +206,9 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      <Heading mb='45px' as="h1">Create Collection</Heading>
+      <Heading mb="45px" as="h1">
+        Create Collection
+      </Heading>
       <Formik
         initialValues={initialValues}
         validationSchema={collectionSchema}
@@ -203,11 +223,16 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <FormLabel display='flex' fontSize='16px' color='#393F59'><Text mr='8px' color='#FF0000'>*</Text>Required fields</FormLabel>
+            <FormLabel display="flex" fontSize="16px" color="#393F59">
+              <Text mr="8px" color="#FF0000">
+                *
+              </Text>
+              Required fields
+            </FormLabel>
             <FormControl>
               <Stack direction="column">
                 <FormControl isRequired>
-                  <Box mb='40px'>
+                  <Box mb="40px">
                     <FileUpload
                       label="Logo Image"
                       detail={collectionDetail?.logoDetail}
@@ -250,7 +275,9 @@ const CreateCollection = () => {
                   editAbleUrl={getCollectionById?.bannerImageUrl}
                 />
                 </Box>
-                <FormLabel fontSize='24px!important' fontWeight='700'>Details</FormLabel>
+                <FormLabel fontSize="24px!important" fontWeight="700">
+                  Details
+                </FormLabel>
                 <FormControl>
                   <Field
                     readOnly={router?.query?.id ? true : false}
@@ -262,7 +289,9 @@ const CreateCollection = () => {
                     name="name"
                     formControlProps={{ isRequired: true }}
                     errorText={
-                      touched["name"] && errors["name"] ? errors["name"] : undefined
+                      touched["name"] && errors["name"]
+                        ? errors["name"]
+                        : undefined
                     }
                     maxLength={50}
                   />
@@ -274,7 +303,9 @@ const CreateCollection = () => {
                   placeholder="Describe your collection, 1000 characters are allowed"
                   desc={collectionDetail?.desc}
                 />
-                <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                <Text color="#393F59">
+                  Markdown syntax is supported. 0 of 1000 characters used.
+                </Text>
                 <FormControl isRequired>
                   <ReactSelect
                     options={filtredCat}
@@ -287,7 +318,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -310,15 +341,15 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                // defaultValue={filtredTagsById}
+                  // defaultValue={filtredTagsById}
                 />
               </Stack>
 
-
-
               <Box>
-                <Heading fontSize={"24px"} mt='38px'>Social Links</Heading>
-                <Text fontSize={"16px"} my='16px' color='#393F59'>
+                <Heading fontSize={"24px"} mt="38px">
+                  Social Links
+                </Heading>
+                <Text fontSize={"16px"} my="16px" color="#393F59">
                   Add your existing social links to build a stronger reputation.
                 </Text>
                 <Flex
@@ -436,21 +467,24 @@ const CreateCollection = () => {
                   />
                 </Flex>
               </Box>
-              <Box>  
-                <Heading fontSize={"24px"} mt='38px'>Creator Fees</Heading>
-                <Text fontSize={"16px"} mt='16px' color='#393F59'>
-                  Collection owners can collect creator earnings when a user re-sells an item they created. Contact the collection owner to change the collection earnings percentage or the payout address.
+              <Box>
+                <Heading fontSize={"24px"} mt="38px">
+                  Creator Fees
+                </Heading>
+                <Text fontSize={"16px"} mt="16px" color="#393F59">
+                  Collection owners can collect creator earnings when a user
+                  re-sells an item they created. Contact the collection owner to
+                  change the collection earnings percentage or the payout
+                  address.
                 </Text>
-                </Box>
-                
-              <FieldArray name="creatorFee">
+              </Box>
 
+              <FieldArray name="creatorFee">
                 {({ push, remove }) => (
                   <>
                     {values &&
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
-
                           <Flex
                             gap={{ base: "0", sm: "6" }}
                             alignItems={{
@@ -465,7 +499,11 @@ const CreateCollection = () => {
                             }}
                             w={"100%"}
                           >
-                            <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
+                            <Box
+                              w={{ base: "100%", sm: "80%", xl: "80%" }}
+                              display="flex"
+                              alignItems="baseline"
+                            >
                               <FormControl isRequired>
                                 <Field
                                   as={InputField}
@@ -475,6 +513,15 @@ const CreateCollection = () => {
                                   maxLength={50}
                                   placeholder="e.g: 0x1dff … 3845"
                                   name={`creatorFee.${[index]}.walletAddress`}
+                                  onKeyPress={(event: any) => {
+                                    if (
+                                      event.key === "-" ||
+                                      event.key === "+" ||
+                                      event.key === "_"
+                                    ) {
+                                      event.preventDefault();
+                                    }
+                                  }}
                                 />
 
                                 <ErrorMessage
@@ -482,7 +529,6 @@ const CreateCollection = () => {
                                   component="div"
                                 />
                               </FormControl>
-
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>

@@ -4,7 +4,7 @@ import { Web3Provider } from "@ethersproject/providers";
 import { erc721Abi } from "./erc721Abi";
 import { ethers, Contract } from "ethers";
 
-export const useNFTContract = () => {
+export const useNFTContract = (contractAddress: any) => {
   const { provider } = useWeb3React();
   const [contract, setContract] = useState<Contract | null>(null);
 
@@ -14,7 +14,7 @@ export const useNFTContract = () => {
         const ethProvider = new ethers.providers.Web3Provider(
           provider?.provider as any
         );
-        const contractAddress = process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS;
+
         const contractInstance = new ethers.Contract(
           String(contractAddress),
           erc721Abi,
