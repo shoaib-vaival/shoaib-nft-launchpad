@@ -14,4 +14,5 @@ export type FileType = {
   height?:string
   onlyIcon?:boolean
   editAbleUrl? : string;
+  maxFileSize? : number;
 };

@@ -34,7 +34,7 @@ const ProfileDetail = ({
         >
           <Flex alignItems="center">
             <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
-              {data?.displayName}
+              {data?.displayName || data?.name}
             </Heading>
             {isVerified ? (
               <Box mx="12px" color="#6863F3">
@@ -166,7 +166,9 @@ const ProfileDetail = ({
               </Flex>
             </Box>
             <Box>
-              <Text maxW={{ sm: "100%", xl: "90%" }}>{description}</Text>
+              <Text maxW={{ sm: "100%", xl: "90%" }}>
+                {data?.description || data?.bio}
+              </Text>
             </Box>
           </Box>
           {showStats && (

@@ -2,15 +2,12 @@ import { Container, Image, Text, Flex, Heading, Button, Box } from '@chakra-ui/r
 import { NextPage } from 'next';
 import { ApiUrl } from '../src/apis/apiUrl';
 import CollectionCard from '../src/components/Cards/CollectionCard';
-import { SlickSlider } from '../src/components/ReactSlick';
-import CustomSlider from '../src/components/Slider';
 import { QUERY_KEYS } from '../src/hooks/queryKeys';
 import { useQuery } from '../src/hooks/useQuery';
 import Link from 'next/link'
 import { useInfiniteQuery } from '../src/hooks/useInfiniteQuery';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Loader } from '../src/components/Loader';
-import { getAbortController } from '@tanstack/query-core/build/lib/utils';
 import { collectionType } from '../src/types';
 
 const Categories: NextPage = () => {
@@ -23,17 +20,16 @@ const Categories: NextPage = () => {
         queryKey:[QUERY_KEYS.GET_ALL_COLLECTIONS],
         url:ApiUrl.GET_ALL_COLLECTIONS,
     })
-    console.log(allCollections)
     return (
         <>
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px' }}>
                 <Box px={{ base: '0', sm: '17px' }}>
-                    <Container p={{ base: '24px', sm: '24px 40px', md: '48px 84px' }} variant='colorful' position='relative' bgSize='cover' bgImage={bannerCollection?.bannerImageUrl} backgroundRepeat='no-repeat' h='400px'>
+                    <Container p={{ base: '24px', sm: '24px 40px', md: '48px 84px' }} variant='colorful' position='relative' bgSize='cover' bgImage={bannerCollection?.bannerImageUrl} backgroundRepeat='no-repeat' h='400px' bgPos="center">
                         <Image src={bannerCollection?.logoImageUrl} boxSize='100px' objectFit='cover' mt='75px' border='1px solid white' borderRadius='16px' />
                         <Flex alignItems={{ base: 'baseline', md: 'center' }} flexDirection={{ base: 'column', md: 'row' }}>
                             <Box>
-                                <Text color='white' marginTop='12px' fontSize={{ base: '14px', md: '16px' }}>{bannerCollection?.name}</Text>
-                                <Heading color='white' marginTop='8px' marginBottom='10px' fontSize={{ base: '24px', sm: '28px', lg: '40px' }}>{}</Heading>
+                                <Text color='white' marginTop='12px' fontSize={{ base: '14px', md: '16px' }}>By {bannerCollection?.user?.userName}</Text>
+                                <Heading color='white' marginTop='8px' marginBottom='10px' fontSize={{ base: '24px', sm: '28px', lg: '40px' }}>{bannerCollection?.name}</Heading>
                                 <Flex gap='6' alignItems='center'>
                                     <Text color='white' fontSize={{ base: '14px', md: '16px' }} >8,800 items</Text>
                                     <Text color='white' fontSize={{ base: '14px', md: '16px' }}>0.02 ETH</Text>
@@ -45,7 +41,7 @@ const Categories: NextPage = () => {
                 </Box>
             </Container>
 
-            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '7xl' }} mt={{ base: '40px', lg: '80px' }}>
+            <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }} mt={{ base: '40px', lg: '80px' }}>
                 <Flex justifyContent='space-between' alignItems='center' px={{ base: '0', sm: '12px' }}>
                     <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }}>Featured Collections</Heading>
                 </Flex>
@@ -56,13 +52,15 @@ const Categories: NextPage = () => {
               loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
             >
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
-                {allCollections && allCollections?.map((collection:any, index:number)=>{
+                    {isLoading && allCollections === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>:
+                    allCollections?.map((collection:any, index:number)=>{
                     return(
                     <Box as={Link} href={`collection/${collection?.id}`} width={{ base: '100%', sm: '50%', md: '33%', xl: '25%' }} display='initial' key={index}>
-                        <CollectionCard type="withBody" featureImage={collection?.bannerImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={collection?.name} />
+                        <CollectionCard type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={false} name={collection?.name} />
                     </Box>
                     )
-                })}
+                })
+            }
                 </Flex>
                     </InfiniteScroll>
             </Container>

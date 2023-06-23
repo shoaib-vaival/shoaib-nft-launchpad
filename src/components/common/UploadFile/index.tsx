@@ -25,6 +25,7 @@ const FileUpload = ({
   width,
   onlyIcon,
   editAbleUrl,
+  maxFileSize,
 }: FileType) => {
   const [fileError, setFileError] = useState<string>("");
   const [preview, setPreview] = useState<any>([]);
@@ -65,7 +66,7 @@ const FileUpload = ({
   const handleFileChange = async (acceptedFiles: any) => {
     const selectedFile = acceptedFiles?.[0];
 
-    const isValidatedFile = await validateFile(selectedFile);
+    const isValidatedFile = await validateFile(selectedFile, maxFileSize && maxFileSize);
     if (isValidatedFile !== "ok") {
       setFileError(isValidatedFile);
     } else if (imgFor !== "nft") {
@@ -92,7 +93,7 @@ const FileUpload = ({
 
   return (
     <>
-      <Box color="#756C99">
+      <Box color="#756C99" _hover={{ cursor: 'pointer' }}>
         
         {label && <FormLabel color='#0D0D0D' fontSize='24px!important' fontWeight='700' marginBottom="16px">{label}</FormLabel>}
         {detail && (

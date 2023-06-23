@@ -142,7 +142,6 @@ const CreateCollection = () => {
       label: cat?.name,
       value: cat?.id,
     }));
-  console.log("getCollectionByIdgetCollectionById", getCollectionById);
   const filtredTagsById =
     getCollectionById?.tags &&
     getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
@@ -274,6 +273,37 @@ const CreateCollection = () => {
                     editAbleUrl={getCollectionById?.bannerImageUrl}
                   />
                 </Box>
+                <FormLabel fontSize="24px!important" fontWeight="700">
+                  Details
+                </FormLabel>
+                <FormControl>
+                  <Field
+                    readOnly={router?.query?.id ? true : false}
+                    as={InputField}
+                    size="md"
+                    label="Name"
+                    type="text"
+                    placeholder="Name your collection"
+                    name="name"
+                    formControlProps={{ isRequired: true }}
+                    errorText={
+                      touched["name"] && errors["name"]
+                        ? errors["name"]
+                        : undefined
+                    }
+                    maxLength={50}
+                  />
+                </FormControl>
+                <Field
+                  name="description"
+                  component={ChakraTextarea}
+                  label="Description"
+                  placeholder="Describe your collection, 1000 characters are allowed"
+                  desc={collectionDetail?.desc}
+                />
+                <Text color="#393F59">
+                  Markdown syntax is supported. 0 of 1000 characters used.
+                </Text>
                 <FormControl isRequired>
                   <ReactSelect
                     options={filtredCat}
@@ -310,34 +340,12 @@ const CreateCollection = () => {
                   // defaultValue={filtredTagsById}
                 />
               </Stack>
-              <FormControl isRequired>
-                <Field
-                  readOnly={router?.query?.id ? true : false}
-                  as={InputField}
-                  size="md"
-                  label="Name"
-                  type="text"
-                  placeholder="Name your collection"
-                  name="name"
-                  errorText={
-                    touched["name"] && errors["name"]
-                      ? errors["name"]
-                      : undefined
-                  }
-                  maxLength={50}
-                />
-              </FormControl>
-              <Field
-                name="description"
-                component={ChakraTextarea}
-                label="Description"
-                placeholder="Describe your collection, 1000 characters are allowed"
-                desc={collectionDetail?.desc}
-              />
 
               <Box>
-                <Heading fontSize={"24px"}>Social Links</Heading>
-                <Text fontSize={"16px"}>
+                <Heading fontSize={"24px"} mt="38px">
+                  Social Links
+                </Heading>
+                <Text fontSize={"16px"} my="16px" color="#393F59">
                   Add your existing social links to build a stronger reputation.
                 </Text>
                 <Flex
@@ -455,6 +463,17 @@ const CreateCollection = () => {
                   />
                 </Flex>
               </Box>
+              <Box>
+                <Heading fontSize={"24px"} mt="38px">
+                  Creator Fees
+                </Heading>
+                <Text fontSize={"16px"} mt="16px" color="#393F59">
+                  Collection owners can collect creator earnings when a user
+                  re-sells an item they created. Contact the collection owner to
+                  change the collection earnings percentage or the payout
+                  address.
+                </Text>
+              </Box>
 
               <FieldArray name="creatorFee">
                 {({ push, remove }) => (
@@ -543,7 +562,7 @@ const CreateCollection = () => {
                       <Button
                         color="#6863F3"
                         fontSize="14px"
-                        fontWeight="bold"
+                        fontWeight="600"
                         bg="transparent"
                         p="0"
                         type="button"
@@ -553,7 +572,7 @@ const CreateCollection = () => {
                           push({ walletAddress: "", percentage: 0 })
                         }
                       >
-                        +Add Address
+                        + Add Address
                       </Button>
                     )}
                   </>
@@ -566,7 +585,7 @@ const CreateCollection = () => {
               onClose={onConnectionModalClose}
             />
             <Button isLoading={isLoading} type="submit" variant="primary">
-              Submit
+              Save Changes
             </Button>
           </Form>
         )}

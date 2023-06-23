@@ -62,7 +62,6 @@ export const Web3ContextProvider = ({
     if (isWalletConnected === "true") {
       try {
         metaMask.connectEagerly();
-        console.log(chainId, "chainId", isWalletConnected);
       } catch (error) {
         walletConnect.connectEagerly();
       }
@@ -77,7 +76,6 @@ export const Web3ContextProvider = ({
 
   const changeChain = async () => {
     if (provider) {
-      // console.log("Chain Id Web3Provider:", chainId);
       if (chainId !== 80001) {
         switchChainMetamask(80001);
       }
@@ -87,7 +85,6 @@ export const Web3ContextProvider = ({
   useEffect(() => {
     if (metaMask) void changeChain();
     if (walletConnect.provider && chainId != 80001) {
-      // console.log("Wallet Connect Chain", chainId);
       void switchToChain(80001);
     }
   }, [chainId]);
@@ -99,7 +96,7 @@ export const Web3ContextProvider = ({
       setToLocalStorage("isWalletConnected", true);
     } catch (error) {
       addMumbaiChain(80001);
-      console.log("WalletConnect Connection Error: ", error);
+      console.log(error);
     }
   };
   const disconnectWalletConnect = () => {
@@ -115,7 +112,7 @@ export const Web3ContextProvider = ({
       setToLocalStorage("isWalletConnected", true);
     } catch (error) {
       addChainMetamask(80001);
-      console.log("Metamask Connection Error: ", error);
+      console.log(error);
     }
   };
   const disconnect = () => {
