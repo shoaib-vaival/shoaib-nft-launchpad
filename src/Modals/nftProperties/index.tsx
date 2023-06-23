@@ -51,18 +51,21 @@ const NftPropertiesModal = ({
                       Properties show up underneath your item, are clickable and
                       can be filtered in your collections sidebar.
                     </Text>
+                    <Flex mt='16px'>
+                      <Text mb='0' w='42%' fontWeight='700'>Type</Text>
+                      <Text w='42%' alignItems='baseline'  fontWeight='700'>Name</Text>
+                    </Flex>
                     <FieldArray name="properties">
                       {({ push, remove }) => (
                         <>
                           {values?.properties?.map(
                             (field: any, index: number) => (
                               <div key={index}>
-                                <Flex alignItems={{base:'flex-start',sm:'center'}} flexDirection={{ base: 'column', sm: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
+                                <Flex alignItems='baseline' flexDirection={{ base: 'column', sm: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
                                   <div>
                                     <Field
                                       as={InputField}
                                       size="md"
-                                      label="Type"
                                       type="text"
                                       maxLength={50}
                                       placeholder="Enter proprty type"
@@ -74,11 +77,10 @@ const NftPropertiesModal = ({
                                     />
                                   </div>
                                   <div>
-                                    <Flex flexDirection='column' alignItems={'baseline'} ml={{ base: '0', sm: '20px' }}>
+                                    <Flex flexDirection='column' alignItems={'baseline'} ml={{ base: '0', sm: '10px' }}>
                                       <Field
                                         as={InputField}
                                         size="md"
-                                        label="Name"
                                         type="name"
                                         maxLength={50}
                                         placeholder="Enter proprty name"
@@ -92,7 +94,7 @@ const NftPropertiesModal = ({
                                   </div>
                                   {index > 0 && (
                                     <>
-                                      <IconButton aria-label='close' bg='#6863F34D' mt={{base:'0',sm:'35px'}} mb={{base:'10px',sm:'0'}}ml={{base:'0',sm:'10px'}} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                      <IconButton aria-label='close' bg='#6863F34D' mb={{base:'10px',sm:'0'}}ml={{base:'0',sm:'10px'}} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
                                     </>
 
                                   )}

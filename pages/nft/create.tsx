@@ -25,6 +25,8 @@ import {
   StatNumber,
   StatHelpText,
   Flex,
+  IconButton,
+  FormLabel,
 } from "@chakra-ui/react";
 import { nftSchema } from "../../src/schemas";
 import { POST } from "../../src/hooks/consts";
@@ -97,8 +99,7 @@ const CreateNFT = () => {
       label: collection?.name,
       value: collection?.id,
     }));
-
-  //contract abi will goes here
+    
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
     setNftFile(imgUrl);
   };
@@ -155,21 +156,27 @@ const CreateNFT = () => {
                   setProperties={setProperties}
                 />
                 <Stack direction="column">
+                <FormControl isRequired>
                   <FileUpload
-                    label="Image, Video, Audio, or 3D Model *"
+                    label="Image, Video, Audio, or 3D Model"
                     detail={createnft?.bannerImg}
                     height="300px"
                     imgFor="nft"
                     imgUrl={getImgUrl}
+                    maxFileSize={11e6}
                   />
                   {touched["photo"] && errors["photo"] && (
                     <Text>{errors["photo"] as React.ReactNode}</Text>
                   )}
+                  </FormControl>
+                  <FormLabel fontSize='24px!important' fontWeight='700' mb='0!important'>Details</FormLabel>
+
                   <Field
                     as={InputField}
                     size="md"
-                    label="Name *"
+                    label="Name"
                     type="text"
+                    formControlProps={{ isRequired: true }}
                     placeholder="Name your nft"
                     name="name"
                     errorText={
@@ -186,6 +193,11 @@ const CreateNFT = () => {
                     placeholder="Describe your collection, 1000 characters are allowed"
                     desc={nftDetail?.desc}
                   />
+                                  <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+
+                   <FormLabel fontSize='24px!important'mt='30px' fontWeight='700' mb='0!important'>Collection</FormLabel>
+                   <Text color='#393F59'>This is the collection where your item will appear.</Text>
+
                   <ReactSelect
                     options={filtredCollections}
                     isMultiple={false}
@@ -206,6 +218,24 @@ const CreateNFT = () => {
                       {errors["collectionId"] as React.ReactNode}
                     </Text>
                   )}
+                  <Flex justifyContent='space-between' alignItems='center'>
+                  <Box>  
+                <Heading fontSize={"24px"} mt='38px'>Properties</Heading>
+                <Text fontSize={"16px"} mt='16px' color='#393F59'>
+                Textual traits that show up as rectangles
+                  </Text>
+                </Box>
+                <Box>
+                <IconButton color=' #756C99'mb={{base:'8px',sm:'0'}} ml={{base:'5px',sm:'0'}}
+            variant='outline'
+            colorScheme='#6863F3'
+            aria-label='Send'
+            fontSize='20px'
+            onClick={onOpen}
+            icon={<i className='icon-plus'></i>}
+          />
+                </Box>
+                  </Flex>
                   <Box>
                     <Flex flexWrap={"wrap"}>
                       {properties &&
@@ -223,6 +253,7 @@ const CreateNFT = () => {
                           </>
                         ))}
                       <Button
+                      display='none'
                         color="#6863F3"
                         fontSize="14px"
                         fontWeight="bold"
@@ -236,6 +267,8 @@ const CreateNFT = () => {
                       </Button>
                     </Flex>
                   </Box>
+
+                  
                 </Stack>
               </FormControl>
               <ConnectionModal

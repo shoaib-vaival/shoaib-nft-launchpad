@@ -21,7 +21,6 @@
 .icon-reddit:before { content: '\e813'; } /* '' */
 .icon-right:before { content: '\e814'; } /* '' */
 .icon-listed:before { content: '\e815'; } /* '' */
-.icon-dropdown:before { content: '\e816'; } /* '' */
 .icon-froggy:before { content: '\e817'; } /* '' */
 .icon-menu:before { content: '\e818'; } /* '' */
 .icon-hash:before { content: '\e819'; } /* '' */
@@ -32,3 +31,4 @@
 .icon-fill-tele:before { content: '\e81e'; } /* '' */
 .icon-at:before { content: '\e81f'; } /* '' */
 .icon-copy-1:before { content: '\e820'; } /* '' */
+.icon-plus:before { content: '\e821'; } /* '' */
