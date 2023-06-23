@@ -12,16 +12,18 @@ export const collectionSchema = Yup.object().shape({
   logoImageUrl: Yup.string().required("Logo image is required"),
   creatorFee: Yup.array().of(
     Yup.object().shape({
-      walletAddress: Yup.string()
-        .required("Wallet address is required")
-        .test("checksum-validation", "Invalid wallet address", (value) => {
+      walletAddress: Yup.string().test(
+        "checksum-validation",
+        "Invalid wallet address",
+        (value: string | undefined, AnyObject) => {
           try {
-            const isValidChecksum = ethers.utils.isAddress(value);
+            const isValidChecksum = ethers.utils.isAddress(`${value}`);
             return isValidChecksum;
           } catch (error) {
             return false;
           }
-        }),
+        }
+      ),
       percentage: Yup.number()
         .required("Percentage is required")
         .max(10, "Total percentage should be less than 10"),
