@@ -251,6 +251,7 @@ const CreateCollection = () => {
                     label="Featured Image"
                     detail={collectionDetail?.featuredImg}
                     imgFor="featured"
+                    height="300px"
                     imgUrl={getImgUrl}
                     editAbleUrl={getCollectionById?.featureImageUrl}
                   />
@@ -260,6 +261,7 @@ const CreateCollection = () => {
                     label="Banner Image"
                     detail={collectionDetail?.bannerImg}
                     imgFor="banner"
+                    height="300px"
                     imgUrl={getImgUrl}
                     editAbleUrl={getCollectionById?.bannerImageUrl}
                   />
@@ -302,6 +304,7 @@ const CreateCollection = () => {
                     getSelectedData={getSelectedData}
                     identifier="cat"
                     label="Category"
+                    placeholder="Select category"
                     nftName={values?.name}
                     setNftName={setNftName}
                     nftDesc={values?.description}
@@ -324,6 +327,7 @@ const CreateCollection = () => {
                   getSelectedData={getSelectedData}
                   identifier="tag"
                   label="Tags"
+                  placeholder="Select Tag"
                   nftName={values?.name}
                   setNftName={setNftName}
                   nftDesc={values?.description}
@@ -498,6 +502,7 @@ const CreateCollection = () => {
                                   label="Wallet Address"
                                   type="text"
                                   maxLength={50}
+                                  placeholder="e.g: 0x1dff … 3845"
                                   name={`creatorFee.${[index]}.walletAddress`}
                                   onKeyPress={(event: any) => {
                                     if (
@@ -523,6 +528,7 @@ const CreateCollection = () => {
                                 size="md"
                                 label="Percentage"
                                 type="number"
+                                placeholder="0"
                                 maxLength={50}
                                 name={`creatorFee.${[index]}.percentage`}
                               />
@@ -571,8 +577,13 @@ const CreateCollection = () => {
               </FieldArray>
             </FormControl>
 
-            <Button isLoading={isLoading} type="submit" variant="primary">
-              Save Changes
+            <Button
+              isLoading={isLoading}
+              type="submit"
+              variant="primary"
+              textTransform="uppercase"
+            >
+              Create Collection
             </Button>
           </Form>
         )}

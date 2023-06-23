@@ -37,6 +37,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { error } from "console";
 import { setCookie } from "typescript-cookie";
+import link from "next/link";
 
 export const Header = () => {
   const {
@@ -108,6 +109,8 @@ export const Header = () => {
               pb="8px"
               order={{ base: "1", sm: "1" }}
               marginRight={{ base: "auto", md: "initial" }}
+              as={link}
+              href="/"
             >
               <Image
                 src="/assets/images/Logo.png"

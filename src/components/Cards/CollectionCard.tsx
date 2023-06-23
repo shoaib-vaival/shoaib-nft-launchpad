@@ -56,7 +56,7 @@ const CollectionCard = ({
               flexDirection='column'
               justifyContent='center'
             >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'225px',md:'250px',xl:'350px'}} transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.5s'>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'225px',md:'250px',xl:'342px'}} transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.5s'>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
@@ -106,7 +106,7 @@ const CollectionCard = ({
                       Volume
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {volume?volume:'--'} ETH
+                      {volume?volume:'--'} Matic
                     </Text>
                   </Box>
                   <Box>
@@ -114,7 +114,7 @@ const CollectionCard = ({
                       Floor Price
                     </Text>
                     <Text fontSize='20px' fontWeight='500' color='#393F59'>
-                      {price?price:'--'} ETH
+                      {price?price:'--'} Matic
                     </Text>
                   </Box>
                 </SimpleGrid>
@@ -142,8 +142,9 @@ const CollectionCard = ({
             display='flex'
             flexDirection='column'
             justifyContent='center'
+            alignItems="center"
           >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'308px'}}>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'308px'}} maxW={{base:'225px',md:'250px',xl:'342px'}} w="100%" >
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}
