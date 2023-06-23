@@ -42,7 +42,7 @@ const InputField = ({
   errorText,
   width,
   maxLength,
-  fontSize = 'md',
+  fontSize = '16px!important',
   ref,
   minLength,
   ...restProps
@@ -54,7 +54,7 @@ const InputField = ({
     <FormControl width={width} {...formControlProps}>
       {label && (
         <Flex alignItems="center">
-          <FormLabel color="black" fontSize={fontSize} {...formLabelProps}>
+          <FormLabel mb='16px' fontSize={fontSize} {...formLabelProps}>
             {label}
           </FormLabel>
         </Flex>

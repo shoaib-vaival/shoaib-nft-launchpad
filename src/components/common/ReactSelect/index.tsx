@@ -45,7 +45,7 @@ ReactSelectPropsTypes) => {
     <>
       {label && (
         <Flex alignItems="center">
-          <FormLabel fontSize='24px!important' color="black">{label}</FormLabel>
+          <FormLabel>{label}</FormLabel>
         </Flex>
       )}
       <CreatableSelect

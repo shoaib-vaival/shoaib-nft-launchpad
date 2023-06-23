@@ -207,70 +207,95 @@ const CreateCollection = () => {
             <FormLabel display='flex' fontSize='16px' color='#393F59'><Text mr='8px' color='#FF0000'>*</Text>Required fields</FormLabel>
             <FormControl>
               <Stack direction="column">
-              <FormControl isRequired>
-                <Box mb='40px'>
-                <FileUpload
-                  label="Logo Image"
-                  detail={collectionDetail?.logoDetail}
-                  imgFor="logo"
-                  imgUrl={getImgUrl}
-                  width="220px"
-                  height="220px"
-                  onlyIcon={true}
-                  editAbleUrl={getCollectionById?.logoImageUrl}
-                />
-                {touched["logoImageUrl"] && errors["logoImageUrl"] && (
-                  <Text
-                    marginTop={"10px!important"}
-                    marginLeft={"5px!important"}
-                    fontWeight={"500"}
-                    color={"red.700"}
-                  >
-                    {errors["logoImageUrl"] as React.ReactNode}
-                  </Text>
-                )}
-                </Box>
+                <FormControl isRequired>
+                  <Box mb='40px'>
+                    <FileUpload
+                      label="Logo Image"
+                      detail={collectionDetail?.logoDetail}
+                      imgFor="logo"
+                      imgUrl={getImgUrl}
+                      width="220px"
+                      height="220px"
+                      onlyIcon={true}
+                      editAbleUrl={getCollectionById?.logoImageUrl}
+                    />
+                    {touched["logoImageUrl"] && errors["logoImageUrl"] && (
+                      <Text
+                        marginTop={"10px!important"}
+                        marginLeft={"5px!important"}
+                        fontWeight={"500"}
+                        color={"red.700"}
+                      >
+                        {errors["logoImageUrl"] as React.ReactNode}
+                      </Text>
+                    )}
+                  </Box>
                 </FormControl>
                 <Box mb='40px'>
-                <FileUpload
-                  label="Featured Image"
-                  detail={collectionDetail?.featuredImg}
-                  imgFor="featured"
-                  imgUrl={getImgUrl}
-                  editAbleUrl={getCollectionById?.featureImageUrl}
-                />
+                  <FileUpload
+                    label="Featured Image"
+                    detail={collectionDetail?.featuredImg}
+                    imgFor="featured"
+                    imgUrl={getImgUrl}
+                    editAbleUrl={getCollectionById?.featureImageUrl}
+                  />
                 </Box>
                 <Box mb='40px'>
-                <FileUpload
-                  label="Banner Image"
-                  detail={collectionDetail?.bannerImg}
-                  imgFor="banner"
-                  imgUrl={getImgUrl}
-                  editAbleUrl={getCollectionById?.bannerImageUrl}
-                />
+                  <FileUpload
+                    label="Banner Image"
+                    detail={collectionDetail?.bannerImg}
+                    imgFor="banner"
+                    imgUrl={getImgUrl}
+                    editAbleUrl={getCollectionById?.bannerImageUrl}
+                  />
                 </Box>
-                <FormControl isRequired>
-                <ReactSelect
-                  options={filtredCat}
-                  isMultiple={false}
-                  getSelectedData={getSelectedData}
-                  identifier="cat"
-                  label="Category"
-                  nftName={values?.name}
-                  setNftName={setNftName}
-                  nftDesc={values?.description}
-                  setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                <FormLabel fontSize='24px!important' fontWeight='700'>Details</FormLabel>
+                <FormControl>
+                  <Field
+                    readOnly={router?.query?.id ? true : false}
+                    as={InputField}
+                    size="md"
+                    label="Name"
+                    type="text"
+                    placeholder="Name your collection"
+                    name="name"
+                    formControlProps={{ isRequired: true }}
+                    errorText={
+                      touched["name"] && errors["name"] ? errors["name"] : undefined
+                    }
+                    maxLength={50}
+                  />
+                </FormControl>
+                <Field
+                  name="description"
+                  component={ChakraTextarea}
+                  label="Description"
+                  placeholder="Describe your collection, 1000 characters are allowed"
+                  desc={collectionDetail?.desc}
                 />
-                {touched["category"] && errors["category"] && (
-                  <Text
-                    marginTop={"0px!important"}
-                    fontWeight={"500"}
-                    color={"red.700"}
-                  >
-                    {errors["category"] as React.ReactNode}
-                  </Text>
-                )}
+                <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                <FormControl isRequired>
+                  <ReactSelect
+                    options={filtredCat}
+                    isMultiple={false}
+                    getSelectedData={getSelectedData}
+                    identifier="cat"
+                    label="Category"
+                    nftName={values?.name}
+                    setNftName={setNftName}
+                    nftDesc={values?.description}
+                    setNftDesc={setNftDesc}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                  />
+                  {touched["category"] && errors["category"] && (
+                    <Text
+                      marginTop={"0px!important"}
+                      fontWeight={"500"}
+                      color={"red.700"}
+                    >
+                      {errors["category"] as React.ReactNode}
+                    </Text>
+                  )}
                 </FormControl>
                 <ReactSelect
                   options={filtredTags}
@@ -282,35 +307,15 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                  // defaultValue={filtredTagsById}
+                // defaultValue={filtredTagsById}
                 />
               </Stack>
-              <FormControl isRequired>
-              <Field
-                readOnly={router?.query?.id ? true : false}
-                as={InputField}
-                size="md"
-                label="Name"
-                type="text"
-                placeholder="Name your collection"
-                name="name"
-                errorText={
-                  touched["name"] && errors["name"] ? errors["name"] : undefined
-                }
-                maxLength={50}
-              />
-              </FormControl>
-              <Field
-                name="description"
-                component={ChakraTextarea}
-                label="Description"
-                placeholder="Describe your collection, 1000 characters are allowed"
-                desc={collectionDetail?.desc}
-              />
+
+
 
               <Box>
-                <Heading fontSize={"24px"}>Social Links</Heading>
-                <Text fontSize={"16px"}>
+                <Heading fontSize={"24px"} mt='38px'>Social Links</Heading>
+                <Text fontSize={"16px"} my='16px' color='#393F59'>
                   Add your existing social links to build a stronger reputation.
                 </Text>
                 <Flex
@@ -428,13 +433,21 @@ const CreateCollection = () => {
                   />
                 </Flex>
               </Box>
-
+              <Box>  
+                <Heading fontSize={"24px"} mt='38px'>Creator Fees</Heading>
+                <Text fontSize={"16px"} mt='16px' color='#393F59'>
+                  Collection owners can collect creator earnings when a user re-sells an item they created. Contact the collection owner to change the collection earnings percentage or the payout address.
+                </Text>
+                </Box>
+                
               <FieldArray name="creatorFee">
+
                 {({ push, remove }) => (
                   <>
                     {values &&
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
+
                           <Flex
                             gap={{ base: "0", sm: "6" }}
                             alignItems={{
@@ -450,22 +463,22 @@ const CreateCollection = () => {
                             w={"100%"}
                           >
                             <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
-                            <FormControl isRequired>
-                              <Field
-                                as={InputField}
-                                size="md"
-                                label="Wallet Address"
-                                type="text"
-                                maxLength={50}
-                                name={`creatorFee.${[index]}.walletAddress`}
-                              />
-                               
-                              <ErrorMessage
-                                name={`creatorFee.${[index]}.walletAddress`}
-                                component="div"
-                              />
-                               </FormControl>
-                            
+                              <FormControl isRequired>
+                                <Field
+                                  as={InputField}
+                                  size="md"
+                                  label="Wallet Address"
+                                  type="text"
+                                  maxLength={50}
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                />
+
+                                <ErrorMessage
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                  component="div"
+                                />
+                              </FormControl>
+
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
@@ -504,7 +517,7 @@ const CreateCollection = () => {
                       <Button
                         color="#6863F3"
                         fontSize="14px"
-                        fontWeight="bold"
+                        fontWeight="600"
                         bg="transparent"
                         p="0"
                         type="button"
@@ -514,7 +527,7 @@ const CreateCollection = () => {
                           push({ walletAddress: "", percentage: 0 })
                         }
                       >
-                        +Add Address
+                        + Add Address
                       </Button>
                     )}
                   </>
@@ -527,7 +540,7 @@ const CreateCollection = () => {
               onClose={onConnectionModalClose}
             />
             <Button isLoading={isLoading} type="submit" variant="primary">
-              Submit
+              Save Changes
             </Button>
           </Form>
         )}
