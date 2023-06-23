@@ -1,4 +1,4 @@
-import { Container, Image, Text, Flex, Heading, Button, Box, VStack, IconButton, InputGroup, Input, InputLeftElement, Icon } from '@chakra-ui/react';
+import { Container, Image, Text, Flex, Heading, Box, VStack, IconButton, InputGroup, Input, InputLeftElement } from '@chakra-ui/react';
 import {
     Table,
     Thead,
@@ -9,9 +9,6 @@ import {
     TableContainer
 } from "@chakra-ui/table";
 import { NextPage } from 'next';
-import CollectionCard from '../src/components/Cards/CollectionCard';
-import { SlickSlider } from '../src/components/ReactSlick';
-import CustomSlider from '../src/components/Slider';
 import { ReactSelect } from '../src/components/common';
 import { useInfiniteQuery } from '../src/hooks/useInfiniteQuery'
 import { QUERY_KEYS } from '../src/hooks/queryKeys';
@@ -20,7 +17,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Loader } from '../src/components/Loader';
 
 const Categories: NextPage = () => {
-    const {data, error, fetchNextPage, status, hasNextPage, isLoading} = useInfiniteQuery<any>({
+    const {data, fetchNextPage, hasNextPage} = useInfiniteQuery<any>({
         queryKey:[QUERY_KEYS.GET_ACTIVITIES],
         url:ApiUrl.GET_ACTIVITIES
         
