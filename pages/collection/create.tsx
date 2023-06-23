@@ -263,7 +263,7 @@ const CreateCollection = () => {
                 />
                 {touched["category"] && errors["category"] && (
                   <Text
-                    marginTop={"0px!important"}
+                    marginTop={"8px!important"}
                     fontWeight={"500"}
                     color={"red.700"}
                   >
@@ -281,7 +281,6 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                  // defaultValue={filtredTagsById}
                 />
               </Stack>
               <FormControl isRequired>
@@ -449,7 +448,7 @@ const CreateCollection = () => {
                             w={"100%"}
                           >
                             <Box w={{ base: "100%", sm: "80%", xl: "80%" }} display='flex' alignItems='baseline'>
-                            <FormControl isRequired>
+                            <FormControl my={0} isRequired>
                               <Field
                                 as={InputField}
                                 size="md"
@@ -457,11 +456,6 @@ const CreateCollection = () => {
                                 type="text"
                                 maxLength={50}
                                 name={`creatorFee.${[index]}.walletAddress`}
-                              />
-                               
-                              <ErrorMessage
-                                name={`creatorFee.${[index]}.walletAddress`}
-                                component="div"
                               />
                                </FormControl>
                             
@@ -482,7 +476,6 @@ const CreateCollection = () => {
                               />
                             </Box>
 
-                            {index > 0 && (
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
@@ -494,8 +487,8 @@ const CreateCollection = () => {
                                 border="1px solid #6863F3"
                                 onClick={() => remove(index)}
                                 icon={<i className="icon-remove"></i>}
+                                visibility={index > 0 ? 'visible': 'hidden'}
                               />
-                            )}
                           </Flex>
                         </div>
                       ))}

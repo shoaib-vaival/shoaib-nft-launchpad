@@ -74,7 +74,7 @@ const ProfilCreated: NextPage = () => {
         <Box>
           <Tabs>
             <TabList ml='12px' pl='0'>
-              <Tab>Items</Tab>
+              <Tab>Created</Tab>
               <Tab>Activity</Tab>
             </TabList>
 

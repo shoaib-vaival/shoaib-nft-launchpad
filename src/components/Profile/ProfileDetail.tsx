@@ -25,8 +25,8 @@ const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}
           </Flex>
           <Box>
           {!isCollection ?
-            <Button color='#393F59' bg='#fff' borderRadius='xl' p='7px 8px' m={{base:'10px 0',md:'initial'}} fontSize='12px' height='initial' border='2px solid #6863F3'>
-              <Text mr='8px'>0x797970 … 8080</Text> <i className='icon-copy'></i>
+            <Button bg='#fff' borderRadius='xl' p='7px 8px' _hover={{bg:'transparent'}} m={{base:'10px 0',md:'initial'}} fontSize='12px' height='initial' border='1px solid #6863F3'>
+              <Text mr='8px'  color='#393F59'fontSize='12px'>0x797970 … 8080</Text> <Box color='#756C99' fontSize='14px'><i className='icon-copy'></i></Box>
             </Button>:''}
           </Box>
 
@@ -56,15 +56,15 @@ const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}
                 <>
                  <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Joined:</Text>
-                  <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
+                  <Text fontWeight='bold' color='#090C3D' ml='5px'> Dec 2021</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Creator Fee:</Text>
-                  <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
+                  <Text fontWeight='bold' color='#090C3D' ml='5px'> Dec 2021</Text>
                 </Box>
                 <Box display='flex' alignItems='center' fontSize='14px' mr={{base:'10px',md:'24px'}} pt={{base:'10px',md:'20px'}} pb={{base:'5px',md:'24px'}}>
                   <Text>Chain:</Text>
-                  <Text fontWeight='bold' color='#090C3D'> Dec 2021</Text>
+                  <Text fontWeight='bold' color='#090C3D' ml='5px'> Dec 2021</Text>
                 </Box>
                 </>
                 }
