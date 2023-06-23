@@ -161,6 +161,7 @@ const CreateNFT = () => {
                     detail={createnft?.bannerImg}
                     imgFor="nft"
                     imgUrl={getImgUrl}
+                    maxFileSize={11e6}
                   />
                   {touched["photo"] && errors["photo"] && (
                     <Text>{errors["photo"] as React.ReactNode}</Text>
