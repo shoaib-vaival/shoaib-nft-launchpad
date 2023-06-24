@@ -121,7 +121,7 @@ const NftDetail = ({ param }: any) => {
               onClose={onClose}
               onOpen={onOpen}
             />
-            <Button onClick={onOpen}>List for sale</Button>
+            {/* <Button onClick={onOpen}>List for sale</Button> */}
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description
