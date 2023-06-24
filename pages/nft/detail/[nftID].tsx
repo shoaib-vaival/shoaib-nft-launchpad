@@ -20,7 +20,7 @@ import {
   Td,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/table";
 import { useDisclosure } from "@chakra-ui/react";
 import { ApiUrl } from "../../../src/apis/apiUrl";
@@ -29,22 +29,23 @@ import { SlickSlider } from "../../../src/components/ReactSlick";
 import { QUERY_KEYS } from "../../../src/hooks/queryKeys";
 import { useQuery } from "../../../src/hooks/useQuery";
 import { nftType } from "../../../src/types";
-import { signMessage } from "../../../src/context/signListing";
 import { useWeb3React } from "@web3-react/core";
 import ListNftModal from "../../../src/Modals/nftProperties/listNft";
-
-
-
+import { useState } from "react";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
-  const { isOpen, onClose,onOpen } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [nftData, setNftData] = useState<any>({});
 
   const { data } = useQuery<nftType>({
     queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
     url: ApiUrl.GET_NFT_DETAIL,
     params: { nftId: param?.nftID },
     token: true,
+    onSuccess: async (data) => {
+      setNftData(data);
+    },
   });
 
   const { data: moreNftSByCollection } = useQuery<nftType[]>({
@@ -54,27 +55,6 @@ const NftDetail = ({ param }: any) => {
     enabled: data?.collectionId ? true : false,
     token: true,
   });
-  //   const params = {
-  //     seller: "0xeF07262CcC19E4321166C3df0cCD5999537e9EC5",
-  //     erc721: "0xc3088534f73ff8638B5CF974800871DBbc8E8B81",
-  //     erc20: "0xc737E568d7EF145C191AF237f3D0796bB8136372",
-  //     tokenId: 1,
-  //     price: "11000000000000000000",
-  //     endTime: 1687202998,
-  //     collaboratorAddress: [
-  //       "0xB1580D5634e1C7514833974767d17801717ed715",
-  //       "0x2b7A551Cb3D70cdD128624E37168b4E6b7C9b09F",
-  //     ],
-  //     collaboratorAmount: ["1500000000000000000", "3000000000000000000"],
-  //     collectionId: "77a2",
-  //   };
-  //   <Button
-  //   onClick={() => {
-  //     signMessage(params, provider, account, chainId);
-  //   }}
-  // >
-  //   List for sale
-  // </Button>
 
   return (
     <>
@@ -134,11 +114,14 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
-            
-            <ListNftModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-            <Button onClick={onOpen}>         
-                 
-            Hi MOdal</Button>
+
+            <ListNftModal
+              isOpen={isOpen}
+              nftData={nftData}
+              onClose={onClose}
+              onOpen={onOpen}
+            />
+            <Button onClick={onOpen}>List for sale</Button>
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description
