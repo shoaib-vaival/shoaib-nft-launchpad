@@ -33,7 +33,7 @@ const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
                       </Box>
                       <Text fontWeight='700'>Transfer</Text>
                       <Image src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`} boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                      <VStack spacing="0.5">
+                      <VStack spacing="0.5"  alignItems='flex-start'>
                         <Heading fontSize="18px">{nft?.name}</Heading>
                         <Text color="rgba(57, 63, 89, 1)" fontSize="14px">{nft?.collection?.name}</Text>
                       </VStack>

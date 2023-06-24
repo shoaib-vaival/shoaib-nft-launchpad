@@ -114,14 +114,11 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
-
-            <ListNftModal
-              isOpen={isOpen}
-              nftData={nftData}
-              onClose={onClose}
-              onOpen={onOpen}
-            />
-            {/* <Button onClick={onOpen}>List for sale</Button> */}
+            
+            <ListNftModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+            <Button onClick={onOpen} variant='primary' mt='16px'>         
+                 
+            Buy Now</Button>
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description
