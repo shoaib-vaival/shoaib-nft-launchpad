@@ -19,19 +19,15 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  Icon,
   IconButton,
-  Spacer,
   Stack,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { collectionSchema } from "../../src/schemas";
 import { PATCH, POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
-import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 const abiDecoder = require("abi-decoder");
 import {
   collectionByIdTypes,
@@ -41,10 +37,8 @@ import {
 } from "../../src/types/collection";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { chainUrls } from "../../src/connectors/consts";
-import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
+import { Web3Provider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
-import { getFromLocalStorage } from "../../src/utils";
 import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
 
 const CreateCollection = () => {
