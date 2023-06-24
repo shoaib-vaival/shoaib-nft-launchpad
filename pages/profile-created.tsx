@@ -110,7 +110,7 @@ const ProfilCreated: NextPage = () => {
                       icon={<i className='icon-funnel'></i>}
                     />
                   </Box>
-                  <Box order={{ base: '3', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
+                  <Box order={{ base: '4', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
                     <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "200px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
                       <Input placeholder='Search...' onChange={(e)=>searchHandler(e)} value = {filters?.search}/>
                       <InputLeftElement>
@@ -118,10 +118,10 @@ const ProfilCreated: NextPage = () => {
                       </InputLeftElement>
                     </InputGroup>
                   </Box>
-                  <Box width="150px" ml='8px'  order={{base:'2',sm:'3'}}>
+                  <Box width={{base:'119px',sm:"150px"}} ml='8px'  order={{base:'2',sm:'3'}}>
                   <ReactSelect options={[{ label: 'Ascending ', value: 'ASC' }, { label: 'Descending ', value: 'DESC' } ]} placeholder="Sort By" isMultiple={false} identifier='filter' getSelectedData={(selectedOption: any) => setFilters({...filters, sort:selectedOption?.value})} />
                 </Box>
-                  <ButtonGroup order={{ base: '2', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
+                  <ButtonGroup order={{ base: '3', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
                     <IconButton
                       variant='outline'
                       colorScheme='primary'
@@ -154,7 +154,7 @@ const ProfilCreated: NextPage = () => {
                     <IconButton
                       variant='outline'
                       colorScheme='primary'
-                      aria-label='Send email'
+                      aria-label='Send'
                       icon={<i className='icon-funnel'></i>}
                     />
                   </Box>
@@ -190,7 +190,7 @@ const ProfilCreated: NextPage = () => {
                             </Box>
                             <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
+                            <VStack spacing="0.5" alignItems='flex-start'>
                               <Heading fontSize="18px">Panthera Leo</Heading>
                               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
                             </VStack>
@@ -209,7 +209,7 @@ const ProfilCreated: NextPage = () => {
                                       </Box>
                                       <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
+                            <VStack spacing="0.5"  alignItems='flex-start'>
                               <Heading fontSize="18px">Panthera Leo</Heading>
                               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
                             </VStack>

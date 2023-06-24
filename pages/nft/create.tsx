@@ -93,7 +93,7 @@ const CreateNFT = () => {
             };
             updateNFT(data);
 
-            // if (receipt.status == 1) router.push("/profile-created");
+            if (receipt.status == 1) router.push("/profile-created");
           }
           // Handle the returned result here
         } catch (error) {
@@ -164,7 +164,6 @@ const CreateNFT = () => {
         </Heading>
 
         <Formik
-        
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize

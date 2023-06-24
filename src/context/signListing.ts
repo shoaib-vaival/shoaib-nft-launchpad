@@ -61,34 +61,29 @@ export const signMessage = async (
 
     var paramss = [account, msgParams];
 
-    // if (window.ethereum) {
-    try {
-      const result = (
-        window.ethereum as {
-          request: (
-            request: { method: string; params?: unknown[] },
-            callback?: (result: unknown) => void
-          ) => Promise<unknown>;
-        }
-      )
-        .request({
+    if (window.ethereum) {
+      try {
+        const result = await (
+          window.ethereum as {
+            request: (
+              request: { method: string; params?: unknown[] },
+              callback?: (result: unknown) => void
+            ) => Promise<unknown>;
+          }
+        ).request({
           method: "eth_signTypedData_v4",
           params: paramss,
-        })
-        .then((r) => {
-          const signature = r as string;
-          // Do something with the signature
-          console.log("Signature:", signature);
-          return signature;
-        })
-        .catch((err) => {
-          console.log(err);
         });
-    } catch (err) {
-      return null;
-      console.error("Error:", err);
+
+        const signature = result as string;
+        // Do something with the signature
+        console.log("Signature:", signature);
+        return signature;
+      } catch (err) {
+        return null;
+        console.error("Error:", err);
+      }
     }
   }
-  // }
   return null;
 };

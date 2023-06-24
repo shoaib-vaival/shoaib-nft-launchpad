@@ -69,7 +69,7 @@ const CreateCollection = () => {
           };
           update(data);
 
-          // if (receipt) router.push("/profile-created");
+          if (receipt) router.push("/profile-created");
         }
       } catch (error) {
         console.error(error);
@@ -208,7 +208,7 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <FormLabel m='0' display="flex" fontSize="16px" color="#393F59">
+            <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
               <Text mr="8px" color="#E53E3E">
                 *
               </Text>
@@ -250,7 +250,7 @@ const CreateCollection = () => {
                     editAbleUrl={getCollectionById?.featureImageUrl}
                   />
                 </Box>
-                <Box mb='30px'>
+                <Box mb="30px">
                   <FileUpload
                     label="Banner Image"
                     detail={collectionDetail?.bannerImg}
@@ -281,7 +281,7 @@ const CreateCollection = () => {
                     maxLength={50}
                   />
                 </FormControl>
-                <FormControl mt='0'>
+                <FormControl mt="0">
                   <Field
                     name="description"
                     component={ChakraTextarea}
@@ -298,7 +298,9 @@ const CreateCollection = () => {
                       {errors["category"] as React.ReactNode}
                     </Text>
                   )}
-                  <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                  <Text color="#393F59">
+                    Markdown syntax is supported. 0 of 1000 characters used.
+                  </Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
@@ -312,7 +314,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -515,8 +517,7 @@ const CreateCollection = () => {
                                     }
                                   }}
                                 />
-                                <Text>
-                                </Text>
+                                <Text></Text>
                               </FormControl>
 
                               <ErrorMessage
@@ -552,7 +553,7 @@ const CreateCollection = () => {
                               border="1px solid #6863F3"
                               onClick={() => remove(index)}
                               icon={<i className="icon-remove"></i>}
-                              visibility={index > 0 ? 'visible' : 'hidden'}
+                              visibility={index > 0 ? "visible" : "hidden"}
                             />
                           </Flex>
                         </div>

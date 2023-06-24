@@ -50,13 +50,14 @@ const CollectionCard = ({
     return (
       <div>
         <Container py='12px' px={{base:'0',sm:'12px'}} key={key}>
-          <Card maxH='459px' overflow='hidden' maxW={{base:'100%',md:'sm'}} justifyContent='center' p={{base:'0!important',sm:'12px'}} onMouseOver={onOver} onMouseOut={onOut} h={height}>
+          <Box >
+          <Card maxH={{base:'359px',xl:'459px'}} overflow='hidden' justifyContent='center' p={{base:'0!important',sm:'12px'}} onMouseOver={onOver} onMouseOut={onOut} h={height}>
             <CardBody
               display='flex'
               flexDirection='column'
               justifyContent='center'
             >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'225px',md:'250px',xl:'350px'}} transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.2s ease-in-out'>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} w={{base:'100%',md:'100%',xl:'350px'}} transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.2s ease-in-out'>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
@@ -120,7 +121,7 @@ const CollectionCard = ({
                 </SimpleGrid>
               </Stack>
             </CardBody>
-            <CardFooter transition='.4s'   h= {isVisible && isEditAble?'auto':'0'} transform= {isVisible && isEditAble?'translate(0px, -50px)':'translate(0px, 0px)'} >
+            <CardFooter transition='.4s'   h= {isVisible && isEditAble?'auto':'0'} transform= {isVisible && isEditAble?{base:'translate(0px, -48px)',md:'translate(0px, -50px)'}:'translate(0px, 0px)'} >
             { isEditAble?
                         <Button transition='.4s' h='100%'  variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
                             Edit Collection
@@ -130,6 +131,7 @@ const CollectionCard = ({
                     :''} 
                     </CardFooter>
           </Card>
+          </Box>
         </Container>
       </div>
     );
@@ -144,7 +146,7 @@ const CollectionCard = ({
             justifyContent='center'
             alignItems="center"
           >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'225px',md:'250px',xl:'350px'}} w="100%" >
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'100%',md:'initial',xl:'350px'}} w="100%" >
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}
