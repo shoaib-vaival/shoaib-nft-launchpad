@@ -1,14 +1,14 @@
 import { Image } from "@chakra-ui/image"
 import { Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr,Box } from "@chakra-ui/react"
-import { nftType } from "./../types"
+import { nftType } from "../types"
 
 type nftListProp = {
     data:nftType[] | [],
     fetchNextPage:()=>void,
     hasNextPage:boolean
 }
-const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
+const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
   return (
     <>
       <TableContainer>
@@ -53,4 +53,4 @@ const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
   )
 }
 
-export default NftListView
+export default ListView

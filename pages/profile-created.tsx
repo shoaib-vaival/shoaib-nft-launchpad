@@ -26,8 +26,8 @@ import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, nftType, profileType } from "../src/types";
-import { NftGridView } from "../src/views/NftGridView";
-import NftListView  from "../src/views/NftListView";
+import { GridView } from "../src/views/GridView";
+import ListView  from "../src/views/ListView";
 
 
 type filters = {
@@ -146,7 +146,7 @@ const ProfilCreated: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid'? userNfts !== undefined && <NftGridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : userNfts !== undefined && <NftListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
+                {view === 'grid'? userNfts !== undefined && <GridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : userNfts !== undefined && <ListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>

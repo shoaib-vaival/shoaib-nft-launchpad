@@ -27,8 +27,8 @@ import { ApiUrl } from "../../src/apis/apiUrl";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
-import NftListView  from "../../src/views/NftListView";
-import { NftGridView } from "../../src/views/NftGridView";
+import ListView  from "../../src/views/ListView";
+import {GridView} from "../../src/views/GridView";
 import { collectionType, nftType } from "../../src/types";
 import {useDebounce} from './../../src/hooks/useDebounce'
 import { SidebarFilter } from "../../src/components/SidebarFilter";
@@ -153,7 +153,7 @@ const Collection: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid' ?  collectionNfts !== undefined && <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <NftListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                {view === 'grid' ?  collectionNfts !== undefined && <GridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>

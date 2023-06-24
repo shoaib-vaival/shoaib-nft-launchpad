@@ -3,15 +3,15 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../components/Loader";
 import Link from "next/link";
 import CollectionCard from "../components/Cards/CollectionCard";
-import { nftType } from "../types";
+import { collectionType, nftType } from "../types";
 
-
+type dataType = nftType & collectionType
 type nftGridViewPropType = {
-    data:nftType[],
+    data:dataType[],
     fetchNextPage:()=>void,
     hasNextPage:boolean
 }
-export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropType) => {
+export const GridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropType) => {
     return (
         <>
             <InfiniteScroll
@@ -22,10 +22,10 @@ export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropTy
             >
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
                 
-                      {data?.map((nft:nftType, index:number)=>{
+                      {data?.map((nft:dataType, index:number)=>{
                           return (
                         <Link href={`/nft/detail/${nft?.id}`} key={index}>
-                            <CollectionCard type='withBody' name={nft?.name}  featureImage={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
+                            <CollectionCard type='withBody' name={nft?.name}  featureImage={nft?.ipfsImageUrl?`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`:nft?.logoImageUrl} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
                         </Link>
                           )
                       })} 
