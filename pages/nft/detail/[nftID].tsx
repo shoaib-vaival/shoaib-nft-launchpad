@@ -20,8 +20,9 @@ import {
   Td,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/table";
+import { useDisclosure } from "@chakra-ui/react";
 import { ApiUrl } from "../../../src/apis/apiUrl";
 import CollectionCard from "../../../src/components/Cards/CollectionCard";
 import { SlickSlider } from "../../../src/components/ReactSlick";
@@ -30,9 +31,14 @@ import { useQuery } from "../../../src/hooks/useQuery";
 import { nftType } from "../../../src/types";
 import { signMessage } from "../../../src/context/signListing";
 import { useWeb3React } from "@web3-react/core";
+import ListNftModal from "../../../src/Modals/nftProperties/listNft";
+
+
+
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
+  const { isOpen, onClose,onOpen } = useDisclosure();
 
   const { data } = useQuery<nftType>({
     queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
@@ -40,7 +46,7 @@ const NftDetail = ({ param }: any) => {
     params: { nftId: param?.nftID },
     token: true,
   });
-  console.log(data);
+
   const { data: moreNftSByCollection } = useQuery<nftType[]>({
     queryKey: [QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url: ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
@@ -48,6 +54,27 @@ const NftDetail = ({ param }: any) => {
     enabled: data?.collectionId ? true : false,
     token: true,
   });
+  //   const params = {
+  //     seller: "0xeF07262CcC19E4321166C3df0cCD5999537e9EC5",
+  //     erc721: "0xc3088534f73ff8638B5CF974800871DBbc8E8B81",
+  //     erc20: "0xc737E568d7EF145C191AF237f3D0796bB8136372",
+  //     tokenId: 1,
+  //     price: "11000000000000000000",
+  //     endTime: 1687202998,
+  //     collaboratorAddress: [
+  //       "0xB1580D5634e1C7514833974767d17801717ed715",
+  //       "0x2b7A551Cb3D70cdD128624E37168b4E6b7C9b09F",
+  //     ],
+  //     collaboratorAmount: ["1500000000000000000", "3000000000000000000"],
+  //     collectionId: "77a2",
+  //   };
+  //   <Button
+  //   onClick={() => {
+  //     signMessage(params, provider, account, chainId);
+  //   }}
+  // >
+  //   List for sale
+  // </Button>
 
   return (
     <>
@@ -79,40 +106,6 @@ const NftDetail = ({ param }: any) => {
               borderBottom="1px solid"
               borderColor="rgba(53, 53, 53, 0.2)"
             >
-              {/* <Flex justifyContent="end">
-                <Box>
-                  <IconButton
-                    color=" #756C99"
-                    ml="8px"
-                    variant="outline"
-                    colorScheme="#6863F3"
-                    aria-label="Send"
-                    fontSize="20p"
-                    icon={<i className="icon-share"></i>}
-                  />
-                  <Menu>
-                    <MenuButton
-                      as={IconButton}
-                      color="#756C99"
-                      ml="8px"
-                      variant="outline"
-                      colorScheme="#6863F3"
-                      aria-label="Send"
-                      fontSize="20px"
-                      icon={<i className="icon-menu"></i>}
-                    >
-                      Actions
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem>Download</MenuItem>
-                      <MenuItem>Create a Copy</MenuItem>
-                      <MenuItem>Mark as Draft</MenuItem>
-                      <MenuItem>Delete</MenuItem>
-                      <MenuItem>Attend a Workshop</MenuItem>
-                    </MenuList>
-                  </Menu>
-                </Box>
-              </Flex> */}
               <Text marginTop="-15px" marginBottom="16px" fontSize="16px">
                 {data?.collection?.name}
               </Text>
@@ -141,10 +134,16 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
+            
+            <ListNftModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+            <Button onClick={onOpen}>         
+                 
+            Hi MOdal</Button>
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description
               </Heading>
+
               <Text>{data?.description}</Text>
               <Button
                 marginTop="10px"
