@@ -167,6 +167,7 @@ const CreateNFT = () => {
         </Heading>
 
         <Formik
+        
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
