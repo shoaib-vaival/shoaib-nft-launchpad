@@ -79,9 +79,6 @@ const CreateNFT = () => {
         try {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
-            const ethProvider = new ethers.providers.Web3Provider(
-              provider?.provider as any
-            );
             const receipt = await ethProvider.waitForTransaction(result.hash);
             abiDecoder.addABI(erc721Abi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
@@ -167,7 +164,6 @@ const CreateNFT = () => {
         </Heading>
 
         <Formik
-        
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
@@ -182,12 +178,12 @@ const CreateNFT = () => {
         >
           {({ errors, touched, values }) => (
             <Form>
-              <FormLabel m='0' display="flex" fontSize="16px" color="#393F59">
-              <Text mr="8px" color="#E53E3E">
-                *
-              </Text>
-              Required fields
-            </FormLabel>
+              <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
+                <Text mr="8px" color="#E53E3E">
+                  *
+                </Text>
+                Required fields
+              </FormLabel>
               <FormControl>
                 <NftPropertiesModal
                   isOpen={isOpen}

@@ -123,7 +123,7 @@ const CollectionCard = ({
             </CardBody>
             <CardFooter transition='.4s'   h= {isVisible && isEditAble?'auto':'0'} transform= {isVisible && isEditAble?{base:'translate(0px, -48px)',md:'translate(0px, -50px)'}:'translate(0px, 0px)'} >
             { isEditAble?
-                        <Button transition='.4s'h='100%'  variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
+                        <Button transition='.4s' h='100%'  variant='primary' colorScheme='blue' w='100%' onClick={()=>router.push(`${pagePaths?.COLLECTION}?id=${nftCollectionId}`)}>
                             Edit Collection
                         </Button>
                         

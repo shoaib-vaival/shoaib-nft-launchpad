@@ -72,7 +72,6 @@ export const useQuery = <T>({
   refetchInterval,
 }: UseQueryProps<T>): UseQueryReturn<T> => {
   const toast = useToast();
-  // console.log("inside query param", params)
   const headers = {
     Accept: "application/json",
     Authorization: token
