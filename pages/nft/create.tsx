@@ -96,7 +96,7 @@ const CreateNFT = () => {
             };
             updateNFT(data);
 
-            // if (receipt) router.push("/profile-created");
+            if (receipt.status == 1) router.push("/profile-created");
           }
           // Handle the returned result here
         } catch (error) {

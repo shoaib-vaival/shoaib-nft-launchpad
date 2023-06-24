@@ -40,7 +40,7 @@ const NftDetail = ({ param }: any) => {
     params: { nftId: param?.nftID },
     token: true,
   });
-  console.log(data);
+
   const { data: moreNftSByCollection } = useQuery<nftType[]>({
     queryKey: [QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url: ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
@@ -48,6 +48,27 @@ const NftDetail = ({ param }: any) => {
     enabled: data?.collectionId ? true : false,
     token: true,
   });
+  //   const params = {
+  //     seller: "0xeF07262CcC19E4321166C3df0cCD5999537e9EC5",
+  //     erc721: "0xc3088534f73ff8638B5CF974800871DBbc8E8B81",
+  //     erc20: "0xc737E568d7EF145C191AF237f3D0796bB8136372",
+  //     tokenId: 1,
+  //     price: "11000000000000000000",
+  //     endTime: 1687202998,
+  //     collaboratorAddress: [
+  //       "0xB1580D5634e1C7514833974767d17801717ed715",
+  //       "0x2b7A551Cb3D70cdD128624E37168b4E6b7C9b09F",
+  //     ],
+  //     collaboratorAmount: ["1500000000000000000", "3000000000000000000"],
+  //     collectionId: "77a2",
+  //   };
+  //   <Button
+  //   onClick={() => {
+  //     signMessage(params, provider, account, chainId);
+  //   }}
+  // >
+  //   List for sale
+  // </Button>
 
   return (
     <>
