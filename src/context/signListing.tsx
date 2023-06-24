@@ -1,10 +1,9 @@
-import { useEffect } from "react";
-import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 
 interface ListedItemParams {
   seller: string;
   erc721: string;
+  erc20: string;
   tokenId: number;
   price: string;
   endTime: number;
@@ -19,74 +18,73 @@ export const signMessage = async (
   account: any,
   chainId: any
 ) => {
-  //   const { provider, account, chainId } = useWeb3React();
-
   const signTypedData = async () => {
     if (provider && account) {
-      const ethProvider = new ethers.providers.Web3Provider(
-        provider?.provider as any
-      );
+      const ethProvider = new ethers.providers.Web3Provider(provider);
       const signer = ethProvider.getSigner(account);
-      console.log(
-        "🚀 ~ file: signListing.tsx:30 ~ signTypedData ~ params:",
-        params
-      );
 
-      const domain = {
-        name: "Listing",
-        version: "1",
-        chainId: chainId,
-        verifyingContract: process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
-      };
+      const msgParams = JSON.stringify({
+        domain: {
+          chainId,
+          name: "Listing",
+          verifyingContract: process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
+          version: "1",
+        },
+        message: {
+          seller: params.seller,
+          erc721: params.erc721,
+          erc20: params.erc20,
+          tokenId: params.tokenId,
+          price: params.price,
+          endTime: params.endTime,
+          collaboratorAddress: params.collaboratorAddress,
+          collaboratorAmount: params.collaboratorAmount,
+          collectionId: params.collectionId,
+        },
+        primaryType: "ListedItem",
+        types: {
+          EIP712Domain: [
+            { name: "name", type: "string" },
+            { name: "version", type: "string" },
+            { name: "chainId", type: "uint256" },
+            { name: "verifyingContract", type: "address" },
+          ],
+          ListedItem: [
+            { name: "seller", type: "address" },
+            { name: "erc721", type: "address" },
+            { name: "erc20", type: "address" },
+            { name: "tokenId", type: "uint256" },
+            { name: "price", type: "uint256" },
+            { name: "endTime", type: "uint256" },
+            { name: "collaboratorAddress", type: "address[]" },
+            { name: "collaboratorAmount", type: "uint256[]" },
+            { name: "collectionId", type: "string" },
+          ],
+        },
+      });
 
-      const types = {
-        EIP712Domain: [
-          { name: "name", type: "string" },
-          { name: "version", type: "string" },
-          { name: "chainId", type: "uint256" },
-          { name: "verifyingContract", type: "address" },
-        ],
-        ListedItem: [
-          { name: "seller", type: "address" },
-          { name: "erc721", type: "address" },
-          { name: "tokenId", type: "uint256" },
-          { name: "price", type: "uint256" },
-          { name: "endTime", type: "uint256" },
-          { name: "collaboratorAddress", type: "address[]" },
-          { name: "collaboratorAmount", type: "uint256[]" },
-          { name: "collectionId", type: "string" },
-        ],
-      };
+      var paramss = [account, msgParams];
 
-      const message = {
-        seller: params.seller,
-        erc721: params.erc721,
-        tokenId: params.tokenId,
-        price: params.price,
-        endTime: params.endTime,
-        collaboratorAddress: params.collaboratorAddress,
-        collaboratorAmount: params.collaboratorAmount,
-        collectionId: params.collectionId,
-      };
+      if (window.ethereum) {
+        try {
+          const result = await (
+            window.ethereum as {
+              request: (
+                request: { method: string; params?: unknown[] },
+                callback?: (result: unknown) => void
+              ) => Promise<unknown>;
+            }
+          ).request({
+            method: "eth_signTypedData_v4",
+            params: paramss,
+          });
 
-      const msgParams = { domain, types, primaryType: "ListedItem", message };
-
-      console.log(
-        "CLICKED, SENDING PERSONAL SIGN REQ",
-        "from",
-        account,
-        msgParams
-      );
-
-      try {
-        const result = await signer._signTypedData(
-          msgParams.domain,
-          msgParams.types,
-          msgParams.message
-        );
-        console.log("SIGN: " + JSON.stringify(result));
-      } catch (error) {
-        console.error("ERROR", error);
+          const signature = result as string;
+          // Do something with the signature
+          console.log("Signature:", signature);
+        } catch (err) {
+          console.error("Error:", err);
+        }
       }
     }
   };

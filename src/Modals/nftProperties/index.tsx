@@ -65,7 +65,7 @@ const NftPropertiesModal = ({
                     </Text>
                     <Flex mt='16px'>
                       <Text mb='0' w='42%' fontWeight='700'>Type</Text>
-                      <Text w='42%' alignItems='baseline'  fontWeight='700'>Name</Text>
+                      <Text w='42%' alignItems='baseline' fontWeight='700'>Name</Text>
                     </Flex>
                     <FieldArray name="properties">
                       {({ push, remove }: {push: any; remove:any}) => (
@@ -83,7 +83,7 @@ const NftPropertiesModal = ({
                                       placeholder="Enter proprty type"
                                       name={`properties.${[index]}.type`}
                                     />
-                                    <ErrorMessage
+                                    <ErrorMessage className=""
                                       name={`properties.${[index]}.type`}
                                       component="div"
                                     />
@@ -98,7 +98,7 @@ const NftPropertiesModal = ({
                                         placeholder="Enter proprty name"
                                         name={`properties.${[index]}.name`}
                                       />
-                                      <ErrorMessage 
+                                      <ErrorMessage
                                         name={`properties.${[index]}.name`}
                                         component="div"
                                       />
@@ -106,7 +106,7 @@ const NftPropertiesModal = ({
                                   </div>
                                   {index > 0 && (
                                     <>
-                                      <IconButton aria-label='close' bg='#6863F34D' mb={{base:'10px',sm:'0'}}ml={{base:'0',sm:'10px'}} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                      <IconButton aria-label='close' bg='#6863F34D' mb={{ base: '10px', sm: '0' }} ml={{ base: '0', sm: '10px' }} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
                                     </>
 
                                   )}

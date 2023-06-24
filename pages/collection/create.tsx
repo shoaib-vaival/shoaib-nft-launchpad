@@ -256,7 +256,7 @@ const CreateCollection = () => {
                     editAbleUrl={getCollectionById?.featureImageUrl}
                   />
                 </Box>
-                <Box mb="40px">
+                <Box mb='30px'>
                   <FileUpload
                     label="Banner Image"
                     detail={collectionDetail?.bannerImg}
@@ -287,16 +287,25 @@ const CreateCollection = () => {
                     maxLength={50}
                   />
                 </FormControl>
-                <Field
-                  name="description"
-                  component={ChakraTextarea}
-                  label="Description"
-                  placeholder="Describe your collection, 1000 characters are allowed"
-                  desc={collectionDetail?.desc}
-                />
-                <Text color="#393F59">
-                  Markdown syntax is supported. 0 of 1000 characters used.
-                </Text>
+                <FormControl mt='0'>
+                  <Field
+                    name="description"
+                    component={ChakraTextarea}
+                    label="Description"
+                    placeholder="Describe your collection, 1000 characters are allowed"
+                    desc={collectionDetail?.desc}
+                  />
+                  {touched["category"] && errors["category"] && (
+                    <Text
+                      marginTop={"8px!important"}
+                      fontWeight={"500"}
+                      color={"red.700"}
+                    >
+                      {errors["category"] as React.ReactNode}
+                    </Text>
+                  )}
+                  <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
                     options={filtredCat}
@@ -309,7 +318,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -332,7 +341,6 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                  // defaultValue={filtredTagsById}
                 />
               </Stack>
 
@@ -471,7 +479,7 @@ const CreateCollection = () => {
               </Box>
 
               <FieldArray name="creatorFee">
-                {({ push, remove }: {push: any; remove:any}) => (
+                {({ push, remove }: { push: any; remove: any }) => (
                   <>
                     {values &&
                       values?.creatorFee?.map((field: any, index: number) => (
@@ -513,12 +521,14 @@ const CreateCollection = () => {
                                     }
                                   }}
                                 />
-
-                                <ErrorMessage
-                                  name={`creatorFee.${[index]}.walletAddress`}
-                                  component="div"
-                                />
+                                <Text>
+                                </Text>
                               </FormControl>
+
+                              <ErrorMessage
+                                name={`creatorFee.${[index]}.walletAddress`}
+                                component="div"
+                              />
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
@@ -537,20 +547,19 @@ const CreateCollection = () => {
                               />
                             </Box>
 
-                            {index > 0 && (
-                              <IconButton
-                                aria-label="close"
-                                bg="#6863F34D"
-                                mt={{ base: "0", sm: "35px" }}
-                                ml={{ base: "0", sm: "10px" }}
-                                mb={{ base: "10px", sm: "0" }}
-                                type="button"
-                                color="#6863F3"
-                                border="1px solid #6863F3"
-                                onClick={() => remove(index)}
-                                icon={<i className="icon-remove"></i>}
-                              />
-                            )}
+                            <IconButton
+                              aria-label="close"
+                              bg="#6863F34D"
+                              mt={{ base: "0", sm: "35px" }}
+                              ml={{ base: "0", sm: "10px" }}
+                              mb={{ base: "10px", sm: "0" }}
+                              type="button"
+                              color="#6863F3"
+                              border="1px solid #6863F3"
+                              onClick={() => remove(index)}
+                              icon={<i className="icon-remove"></i>}
+                              visibility={index > 0 ? 'visible' : 'hidden'}
+                            />
                           </Flex>
                         </div>
                       ))}
