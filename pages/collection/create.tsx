@@ -214,8 +214,8 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <FormLabel display="flex" fontSize="16px" color="#393F59">
-              <Text mr="8px" color="#FF0000">
+            <FormLabel m='0' display="flex" fontSize="16px" color="#393F59">
+              <Text mr="8px" color="#E53E3E">
                 *
               </Text>
               Required fields
@@ -480,8 +480,7 @@ const CreateCollection = () => {
                             gap={{ base: "0", sm: "6" }}
                             alignItems={{
                               base: "flex-start",
-                              sm: "center",
-                              xl: "center",
+                              sm: "baseline",
                             }}
                             flexDirection={{
                               base: "column",
