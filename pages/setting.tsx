@@ -232,6 +232,7 @@ const Setting: NextPage = () => {
                                   placeholder="https://"
                                   _placeholder={{fontWeight:'400'}}
                                   formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
+                                  formLabelProps={{ fontWeight: '500!important' }}
                                   name="etherScanUrl"
                                   maxLength={50} />
                               </Box>

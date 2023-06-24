@@ -136,9 +136,9 @@ const NftDetail = ({ param }: any) => {
             </Box>
             
             <ListNftModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-            <Button onClick={onOpen}>         
+            <Button onClick={onOpen} variant='primary' mt='16px'>         
                  
-            Hi MOdal</Button>
+            Buy Now</Button>
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description

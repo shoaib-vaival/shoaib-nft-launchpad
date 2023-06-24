@@ -22,14 +22,16 @@ export const NftGridView = ({data, fetchNextPage, hasNextPage}:nftGridViewPropTy
             >
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
                 
-                      {data?.map((nft:nftType, index:number)=>{
-                          return (
-                        <Link href={`/nft/detail/${nft?.id}`} key={index}>
-                            <CollectionCard type='withBody' name={nft?.name}  featureImage={nft?.ipfsImageUrl} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
-                        </Link>
-                          )
-                      })} 
-                      </Flex>
+                {data?.map((nft:nftType, index:number)=>{
+                    return (
+                  <Box flex={{base:'100%',sm:'50%',lg:'33%',xl:'25%'}}>
+                  <Link href={`/nft/detail/${nft?.id}`} key={index}>
+                      <CollectionCard type='withBody' name={nft?.name}  featureImage={`${nft?.ipfsImageUrl}`} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
+                  </Link>
+                  </Box>
+                    )
+                })} 
+                </Flex>
                   </InfiniteScroll>
         </>
     )
