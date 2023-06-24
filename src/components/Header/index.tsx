@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Collapse,
   Flex,
   Avatar,
   Menu,
@@ -39,6 +40,7 @@ import { error } from "console";
 import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
+  const [toggleMenu, setToggleMenu] = useState<boolean>(false)
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
@@ -139,8 +141,12 @@ export const Header = () => {
             </Box>
             <Box
               order={{ base: "6", sm: "6", md: "6", lg: "3" }}
-              display={{ base: "none", lg: "initial" }}
+              visibility={{ base: toggleMenu?'visible':'hidden', lg: "initial" }}
+              h={toggleMenu?'auto':'0px'}
+              transform= {toggleMenu ? 'translateY(5px)':'translateY(0px)'}
+              transition='.4s linear'
             >
+            {/* <Collapse  animateOpacity in={toggleMenu} > */}
               <HStack
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
@@ -157,6 +163,7 @@ export const Header = () => {
                 <Link href="/categories">Explorer</Link>
                 <Link href="/activity">Activity</Link>
               </HStack>
+            {/* </Collapse> */}
             </Box>
 
             <Flex
@@ -229,17 +236,15 @@ export const Header = () => {
               order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
             >
-              <Menu>
-                <MenuButton
-                  as={IconButton}
+                <IconButton
                   mr={{ base: "16px", xl: "16px" }}
                   ml="5px"
                   colorScheme="purple"
                   variant="outline"
                   icon={<HamburgerIcon />}
                   aria-label="Options"
+                  onClick={()=>{setToggleMenu(!toggleMenu)}}
                 />
-              </Menu>
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>

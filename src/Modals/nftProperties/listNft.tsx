@@ -183,12 +183,9 @@ const ListNftModal = ({
                   placeholder="Enter price for this item"
                   onChange={handlePriceChange}
                 />
-                <InputRightAddon
-                  fontSize="14px"
-                  color="#393F59"
-                  bg="#6F6BF34D"
-                  children="MATIC"
-                />
+                <InputRightAddon fontSize="14px" color="#393F59" bg="#6F6BF34D">
+                  MATIC
+                </InputRightAddon>
               </InputGroup>
             </FormControl>
 

@@ -73,7 +73,7 @@ const NftDetail = ({ param }: any) => {
             borderRadius="lg"
           >
             <Image
-              src={data?.ipfsImageUrl}
+              src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${data?.ipfsImageUrl}`}
               w="100%"
               h="100%"
               objectFit="cover"
@@ -474,7 +474,7 @@ const NftDetail = ({ param }: any) => {
                 return (
                   <CollectionCard
                     type="withBody"
-                    featureImage={nft?.ipfsImageUrl}
+                    featureImage={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
                     isShowFeatureImage={true}
                     isShowLogoImage={false}
                     name={nft?.name}

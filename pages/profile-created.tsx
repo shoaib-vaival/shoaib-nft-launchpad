@@ -27,15 +27,25 @@ import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, nftType, profileType } from "../src/types";
 import { NftGridView } from "../src/views/NftGridView";
-import { NftListView } from "../src/views/NftListView";
+import NftListView  from "../src/views/NftListView";
 
 
-
+type filters = {
+  status?:string,
+  quantity?: string,
+  collections?:string,
+  sort?:string,
+  search?:string
+}
 const ProfilCreated: NextPage = () => {
   const [view, setView] = useState<string>('grid')
+  const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
+  const searchHandler = (e:any) => {
+      setFilters({...filters, search:e.target.value})
+    }
   const {data, isLoading:isProfileLoading} = useQuery<profileType>({
     queryKey:[QUERY_KEYS.GET_USER],
     url:ApiUrl.GET_USER,
@@ -47,8 +57,9 @@ const ProfilCreated: NextPage = () => {
     token:true
   })
   const {data:userNfts, error, fetchNextPage, status, hasNextPage, isLoading:isUserNftLoading } = useInfiniteQuery<nftType[]>({
-    queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
-    url:ApiUrl.GET_NFT_DETAIL,
+    queryKey:[QUERY_KEYS.GET_USER_NFTS, filters],
+    url:ApiUrl.GET_USER_NFTS,
+    params:{...filters},
     token:true
   })
   const socialIcons = [
@@ -74,7 +85,7 @@ const ProfilCreated: NextPage = () => {
         <Box>
           <Tabs>
             <TabList ml='12px' pl='0'>
-              <Tab>Items</Tab>
+              <Tab>Created</Tab>
               <Tab>Activity</Tab>
             </TabList>
 
@@ -101,12 +112,15 @@ const ProfilCreated: NextPage = () => {
                   </Box>
                   <Box order={{ base: '3', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
                     <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "200px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' />
+                      <Input placeholder='Search...' onChange={(e)=>searchHandler(e)} value = {filters?.search}/>
                       <InputLeftElement>
                         <img src='/assets/images/search-icon.svg' />
                       </InputLeftElement>
                     </InputGroup>
                   </Box>
+                  <Box width="150px" ml='8px'  order={{base:'2',sm:'3'}}>
+                  <ReactSelect options={[{ label: 'Ascending ', value: 'ASC' }, { label: 'Descending ', value: 'DESC' } ]} placeholder="Sort By" isMultiple={false} identifier='filter' getSelectedData={(selectedOption: any) => setFilters({...filters, sort:selectedOption?.value})} />
+                </Box>
                   <ButtonGroup order={{ base: '2', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
                     <IconButton
                       variant='outline'
