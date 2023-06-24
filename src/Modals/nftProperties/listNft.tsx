@@ -160,7 +160,7 @@ const ListNftModal = ({
       }
     );
     if (sign) {
-      console.log("🚀 ~ file: listNft.tsx:123 ~ handleListing ~ sign:", sign);
+      console.log("🚀 ~ file: listNft.tsx:123 ~ handleListing ~ sign:", params);
       mutate({ ...params, signature: sign });
     }
   };

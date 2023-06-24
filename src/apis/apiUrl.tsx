@@ -26,6 +26,6 @@ export const ApiUrl = {
   SAVE_SIGNATURE: "user/connect-wallet",
   GET_SIGNATURE: "user/get-user-walletAddress",
   CREATE_NOTIFICATION: "user/send-notification",
-  LIST_FOR_SALE: "sale/list-nft",
+  LIST_FOR_SALE: "nft-listing/list-nft",
   GET_USER_NFTS: "minting/get-user-nfts",
 };
