@@ -63,7 +63,7 @@ export const signMessage = async (
         },
       });
 
-      var paramss = [account, msgParams];
+      const paramss = [account, msgParams];
 
       if (window.ethereum) {
         try {

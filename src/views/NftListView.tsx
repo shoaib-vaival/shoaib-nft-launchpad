@@ -8,7 +8,7 @@ type nftListProp = {
     fetchNextPage:()=>void,
     hasNextPage:boolean
 }
-export const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
+const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
   return (
     <>
       <TableContainer>
@@ -52,3 +52,5 @@ export const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) =
     </>
   )
 }
+
+export default NftListView

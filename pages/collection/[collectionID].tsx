@@ -27,7 +27,7 @@ import { ApiUrl } from "../../src/apis/apiUrl";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
-import { NftListView } from "../../src/views/NftListView";
+import NftListView  from "../../src/views/NftListView";
 import { NftGridView } from "../../src/views/NftGridView";
 import { collectionType, nftType } from "../../src/types";
 import {useDebounce} from './../../src/hooks/useDebounce'

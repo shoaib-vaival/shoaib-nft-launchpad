@@ -27,7 +27,7 @@ import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, nftType, profileType } from "../src/types";
 import { NftGridView } from "../src/views/NftGridView";
-import { NftListView } from "../src/views/NftListView";
+import NftListView  from "../src/views/NftListView";
 
 
 type filters = {
