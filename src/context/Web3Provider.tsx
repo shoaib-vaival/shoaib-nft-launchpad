@@ -8,6 +8,7 @@ import {
   Web3ReactProvider,
 } from "@web3-react/core";
 import { walletConnect, walletConnecthooks } from "../connectors/walletConnect";
+import { getCookie, setCookie, removeCookie } from "typescript-cookie";
 
 // const isActivating = useIsActivating()
 
@@ -104,6 +105,7 @@ export const Web3ContextProvider = ({
     setToLocalStorage("isWalletConnected", false);
     localStorage.removeItem("walletconnect");
     localStorage.removeItem("accessToken");
+    removeCookie("accessToken");
   };
 
   const connect = async () => {
@@ -119,6 +121,7 @@ export const Web3ContextProvider = ({
     metaMask?.resetState();
     setToLocalStorage("isWalletConnected", false);
     localStorage.removeItem("accessToken");
+    removeCookie("accessToken");
   };
 
   return (

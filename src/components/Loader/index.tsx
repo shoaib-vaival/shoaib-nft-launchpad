@@ -8,7 +8,7 @@ export const Loader=()=>{
     return(
         <>
         <Box >
-        <Image src='/assets/images/spinner.svg' w='50%'/>
+        <Image src='/assets/images/spinner.svg' w="100px" />
         </Box>
         </>
     )

@@ -82,10 +82,10 @@ const ProfilCreated: NextPage = () => {
               <TabPanel p={0}>
 
                 <Box>
-                  {isUserCollectionLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
+                  { userCollections && userCollections?.length <= 0 ? '':
                   <SlickSlider >
                     {userCollections?.map((collection: any, index: number) => {
-                      return <CollectionCard type='withBody' key={index} featureImage={collection?.bannerImageUrl} logoImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={true} name={collection.name} />
+                      return <CollectionCard type='withBody' isEditAble={true} key={index} featureImage={collection?.bannerImageUrl} logoImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={true} name={collection.name} />
                     })}
                   </SlickSlider>
                   }

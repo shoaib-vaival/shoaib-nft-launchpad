@@ -112,7 +112,7 @@ const Setting: NextPage = () => {
           <Tabs>
             <TabList ml='12px' pl='0'>
               <Tab>Account</Tab>
-              <Tab>Notifications</Tab>
+              {/* <Tab>Notifications</Tab> */}
             </TabList>
 
             <TabPanels>
@@ -124,8 +124,7 @@ const Setting: NextPage = () => {
                   <Box w={{ base: '100px', sm: '150px', md: '200px' }} h={{ base: '100px', sm: '150px', md: '200px' }} borderRadius="16px" border="2px solid white" position="absolute" left='5%' bottom={{ base: '-30%', sm: '-43%', md: '-45%' }} transform="translateY(-50%)">
                     <EditUploadFile image={profile?.profileUrl ? profile?.profileUrl : ''} id="profilePhoto" onChange={(e) => uploadFileOnServerFunc({ photo: e.target.files[0], label: 'userProfilePhoto' })} isShowLabel={false} />
                   </Box>
-
-                  {/* <ProfileHeader showSocialIcons={false} FileUploadOverlay={true} /> */}
+                  
                 </Box>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} p={{ base: '0', md: '16px' }}>
                   <Box>
@@ -354,7 +353,7 @@ const Setting: NextPage = () => {
                   </Box>
                 </Container>
               </TabPanel>
-              <TabPanel p={0}>
+              {/* <TabPanel p={0}>
                 <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} px={{ base: '0', md: '30px' }}>
                   <Flex flexDirection='row' mt='15px' >
                     <Box mb='10px'>
@@ -400,7 +399,7 @@ const Setting: NextPage = () => {
                     </Form>
                   </Formik>
                 </Container>
-              </TabPanel>
+              </TabPanel> */}
             </TabPanels>
           </Tabs></Box></Container >
     </>

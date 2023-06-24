@@ -1,27 +1,48 @@
-import { Container, Heading, Flex, Box, Button, Text, Stat, StatLabel, StatNumber, Grid } from '@chakra-ui/react'
+import {
+  Container,
+  Heading,
+  Flex,
+  Box,
+  Button,
+  Text,
+  Stat,
+  StatLabel,
+  StatNumber,
+  Grid,
+} from "@chakra-ui/react";
 
-type  profileDetailProps = {
-  showStats:boolean,
-  data:any,
-  isCollection:boolean,
-  isVerified?:boolean,
-  description?:string
-}
-const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}:profileDetailProps) => {
+type profileDetailProps = {
+  showStats: boolean;
+  data: any;
+  isCollection: boolean;
+  isVerified?: boolean;
+  description?: string;
+};
+const ProfileDetail = ({
+  showStats,
+  data,
+  isVerified,
+  isCollection,
+  description,
+}: profileDetailProps) => {
   return (
     <>
-      <Container pl={{base:'0', md:'54px'}} mt='24px'  pr='0' pt='0'>
-        <Flex alignItems={{base:'baseline',md:'center'}} flexDirection={{base:'column',sm:'row'}} >
-          <Flex alignItems='center'>
-            <Heading as='h4' fontSize={{base:'26px',md:'32px'}}>
+      <Container pl={{ base: "0", md: "54px" }} mt="24px" pr="0" pt="0">
+        <Flex
+          alignItems={{ base: "baseline", md: "center" }}
+          flexDirection={{ base: "column", sm: "row" }}
+        >
+          <Flex alignItems="center">
+            <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
               {data?.displayName || data?.name}
             </Heading>
-            {
-              isVerified ?  <Box mx='12px' color='#6863F3'>
-              <i className='icon-tick'></i>
-            </Box>:''
-            }
-           
+            {isVerified ? (
+              <Box mx="12px" color="#6863F3">
+                <i className="icon-tick"></i>
+              </Box>
+            ) : (
+              ""
+            )}
           </Flex>
           <Box>
           {!isCollection ?
@@ -29,10 +50,14 @@ const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}
               <Text mr='8px'  color='#393F59'fontSize='12px'>0x797970 … 8080</Text> <Box color='#756C99' fontSize='14px'><i className='icon-copy'></i></Box>
             </Button>:''}
           </Box>
-
         </Flex>
-        <Flex flexDirection={{ base: 'column', md: 'column', lg: 'row', xl: 'row' }}>
-          <Box w={{base:'100%',lg:'50%'}} mb={{base:'20px',lg:'initial'}}>
+        <Flex
+          flexDirection={{ base: "column", md: "column", lg: "row", xl: "row" }}
+        >
+          <Box
+            w={{ base: "100%", lg: "50%" }}
+            mb={{ base: "20px", lg: "initial" }}
+          >
             <Box>
               <Flex flexWrap='wrap' mb={{base:'4px',md:'initial'}}>
                 {
@@ -71,42 +96,51 @@ const ProfileDetail = ({showStats, data, isVerified, isCollection,  description}
               </Flex>
             </Box>
             <Box>
-              <Text maxW={{ sm: '100%', xl: '90%' }}>
-              {data?.description || data?.bio}
+              <Text maxW={{ sm: "100%", xl: "90%" }}>
+                {data?.description || data?.bio}
               </Text>
             </Box>
           </Box>
-          {showStats &&
-          <Box w={{base:'100%',lg:'50%'}}  mb={{base:'20px',lg:'initial'}}>
-            <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap='3'>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
-              </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
-              </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
-              </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
-              </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
-              </Stat>
-            </Grid>
-          </Box>
-          }
+          {showStats && (
+            <Box
+              w={{ base: "100%", lg: "50%" }}
+              mb={{ base: "20px", lg: "initial" }}
+            >
+              <Grid
+                templateColumns={{
+                  base: "repeat(1, 1fr)",
+                  sm: "repeat(2, 1fr)",
+                  md: "repeat(3, 1fr)",
+                }}
+                gap="3"
+              >
+                <Stat>
+                  <StatLabel>Collected Fees</StatLabel>
+                  <StatNumber>£0.00</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Collected Fees</StatLabel>
+                  <StatNumber>£0.00</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Collected Fees</StatLabel>
+                  <StatNumber>£0.00</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Collected Fees</StatLabel>
+                  <StatNumber>£0.00</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Collected Fees</StatLabel>
+                  <StatNumber>£0.00</StatNumber>
+                </Stat>
+              </Grid>
+            </Box>
+          )}
         </Flex>
-
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default ProfileDetail
+export default ProfileDetail;
