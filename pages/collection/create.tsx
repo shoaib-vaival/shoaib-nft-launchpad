@@ -287,24 +287,24 @@ const CreateCollection = () => {
                     maxLength={50}
                   />
                 </FormControl>
-                <FormControl  mt='0'>
-                <Field
-                  name="description"
-                  component={ChakraTextarea}
-                  label="Description"
-                  placeholder="Describe your collection, 1000 characters are allowed"
-                  desc={collectionDetail?.desc}
-                />
-                {touched["category"] && errors["category"] && (
-                  <Text
-                    marginTop={"8px!important"}
-                    fontWeight={"500"}
-                    color={"red.700"}
-                  >
-                    {errors["category"] as React.ReactNode}
-                  </Text>
-                )}
-                <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
+                <FormControl mt='0'>
+                  <Field
+                    name="description"
+                    component={ChakraTextarea}
+                    label="Description"
+                    placeholder="Describe your collection, 1000 characters are allowed"
+                    desc={collectionDetail?.desc}
+                  />
+                  {touched["category"] && errors["category"] && (
+                    <Text
+                      marginTop={"8px!important"}
+                      fontWeight={"500"}
+                      color={"red.700"}
+                    >
+                      {errors["category"] as React.ReactNode}
+                    </Text>
+                  )}
+                  <Text color='#393F59'>Markdown syntax is supported. 0 of 1000 characters used.</Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
@@ -318,7 +318,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -479,7 +479,7 @@ const CreateCollection = () => {
               </Box>
 
               <FieldArray name="creatorFee">
-                {({ push, remove }: {push: any; remove:any}) => (
+                {({ push, remove }: { push: any; remove: any }) => (
                   <>
                     {values &&
                       values?.creatorFee?.map((field: any, index: number) => (
@@ -521,7 +521,14 @@ const CreateCollection = () => {
                                     }
                                   }}
                                 />
+                                <Text>
+                                </Text>
                               </FormControl>
+
+                              <ErrorMessage
+                                name={`creatorFee.${[index]}.walletAddress`}
+                                component="div"
+                              />
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>

@@ -165,7 +165,6 @@ const CreateNFT = () => {
         <Heading as="h1" mb="45px" pt={"30px"}>
           Create New Item
         </Heading>
-        <FormLabel m='0' display='flex' fontSize='16px' color='#393F59'><Text mr='6px' color='#E53E3E'>*</Text>Required fields</FormLabel>
 
         <Formik
         
