@@ -6,7 +6,7 @@ import { NextArrow } from './NextArrow';
 import { PrevArrow } from './PrevArrow';
 
 
-export const SlickSlider = ({children}:any)=>{
+export const SlickSlider = ({children, customSettings}:any)=>{
     const [carousalRef,setCarousalRef] = useState<any>()
     return(
         // <>

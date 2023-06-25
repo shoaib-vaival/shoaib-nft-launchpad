@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ApiUrl } from "../src/apis/apiUrl";
 import CollectionCard from "../src/components/Cards/CollectionCard";
 import { ReactSelect } from "../src/components/common";
@@ -23,11 +23,12 @@ import ProfileHeader from "../src/components/Profile/ProfileHeader";
 import { SlickSlider } from '../src/components/ReactSlick'
 import CustomSlider from "../src/components/Slider";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
+import { useDebounce } from "../src/hooks/useDebounce";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, nftType, profileType } from "../src/types";
-import { NftGridView } from "../src/views/NftGridView";
-import NftListView  from "../src/views/NftListView";
+import { GridView } from "../src/views/GridView";
+import ListView  from "../src/views/ListView";
 
 
 type filters = {
@@ -40,12 +41,17 @@ type filters = {
 const ProfilCreated: NextPage = () => {
   const [view, setView] = useState<string>('grid')
   const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
+  const [search, setSearch] = useState<string>()
+  const debounceValue = useDebounce(search, 1000);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
   const searchHandler = (e:any) => {
-      setFilters({...filters, search:e.target.value})
+       setSearch(e.target.value)
     }
+    useEffect(()=>{
+      setFilters({...filters, search:debounceValue})
+    },[debounceValue])
   const {data, isLoading:isProfileLoading} = useQuery<profileType>({
     queryKey:[QUERY_KEYS.GET_USER],
     url:ApiUrl.GET_USER,
@@ -70,6 +76,8 @@ const ProfilCreated: NextPage = () => {
     { icon: 'icon-twitter', url: data?.twitter },
     { icon: 'icon-groupbar', url: data?.etherScanUrl }
   ]
+
+  
   return (
     <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
@@ -146,7 +154,7 @@ const ProfilCreated: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid'? userNfts !== undefined && <NftGridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : userNfts !== undefined && <NftListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
+                {view === 'grid'? userNfts !== undefined && <GridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} type="nft" /> : userNfts !== undefined && <ListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
