@@ -5,7 +5,7 @@ interface ListedItemParams {
   erc721: string;
   tokenId: number;
   price: string;
-  endTime: number;
+  duration: number;
   collaboratorAddress: string[];
   collaboratorAmount: string[];
   collectionId: string;
@@ -18,9 +18,6 @@ export const signMessage = async (
   chainId: any
 ): Promise<string | null> => {
   if (provider && account) {
-    const ethProvider = new ethers.providers.Web3Provider(provider);
-    const signer = ethProvider.getSigner(account);
-
     const msgParams = JSON.stringify({
       domain: {
         chainId,
@@ -33,7 +30,7 @@ export const signMessage = async (
         erc721: params.erc721,
         tokenId: params.tokenId,
         price: params.price,
-        endTime: params.endTime,
+        duration: params.duration,
         collaboratorAddress: params.collaboratorAddress,
         collaboratorAmount: params.collaboratorAmount,
         collectionId: params.collectionId,
@@ -51,7 +48,7 @@ export const signMessage = async (
           { name: "erc721", type: "address" },
           { name: "tokenId", type: "uint256" },
           { name: "price", type: "uint256" },
-          { name: "endTime", type: "uint256" },
+          { name: "duration", type: "uint256" },
           { name: "collaboratorAddress", type: "address[]" },
           { name: "collaboratorAmount", type: "uint256[]" },
           { name: "collectionId", type: "string" },

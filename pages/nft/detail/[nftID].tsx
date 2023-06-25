@@ -22,6 +22,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
+const abiDecoder = require("abi-decoder");
 import { useDisclosure } from "@chakra-ui/react";
 import { ApiUrl } from "../../../src/apis/apiUrl";
 import CollectionCard from "../../../src/components/Cards/CollectionCard";
@@ -32,20 +33,33 @@ import { nftType } from "../../../src/types";
 import { useWeb3React } from "@web3-react/core";
 import ListNftModal from "../../../src/Modals/nftProperties/listNft";
 import { useState } from "react";
+import { useMutation } from "../../../src/hooks/useMutation";
+import { PATCH, POST } from "../../../src/hooks/consts";
+import { marketContractAbi } from "../../../src/connectors/marketContractAbi";
+import { ethers } from "ethers";
+import { useContract } from "../../../src/connectors/marketProvider";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [nftData, setNftData] = useState<any>({});
 
-  const { data } = useQuery<nftType>({
+  const { data } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
     url: ApiUrl.GET_NFT_DETAIL,
     params: { nftId: param?.nftID },
     token: true,
     onSuccess: async (data) => {
+      console.log("🚀 ~ file: [nftID].tsx:47 ~ onSuccess: ~ data:", data);
       setNftData(data);
     },
+  });
+
+  const { mutate: cancelList } = useMutation<any>({
+    method: PATCH,
+    url: `${ApiUrl?.CANCEL_LISTING}/${data?.listings[0]?.id}`,
+    showSuccessToast: true,
+    token: true,
   });
 
   const { data: moreNftSByCollection } = useQuery<nftType[]>({
@@ -55,6 +69,93 @@ const NftDetail = ({ param }: any) => {
     enabled: data?.collectionId ? true : false,
     token: true,
   });
+
+  const contractInst = useContract();
+  interface BuyItemParams {
+    seller: string | undefined;
+    erc721: string;
+    tokenId: number;
+    price: string;
+    endTime: number;
+    signature: string;
+    collaboratorAddress: string[];
+    collaboratorAmount: string[];
+    collectionId: string;
+  }
+
+  const params: BuyItemParams = {
+    seller: data?.owner,
+    erc721: data?.minting_contract_address,
+    tokenId: data?.tokenId,
+    price: data?.listings[0]?.price,
+    endTime: data?.listings[0]?.duration,
+    signature: data?.listings[0]?.signature,
+    collaboratorAddress: data?.listings[0]?.collaboratorAddress,
+    collaboratorAmount: data?.listings[0]?.collaboratorAmount,
+    collectionId: data?.collectionId,
+  };
+
+  // Call the contract
+
+  const buy = async () => {
+    if (contractInst) {
+      alert(buy);
+      try {
+        const result = await contractInst.buy(
+          params?.seller,
+          params?.erc721,
+          params?.tokenId,
+          params?.price,
+          params?.endTime,
+          params?.signature,
+          params?.collaboratorAddress,
+          params?.collaboratorAmount,
+          params?.collectionId,
+          {
+            value: String(ethers.utils.parseEther(params.price)), // Specify the amount of ETH to send with the transaction
+          }
+        );
+        if (result) {
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          console.log("🚀 ~ file: [nftID].tsx:86 ~ buy ~ receipt:", receipt);
+          // abiDecoder.addABI(marketContractAbi);
+          // const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+
+          // const data = {
+          //   contractAddress: decodedLogs[2]?.events[1]?.value,
+          //   collectionName: decodedLogs[2]?.events[0]?.value,
+          // };
+          // update(data);
+
+          // if (receipt) router.push("/profile-created");
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle errors here
+      }
+    }
+  };
+
+  const { mutate: update } = useMutation<any>({
+    method: PATCH,
+    url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
+    showSuccessToast: true,
+    token: true,
+  });
+
+  const handleBuy = async () => {
+    // CONTRACT FUNCTION CALL TO BUY NFT
+    // API CALL TO SAVE BOUGHT DATA
+  };
+
+  const cancelListing = async () => {
+    cancelList("");
+    // CONTRACT FUNCTION CALL CANCEL LISTING
+    // API CALL TO SAVE BOUGHT DATA
+  };
 
   return (
     <>
@@ -114,11 +215,45 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
-            
-            <ListNftModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-            <Button onClick={onOpen} variant='primary' mt='16px'>         
-                 
-            Buy Now</Button>
+
+            <ListNftModal
+              isOpen={isOpen}
+              onClose={onClose}
+              onOpen={onOpen}
+              nftData={nftData}
+            />
+
+            {data &&
+            data.owner?.toLowerCase() === account?.toLowerCase() &&
+            (data?.listings[0]?.listingStatus == false ||
+              data?.listings.length == 0) ? (
+              <Button onClick={onOpen} variant="primary" mt="16px">
+                List For Sale
+              </Button>
+            ) : data &&
+              data.owner === account?.toLowerCase() &&
+              data?.listings[0]?.listingStatus == true ? (
+              <Button
+                onClick={() => {
+                  cancelListing();
+                }}
+                variant="primary"
+                mt="16px"
+              >
+                Cancel Listing
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  buy();
+                }}
+                variant="primary"
+                mt="16px"
+              >
+                Buy Now
+              </Button>
+            )}
+
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description

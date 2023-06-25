@@ -40,7 +40,7 @@ import { error } from "console";
 import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
-  const [toggleMenu, setToggleMenu] = useState<boolean>(false)
+  const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
@@ -141,12 +141,15 @@ export const Header = () => {
             </Box>
             <Box
               order={{ base: "6", sm: "6", md: "6", lg: "3" }}
-              visibility={{ base: toggleMenu?'visible':'hidden', lg: "initial" }}
-              h={toggleMenu?'auto':'0px'}
-              transform= {toggleMenu ? 'translateY(5px)':'translateY(0px)'}
-              transition='.4s linear'
+              visibility={{
+                base: toggleMenu ? "visible" : "hidden",
+                lg: "initial",
+              }}
+              h={toggleMenu ? "auto" : "0px"}
+              transform={toggleMenu ? "translateY(5px)" : "translateY(0px)"}
+              transition=".4s linear"
             >
-            {/* <Collapse  animateOpacity in={toggleMenu} > */}
+              {/* <Collapse  animateOpacity in={toggleMenu} > */}
               <HStack
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
@@ -163,7 +166,7 @@ export const Header = () => {
                 <Link href="/categories">Explorer</Link>
                 <Link href="/activity">Activity</Link>
               </HStack>
-            {/* </Collapse> */}
+              {/* </Collapse> */}
             </Box>
 
             <Flex
@@ -236,15 +239,17 @@ export const Header = () => {
               order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
             >
-                <IconButton
-                  mr={{ base: "16px", xl: "16px" }}
-                  ml="5px"
-                  colorScheme="purple"
-                  variant="outline"
-                  icon={<HamburgerIcon />}
-                  aria-label="Options"
-                  onClick={()=>{setToggleMenu(!toggleMenu)}}
-                />
+              <IconButton
+                mr={{ base: "16px", xl: "16px" }}
+                ml="5px"
+                colorScheme="purple"
+                variant="outline"
+                icon={<HamburgerIcon />}
+                aria-label="Options"
+                onClick={() => {
+                  setToggleMenu(!toggleMenu);
+                }}
+              />
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>
