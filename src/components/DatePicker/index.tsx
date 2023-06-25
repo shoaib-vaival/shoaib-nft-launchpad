@@ -3,6 +3,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getYear, getMonth } from "date-fns";
 import enGB from "date-fns/locale/en-GB";
+import { Box, Button, Icon, IconButton, Select } from "@chakra-ui/react";
 
 registerLocale("en-GB", enGB);
 
@@ -32,6 +33,7 @@ const DatePickerReact: React.FC = () => {
   return (
     <DatePicker
       locale="en-GB"
+      wrapperClassName="datePicker"
       renderCustomHeader={({
         date,
         changeYear,
@@ -41,17 +43,17 @@ const DatePickerReact: React.FC = () => {
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
       }) => (
-        <div
+        <Box
           style={{
             margin: 10,
             display: "flex",
             justifyContent: "center",
           }}
         >
-          <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-            {"<"}
-          </button>
-          <select
+          <Button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+            {/* {<><Icon className="icon-remove" /></>} */'<'}
+          </Button>
+          <Select
             value={getYear(date)}
             onChange={({ target: { value } }) => changeYear(Number(value))}
           >
@@ -60,9 +62,9 @@ const DatePickerReact: React.FC = () => {
                 {option}
               </option>
             ))}
-          </select>
+          </Select>
 
-          <select
+          <Select
             value={months[getMonth(date)]}
             onChange={({ target: { value } }) =>
               changeMonth(months.indexOf(value))
@@ -73,12 +75,12 @@ const DatePickerReact: React.FC = () => {
                 {option}
               </option>
             ))}
-          </select>
+          </Select>
 
-          <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+          <Button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
             {">"}
-          </button>
-        </div>
+          </Button>
+        </Box>
       )}
       selected={startDate}
       minDate={startDate}

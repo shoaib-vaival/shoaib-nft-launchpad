@@ -43,6 +43,13 @@ export const theme = extendTheme({
             h1:{
                 fontSize:'56px'
             },
+            '.datePicker' :{
+                backGround:'red',
+                width:"100%",
+                input:{
+                    width:"100%"
+                }
+            }
         }
     }
 })
