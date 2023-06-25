@@ -1,11 +1,9 @@
 export const settings = {
       dots: false,
       infinite: false,
-      centerMode:false,
       speed: 500,
       slidesToShow: 4,
       slidesToScroll: 4,
-      slidesPerRow:1,
       arrows:false,
       vertical: false,
       responsive: [
@@ -14,8 +12,6 @@ export const settings = {
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3,
-            infinite: true,
-            dots: false
           }
         },
         {
@@ -23,7 +19,6 @@ export const settings = {
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            initialSlide: 2
           }
         },
         {
