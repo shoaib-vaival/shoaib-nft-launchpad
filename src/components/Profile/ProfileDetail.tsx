@@ -115,25 +115,25 @@ const ProfileDetail = ({
                 gap="3"
               >
                 <Stat>
-                  <StatLabel>Collected Fees</StatLabel>
-                  <StatNumber>£0.00</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Collected Fees</StatLabel>
-                  <StatNumber>£0.00</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Collected Fees</StatLabel>
-                  <StatNumber>£0.00</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Collected Fees</StatLabel>
-                  <StatNumber>£0.00</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Collected Fees</StatLabel>
-                  <StatNumber>£0.00</StatNumber>
-                </Stat>
+                <StatLabel>Total Volume</StatLabel>
+                <StatNumber>225,278 MATIC</StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>Floor Price</StatLabel>
+                <StatNumber>5.344 MATIC</StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>Items Listed</StatLabel>
+                <StatNumber>20%</StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>Owners</StatLabel>
+                <StatNumber>3,082</StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>Unique Owners</StatLabel>
+                <StatNumber>31%</StatNumber>
+              </Stat>
               </Grid>
             </Box>
           )}
