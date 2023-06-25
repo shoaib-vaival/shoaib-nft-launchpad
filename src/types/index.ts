@@ -72,6 +72,7 @@ export type collectionType = {
         tags?: nftType[],
         category?:categoriesType,
         user?:profileType
+        nftCount?: number;
 } 
 
 export type fileUploadType = {

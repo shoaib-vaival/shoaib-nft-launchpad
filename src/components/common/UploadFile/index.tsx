@@ -94,7 +94,7 @@ const FileUpload = ({
 
   return (
     <>
-      <Box color="#756C99" _hover={{ cursor: 'pointer' }}>
+      <Box color="#756C99">
         
         {label && <FormLabel color='#0D0D0D' fontSize='24px!important' fontWeight='700' marginBottom="16px">{label}</FormLabel>}
         {detail && (

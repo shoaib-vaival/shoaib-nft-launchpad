@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Collapse,
   Flex,
   Avatar,
   Menu,
@@ -39,6 +40,7 @@ import { error } from "console";
 import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
+  const [toggleMenu, setToggleMenu] = useState<boolean>(false)
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
@@ -96,16 +98,16 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
-        <Box py="30px" px={{ base: "0", md: "0 17px", xl: "0" }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }} >
+        <Box py="30px" px={{ base: "0", md: "17px", xl: "0" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
             justifyContent={{ base: "flex-start", xl: "initial" }}
             flexWrap="wrap"
+            gap={{base:'0',md:'initial'}}
           >
-            <Box
-              pb="8px"
+            <Box pb="8px"
               order={{ base: "1", sm: "1" }}
               marginRight={{ base: "auto", md: "initial" }}
               as={Link}
@@ -118,12 +120,11 @@ export const Header = () => {
                 maxH="45px"
               />
             </Box>
-            <Box
-              order={{ base: "4", sm: "4", md: "5", lg: "2" }}
+            <Box order={{ base: "5", sm: "5", md: "6", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
               pr={{ base: "0", lg: "30px" }}
-              pt={{ base: "20px", lg: "0" }}
+              pt={{ base:"5px" }}
             >
               <InputGroup
                 variant="custom"
@@ -137,30 +138,39 @@ export const Header = () => {
                 </InputLeftElement>
               </InputGroup>
             </Box>
-            <Box
-              order={{ base: "6", sm: "6", md: "6", lg: "3" }}
-              display={{ base: "none", lg: "initial" }}
+            <Box order={{ base: "4", sm: "4", md: "5", lg: "3" }}
+              visibility={{ base: toggleMenu?'visible':'hidden', lg: "initial" }}
+              h={{ base: toggleMenu?'auto':'0px',lg: "initial" }}
+              display={{ base: toggleMenu?'block':'none', lg: "initial"}}
+              transform= {toggleMenu ? 'translateY(5px)':'translateY(0px)'}
+              w={{base:'100%',lg:'inherit'}}
+              bg={{base:'#ffdafe75',lg:'transparent'}}
+              mt={{base:'5px',lg:'initial'}}
+                borderTopLeftRadius={{base:'16px',lg:'0'}}
+                borderTopRightRadius={{base:'16px',lg:'0'}}
+                transition='.5s cubic-bezier(0.64, 0.46, 0.47, 0.87)'
             >
               <HStack
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
-                alignItems={{ base: "initial", xl: "center" }}
+                alignItems={{ base: "initial", lg: "center" }}
                 flexDirection={{
                   base: "column",
                   sm: "column",
-                  md: "row",
-                  xl: "row",
+                  lg: "row",
                 }}
-                spacing={{ base: "12px", lg: "11px", xl: "24px" }}
+                w={{ base: "100%", lg: "initial" }}
+                spacing={{ base: "8px", lg: "11px", xl: "24px" }}
+                p={{ base: "10px", lg: "0" }}
+                
               >
                 <Link href="/">Home</Link>
-                <Link href="/categories">Explorer</Link>
+                <Link href="/categories">Explore</Link>
                 <Link href="/activity">Activity</Link>
               </HStack>
             </Box>
 
-            <Flex
-              order={{ base: "5", sm: "5", md: "2", lg: "4" }}
+            <Flex order={{ base: "6", sm: "6", md: "2", lg: "4" }}
               marginLeft={{ base: "auto", md: "auto !important" }}
               alignItems="center"
               justifyContent={{ sm: "flex-end" }}
@@ -225,21 +235,18 @@ export const Header = () => {
                 </Button>
               )}
             </Flex>
-            <Box
-              order={{ base: "3", sm: "3", md: "4", lg: "5" }}
+            <Box order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
             >
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  mr={{ base: "16px", xl: "16px" }}
-                  ml="5px"
+                <IconButton
+                  mr="0" 
+                  ml="8px"
                   colorScheme="purple"
                   variant="outline"
                   icon={<HamburgerIcon />}
                   aria-label="Options"
+                  onClick={()=>{setToggleMenu(!toggleMenu)}}
                 />
-              </Menu>
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>

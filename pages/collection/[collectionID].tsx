@@ -27,16 +27,28 @@ import { ApiUrl } from "../../src/apis/apiUrl";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
-import { NftListView } from "../../src/views/NftListView";
-import { NftGridView } from "../../src/views/NftGridView";
+import ListView  from "../../src/views/ListView";
+import {GridView} from "../../src/views/GridView";
 import { collectionType, nftType } from "../../src/types";
 import {useDebounce} from './../../src/hooks/useDebounce'
+import { SidebarFilter } from "../../src/components/SidebarFilter";
+
+
+type filters = {
+  status?:string,
+  quantity?: string,
+  collections?:string,
+  sort?:string,
+  search?:string
+}
 
 const Collection: NextPage = () => {
   const router = useRouter()
   const [collectionID, setCollectionID] = useState<string|undefined>('') 
+  const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
   const [search, setSearch] = useState<string>()
   const [view, setView] = useState<string>('grid')
+  const debounceValue = useDebounce(search, 1000);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
@@ -46,16 +58,18 @@ const Collection: NextPage = () => {
     enabled:router.query.collectionID ? true : false
   })
     const { data:collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<nftType[]>({
-      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, search],
+      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
       url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
-      params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`, search},
+      params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`, ...filters},
       token:true
     });
 
-    const searchHandler = (e:any) => {
-      setSearch(e.target.value)
+     const searchHandler = (e:any) => {
+       setSearch(e.target.value)
     }
-
+    useEffect(()=>{
+      setFilters({...filters, search:debounceValue})
+    },[debounceValue])
   const socialIcons = [
     { icon: 'icon-internet', url: collectionDetail?.website_url },
     { icon: 'icon-telegram', url: collectionDetail?.telegram },
@@ -63,7 +77,19 @@ const Collection: NextPage = () => {
     { icon: 'icon-instagram', url: collectionDetail?.instagram },
     { icon: 'icon-twitter', url: collectionDetail?.twitter },
     { icon: 'icon-groupbar', url: collectionDetail?.email }
-  ]
+  ];
+  const filterGroups = [
+    {
+      name: 'Status',
+      filters: [
+        { name: 'Listed', type: 'checkbox' },
+        { name: 'On Auction', type: 'checkbox' },
+        { name: 'Has Offers', type: 'checkbox' },
+        { name: 'New', type: 'checkbox' },
+      ],
+    },
+    // Add more filter groups here if needed
+  ];
   return (
     <>
       <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
@@ -80,6 +106,7 @@ const Collection: NextPage = () => {
             <TabList>
               <Tab>Items</Tab>
               <Tab>Activity</Tab>
+              <Tab>Analytics</Tab>
             </TabList>
 
             <TabPanels>
@@ -101,6 +128,9 @@ const Collection: NextPage = () => {
                         <img src='/assets/images/search-icon.svg' />
                       </InputLeftElement>
                     </InputGroup>
+                  </Box>
+                  <Box width="150px" ml='8px' order={{ base: '2', sm: '3' }}>
+                    <ReactSelect options={[{ label: 'Ascending ', value: 'ASC' }, { label: 'Descending ', value: 'DESC' } ]} isMultiple={false} identifier='filter' getSelectedData={(selectedOption: any) => setFilters({...filters, sort:selectedOption?.value})} placeholder="Sort By" />
                   </Box>
                   <ButtonGroup order={{ base: '2', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
                     <IconButton
@@ -127,7 +157,7 @@ const Collection: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid' ?  collectionNfts !== undefined && <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <NftListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                {view === 'grid' ?  collectionNfts !== undefined && <GridView type="nft" data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>

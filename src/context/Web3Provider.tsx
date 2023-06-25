@@ -97,7 +97,6 @@ export const Web3ContextProvider = ({
       setToLocalStorage("isWalletConnected", true);
     } catch (error) {
       addMumbaiChain(80001);
-      console.log(error);
     }
   };
   const disconnectWalletConnect = () => {
