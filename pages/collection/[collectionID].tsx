@@ -48,6 +48,7 @@ const Collection: NextPage = () => {
   const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
   const [search, setSearch] = useState<string>()
   const [view, setView] = useState<string>('grid')
+  const debounceValue = useDebounce(search, 1000);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
@@ -57,16 +58,18 @@ const Collection: NextPage = () => {
     enabled:router.query.collectionID ? true : false
   })
     const { data:collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<nftType[]>({
-      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters],
+      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
       url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
       params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`, ...filters},
       token:true
     });
 
      const searchHandler = (e:any) => {
-      setFilters({...filters, search:e.target.value})
+       setSearch(e.target.value)
     }
-
+    useEffect(()=>{
+      setFilters({...filters, search:debounceValue})
+    },[debounceValue])
   const socialIcons = [
     { icon: 'icon-internet', url: collectionDetail?.website_url },
     { icon: 'icon-telegram', url: collectionDetail?.telegram },

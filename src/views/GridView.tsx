@@ -22,7 +22,7 @@ export const GridView = ({data, fetchNextPage, hasNextPage, type}:nftGridViewPro
               loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
             >
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
-                      {data?.map((nft:dataType, index:number)=>{
+                      {data && data?.map((nft:dataType, index:number)=>{
                           return (
                         <Box flex={{base:'100%',sm:'50%',lg:'33%',xl:'25%'}} flexShrink={{xl:"1"}} flexGrow={{xl:"0"}} >
                         <Link href={type === "nft"?`/nft/detail/${nft?.id}`: `/collection/${nft?.id}`} key={index}>
