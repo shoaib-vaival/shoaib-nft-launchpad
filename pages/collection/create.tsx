@@ -314,7 +314,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 1234}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
