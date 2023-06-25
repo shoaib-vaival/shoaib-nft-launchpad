@@ -287,7 +287,7 @@ const CreateCollection = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={collectionDetail?.desc}
+                    descp={collectionDetail?.desc}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -298,9 +298,6 @@ const CreateCollection = () => {
                       {errors["category"] as React.ReactNode}
                     </Text>
                   )}
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
