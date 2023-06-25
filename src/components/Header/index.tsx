@@ -149,7 +149,6 @@ export const Header = () => {
                 borderTopLeftRadius={{base:'16px',lg:'0'}}
                 borderTopRightRadius={{base:'16px',lg:'0'}}
                 transition='.5s cubic-bezier(0.64, 0.46, 0.47, 0.87)'
-
             >
               <HStack
                 textTransform="uppercase"
