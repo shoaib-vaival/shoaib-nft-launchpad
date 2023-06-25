@@ -28,11 +28,11 @@ const Categories: NextPage = () => {
                         <Image src={bannerCollection?.logoImageUrl} boxSize='100px' objectFit='cover' mt='75px' border='1px solid white' borderRadius='16px' />
                         <Flex alignItems={{ base: 'baseline', md: 'center' }} flexDirection={{ base: 'column', md: 'row' }}>
                             <Box>
-                                <Text color='white' marginTop='12px' fontSize={{ base: '14px', md: '16px' }}>By {bannerCollection?.user?.userName}</Text>
+                                <Text color='white' marginTop='12px' fontSize={{ base: '14px', md: '16px' }}>By {bannerCollection?.user?.userName ? bannerCollection?.user?.userName : bannerCollection?.user?.walletAddress?.slice(0, 5) + "..." + bannerCollection?.user?.walletAddress?.slice(37, 42) }</Text>
                                 <Heading color='white' marginTop='8px' marginBottom='10px' fontSize={{ base: '24px', sm: '28px', lg: '40px' }}>{bannerCollection?.name}</Heading>
                                 <Flex gap='6' alignItems='center'>
-                                    <Text color='white' fontSize={{ base: '14px', md: '16px' }} >8,800 items</Text>
-                                    <Text color='white' fontSize={{ base: '14px', md: '16px' }}>0.02 ETH</Text>
+                                    <Text color='white' fontSize={{ base: '14px', md: '16px' }} >{bannerCollection?.nftCount ?? 0} items</Text>
+                                    <Text color='white' fontSize={{ base: '14px', md: '16px' }}>{bannerCollection?.price ?? 0} ETH</Text>
                                 </Flex>
                             </Box>
                             <Button as={Link} href={`collection/${bannerCollection?.id}`}size={{ base: 'md', lg: 'lg' }} mt='20px' color='purple.500' ms={{ base: '0', md: 'auto' }}>View Collection</Button>
