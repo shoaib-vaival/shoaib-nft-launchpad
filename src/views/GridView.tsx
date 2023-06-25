@@ -24,8 +24,8 @@ export const GridView = ({data, fetchNextPage, hasNextPage, type}:nftGridViewPro
                 <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
                       {data && data?.map((nft:dataType, index:number)=>{
                           return (
-                        <Box flex={{base:'100%',sm:'50%',lg:'33%',xl:'25%'}} flexShrink={{xl:"1"}} flexGrow={{xl:"0"}} >
-                        <Link href={type === "nft"?`/nft/detail/${nft?.id}`: `/collection/${nft?.id}`} key={index}>
+                        <Box flex={{base:'100%',sm:'50%',lg:'33%',xl:'25%'}} flexShrink={{xl:"1"}} flexGrow={{xl:"0"}} key={index} >
+                        <Link href={type === "nft"?`/nft/detail/${nft?.id}`: `/collection/${nft?.id}`} >
                             <CollectionCard type='withBody' name={nft?.name}  featureImage={nft?.ipfsImageUrl?`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`:nft?.logoImageUrl} price={nft?.price} isShowFeatureImage={true} isShowLogoImage={false}/>
                         </Link>
                         </Box>
