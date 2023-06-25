@@ -27,15 +27,25 @@ import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, nftType, profileType } from "../src/types";
 import { NftGridView } from "../src/views/NftGridView";
-import { NftListView } from "../src/views/NftListView";
+import NftListView  from "../src/views/NftListView";
 
 
-
+type filters = {
+  status?:string,
+  quantity?: string,
+  collections?:string,
+  sort?:string,
+  search?:string
+}
 const ProfilCreated: NextPage = () => {
   const [view, setView] = useState<string>('grid')
+  const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
+  const searchHandler = (e:any) => {
+      setFilters({...filters, search:e.target.value})
+    }
   const {data, isLoading:isProfileLoading} = useQuery<profileType>({
     queryKey:[QUERY_KEYS.GET_USER],
     url:ApiUrl.GET_USER,
@@ -47,8 +57,9 @@ const ProfilCreated: NextPage = () => {
     token:true
   })
   const {data:userNfts, error, fetchNextPage, status, hasNextPage, isLoading:isUserNftLoading } = useInfiniteQuery<nftType[]>({
-    queryKey:[QUERY_KEYS.GET_NFT_DETAIL],
-    url:ApiUrl.GET_NFT_DETAIL,
+    queryKey:[QUERY_KEYS.GET_USER_NFTS, filters],
+    url:ApiUrl.GET_USER_NFTS,
+    params:{...filters},
     token:true
   })
   const socialIcons = [
@@ -74,7 +85,7 @@ const ProfilCreated: NextPage = () => {
         <Box>
           <Tabs>
             <TabList ml='12px' pl='0'>
-              <Tab>Items</Tab>
+              <Tab>Created</Tab>
               <Tab>Activity</Tab>
             </TabList>
 
@@ -99,15 +110,18 @@ const ProfilCreated: NextPage = () => {
                       icon={<i className='icon-funnel'></i>}
                     />
                   </Box>
-                  <Box order={{ base: '3', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
+                  <Box order={{ base: '4', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
                     <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "200px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' />
+                      <Input placeholder='Search...' onChange={(e)=>searchHandler(e)} value = {filters?.search}/>
                       <InputLeftElement>
                         <img src='/assets/images/search-icon.svg' />
                       </InputLeftElement>
                     </InputGroup>
                   </Box>
-                  <ButtonGroup order={{ base: '2', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
+                  <Box width={{base:'119px',sm:"150px"}} ml='8px'  order={{base:'2',sm:'3'}}>
+                  <ReactSelect options={[{ label: 'Ascending ', value: 'ASC' }, { label: 'Descending ', value: 'DESC' } ]} placeholder="Sort By" isMultiple={false} identifier='filter' getSelectedData={(selectedOption: any) => setFilters({...filters, sort:selectedOption?.value})} />
+                </Box>
+                  <ButtonGroup order={{ base: '3', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
                     <IconButton
                       variant='outline'
                       colorScheme='primary'
@@ -140,7 +154,7 @@ const ProfilCreated: NextPage = () => {
                     <IconButton
                       variant='outline'
                       colorScheme='primary'
-                      aria-label='Send email'
+                      aria-label='Send'
                       icon={<i className='icon-funnel'></i>}
                     />
                   </Box>
@@ -176,7 +190,7 @@ const ProfilCreated: NextPage = () => {
                             </Box>
                             <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
+                            <VStack spacing="0.5" alignItems='flex-start'>
                               <Heading fontSize="18px">Panthera Leo</Heading>
                               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
                             </VStack>
@@ -195,7 +209,7 @@ const ProfilCreated: NextPage = () => {
                                       </Box>
                                       <Text fontWeight='700'>Transfer</Text>
                             <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
+                            <VStack spacing="0.5"  alignItems='flex-start'>
                               <Heading fontSize="18px">Panthera Leo</Heading>
                               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
                             </VStack>

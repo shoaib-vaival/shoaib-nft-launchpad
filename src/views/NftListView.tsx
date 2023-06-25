@@ -8,7 +8,7 @@ type nftListProp = {
     fetchNextPage:()=>void,
     hasNextPage:boolean
 }
-export const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
+const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
   return (
     <>
       <TableContainer>
@@ -32,8 +32,8 @@ export const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) =
                         <i className='icon-transfer'></i>
                       </Box>
                       <Text fontWeight='700'>Transfer</Text>
-                      <Image src={nft?.ipfsImageUrl} boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                      <VStack spacing="0.5">
+                      <Image src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`} boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5"  alignItems='flex-start'>
                         <Heading fontSize="18px">{nft?.name}</Heading>
                         <Text color="rgba(57, 63, 89, 1)" fontSize="14px">{nft?.collection?.name}</Text>
                       </VStack>
@@ -52,3 +52,5 @@ export const NftListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) =
     </>
   )
 }
+
+export default NftListView

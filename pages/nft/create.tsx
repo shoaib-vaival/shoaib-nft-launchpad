@@ -79,9 +79,6 @@ const CreateNFT = () => {
         try {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
-            const ethProvider = new ethers.providers.Web3Provider(
-              provider?.provider as any
-            );
             const receipt = await ethProvider.waitForTransaction(result.hash);
             abiDecoder.addABI(erc721Abi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
@@ -96,7 +93,7 @@ const CreateNFT = () => {
             };
             updateNFT(data);
 
-            // if (receipt) router.push("/profile-created");
+            if (receipt.status == 1) router.push("/profile-created");
           }
           // Handle the returned result here
         } catch (error) {
@@ -111,9 +108,6 @@ const CreateNFT = () => {
     url: ApiUrl.UPDATE_NFT_MINT_DATA,
     showSuccessToast: true,
     token: true,
-    onSuccess: async (data) => {
-      console.log("Update NFT", data);
-    },
   });
 
   const { mutate, isLoading } = useMutation<any>({
@@ -139,11 +133,6 @@ const CreateNFT = () => {
   };
 
   const getSelectedData = (selectedValue: any, identifier: string) => {
-    console.log(
-      "🚀 ~ file: create.tsx:132 ~ CreateNFT ~ selectedValue:",
-      selectedValue
-    );
-
     setCollectionId(selectedValue?.value);
     setCollectionAddress(selectedValue?.contractAddress);
   };
@@ -162,7 +151,7 @@ const CreateNFT = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
         px={{ base: "17px", sm: "34px", xl: "17px" }}
       >
-        <Heading as="h1" pt={"30px"}>
+        <Heading as="h1" mb="45px" pt={"30px"}>
           Create New Item
         </Heading>
 
@@ -181,6 +170,12 @@ const CreateNFT = () => {
         >
           {({ errors, touched, values }) => (
             <Form>
+              <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
+                <Text mr="8px" color="#E53E3E">
+                  *
+                </Text>
+                Required fields
+              </FormLabel>
               <FormControl>
                 <NftPropertiesModal
                   isOpen={isOpen}
@@ -196,7 +191,7 @@ const CreateNFT = () => {
                 <Stack direction="column">
                   <FormControl isRequired>
                     <FileUpload
-                      label="Image, Video, Audio, or 3D Model"
+                      label="Image"
                       detail={createnft?.bannerImg}
                       height="300px"
                       imgFor="nft"
@@ -221,7 +216,7 @@ const CreateNFT = () => {
                     label="Name"
                     type="text"
                     formControlProps={{ isRequired: true }}
-                    placeholder="Name your nft"
+                    placeholder="Name your NFT"
                     name="name"
                     errorText={
                       touched["name"] && errors["name"]

@@ -22,25 +22,32 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
+import { useDisclosure } from "@chakra-ui/react";
 import { ApiUrl } from "../../../src/apis/apiUrl";
 import CollectionCard from "../../../src/components/Cards/CollectionCard";
 import { SlickSlider } from "../../../src/components/ReactSlick";
 import { QUERY_KEYS } from "../../../src/hooks/queryKeys";
 import { useQuery } from "../../../src/hooks/useQuery";
 import { nftType } from "../../../src/types";
-import { signMessage } from "../../../src/context/signListing";
 import { useWeb3React } from "@web3-react/core";
+import ListNftModal from "../../../src/Modals/nftProperties/listNft";
+import { useState } from "react";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [nftData, setNftData] = useState<any>({});
 
   const { data } = useQuery<nftType>({
     queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
     url: ApiUrl.GET_NFT_DETAIL,
     params: { nftId: param?.nftID },
     token: true,
+    onSuccess: async (data) => {
+      setNftData(data);
+    },
   });
-  console.log(data);
+
   const { data: moreNftSByCollection } = useQuery<nftType[]>({
     queryKey: [QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
     url: ApiUrl.GET_MORE_NFTS_BY_COLLECTION,
@@ -66,7 +73,7 @@ const NftDetail = ({ param }: any) => {
             borderRadius="lg"
           >
             <Image
-              src={data?.ipfsImageUrl}
+              src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${data?.ipfsImageUrl}`}
               w="100%"
               h="100%"
               objectFit="cover"
@@ -79,40 +86,6 @@ const NftDetail = ({ param }: any) => {
               borderBottom="1px solid"
               borderColor="rgba(53, 53, 53, 0.2)"
             >
-              {/* <Flex justifyContent="end">
-                <Box>
-                  <IconButton
-                    color=" #756C99"
-                    ml="8px"
-                    variant="outline"
-                    colorScheme="#6863F3"
-                    aria-label="Send"
-                    fontSize="20p"
-                    icon={<i className="icon-share"></i>}
-                  />
-                  <Menu>
-                    <MenuButton
-                      as={IconButton}
-                      color="#756C99"
-                      ml="8px"
-                      variant="outline"
-                      colorScheme="#6863F3"
-                      aria-label="Send"
-                      fontSize="20px"
-                      icon={<i className="icon-menu"></i>}
-                    >
-                      Actions
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem>Download</MenuItem>
-                      <MenuItem>Create a Copy</MenuItem>
-                      <MenuItem>Mark as Draft</MenuItem>
-                      <MenuItem>Delete</MenuItem>
-                      <MenuItem>Attend a Workshop</MenuItem>
-                    </MenuList>
-                  </Menu>
-                </Box>
-              </Flex> */}
               <Text marginTop="-15px" marginBottom="16px" fontSize="16px">
                 {data?.collection?.name}
               </Text>
@@ -141,10 +114,16 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
+            
+            <ListNftModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+            <Button onClick={onOpen} variant='primary' mt='16px'>         
+                 
+            Buy Now</Button>
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
                 Description
               </Heading>
+
               <Text>{data?.description}</Text>
               <Button
                 marginTop="10px"
@@ -492,7 +471,7 @@ const NftDetail = ({ param }: any) => {
                 return (
                   <CollectionCard
                     type="withBody"
-                    featureImage={nft?.ipfsImageUrl}
+                    featureImage={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
                     isShowFeatureImage={true}
                     isShowLogoImage={false}
                     name={nft?.name}

@@ -19,19 +19,15 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  Icon,
   IconButton,
-  Spacer,
   Stack,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { collectionSchema } from "../../src/schemas";
 import { PATCH, POST } from "../../src/hooks/consts";
 import { useMutation } from "../../src/hooks/useMutation";
 import { ReactSelectCatMap } from "../../src/components/common/ReactSelect/types";
 import { useRouter } from "next/router";
-import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 const abiDecoder = require("abi-decoder");
 import {
   collectionByIdTypes,
@@ -41,10 +37,8 @@ import {
 } from "../../src/types/collection";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { chainUrls } from "../../src/connectors/consts";
-import { Web3Provider, ExternalProvider } from "@ethersproject/providers";
+import { Web3Provider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/collectionProvider";
-import { getFromLocalStorage } from "../../src/utils";
 import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
 
 const CreateCollection = () => {
@@ -75,7 +69,7 @@ const CreateCollection = () => {
           };
           update(data);
 
-          // if (receipt) router.push("/profile-created");
+          if (receipt) router.push("/profile-created");
         }
       } catch (error) {
         console.error(error);
@@ -214,8 +208,8 @@ const CreateCollection = () => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <FormLabel display="flex" fontSize="16px" color="#393F59">
-              <Text mr="8px" color="#FF0000">
+            <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
+              <Text mr="8px" color="#E53E3E">
                 *
               </Text>
               Required fields
@@ -256,7 +250,7 @@ const CreateCollection = () => {
                     editAbleUrl={getCollectionById?.featureImageUrl}
                   />
                 </Box>
-                <Box mb="40px">
+                <Box mb="30px">
                   <FileUpload
                     label="Banner Image"
                     detail={collectionDetail?.bannerImg}
@@ -287,16 +281,27 @@ const CreateCollection = () => {
                     maxLength={50}
                   />
                 </FormControl>
-                <Field
-                  name="description"
-                  component={ChakraTextarea}
-                  label="Description"
-                  placeholder="Describe your collection, 1000 characters are allowed"
-                  desc={collectionDetail?.desc}
-                />
-                <Text color="#393F59">
-                  Markdown syntax is supported. 0 of 1000 characters used.
-                </Text>
+                <FormControl mt="0">
+                  <Field
+                    name="description"
+                    component={ChakraTextarea}
+                    label="Description"
+                    placeholder="Describe your collection, 1000 characters are allowed"
+                    desc={collectionDetail?.desc}
+                  />
+                  {touched["category"] && errors["category"] && (
+                    <Text
+                      marginTop={"8px!important"}
+                      fontWeight={"500"}
+                      color={"red.700"}
+                    >
+                      {errors["category"] as React.ReactNode}
+                    </Text>
+                  )}
+                  <Text color="#393F59">
+                    Markdown syntax is supported. 0 of 1000 characters used.
+                  </Text>
+                </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
                     options={filtredCat}
@@ -332,7 +337,6 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                  // defaultValue={filtredTagsById}
                 />
               </Stack>
 
@@ -471,7 +475,7 @@ const CreateCollection = () => {
               </Box>
 
               <FieldArray name="creatorFee">
-                {({ push, remove }: {push: any; remove:any}) => (
+                {({ push, remove }: { push: any; remove: any }) => (
                   <>
                     {values &&
                       values?.creatorFee?.map((field: any, index: number) => (
@@ -480,8 +484,7 @@ const CreateCollection = () => {
                             gap={{ base: "0", sm: "6" }}
                             alignItems={{
                               base: "flex-start",
-                              sm: "center",
-                              xl: "center",
+                              sm: "baseline",
                             }}
                             flexDirection={{
                               base: "column",
@@ -514,12 +517,13 @@ const CreateCollection = () => {
                                     }
                                   }}
                                 />
-
-                                <ErrorMessage
-                                  name={`creatorFee.${[index]}.walletAddress`}
-                                  component="div"
-                                />
+                                <Text></Text>
                               </FormControl>
+
+                              <ErrorMessage
+                                name={`creatorFee.${[index]}.walletAddress`}
+                                component="div"
+                              />
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>
@@ -538,20 +542,19 @@ const CreateCollection = () => {
                               />
                             </Box>
 
-                            {index > 0 && (
-                              <IconButton
-                                aria-label="close"
-                                bg="#6863F34D"
-                                mt={{ base: "0", sm: "35px" }}
-                                ml={{ base: "0", sm: "10px" }}
-                                mb={{ base: "10px", sm: "0" }}
-                                type="button"
-                                color="#6863F3"
-                                border="1px solid #6863F3"
-                                onClick={() => remove(index)}
-                                icon={<i className="icon-remove"></i>}
-                              />
-                            )}
+                            <IconButton
+                              aria-label="close"
+                              bg="#6863F34D"
+                              mt={{ base: "0", sm: "35px" }}
+                              ml={{ base: "0", sm: "10px" }}
+                              mb={{ base: "10px", sm: "0" }}
+                              type="button"
+                              color="#6863F3"
+                              border="1px solid #6863F3"
+                              onClick={() => remove(index)}
+                              icon={<i className="icon-remove"></i>}
+                              visibility={index > 0 ? "visible" : "hidden"}
+                            />
                           </Flex>
                         </div>
                       ))}
