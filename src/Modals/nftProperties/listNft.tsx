@@ -18,7 +18,6 @@ import {
   InputLeftAddon,
   InputRightAddon,
 } from "@chakra-ui/react";
-import { ReactSelect } from "../../components/common";
 import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import { ApiUrl } from "../../apis/apiUrl";
@@ -41,7 +40,7 @@ const ListNftModal = ({
 }) => {
   console.log("🚀 ~ file: listNft.tsx:35 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
-  const [price, setPrice] = useState<String>("");
+  const [price, setPrice] = useState<string>("");
 
   const handlePriceChange = (event: any) => {
     setPrice(event.target.value);
@@ -56,7 +55,7 @@ const ListNftModal = ({
     collaboratorAmount: string[];
   }
 
-  function transformCreatorFeeData(data: CreatorFee[]): CollaboratorData {
+  const transformCreatorFeeData = (data: CreatorFee[]): CollaboratorData => {
     const collaboratorAddress: string[] = [];
     const collaboratorAmount: string[] = [];
     if (!data || data.length === 0) {
@@ -77,7 +76,7 @@ const ListNftModal = ({
     };
   }
 
-  function calculateCollaboratorAmount(percentage: number): string {
+  const calculateCollaboratorAmount = (percentage: number): string => {
     const totalAmount = "5000000000000000000"; // Total amount to be distributed
 
     const amount = (percentage / 100) * parseFloat(totalAmount);
@@ -92,7 +91,7 @@ const ListNftModal = ({
     seller: string | undefined;
     erc721: string;
     tokenId: number;
-    price: String;
+    price: string;
     endTime: number;
     collaboratorAddress: string[];
     collaboratorAmount: string[];

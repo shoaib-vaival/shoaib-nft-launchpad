@@ -4,7 +4,7 @@ interface ListedItemParams {
   seller: string | undefined;
   erc721: string;
   tokenId: number;
-  price: String;
+  price: string;
   endTime: number;
   collaboratorAddress: string[];
   collaboratorAmount: string[];
@@ -59,7 +59,7 @@ export const signMessage = async (
       },
     });
 
-    var paramss = [account, msgParams];
+    const paramss = [account, msgParams];
 
     if (window.ethereum) {
       try {
