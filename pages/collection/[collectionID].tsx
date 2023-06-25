@@ -110,6 +110,9 @@ const Collection: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
+                <Flex>
+                  <SidebarFilter filterGroups={filterGroups} />
+                  <Box w="100%">
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
                 <Box order='1'>
                 <IconButton
@@ -157,6 +160,8 @@ const Collection: NextPage = () => {
                   </Box>
                 </Flex>
                 {view === 'grid' ?  collectionNfts !== undefined && <GridView type="nft" data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                </Box>
+                </Flex>
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
