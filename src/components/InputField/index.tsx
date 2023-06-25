@@ -62,9 +62,9 @@ const InputField = ({
       <InputGroup size={size ?? "lg"}>
         <Input
           isInvalid={!!errorText}
-          errorBorderColor="red.700!important"
+          errorBorderColor="red.700"
           type={!showPassword ? type : "text"}
-          color="red.700!important"
+          color="gray.700"
           placeholder={placeholder}
           name={name}
           onChange={onChange}
@@ -120,7 +120,7 @@ const InputField = ({
       </InputGroup>
       {!!errorText && (
         <Text
-          color="red.700!important"
+          color="red.700"
           mt="8px"
           fontSize={fontSize ?? "14px"}
           fontWeight="medium"

@@ -103,6 +103,7 @@ const Collection: NextPage = () => {
             <TabList>
               <Tab>Items</Tab>
               <Tab>Activity</Tab>
+              <Tab>Analytics</Tab>
             </TabList>
 
             <TabPanels>

@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
-import { Stat, StatLabel, StatNumber } from "@chakra-ui/stat";
+import { Stat, StatLabel, StatNumber,StatHelpText } from "@chakra-ui/stat";
 import {
   Table,
   TableContainer,
@@ -68,7 +68,7 @@ const NftDetail = ({ param }: any) => {
           px={{ base: "0", sm: "17px" }}
         >
           <Box
-            w={{ base: "100%", lg: "45%" }}
+            w={{ base: "100%", lg: "50%" }}
             maxH={{ base: "initial", md: "500px", lg: "650px" }}
             borderRadius="lg"
           >
@@ -80,7 +80,7 @@ const NftDetail = ({ param }: any) => {
               borderRadius="lg"
             />
           </Box>
-          <Box w={{ base: "100%", lg: "55%" }}>
+          <Box w={{ base: "100%", lg: "50%" }}>
             <Box
               paddingBottom={{ base: "20px", sm: "28px" }}
               borderBottom="1px solid"
@@ -186,7 +186,7 @@ const NftDetail = ({ param }: any) => {
           direction="row"
           px={{ base: "0", sm: "17px" }}
         >
-          <Box w={{ base: "100%", lg: "45%" }}>
+          <Box w={{ base: "100%", lg: "55%" }}>
             <Heading fontSize="24px" marginBottom="16px" marginTop="40px">
               Details
             </Heading>
@@ -198,25 +198,30 @@ const NftDetail = ({ param }: any) => {
               }}
               gap="3"
             >
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+              <Stat p='14px'>
+                <StatLabel>Background</StatLabel>
+                <StatNumber fontSize='18px' display='flex' alignItems='center'>Dark Orange<Text  pl='8px' color='#756C99' fontSize='14px'> 10%</Text></StatNumber>
+                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
               </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+              <Stat p='14px'>
+                <StatLabel>Body</StatLabel>
+                <StatNumber fontSize='18px' display='flex' alignItems='center'>Shirt Orange<Text  pl='8px' color='#756C99' fontSize='14px'>6%</Text></StatNumber>
+                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
               </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+              <Stat p='14px'>
+                <StatLabel>Head</StatLabel>
+                <StatNumber fontSize='18px' display='flex' alignItems='center'>Glasses<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
+                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
               </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+              <Stat p='14px'>
+                <StatLabel>Face</StatLabel>
+                <StatNumber fontSize='18px' display='flex' alignItems='center'>Brown<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
+                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
               </Stat>
-              <Stat>
-                <StatLabel>Collected Fees</StatLabel>
-                <StatNumber>£0.00</StatNumber>
+              <Stat p='14px'>
+                <StatLabel>Hair</StatLabel>
+                <StatNumber fontSize='18px' display='flex' alignItems='center'>Puffballs<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
+                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
               </Stat>
             </Grid>
           </Box>
