@@ -98,7 +98,7 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box py="30px" px={{ base: "0", md: "0 17px", xl: "0" }}>
           <Stack
             direction="row"
@@ -142,11 +142,11 @@ export const Header = () => {
             <Box
               order={{ base: "6", sm: "6", md: "6", lg: "3" }}
               visibility={{ base: toggleMenu?'visible':'hidden', lg: "initial" }}
-              h={toggleMenu?'auto':'0px'}
+              h={{base:toggleMenu?'100%':'0px', lg:'100%'}}
               transform= {toggleMenu ? 'translateY(5px)':'translateY(0px)'}
-              transition='.4s linear'
+              transition='.4s'
             >
-            {/* <Collapse  animateOpacity in={toggleMenu} > */}
+           
               <HStack
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
@@ -163,7 +163,6 @@ export const Header = () => {
                 <Link href="/categories">Explorer</Link>
                 <Link href="/activity">Activity</Link>
               </HStack>
-            {/* </Collapse> */}
             </Box>
 
             <Flex
