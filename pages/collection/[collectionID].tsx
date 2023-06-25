@@ -27,8 +27,8 @@ import { ApiUrl } from "../../src/apis/apiUrl";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
-import NftListView  from "../../src/views/NftListView";
-import { NftGridView } from "../../src/views/NftGridView";
+import ListView  from "../../src/views/ListView";
+import {GridView} from "../../src/views/GridView";
 import { collectionType, nftType } from "../../src/types";
 import {useDebounce} from './../../src/hooks/useDebounce'
 import { SidebarFilter } from "../../src/components/SidebarFilter";
@@ -48,6 +48,7 @@ const Collection: NextPage = () => {
   const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
   const [search, setSearch] = useState<string>()
   const [view, setView] = useState<string>('grid')
+  const debounceValue = useDebounce(search, 1000);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode)
   }
@@ -57,16 +58,18 @@ const Collection: NextPage = () => {
     enabled:router.query.collectionID ? true : false
   })
     const { data:collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<nftType[]>({
-      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters],
+      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
       url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
       params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`, ...filters},
       token:true
     });
 
      const searchHandler = (e:any) => {
-      setFilters({...filters, search:e.target.value})
+       setSearch(e.target.value)
     }
-
+    useEffect(()=>{
+      setFilters({...filters, search:debounceValue})
+    },[debounceValue])
   const socialIcons = [
     { icon: 'icon-internet', url: collectionDetail?.website_url },
     { icon: 'icon-telegram', url: collectionDetail?.telegram },
@@ -103,6 +106,7 @@ const Collection: NextPage = () => {
             <TabList>
               <Tab>Items</Tab>
               <Tab>Activity</Tab>
+              <Tab>Analytics</Tab>
             </TabList>
 
             <TabPanels>
@@ -153,7 +157,7 @@ const Collection: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid' ?  collectionNfts !== undefined && <NftGridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <NftListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                {view === 'grid' ?  collectionNfts !== undefined && <GridView type="nft" data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
