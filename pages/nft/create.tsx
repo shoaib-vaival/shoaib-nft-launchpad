@@ -108,9 +108,6 @@ const CreateNFT = () => {
     url: ApiUrl.UPDATE_NFT_MINT_DATA,
     showSuccessToast: true,
     token: true,
-    onSuccess: async (data) => {
-      console.log("Update NFT", data);
-    },
   });
 
   const { mutate, isLoading } = useMutation<any>({
@@ -136,11 +133,6 @@ const CreateNFT = () => {
   };
 
   const getSelectedData = (selectedValue: any, identifier: string) => {
-    console.log(
-      "🚀 ~ file: create.tsx:132 ~ CreateNFT ~ selectedValue:",
-      selectedValue
-    );
-
     setCollectionId(selectedValue?.value);
     setCollectionAddress(selectedValue?.contractAddress);
   };

@@ -18,7 +18,6 @@ import {
   InputLeftAddon,
   InputRightAddon,
 } from "@chakra-ui/react";
-import { ReactSelect } from "../../components/common";
 import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import { ApiUrl } from "../../apis/apiUrl";
@@ -39,9 +38,8 @@ const ListNftModal = ({
   onOpen?: any;
   nftData?: any;
 }) => {
-  console.log("🚀 ~ file: listNft.tsx:35 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
-  const [price, setPrice] = useState<String>("");
+  const [price, setPrice] = useState<string>("");
 
   const handlePriceChange = (event: any) => {
     setPrice(event.target.value);
@@ -56,7 +54,7 @@ const ListNftModal = ({
     collaboratorAmount: string[];
   }
 
-  function transformCreatorFeeData(data: CreatorFee[]): CollaboratorData {
+  const transformCreatorFeeData = (data: CreatorFee[]): CollaboratorData => {
     const collaboratorAddress: string[] = [];
     const collaboratorAmount: string[] = [];
     if (!data || data.length === 0) {
@@ -77,7 +75,7 @@ const ListNftModal = ({
     };
   }
 
-  function calculateCollaboratorAmount(percentage: number): string {
+  const calculateCollaboratorAmount = (percentage: number): string => {
     const totalAmount = "5000000000000000000"; // Total amount to be distributed
 
     const amount = (percentage / 100) * parseFloat(totalAmount);
@@ -92,7 +90,7 @@ const ListNftModal = ({
     seller: string | undefined;
     erc721: string;
     tokenId: number;
-    price: String;
+    price: string;
     endTime: number;
     collaboratorAddress: string[];
     collaboratorAmount: string[];
@@ -114,9 +112,6 @@ const ListNftModal = ({
     url: ApiUrl?.LIST_FOR_SALE,
     isFileData: true,
     token: true,
-    onSuccess: async (data) => {
-      console.log("Listed for sale");
-    },
   });
   const approveNFT = async (contractAddress: any) => {
     if (provider) {
@@ -136,10 +131,6 @@ const ListNftModal = ({
           );
           if (result) {
             const receipt = await ethProvider.waitForTransaction(result.hash);
-            console.log(
-              "🚀 ~ file: listNft.tsx:140 ~ minting ~ receipt:",
-              receipt
-            );
 
             // if (receipt.status == 1) router.push("/profile-created");
           }
@@ -160,7 +151,6 @@ const ListNftModal = ({
       }
     );
     if (sign) {
-      console.log("🚀 ~ file: listNft.tsx:123 ~ handleListing ~ sign:", params);
       mutate({ ...params, signature: sign });
     }
   };
