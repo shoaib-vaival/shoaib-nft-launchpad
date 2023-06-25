@@ -26,6 +26,7 @@ import { useMutation } from "../../hooks/useMutation";
 import { signMessage } from "../../context/signListing";
 import { erc721Abi } from "../../connectors/erc721Abi";
 import { ethers } from "ethers";
+import DatePickerReact from "../../components/DatePicker"
 
 const ListNftModal = ({
   isOpen,
@@ -178,6 +179,8 @@ const ListNftModal = ({
                 </InputRightAddon>
               </InputGroup>
             </FormControl>
+
+            <DatePickerReact />
 
             <FormControl mt={4} mb="24px">
               <FormLabel>Set Duration</FormLabel>
