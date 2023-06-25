@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useInfiniteQuery } from '../src/hooks/useInfiniteQuery';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Loader } from '../src/components/Loader';
-import { collectionType } from '../src/types';
+import { collectionType, nftType } from '../src/types';
 import { GridView } from '../src/views/GridView';
 
 const Categories: NextPage = () => {
@@ -17,7 +17,7 @@ const Categories: NextPage = () => {
         url:ApiUrl.GET_BANNER_COLLECTION,
         token:false
     })
-    const {data:allCollections, error, fetchNextPage, status, hasNextPage, isLoading} = useInfiniteQuery<collectionType[]>({
+    const {data:allCollections, error, fetchNextPage, status, hasNextPage, isLoading} = useInfiniteQuery<(collectionType & nftType)[]>({
         queryKey:[QUERY_KEYS.GET_ALL_COLLECTIONS],
         url:ApiUrl.GET_ALL_COLLECTIONS,
     })
@@ -46,7 +46,7 @@ const Categories: NextPage = () => {
                 <Flex justifyContent='space-between' alignItems='center' px={{ base: '0', sm: '12px' }}>
                     <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }}>Featured Collections</Heading>
                 </Flex>
-                <GridView data={allCollections} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>
+                {allCollections && <GridView data={allCollections} type="collection" fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
                      {/* <InfiniteScroll
               dataLength={allCollections ? allCollections.length : 0}
               next={() => fetchNextPage()}

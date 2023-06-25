@@ -146,7 +146,7 @@ const ProfilCreated: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid'? userNfts !== undefined && <GridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> : userNfts !== undefined && <ListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
+                {view === 'grid'? userNfts !== undefined && <GridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} type="nft" /> : userNfts !== undefined && <ListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage}/>}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>

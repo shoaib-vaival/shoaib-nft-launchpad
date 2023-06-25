@@ -153,7 +153,7 @@ const Collection: NextPage = () => {
                   <Box>
                   </Box>
                 </Flex>
-                {view === 'grid' ?  collectionNfts !== undefined && <GridView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                {view === 'grid' ?  collectionNfts !== undefined && <GridView type="nft" data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
               </TabPanel>
               <TabPanel pt='0'>
                 <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
