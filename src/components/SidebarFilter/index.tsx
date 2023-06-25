@@ -1,6 +1,6 @@
 
-import {Box, Accordion, AccordionItem, AccordionPanel, AccordionButton, Stack, Checkbox, RadioGroup, Radio, Input} from '@chakra-ui/react'
-import { useState } from 'react';
+import {Box, Accordion, AccordionItem, AccordionPanel, AccordionButton, Stack, Checkbox, RadioGroup, Radio, Input, AccordionIcon} from '@chakra-ui/react'
+import { useEffect, useState } from 'react';
 
 type sidebarFilterProps = {
     filterGroups:{
@@ -8,46 +8,51 @@ type sidebarFilterProps = {
         filters:filtersProps[]
         
     }[],
-    onFilterChange?:()=>void
+    onFilterChange:(selectedFilters:any)=>void
 }
 type filtersProps = {
-    name: string; type: string 
+    name: string; type: string;label:string | string[], options?:string[]
 }
 export const SidebarFilter = ({filterGroups, onFilterChange}:sidebarFilterProps) =>{
-     const [selectedFilters, setSelectedFilters] = useState<any>({});
+     const [selectedFilters, setSelectedFilters] = useState<any>([]);
 
   const handleFilterChange = (groupName: any, filterName:any, value:any) => {
     setSelectedFilters((prevFilters:any) => ({
       ...prevFilters,
-      [groupName]: {
-        ...(prevFilters[groupName] || {}),
-        [filterName]: value,
-      },
+      [groupName]: [
+        ...(prevFilters[groupName] || []),
+         value,
+      ],
     }));
   };
+
+  useEffect(()=>{
+    onFilterChange(selectedFilters)
+  },[selectedFilters])
 
     const renderFilterElement = (groupName:any, filter:any) => {
         switch (filter.type) {
           case 'checkbox':
             return (
               <Checkbox
-                key={filter.name}
+                key={filter.label}
                 onChange={event => handleFilterChange(groupName, filter.name, event.target.checked)}
+                value={filter.name}
               >
-                {filter.name}
+                {filter.label}
               </Checkbox>
             );
           case 'radio':
             return (
               <RadioGroup
-                key={filter.name}
+                key={filter.label}
                 onChange={value => handleFilterChange(groupName, filter.name, value)}
-                value={selectedFilters[groupName]?.[filter.name] || ''}
+                value={selectedFilters[groupName]?.[filter.name] ?? ''}
               >
                 <Stack spacing={1}>
-                  {filter.options.map((option:any) => (
+                  {filter.options.map((option:any, index:number) => (
                     <Radio key={option} value={option}>
-                      {option}
+                      {filter.label[index]}
                     </Radio>
                   ))}
                 </Stack>
@@ -68,12 +73,17 @@ export const SidebarFilter = ({filterGroups, onFilterChange}:sidebarFilterProps)
       };
     return (
         <>
-         <Box border="1px solid rgba(111, 107, 243, 0.40)" width="220px" borderRadius="16px" background="rgba(255, 255, 255, 0.40)" flexShrink="0" backdropFilter="blur(30px)">
+         <Box border="1px solid rgba(111, 107, 243, 0.40)" width="220px" borderRadius="16px" background="rgba(255, 255, 255, 0.40)" flexShrink="0" backdropFilter="blur(30px)" pt="17px" pb="17px">
              <Accordion allowToggle>
                   {filterGroups.map(group => (
         <AccordionItem key={group.name}>
           <h2>
-            <AccordionButton>{group.name}</AccordionButton>
+            <AccordionButton>
+              <Box as="span" flex='1' textAlign='left'>
+              {group.name}
+              </Box>
+            <AccordionIcon />
+            </AccordionButton>
           </h2>
           <AccordionPanel>
             <Stack spacing={2}>

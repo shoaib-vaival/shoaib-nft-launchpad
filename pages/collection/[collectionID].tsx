@@ -82,10 +82,25 @@ const Collection: NextPage = () => {
     {
       name: 'Status',
       filters: [
-        { name: 'Listed', type: 'checkbox' },
-        { name: 'On Auction', type: 'checkbox' },
-        { name: 'Has Offers', type: 'checkbox' },
-        { name: 'New', type: 'checkbox' },
+        { label:'Listed',name: 'list', type: 'checkbox'  },
+        { label:'On Auction',name: 'auction', type: 'checkbox' },
+        { label:'Has Offers',name: 'offers', type: 'checkbox' },
+        { label:'New',name: 'new', type: 'checkbox' },
+      ],
+    },
+    {
+      name:'Quantity',
+      filters:[
+        { name: 'Listed', type: 'radio', options:['all', 'single', 'bundle'], label:['All items', 'Single Items', 'Bundles']},
+      ]
+    },
+     {
+      name: 'Collections',
+      filters: [
+        { label: 'Ragile', name: 'Ragile',  type: 'checkbox', },
+        { label: 'Crypto', name: 'Crypto',  type: 'checkbox' },
+        { label: 'Valhaila', name: 'Valhaila', type: 'checkbox' },
+        { label: 'Otherdeed', name: 'Otherdeed', type: 'checkbox' },
       ],
     },
     // Add more filter groups here if needed
@@ -110,10 +125,10 @@ const Collection: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Flex>
-                  <SidebarFilter filterGroups={filterGroups} />
+                <Flex pt='20px'>
+                  <SidebarFilter filterGroups={filterGroups} onFilterChange={(filters:any)=>console.log(filters)} />
                   <Box w="100%">
-                <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
+                <Flex justifyContent={'end'} alignItems="center" flexWrap='wrap'>
                 <Box order='1'>
                 <IconButton
                   variant='outline'
