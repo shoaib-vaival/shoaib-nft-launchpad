@@ -175,12 +175,12 @@ const Setting: NextPage = () => {
                               </Box>
                             </Flex>
                             <Box mb='24px'>
-                              <FormControl my='0' fontWeight='500'>Short bio</FormControl>
+                              <FormControl my='0' fontWeight='500'>Short Bio</FormControl>
                               <Field
                                 name="bio"
                                 component={ChakraTextarea}
                                 formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
-                                placeholder="Tel about your self in few words"
+                                placeholder="Tell about yourself in few words"
                                 desc=''
                               />
                             </Box>
