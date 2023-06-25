@@ -33,7 +33,7 @@ const Categories: NextPage = () => {
                                 <Heading color='white' marginTop='8px' marginBottom='10px' fontSize={{ base: '24px', sm: '28px', lg: '40px' }}>{bannerCollection?.name}</Heading>
                                 <Flex gap='6' alignItems='center'>
                                     <Text color='white' fontSize={{ base: '14px', md: '16px' }} >8,800 items</Text>
-                                    <Text color='white' fontSize={{ base: '14px', md: '16px' }}>0.02 ETH</Text>
+                                    <Text color='white' fontSize={{ base: '14px', md: '16px' }}>0.02 MATIC</Text>
                                 </Flex>
                             </Box>
                             <Button as={Link} href={`collection/${bannerCollection?.id}`}size={{ base: 'md', lg: 'lg' }} mt='20px' color='purple.500' ms={{ base: '0', md: 'auto' }}>View Collection</Button>

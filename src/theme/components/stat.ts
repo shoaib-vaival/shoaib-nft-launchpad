@@ -16,11 +16,18 @@ export const Stat: ComponentStyleConfig = {
             fontsize: '14px',
             fontWeight: 400
         },
+        helpText:{
+            color: '#756C99',
+            fontsize: '14px',
+            fontWeight: 400,
+            marginBottom:0
+        },
         number: {
             fontSize: '18px',
             color: '#0D0D0D',
             fontWeight: '700',
-        }
+        },
+        
 
     }
 }
