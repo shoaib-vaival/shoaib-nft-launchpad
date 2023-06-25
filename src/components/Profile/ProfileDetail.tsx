@@ -116,11 +116,11 @@ const ProfileDetail = ({
               >
                 <Stat>
                 <StatLabel>Total Volume</StatLabel>
-                <StatNumber>225,278 ETH</StatNumber>
+                <StatNumber>225,278 MATIC</StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>Floor Price</StatLabel>
-                <StatNumber>5.344 ETH</StatNumber>
+                <StatNumber>5.344 MATIC</StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>Items Listed</StatLabel>

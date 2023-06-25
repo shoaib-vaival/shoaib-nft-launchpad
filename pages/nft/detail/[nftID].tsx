@@ -201,27 +201,27 @@ const NftDetail = ({ param }: any) => {
               <Stat p='14px'>
                 <StatLabel>Background</StatLabel>
                 <StatNumber fontSize='18px' display='flex' alignItems='center'>Dark Orange<Text  pl='8px' color='#756C99' fontSize='14px'> 10%</Text></StatNumber>
-                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
+                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p='14px'>
                 <StatLabel>Body</StatLabel>
                 <StatNumber fontSize='18px' display='flex' alignItems='center'>Shirt Orange<Text  pl='8px' color='#756C99' fontSize='14px'>6%</Text></StatNumber>
-                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
+                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p='14px'>
                 <StatLabel>Head</StatLabel>
                 <StatNumber fontSize='18px' display='flex' alignItems='center'>Glasses<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
-                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
+                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p='14px'>
                 <StatLabel>Face</StatLabel>
                 <StatNumber fontSize='18px' display='flex' alignItems='center'>Brown<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
-                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
+                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p='14px'>
                 <StatLabel>Hair</StatLabel>
                 <StatNumber fontSize='18px' display='flex' alignItems='center'>Puffballs<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
-                <StatHelpText>Floor: 0.0289 ETH</StatHelpText>
+                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
             </Grid>
           </Box>
@@ -270,13 +270,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -287,13 +287,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -304,13 +304,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -321,13 +321,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -338,13 +338,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -355,13 +355,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -372,13 +372,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -389,13 +389,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -406,13 +406,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -423,13 +423,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago
@@ -440,13 +440,13 @@ const NftDetail = ({ param }: any) => {
                     <Heading size="sm">Transfer</Heading>
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --ETH
+                    --MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     VictoriaL
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.eth
+                    Vincent2020.MATIC
                   </Td>
                   <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
                     23 secs ago

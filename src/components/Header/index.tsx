@@ -98,8 +98,8 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box py="30px" px={{ base: "0", md: "0 17px", xl: "0" }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }} >
+        <Box py="30px" px={{ base: "0", md: "17px", xl: "0" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -140,9 +140,9 @@ export const Header = () => {
             </Box>
             <Box order={{ base: "4", sm: "4", md: "5", lg: "3" }}
               visibility={{ base: toggleMenu?'visible':'hidden', lg: "initial" }}
-              h={toggleMenu?'auto':'0px'}
-              display={toggleMenu?'block':'none'}
-              transform= {toggleMenu ? 'translateY(5px)':'translateY(-50px)'}
+              h={{ base: toggleMenu?'auto':'0px',lg: "initial" }}
+              display={{ base: toggleMenu?'block':'none', lg: "initial"}}
+              transform= {toggleMenu ? 'translateY(5px)':'translateY(0px)'}
               w={{base:'100%',lg:'inherit'}}
               bg={{base:'#ffdafe75',lg:'transparent'}}
               mt={{base:'5px',lg:'initial'}}
@@ -239,7 +239,7 @@ export const Header = () => {
               display={{ base: "block", lg: "none" }}
             >
                 <IconButton
-                  mr={{ base: "16px", xl: "16px" }}
+                  mr="0" 
                   ml="8px"
                   colorScheme="purple"
                   variant="outline"
