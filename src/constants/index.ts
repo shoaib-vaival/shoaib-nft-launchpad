@@ -20,3 +20,5 @@ export const pagePaths = {
     NFT: '/create-nft',
     COLLECTION: '/collection/create',
 }
+
+export const currencySymbol = "Matic"

@@ -28,4 +28,6 @@ export const ApiUrl = {
   CREATE_NOTIFICATION: "user/send-notification",
   LIST_FOR_SALE: "nft-listing/list-nft",
   GET_USER_NFTS: "minting/get-user-nfts",
+  GET_STATS:'stats/collection-stats',
+  ADD_TO_WATCHLIST:'}user/add-to-watchlist'
 };
