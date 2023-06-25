@@ -77,7 +77,6 @@ export const signMessage = async (
 
         const signature = result as string;
         // Do something with the signature
-        console.log("Signature:", signature);
         return signature;
       } catch (err) {
         return null;

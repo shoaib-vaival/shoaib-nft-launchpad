@@ -38,7 +38,6 @@ const ListNftModal = ({
   onOpen?: any;
   nftData?: any;
 }) => {
-  console.log("🚀 ~ file: listNft.tsx:35 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
   const [price, setPrice] = useState<string>("");
 
@@ -113,9 +112,6 @@ const ListNftModal = ({
     url: ApiUrl?.LIST_FOR_SALE,
     isFileData: true,
     token: true,
-    onSuccess: async (data) => {
-      console.log("Listed for sale");
-    },
   });
   const approveNFT = async (contractAddress: any) => {
     if (provider) {
@@ -135,10 +131,6 @@ const ListNftModal = ({
           );
           if (result) {
             const receipt = await ethProvider.waitForTransaction(result.hash);
-            console.log(
-              "🚀 ~ file: listNft.tsx:140 ~ minting ~ receipt:",
-              receipt
-            );
 
             // if (receipt.status == 1) router.push("/profile-created");
           }
@@ -159,7 +151,6 @@ const ListNftModal = ({
       }
     );
     if (sign) {
-      console.log("🚀 ~ file: listNft.tsx:123 ~ handleListing ~ sign:", params);
       mutate({ ...params, signature: sign });
     }
   };
