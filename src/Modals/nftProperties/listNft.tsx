@@ -185,7 +185,7 @@ const ListNftModal = ({
 
             <FormControl mt={4} mb="24px">
               <FormLabel>Set Duration</FormLabel>
-              <InputGroup  border='1px solid #e2e8f0' alignItems='center' w='100%' h='42px' borderRadius='md'>
+              <InputGroup  border='1px solid #e2e8f0' alignItems='center' w='100%' h='42px' borderRadius='md' pl='10px'>
                 <DatePickerReact />
                 <InputRightElement color='#756C99'><i className="icon-calendar"></i></InputRightElement>
               </InputGroup>

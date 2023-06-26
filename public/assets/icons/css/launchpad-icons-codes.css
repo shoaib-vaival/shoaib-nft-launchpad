@@ -33,3 +33,5 @@
 .icon-at:before { content: '\e81f'; } /* '' */
 .icon-copy-1:before { content: '\e820'; } /* '' */
 .icon-plus:before { content: '\e821'; } /* '' */
+.icon-arrow-left:before { content: '\e822'; } /* '' */
+.icon-arrow-right:before { content: '\e823'; } /* '' */

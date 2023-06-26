@@ -34,6 +34,7 @@ const DatePickerReact: React.FC = () => {
     <DatePicker
       locale="en-GB"
       wrapperClassName="datePicker"
+      popperClassName='DatePickerPopper'
       renderCustomHeader={({
         date,
         changeYear,
@@ -43,17 +44,11 @@ const DatePickerReact: React.FC = () => {
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
       }) => (
-        <Box
-          style={{
-            margin: 10,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-            {/* {<><Icon className="icon-remove" /></>} */'<'}
+        <Box m='10px' display='flex' justifyContent='center'>
+          <Button h='32px'  bg='transparent!important' p='0' onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+            {<><Box> <i className="icon-arrow-left"></i></Box></>}
           </Button>
-          <Select
+          <Select h='32px' borderRadius='4px'
             value={getYear(date)}
             onChange={({ target: { value } }) => changeYear(Number(value))}
           >
@@ -64,7 +59,7 @@ const DatePickerReact: React.FC = () => {
             ))}
           </Select>
 
-          <Select
+          <Select h='32px' borderRadius='4px'
             value={months[getMonth(date)]}
             onChange={({ target: { value } }) =>
               changeMonth(months.indexOf(value))
@@ -77,8 +72,8 @@ const DatePickerReact: React.FC = () => {
             ))}
           </Select>
 
-          <Button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-            {">"}
+          <Button p='0' h='32px' bg='transparent!important' onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+            {<><Box> <i className="icon-arrow-right"></i></Box></>}
           </Button>
         </Box>
       )}

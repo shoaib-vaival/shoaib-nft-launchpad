@@ -9,9 +9,6 @@ import { PrevArrow } from './PrevArrow';
 export const SlickSlider = ({children, customSettings}:any)=>{
     const [carousalRef,setCarousalRef] = useState<any>()
     return(
-        // <>
-        // {children}
-        // </>
         <Box position='relative' marginTop='24px'>
             <Box position='absolute' height='100%' width='100%'>
                 <PrevArrow prev={()=>carousalRef.slickPrev()}/>
