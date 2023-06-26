@@ -48,6 +48,7 @@ const CreateCollection = () => {
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  abiDecoder.addABI(marketContractAbi);
 
   // Call the contract
 
@@ -60,13 +61,18 @@ const CreateCollection = () => {
             provider?.provider as any
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          abiDecoder.addABI(marketContractAbi);
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+          console.log("🚀 ~ file: create.tsx:63 ~ deployy ~ receipt:", receipt);
+          const decodedLogs = abiDecoder.decodeLogs(receipt?.logs);
+          console.log(
+            "🚀 ~ file: create.tsx:66 ~ deployy ~ decodedLogs:",
+            decodedLogs
+          );
 
           const data = {
             contractAddress: decodedLogs[2]?.events[1]?.value,
             collectionName: decodedLogs[2]?.events[0]?.value,
           };
+          console.log("🚀 ~ file: create.tsx:71 ~ deployy ~ data:", data);
           update(data);
 
           if (receipt) router.push("/profile-created");
@@ -311,7 +317,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -495,9 +501,9 @@ const CreateCollection = () => {
                               display="flex"
                               alignItems="baseline"
                               flexDirection="column"
-                              mb='16px'
+                              mb="16px"
                             >
-                              <FormControl isRequired mb='0'>
+                              <FormControl isRequired mb="0">
                                 <Field
                                   as={InputField}
                                   size="md"
@@ -517,10 +523,11 @@ const CreateCollection = () => {
                                   }}
                                 />
                               </FormControl>
-                              <Text marginTop={"0px!important"}
+                              <Text
+                                marginTop={"0px!important"}
                                 fontWeight={"500"}
-                                color={"red.700"}>
-
+                                color={"red.700"}
+                              >
                                 <ErrorMessage
                                   name={`creatorFee.${[index]}.walletAddress`}
                                   component="div"
