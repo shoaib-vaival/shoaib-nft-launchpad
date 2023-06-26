@@ -17,6 +17,9 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightAddon,
+  InputRightElement,
+  Select,
+  Icon,
 } from "@chakra-ui/react";
 import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
@@ -197,11 +200,12 @@ const ListNftModal = ({
               </InputGroup>
             </FormControl>
 
-            <DatePickerReact />
-
             <FormControl mt={4} mb="24px">
               <FormLabel>Set Duration</FormLabel>
-              <Input placeholder="Enter price for this item" />
+              <InputGroup  border='1px solid #e2e8f0' alignItems='center' w='100%' h='42px' borderRadius='md' pl='10px'>
+                <DatePickerReact />
+                <InputRightElement color='#756C99'><i className="icon-calendar"></i></InputRightElement>
+              </InputGroup>
             </FormControl>
             <Divider />
             <Text
