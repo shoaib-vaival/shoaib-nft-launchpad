@@ -29,4 +29,5 @@ export const ApiUrl = {
   LIST_FOR_SALE: "nft-listing/list-nft",
   CANCEL_LISTING: "nft-listing/cancel-listing",
   GET_USER_NFTS: "minting/get-user-nfts",
+  GET_BAR_CHART: "stats/volume-price-chart"
 };

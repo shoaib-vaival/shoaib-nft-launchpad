@@ -287,7 +287,7 @@ const CreateCollection = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={collectionDetail?.desc}
+                    descp={collectionDetail?.desc}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -298,9 +298,6 @@ const CreateCollection = () => {
                       {errors["category"] as React.ReactNode}
                     </Text>
                   )}
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
@@ -314,7 +311,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -497,8 +494,10 @@ const CreateCollection = () => {
                               w={{ base: "100%", sm: "80%", xl: "80%" }}
                               display="flex"
                               alignItems="baseline"
+                              flexDirection="column"
+                              mb='16px'
                             >
-                              <FormControl isRequired>
+                              <FormControl isRequired mb='0'>
                                 <Field
                                   as={InputField}
                                   size="md"
@@ -517,13 +516,16 @@ const CreateCollection = () => {
                                     }
                                   }}
                                 />
-                                <Text></Text>
                               </FormControl>
+                              <Text marginTop={"0px!important"}
+                                fontWeight={"500"}
+                                color={"red.700"}>
 
-                              <ErrorMessage
-                                name={`creatorFee.${[index]}.walletAddress`}
-                                component="div"
-                              />
+                                <ErrorMessage
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                  component="div"
+                                />
+                              </Text>
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>

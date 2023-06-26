@@ -57,7 +57,7 @@ const CollectionCard = ({
               flexDirection='column'
               justifyContent='center'
             >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} w={{base:'100%',md:'100%',xl:'350px'}} transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.2s ease-in-out'>
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} w="100%" transform= {isVisible&& isEditAble?'translate(0px, -25px)':'translate(0px, 0px)'} transition='.2s ease-in-out'>
                 {isShowFeatureImage && (
                   <Image
                     src={featureImage}
@@ -146,7 +146,7 @@ const CollectionCard = ({
             justifyContent='center'
             alignItems="center"
           >
-            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW={{base:'100%',md:'initial',xl:'350px'}} w="100%" >
+            <Box position='relative'  height={{base:'225px',md:'250px',xl:'342px'}} maxW="100%" w="100%" >
               {isShowFeatureImage && (
                 <Image
                   src={featureImage}

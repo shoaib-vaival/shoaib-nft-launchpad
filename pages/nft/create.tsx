@@ -229,11 +229,9 @@ const CreateNFT = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={nftDetail?.desc}
+                    descp={nftDetail?.desc}
                   />
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
+
 
                   <FormLabel
                     fontSize="24px!important"
