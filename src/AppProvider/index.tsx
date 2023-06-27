@@ -11,6 +11,7 @@ import { WalletConnect } from "@web3-react/walletconnect";
 import { walletConnect, walletConnecthooks } from "../connectors/walletConnect";
 import { Web3Provider } from "@ethersproject/providers";
 import { ethers } from "ethers";
+import { Toastify } from "../components/Toaster"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,6 +34,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
             <QueryClientProvider client={queryClient}>
               {children}
             </QueryClientProvider>
+            <Toastify />
           </Web3ContextProvider>
         </Web3ReactProvider>
       </ChakraProvider>

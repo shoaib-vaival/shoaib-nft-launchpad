@@ -29,10 +29,10 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
 
     return(
         <>
-        <Tabs >
+        <Tabs>
         <Menu>
-            <TabList pl='0' overflowX={{base:'auto',md:'initial'}} maxH={{base:'52px',md:'initial'}} mx='17px' borderBottom={{base:'0px solid rgba(53, 53, 53, 0.2)',sm:'1px solid rgba(53, 53, 53, 0.2)'}}>
-        {tabsList && tabsList?.slice(0,5).map((category, index)=> <Tab onClick={()=>filterUsingTabs(category?.id)} key = {index}>{category?.name}</Tab>)}
+            <TabList pl='0' overflowX={{base:'auto',md:'initial'}} mx='17px' borderBottom={{base:'0px solid rgba(53, 53, 53, 0.2)',sm:'1px solid rgba(53, 53, 53, 0.2)'}}>
+        {tabsList && tabsList?.slice(0,5).map((category, index)=> <Tab p='17px 8px 8px' borderBottom='2px solid rgba(53, 53, 53, 0.2)' mb='0' _selected={{mb:'0', borderBottom:'2px solid #6863F3',color:'#6863F3',p:{base:'17px 8px'}}} onClick={()=>filterUsingTabs(category?.id)} key = {index}>{category?.name}</Tab>)}
         {tabsList && tabsList?.length >= 5?<Tab as={MenuButton}>More</Tab>:''}
          </TabList>
          <MenuList >
@@ -48,7 +48,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
              data?.map((collection:any, index:number)=>{
                  return (
              <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}} key={index}>
-                 <CollectionCard   type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage = {true} isShowLogoImage={false} name={collection?.name}/>
+                 <CollectionCard type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage = {true} isShowLogoImage={false} name={collection?.name}/>
                  </Box>
                  )
              })

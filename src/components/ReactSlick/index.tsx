@@ -9,7 +9,6 @@ import { PrevArrow } from './PrevArrow';
 export const SlickSlider = ({children, customSettings}:any)=>{
     const [carousalRef,setCarousalRef] = useState<any>()
     const isSmall = useBreakpointValue({base:true, sm:false, md:false})
-    console.log(isSmall, 'isSmall')
     return(
         <>
         {/* // <>
