@@ -38,8 +38,8 @@ import {
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useContract } from "../../src/connectors/collectionProvider";
-import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
+import { useContract } from "../../src/connectors/marketProvider";
+import { marketContractAbi } from "../../src/connectors/marketContractAbi";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -60,7 +60,7 @@ const CreateCollection = () => {
             provider?.provider as any
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          abiDecoder.addABI(collectionContractABI);
+          abiDecoder.addABI(marketContractAbi);
           const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
 
           const data = {
@@ -287,7 +287,7 @@ const CreateCollection = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={collectionDetail?.desc}
+                    descp={collectionDetail?.desc}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -298,9 +298,6 @@ const CreateCollection = () => {
                       {errors["category"] as React.ReactNode}
                     </Text>
                   )}
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect

@@ -37,7 +37,6 @@ import { PropertyTypes } from "../../src/types";
 import { Header } from "../../src/components/Header";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useNFTContract } from "../../src/connectors/erc721Provider";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { getFromLocalStorage } from "../../src/utils";
@@ -230,11 +229,9 @@ const CreateNFT = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={nftDetail?.desc}
+                    descp={nftDetail?.desc}
                   />
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
+
 
                   <FormLabel
                     fontSize="24px!important"

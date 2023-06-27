@@ -27,9 +27,9 @@ export const Footer = () => {
                   </Stack>
                 </Box>
                 <Box pb='8px' maxW='390px'>
-                  <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >States</Heading>
+                  <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >Stats</Heading>
                   <Stack spacing={{base:'16px',lg:'24px'}} color='#756C99'>
-                    <Link href='#'>States</Link>
+                    <Link href='#'>Stats</Link>
                   </Stack>
                 </Box>
                 <Box pb='8px'>
