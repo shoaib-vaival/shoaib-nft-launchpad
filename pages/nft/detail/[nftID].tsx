@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
-import { Stat, StatLabel, StatNumber,StatHelpText } from "@chakra-ui/stat";
+import { Stat, StatLabel, StatNumber, StatHelpText } from "@chakra-ui/stat";
 import {
   Table,
   TableContainer,
@@ -33,6 +33,10 @@ import { nftType } from "../../../src/types";
 import { useWeb3React } from "@web3-react/core";
 import ListNftModal from "../../../src/Modals/nftProperties/listNft";
 import { useState } from "react";
+import { Loader } from "../../../src/components/Loader";
+import { dayJs } from "../../../src/utils";
+import { currencySymbol } from "../../../src/constants";
+import Link from "next/link";
 import { useMutation } from "../../../src/hooks/useMutation";
 import { PATCH, POST } from "../../../src/hooks/consts";
 import { marketContractAbi } from "../../../src/connectors/marketContractAbi";
@@ -68,6 +72,11 @@ const NftDetail = ({ param }: any) => {
     params: { collectionId: data?.collectionId },
     enabled: data?.collectionId ? true : false,
     token: true,
+  });
+
+  const { data: activities, isLoading: isLoadingActivities } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_NFT_ACTIVITIES],
+    url: `${ApiUrl.GET_NFT_ACTIVITIES}/${param?.nftID}`,
   });
 
   const contractInst = useContract();
@@ -333,29 +342,55 @@ const NftDetail = ({ param }: any) => {
               }}
               gap="3"
             >
-              <Stat p='14px'>
+              <Stat p="14px">
                 <StatLabel>Background</StatLabel>
-                <StatNumber fontSize='18px' display='flex' alignItems='center'>Dark Orange<Text  pl='8px' color='#756C99' fontSize='14px'> 10%</Text></StatNumber>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Dark Orange
+                  <Text pl="8px" color="#756C99" fontSize="14px">
+                    {" "}
+                    10%
+                  </Text>
+                </StatNumber>
                 <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
-              <Stat p='14px'>
+              <Stat p="14px">
                 <StatLabel>Body</StatLabel>
-                <StatNumber fontSize='18px' display='flex' alignItems='center'>Shirt Orange<Text  pl='8px' color='#756C99' fontSize='14px'>6%</Text></StatNumber>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Shirt Orange
+                  <Text pl="8px" color="#756C99" fontSize="14px">
+                    6%
+                  </Text>
+                </StatNumber>
                 <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
-              <Stat p='14px'>
+              <Stat p="14px">
                 <StatLabel>Head</StatLabel>
-                <StatNumber fontSize='18px' display='flex' alignItems='center'>Glasses<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Glasses
+                  <Text pl="8px" color="#756C99" fontSize="14px">
+                    8%
+                  </Text>
+                </StatNumber>
                 <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
-              <Stat p='14px'>
+              <Stat p="14px">
                 <StatLabel>Face</StatLabel>
-                <StatNumber fontSize='18px' display='flex' alignItems='center'>Brown<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Brown
+                  <Text pl="8px" color="#756C99" fontSize="14px">
+                    8%
+                  </Text>
+                </StatNumber>
                 <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
-              <Stat p='14px'>
+              <Stat p="14px">
                 <StatLabel>Hair</StatLabel>
-                <StatNumber fontSize='18px' display='flex' alignItems='center'>Puffballs<Text  pl='8px' color='#756C99' fontSize='14px'>8%</Text></StatNumber>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Puffballs
+                  <Text pl="8px" color="#756C99" fontSize="14px">
+                    8%
+                  </Text>
+                </StatNumber>
                 <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
             </Grid>
@@ -400,193 +435,85 @@ const NftDetail = ({ param }: any) => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td p={{ base: "12px", md: "17px 25px" }}>
-                    <Heading size="sm">Transfer</Heading>
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    --MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    VictoriaL
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    Vincent2020.MATIC
-                  </Td>
-                  <Td p={{ base: "12px", md: "17px 25px" }} textAlign="right">
-                    23 secs ago
-                  </Td>
-                </Tr>
+                {isLoadingActivities && (
+                  <Tr>
+                    <Td colSpan={5}>
+                      <Flex
+                        width="100%"
+                        height="100%"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Loader />
+                      </Flex>
+                    </Td>
+                  </Tr>
+                )}
+                {activities && activities?.length <= 0 && (
+                  <Tr>
+                    <Td colSpan={5}>
+                      <Flex
+                        width="100%"
+                        height="100%"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Heading>Record Not Found</Heading>
+                      </Flex>
+                    </Td>
+                  </Tr>
+                )}
+                {activities &&
+                  activities?.map((activity: any, index: number) => {
+                    return (
+                      <Tr>
+                        <Td p={{ base: "12px", md: "17px 25px" }}>
+                          <Box color="#6863F3">
+                            {activity?.activityType === "Transfer" && (
+                              <i className="icon-transfer"></i>
+                            )}
+                            {activity?.activityType === "List" && (
+                              <i className="icon-list"></i>
+                            )}
+                          </Box>
+                          {activity?.activityType === "List" && (
+                            <Text fontWeight="700" flex="15%">
+                              List
+                            </Text>
+                          )}
+                          {activity?.activityType === "Transfer" && (
+                            <Text fontWeight="700" flex="15%">
+                              Transfer
+                            </Text>
+                          )}
+                        </Td>
+                        <Td
+                          p={{ base: "12px", md: "17px 25px" }}
+                          textAlign="right"
+                        >
+                          {`${activity?.fromAddress} ${currencySymbol}`}
+                        </Td>
+                        <Td
+                          p={{ base: "12px", md: "17px 25px" }}
+                          textAlign="right"
+                        >
+                          {activity?.fromAddress}
+                        </Td>
+                        <Td
+                          p={{ base: "12px", md: "17px 25px" }}
+                          textAlign="right"
+                        >
+                          {activity?.fromAddress}
+                        </Td>
+                        <Td
+                          p={{ base: "12px", md: "17px 25px" }}
+                          textAlign="right"
+                        >
+                          {dayJs(activity?.insertedDate).fromNow()}
+                        </Td>
+                      </Tr>
+                    );
+                  })}
               </Tbody>
             </Table>
           </TableContainer>
@@ -601,7 +528,12 @@ const NftDetail = ({ param }: any) => {
             <Heading fontSize={{ base: "24px", md: "36px", xl: "48px" }}>
               More from this Collections
             </Heading>
-            <Button p={{ base: "5px 20px", md: "20px 32px" }} variant="primary">
+            <Button
+              p={{ base: "5px 20px", md: "20px 32px" }}
+              as={Link}
+              href="/categories"
+              variant="primary"
+            >
               View All
             </Button>
           </Flex>

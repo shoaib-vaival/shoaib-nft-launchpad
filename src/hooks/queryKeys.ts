@@ -19,5 +19,7 @@ export const QUERY_KEYS = {
   GET_SIGN: "get-sign",
   CREATE_NOTIFICATION:'create-notification',
   GET_USER_NFTS:'get-user-nfts',
+  GET_COLLECTION_ACTIVITIES: 'get-collection-activities',
+  GET_NFT_ACTIVITIES:'get-nft-activites',
   GET_BAR_CHART: 'get-bar-chart'
 };
