@@ -9,7 +9,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from "recharts";
 import { ApiUrl } from "../../../apis/apiUrl";
 
@@ -67,9 +68,8 @@ import { ApiUrl } from "../../../apis/apiUrl";
       console.log("datadatadata", data)
 
   return (
+    <ResponsiveContainer width="100%" height={400}>
     <ComposedChart
-      width={500}
-      height={400}
       data={data}
       margin={{
         top: 20,
@@ -88,6 +88,7 @@ import { ApiUrl } from "../../../apis/apiUrl";
       {/* <XAxis dataKey="date" scale="band" /> */}
       <Line type="monotone" dataKey="volume" stroke="#ff7300" />
     </ComposedChart>
+    </ResponsiveContainer>
   );
 }
 
