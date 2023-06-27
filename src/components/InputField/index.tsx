@@ -1,5 +1,4 @@
-
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   FormControl,
@@ -13,10 +12,10 @@ import {
   Flex,
   FormLabelProps,
   FormLabel,
-  useClipboard
-} from '@chakra-ui/react';
-import { SearchIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-
+  useClipboard,
+  Tooltip,
+} from "@chakra-ui/react";
+import { SearchIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export type InputProps = ChakraUIInputProps & {
   label?: string;
@@ -26,7 +25,7 @@ export type InputProps = ChakraUIInputProps & {
   type?: React.HTMLInputTypeAttribute | "search";
   errorText?: string;
   icon?: JSX.Element;
-  ref?:string
+  ref?: string;
 };
 
 const InputField = ({
@@ -42,19 +41,22 @@ const InputField = ({
   errorText,
   width,
   maxLength,
-  fontSize = '16px!important',
+  fontSize = "16px!important",
   ref,
   minLength,
   ...restProps
 }: InputProps) => {
+  const inputRef = useRef<HTMLInputElement>();
   const [showPassword, setShowPassword] = useState(false);
   const { onCopy, value, setValue, hasCopied } = useClipboard("");
-  const inputRef = useRef();
+  // useEffect(() => {
+  //   onCopy;
+  // }, [value]);
   return (
     <FormControl width={width} {...formControlProps}>
       {label && (
         <Flex alignItems="center">
-          <FormLabel mb='16px' fontSize={fontSize} {...formLabelProps}>
+          <FormLabel mb="16px" fontSize={fontSize} {...formLabelProps}>
             {label}
           </FormLabel>
         </Flex>
@@ -67,21 +69,25 @@ const InputField = ({
           color="gray.600"
           placeholder={placeholder}
           name={name}
-          onChange={onChange}
+          onChange={(e) => {
+            if (onChange) {
+              onChange(e);
+            }
+            setValue(e.target.value);
+          }}
           fontSize={fontSize ?? "1rem"}
           fontWeight="medium"
           maxLength={maxLength}
           minLength={minLength}
-          ref = {ref ?? inputRef}
-          variant='custom'
-
+          ref={ref ?? inputRef}
+          variant="custom"
           _placeholder={
             type === "password"
               ? {
                   color: "gray.500",
                   position: "absolute",
                   top: "12px",
-                  fontWeight:'500',
+                  fontWeight: "500",
                 }
               : {
                   color: "gray.500",
@@ -90,13 +96,27 @@ const InputField = ({
           {...restProps}
           autoComplete="off"
         />
-        {type==='copy' && (
-          <InputRightElement color="#6863F3" cursor="pointer" onClick={()=>setValue('shoaib')}>
-          <i  className='icon-copy'></i>
-          </InputRightElement>
+        {type === "copy" && (
+          <Tooltip
+            label="Copied"
+            placement="bottom"
+            isOpen={hasCopied}
+            hasArrow
+            arrowSize={15}
+            bg="green.500"
+          >
+            <InputRightElement
+              color="#6863F3"
+              cursor="pointer"
+              onClick={onCopy}
+              h="100%"
+            >
+              <i className="icon-copy"></i>
+            </InputRightElement>
+          </Tooltip>
         )}
-        {type === 'password' && (
-          <InputRightElement >
+        {type === "password" && (
+          <InputRightElement>
             <Button
               display={!!errorText ? "none" : "block"}
               variant={"ghost"}
