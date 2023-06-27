@@ -37,7 +37,6 @@ import { PropertyTypes } from "../../src/types";
 import { Header } from "../../src/components/Header";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useNFTContract } from "../../src/connectors/erc721Provider";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { getFromLocalStorage } from "../../src/utils";
@@ -80,8 +79,16 @@ const CreateNFT = () => {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
             const receipt = await ethProvider.waitForTransaction(result.hash);
+            console.log(
+              "🚀 ~ file: create.tsx:82 ~ minting ~ receipt:",
+              receipt
+            );
             abiDecoder.addABI(erc721Abi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+            console.log(
+              "🚀 ~ file: create.tsx:88 ~ minting ~ decodedLogs:",
+              decodedLogs
+            );
 
             const data = {
               contractAddress: receipt?.to,
@@ -91,6 +98,7 @@ const CreateNFT = () => {
               activityType: "mint",
               transactionId: receipt?.transactionHash,
             };
+            console.log("🚀 ~ file: create.tsx:98 ~ minting ~ data:", data);
             updateNFT(data);
 
             if (receipt.status == 1) router.push("/profile-created");
@@ -230,11 +238,8 @@ const CreateNFT = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={nftDetail?.desc}
+                    descp={nftDetail?.desc}
                   />
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
 
                   <FormLabel
                     fontSize="24px!important"

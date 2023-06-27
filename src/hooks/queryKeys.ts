@@ -20,5 +20,10 @@ export const QUERY_KEYS = {
   CREATE_NOTIFICATION:'create-notification',
   GET_USER_NFTS:'get-user-nfts',
   GET_STATS:'get-stats',
-  ADD_TO_WATCHLIST:'add-to-watchlist'
+  ADD_TO_WATCHLIST:'add-to-watchlist',
+  GET_BAR_CHART: 'get-bar-chart',
+  GET_LINE_CHART: 'get-line-chart',
+  GET_DOT_CHART: 'get-dot-chart',
+  GET_COLLECTION_ACTIVITIES: 'get-collection-activities',
+  GET_NFT_ACTIVITIES:'get-nft-activites',
 };

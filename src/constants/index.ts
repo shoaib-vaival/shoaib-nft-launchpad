@@ -21,4 +21,4 @@ export const pagePaths = {
     COLLECTION: '/collection/create',
 }
 
-export const currencySymbol = "Matic"
+export const currencySymbol = "MATIC"

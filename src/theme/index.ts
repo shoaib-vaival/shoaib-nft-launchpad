@@ -45,6 +45,21 @@ export const theme = extendTheme({
             h1:{
                 fontSize:'56px'
             },
+            '.datePicker' :{
+                backGround:'red',
+                width:"100%",
+                input:{
+                    width:"100%"
+                },
+                
+            },
+            '.DatePickerPopper':{
+                borderRadius:'4px',
+                border: '1px solid #e2e8f0',
+                '.react-datepicker__header':{
+                    backgroundColor:'#F0F0F0',
+                }
+            }
         }
     }
 })

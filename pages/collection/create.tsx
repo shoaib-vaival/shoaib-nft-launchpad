@@ -38,8 +38,8 @@ import {
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useContract } from "../../src/connectors/collectionProvider";
-import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
+import { useContract } from "../../src/connectors/marketProvider";
+import { marketContractAbi } from "../../src/connectors/marketContractAbi";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -48,6 +48,7 @@ const CreateCollection = () => {
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  abiDecoder.addABI(marketContractAbi);
 
   // Call the contract
 
@@ -60,13 +61,18 @@ const CreateCollection = () => {
             provider?.provider as any
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          abiDecoder.addABI(collectionContractABI);
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+          console.log("🚀 ~ file: create.tsx:63 ~ deployy ~ receipt:", receipt);
+          const decodedLogs = abiDecoder.decodeLogs(receipt?.logs);
+          console.log(
+            "🚀 ~ file: create.tsx:66 ~ deployy ~ decodedLogs:",
+            decodedLogs
+          );
 
           const data = {
             contractAddress: decodedLogs[2]?.events[1]?.value,
             collectionName: decodedLogs[2]?.events[0]?.value,
           };
+          console.log("🚀 ~ file: create.tsx:71 ~ deployy ~ data:", data);
           update(data);
 
           if (receipt) router.push("/profile-created");
@@ -287,7 +293,7 @@ const CreateCollection = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={collectionDetail?.desc}
+                    descp={collectionDetail?.desc}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -298,9 +304,6 @@ const CreateCollection = () => {
                       {errors["category"] as React.ReactNode}
                     </Text>
                   )}
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
@@ -497,8 +500,10 @@ const CreateCollection = () => {
                               w={{ base: "100%", sm: "80%", xl: "80%" }}
                               display="flex"
                               alignItems="baseline"
+                              flexDirection="column"
+                              mb="16px"
                             >
-                              <FormControl isRequired>
+                              <FormControl isRequired mb="0">
                                 <Field
                                   as={InputField}
                                   size="md"
@@ -517,13 +522,17 @@ const CreateCollection = () => {
                                     }
                                   }}
                                 />
-                                <Text></Text>
                               </FormControl>
-
-                              <ErrorMessage
-                                name={`creatorFee.${[index]}.walletAddress`}
-                                component="div"
-                              />
+                              <Text
+                                marginTop={"0px!important"}
+                                fontWeight={"500"}
+                                color={"red.700"}
+                              >
+                                <ErrorMessage
+                                  name={`creatorFee.${[index]}.walletAddress`}
+                                  component="div"
+                                />
+                              </Text>
                             </Box>
 
                             <Box w={{ base: "100%", sm: "20%", xl: "20%" }}>

@@ -10,7 +10,7 @@ import {
   Th,
   Td,
   TableCaption,
-  TableContainer
+  TableContainer,
 } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
@@ -19,7 +19,7 @@ import CollectionCard from "../../src/components/Cards/CollectionCard";
 import { ReactSelect } from "../../src/components/common";
 import ProfileDetail from "../../src/components/Profile/ProfileDetail";
 import ProfileHeader from "../../src/components/Profile/ProfileHeader";
-import Link from 'next/link'
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useQuery } from "../../src/hooks/useQuery";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
@@ -27,344 +27,415 @@ import { ApiUrl } from "../../src/apis/apiUrl";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
-import ListView  from "../../src/views/ListView";
-import {GridView} from "../../src/views/GridView";
+import ListView from "../../src/views/ListView";
+import { GridView } from "../../src/views/GridView";
 import { collectionType, nftType } from "../../src/types";
-import {useDebounce} from './../../src/hooks/useDebounce'
+import { useDebounce } from "./../../src/hooks/useDebounce";
 import { SidebarFilter } from "../../src/components/SidebarFilter";
-
+import { dayJs } from "../../src/utils";
 
 type filters = {
-  status?:string,
-  quantity?: string,
-  collections?:string,
-  sort?:string,
-  search?:string
-}
+  status?: string;
+  quantity?: string;
+  collections?: string;
+  sort?: string;
+  search?: string;
+};
 
 const Collection: NextPage = () => {
-  const router = useRouter()
-  const [collectionID, setCollectionID] = useState<string|undefined>('') 
-  const [filters, setFilters] = useState<filters>({sort:'ASC', search:''})
-  const [search, setSearch] = useState<string>()
-  const [view, setView] = useState<string>('grid')
+  const router = useRouter();
+  const [collectionID, setCollectionID] = useState<string | undefined>("");
+  const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
+  const [search, setSearch] = useState<string>();
+  const [view, setView] = useState<string>("grid");
   const debounceValue = useDebounce(search, 1000);
   const changeViewMode = (viewMode: string) => {
-    setView(viewMode)
-  }
-  const {data:collectionDetail} = useQuery<collectionType>({
-    queryKey:[QUERY_KEYS.GET_COLLECTION_DETAIL],
-    url:`${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
-    enabled:router.query.collectionID ? true : false
-  })
-    const { data:collectionNfts, error, fetchNextPage, status, hasNextPage, isLoading } = useInfiniteQuery<nftType[]>({
-      queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
-      url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
-      params:{collectionId: `${typeof Window !=="undefined" && window.location?.pathname?.split("/")[2]}`, ...filters},
-      token:true
-    });
+    setView(viewMode);
+  };
+  const { data: collectionDetail } = useQuery<collectionType>({
+    queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL],
+    url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
+    enabled: router.query.collectionID ? true : false,
+  });
+  const {
+    data: collectionNfts,
+    error,
+    fetchNextPage,
+    status,
+    hasNextPage,
+    isLoading: isLoadingCollectionNfts,
+  } = useInfiniteQuery<nftType[]>({
+    queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
+    url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
+    params: {
+      collectionId: `${
+        typeof Window !== "undefined" &&
+        window.location?.pathname?.split("/")[2]
+      }`,
+      ...filters,
+    },
+    token: true,
+  });
 
-     const searchHandler = (e:any) => {
-       setSearch(e.target.value)
-    }
-    useEffect(()=>{
-      setFilters({...filters, search:debounceValue})
-    },[debounceValue])
+  const {
+    data: activities,
+    fetchNextPage: fetchNextPageActivities,
+    hasNextPage: hasNextPageActivities,
+    isLoading: isLoadingActivities,
+  } = useInfiniteQuery<any>({
+    queryKey: [QUERY_KEYS.GET_COLLECTION_ACTIVITIES],
+    url: ApiUrl.GET_COLLECTION_ACTIVITIES,
+  });
+
+  const searchHandler = (e: any) => {
+    setSearch(e.target.value);
+  };
+  useEffect(() => {
+    setFilters({ ...filters, search: debounceValue });
+  }, [debounceValue]);
   const socialIcons = [
-    { icon: 'icon-internet', url: collectionDetail?.website_url },
-    { icon: 'icon-telegram', url: collectionDetail?.telegram },
-    { icon: 'icon-froggy', url: collectionDetail?.website_url },
-    { icon: 'icon-instagram', url: collectionDetail?.instagram },
-    { icon: 'icon-twitter', url: collectionDetail?.twitter },
-    { icon: 'icon-groupbar', url: collectionDetail?.email }
+    { icon: "icon-internet", url: collectionDetail?.website_url },
+    { icon: "icon-telegram", url: collectionDetail?.telegram },
+    { icon: "icon-froggy", url: collectionDetail?.website_url },
+    { icon: "icon-instagram", url: collectionDetail?.instagram },
+    { icon: "icon-twitter", url: collectionDetail?.twitter },
+    { icon: "icon-groupbar", url: collectionDetail?.email },
   ];
   const filterGroups = [
     {
-      name: 'Status',
+      name: "Status",
       filters: [
-        { label:'Listed',name: 'list', type: 'checkbox'  },
-        { label:'On Auction',name: 'auction', type: 'checkbox' },
-        { label:'Has Offers',name: 'offers', type: 'checkbox' },
-        { label:'New',name: 'new', type: 'checkbox' },
+        { label: "Listed", name: "list", type: "checkbox" },
+        { label: "On Auction", name: "auction", type: "checkbox" },
+        { label: "Has Offers", name: "offers", type: "checkbox" },
+        { label: "New", name: "new", type: "checkbox" },
       ],
     },
     {
-      name:'Quantity',
-      filters:[
-        { name: 'Listed', type: 'radio', options:['all', 'single', 'bundle'], label:['All items', 'Single Items', 'Bundles']},
-      ]
-    },
-     {
-      name: 'Collections',
+      name: "Quantity",
       filters: [
-        { label: 'Ragile', name: 'Ragile',  type: 'checkbox', },
-        { label: 'Crypto', name: 'Crypto',  type: 'checkbox' },
-        { label: 'Valhaila', name: 'Valhaila', type: 'checkbox' },
-        { label: 'Otherdeed', name: 'Otherdeed', type: 'checkbox' },
+        {
+          name: "Listed",
+          type: "radio",
+          options: ["all", "single", "bundle"],
+          label: ["All items", "Single Items", "Bundles"],
+        },
+      ],
+    },
+    {
+      name: "Collections",
+      filters: [
+        { label: "Ragile", name: "Ragile", type: "checkbox" },
+        { label: "Crypto", name: "Crypto", type: "checkbox" },
+        { label: "Valhaila", name: "Valhaila", type: "checkbox" },
+        { label: "Otherdeed", name: "Otherdeed", type: "checkbox" },
       ],
     },
     // Add more filter groups here if needed
   ];
   return (
     <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
-        <Box px={{ base: '0', md: '17px' }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
+        <Box px={{ base: "0", md: "17px" }}>
           <ProfileHeader
             socialIcons={socialIcons}
-            showSocialIcons={true} coverPhoto={collectionDetail?.bannerImageUrl} profilePhoto={collectionDetail?.logoImageUrl} />
+            showSocialIcons={true}
+            coverPhoto={collectionDetail?.bannerImageUrl}
+            profilePhoto={collectionDetail?.logoImageUrl}
+          />
         </Box>
-        <ProfileDetail showStats={true} data={collectionDetail} isCollection={true} description={collectionDetail?.description} />
+        <ProfileDetail
+          showStats={true}
+          data={collectionDetail}
+          isCollection={true}
+          description={collectionDetail?.description}
+        />
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box>
           <Tabs>
             <TabList>
               <Tab>Items</Tab>
               <Tab>Activity</Tab>
+              <Tab>Analytics</Tab>
             </TabList>
 
             <TabPanels>
               <TabPanel p={0}>
-                <Flex pt='20px'>
-                  <SidebarFilter filterGroups={filterGroups} onFilterChange={(filters:any)=>console.log(filters)} />
+                <Flex pt="20px">
+                  <SidebarFilter
+                    filterGroups={filterGroups}
+                    onFilterChange={(filters: any) => console.log(filters)}
+                  />
                   <Box w="100%">
-                <Flex justifyContent={'end'} alignItems="center" flexWrap='wrap'>
-                <Box order='1'>
-                <IconButton
-                  variant='outline'
-                  colorScheme='primary'
-                  aria-label='Send email'
-                  icon={<i className='icon-funnel'></i>}
-                />
-                </Box>
+                    <Flex
+                      justifyContent={"end"}
+                      alignItems="center"
+                      flexWrap="wrap"
+                    >
+                      <Box order="1">
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-funnel"></i>}
+                        />
+                      </Box>
 
-                <Box order={{base:'3',sm:'2'}} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
-                    <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "300px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' onChange={(e)=>searchHandler(e)} value = {search}/>
-                      <InputLeftElement>
-                        <img src='/assets/images/search-icon.svg' />
-                      </InputLeftElement>
-                    </InputGroup>
+                      <Box
+                        order={{ base: "3", sm: "2" }}
+                        w={{ base: "100%", sm: "auto" }}
+                        pl={{ base: "0", sm: "8px" }}
+                        pt={{ base: "15px", md: "0", xl: "0" }}
+                      >
+                        <InputGroup
+                          variant="custom"
+                          colorScheme="purple"
+                          w={{ base: "full", sm: "300px", md: "sm" }}
+                          marginBottom={{
+                            base: "3",
+                            md: "initial",
+                            xl: "initial",
+                          }}
+                        >
+                          <Input
+                            placeholder="Search..."
+                            onChange={(e) => searchHandler(e)}
+                            value={search}
+                          />
+                          <InputLeftElement>
+                            <img src="/assets/images/search-icon.svg" />
+                          </InputLeftElement>
+                        </InputGroup>
+                      </Box>
+                      <Box
+                        width="150px"
+                        ml="8px"
+                        order={{ base: "2", sm: "3" }}
+                      >
+                        <ReactSelect
+                          options={[
+                            { label: "Ascending ", value: "ASC" },
+                            { label: "Descending ", value: "DESC" },
+                          ]}
+                          isMultiple={false}
+                          identifier="filter"
+                          getSelectedData={(selectedOption: any) =>
+                            setFilters({
+                              ...filters,
+                              sort: selectedOption?.value,
+                            })
+                          }
+                          placeholder="Sort By"
+                        />
+                      </Box>
+                      <ButtonGroup
+                        order={{ base: "2", sm: "3" }}
+                        size="md"
+                        isAttached
+                        variant="outline"
+                        ml="8px"
+                      >
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-list"></i>}
+                          onClick={() => changeViewMode("list")}
+                          bg={view === "list" ? "rgba(111, 107, 243, 0.3)" : ""}
+                          color={
+                            view === "list"
+                              ? "rgba(111, 107, 243, 0.3)"
+                              : "#756C99"
+                          }
+                        />
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-grid"></i>}
+                          onClick={() => changeViewMode("grid")}
+                          bg={view === "grid" ? "rgba(111, 107, 243, 0.3)" : ""}
+                          color={
+                            view === "grid"
+                              ? "rgba(111, 107, 243, 0.3)"
+                              : "#756C99"
+                          }
+                        />
+                      </ButtonGroup>
+                      <Box></Box>
+                      <Box></Box>
+                    </Flex>
+                    {view === "grid" ? (
+                      <GridView
+                        type="nft"
+                        data={collectionNfts}
+                        fetchNextPage={fetchNextPage}
+                        hasNextPage={hasNextPage}
+                        isLoading={isLoadingCollectionNfts}
+                      />
+                    ) : (
+                      collectionNfts !== undefined && (
+                        <ListView
+                          data={collectionNfts}
+                          fetchNextPage={fetchNextPage}
+                          hasNextPage={hasNextPage}
+                        />
+                      )
+                    )}
                   </Box>
-                  <Box width="150px" ml='8px' order={{ base: '2', sm: '3' }}>
-                    <ReactSelect options={[{ label: 'Ascending ', value: 'ASC' }, { label: 'Descending ', value: 'DESC' } ]} isMultiple={false} identifier='filter' getSelectedData={(selectedOption: any) => setFilters({...filters, sort:selectedOption?.value})} placeholder="Sort By" />
-                  </Box>
-                  <ButtonGroup order={{ base: '2', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
-                    <IconButton
-                      variant='outline'
-                      colorScheme='primary'
-                      aria-label='Send email'
-                      icon={<i className='icon-list'></i>}
-                      onClick={() => changeViewMode('list')}
-                      bg={view === 'list' ? 'rgba(111, 107, 243, 0.3)' : ''}
-                      color={view === 'list' ? 'rgba(111, 107, 243, 0.3)' : "#756C99"}
-                    />
-                    <IconButton
-                      variant='outline'
-                      colorScheme='primary'
-                      aria-label='Send email'
-                      icon={<i className='icon-grid'></i>}
-                      onClick={() => changeViewMode('grid')}
-                      bg={view === 'grid' ? 'rgba(111, 107, 243, 0.3)' : ''}
-                      color={view === 'grid' ? 'rgba(111, 107, 243, 0.3)' : "#756C99"}
-                    />
-                  </ButtonGroup>
-                  <Box>
-                  </Box>
-                  <Box>
-                  </Box>
-                </Flex>
-                {view === 'grid' ?  collectionNfts !== undefined && <GridView type="nft" data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} /> :  collectionNfts !== undefined && <ListView data={collectionNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
-                </Box>
                 </Flex>
               </TabPanel>
-              <TabPanel pt='0'>
-                <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
-                <Box order='1'>
-
-                <IconButton
-                  variant='outline'
-                  colorScheme='primary'
-                  aria-label='Send email'
-                  icon={<i className='icon-funnel'></i>}
-                />
-                </Box>
-                <Box order={{base:'3',sm:'2'}}  w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
-                    <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "200px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' />
+              <TabPanel pt="0">
+                <Flex
+                  justifyContent={"end"}
+                  alignItems="center"
+                  pt="20px"
+                  flexWrap="wrap"
+                >
+                  <Box order="1">
+                    <IconButton
+                      variant="outline"
+                      colorScheme="primary"
+                      aria-label="Send email"
+                      icon={<i className="icon-funnel"></i>}
+                    />
+                  </Box>
+                  <Box
+                    order={{ base: "3", sm: "2" }}
+                    w={{ base: "100%", sm: "auto" }}
+                    pl={{ base: "0", sm: "8px" }}
+                    pt={{ base: "15px", md: "0", xl: "0" }}
+                  >
+                    <InputGroup
+                      variant="custom"
+                      colorScheme="purple"
+                      w={{ base: "full", sm: "200px", md: "sm" }}
+                      marginBottom={{ base: "3", md: "initial", xl: "initial" }}
+                    >
+                      <Input placeholder="Search..." />
                       <InputLeftElement>
-                        <img src='/assets/images/search-icon.svg' />
+                        <img src="/assets/images/search-icon.svg" />
                       </InputLeftElement>
                     </InputGroup>
                   </Box>
-                  <Box width="150px" ml='8px' order={{ base: '2', sm: '3' }}>
-                    <ReactSelect options={[{ key: 'Sorty By', value: 'Sort By' }]} isMultiple={false} identifier='filter' getSelectedData={(value: string) => console.log(value)} placeholder="Sort By" />
+                  <Box width="150px" ml="8px" order={{ base: "2", sm: "3" }}>
+                    <ReactSelect
+                      options={[{ key: "Sorty By", value: "Sort By" }]}
+                      isMultiple={false}
+                      identifier="filter"
+                      getSelectedData={(value: string) => console.log(value)}
+                      placeholder="Sort By"
+                    />
                   </Box>
                 </Flex>
-                <TableContainer pt='24px'>
-                  <Table variant='simple'>
+                <TableContainer pt="24px">
+                  <Table variant="simple">
                     <Thead>
                       <Tr>
                         <Th textAlign="center">ITEM</Th>
-                        <Th>PARITY</Th>
-                        <Th >LAST Transfer</Th>
-                        <Th >OWNER</Th>
-                        <Th >TIME</Th>
+                        <Th>LAST Transfer</Th>
+                        <Th>OWNER</Th>
+                        <Th>TIME</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
-                      <Tr>
-                        <Td p={{ base: '12px', md: '17px 25px' }}>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
-                            </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >#667</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >John Smith</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >CryotoDL</Td>
-                        <Td p={{ base: '12px', md: '17px 25px' }} >3m ago</Td>
-                      </Tr>
+                      {isLoadingActivities && (
+                        <Tr>
+                          <Td colSpan={5}>
+                            <Flex
+                              width="100%"
+                              height="100%"
+                              justifyContent="center"
+                              alignItems="center"
+                            >
+                              <Loader />
+                            </Flex>
+                          </Td>
+                        </Tr>
+                      )}
+                      {activities && activities?.length <= 0 ? (
+                        <Tr>
+                          <Td colSpan={5}>
+                            <Flex
+                              width="100%"
+                              height="100%"
+                              justifyContent="center"
+                              alignItems="center"
+                            >
+                              <Heading>Record Not Found</Heading>
+                            </Flex>
+                          </Td>
+                        </Tr>
+                      ) : (
+                        ""
+                      )}
+                      {activities &&
+                        activities?.map((activity: any, index: number) => {
+                          return (
+                            <>
+                              <Tr>
+                                <Td p={{ base: "12px", md: "17px 25px" }}>
+                                  <Flex gap="2" alignItems="center" mr="48px">
+                                    <Box color="#6863F3">
+                                      {activity?.event === "Transfer" && (
+                                        <i className="icon-transfer"></i>
+                                      )}
+                                      {activity?.event === "List" && (
+                                        <i className="icon-list"></i>
+                                      )}
+                                    </Box>
+                                    {activity?.event === "List" && (
+                                      <Text fontWeight="700" flex="15%">
+                                        List
+                                      </Text>
+                                    )}
+                                    {activity?.event === "Transfer" && (
+                                      <Text fontWeight="700" flex="15%">
+                                        Transfer
+                                      </Text>
+                                    )}
+                                    <Flex
+                                      alignItems="center"
+                                      gap="2"
+                                      flex="85%"
+                                    >
+                                      <Image
+                                        src={activity?.logoImageUrl}
+                                        boxSize="100px"
+                                        objectFit="cover"
+                                        border="1px solid white"
+                                        borderRadius="16px"
+                                        w={{ base: "50px", md: "96px" }}
+                                        h={{ base: "50px", md: "96px" }}
+                                      />
+                                      <VStack spacing="0.5">
+                                        <Heading fontSize="18px">
+                                          {activity?.name}
+                                        </Heading>
+                                        <Text
+                                          color="rgba(57, 63, 89, 1)"
+                                          fontSize="14px"
+                                        >
+                                          {activity?.collection?.name}
+                                        </Text>
+                                      </VStack>
+                                    </Flex>
+                                  </Flex>
+                                </Td>
+                                <Td p={{ base: "12px", md: "17px 25px" }}>
+                                  {activity?.sale}
+                                </Td>
+                                <Td p={{ base: "12px", md: "17px 25px" }}>
+                                  {activity?.owner}
+                                </Td>
+                                <Td p={{ base: "12px", md: "17px 25px" }}>
+                                  {dayJs(activity?.insertedDate).fromNow()}
+                                </Td>
+                              </Tr>
+                            </>
+                          );
+                        })}
                     </Tbody>
                   </Table>
                 </TableContainer>
@@ -374,7 +445,7 @@ const Collection: NextPage = () => {
         </Box>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Collection
+export default Collection;
