@@ -26,6 +26,8 @@ import { useMutation } from "../../hooks/useMutation";
 import { signMessage } from "../../context/signListing";
 import { erc721Abi } from "../../connectors/erc721Abi";
 import { ethers } from "ethers";
+import { useNFTContract } from "../../connectors/erc721Provider";
+import DatePickerReact from "../../components/DatePicker";
 
 const ListNftModal = ({
   isOpen,
@@ -38,6 +40,7 @@ const ListNftModal = ({
   onOpen?: any;
   nftData?: any;
 }) => {
+  console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
   const [price, setPrice] = useState<string>("");
 
@@ -73,7 +76,7 @@ const ListNftModal = ({
       collaboratorAddress,
       collaboratorAmount,
     };
-  }
+  };
 
   const calculateCollaboratorAmount = (percentage: number): string => {
     const totalAmount = "5000000000000000000"; // Total amount to be distributed
@@ -81,7 +84,7 @@ const ListNftModal = ({
     const amount = (percentage / 100) * parseFloat(totalAmount);
 
     return amount.toString();
-  }
+  };
 
   const transformedData: CollaboratorData = transformCreatorFeeData(
     nftData?.collection?.creatorFee
@@ -91,7 +94,7 @@ const ListNftModal = ({
     erc721: string;
     tokenId: number;
     price: string;
-    endTime: number;
+    duration: number;
     collaboratorAddress: string[];
     collaboratorAmount: string[];
     collectionId: string;
@@ -102,7 +105,7 @@ const ListNftModal = ({
     erc721: nftData?.minting_contract_address,
     tokenId: nftData?.tokenId,
     price: price,
-    endTime: 1687202998,
+    duration: 1687202998,
     collaboratorAddress: transformedData?.collaboratorAddress,
     collaboratorAmount: transformedData?.collaboratorAmount,
     collectionId: nftData?.collectionId,
@@ -110,30 +113,45 @@ const ListNftModal = ({
   const { mutate, isLoading } = useMutation<any>({
     method: POST,
     url: ApiUrl?.LIST_FOR_SALE,
-    isFileData: true,
     token: true,
+    onSuccess: async (data) => {
+      alert("NFT LISTED SUCCESSFULLY");
+    },
   });
+
   const approveNFT = async (contractAddress: any) => {
     if (provider) {
       const ethProvider = new ethers.providers.Web3Provider(
         provider?.provider as any
       );
+
       const contractInstance = new ethers.Contract(
         String(contractAddress),
         erc721Abi,
         ethProvider.getSigner()
       );
+
       if (contractInstance) {
         try {
-          const result = await contractInstance.approveForAll(
-            process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
-            contractAddress
+          const isApproved = await contractInstance.isApprovedForAll(
+            account,
+            process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS
           );
-          if (result) {
-            const receipt = await ethProvider.waitForTransaction(result.hash);
-
-            // if (receipt.status == 1) router.push("/profile-created");
+          console.log("Approval status:", isApproved);
+          if (!isApproved) {
+            const getApproval = await contractInstance.setApprovalForAll(
+              process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
+              true
+            );
+            console.log(
+              "🚀 ~ file: listNft.tsx:149 ~ approveNFT ~ getApproval:",
+              getApproval
+            );
+            handleListing();
+          } else {
+            handleListing();
           }
+
           // Handle the returned result here
         } catch (error) {
           console.error(error);
@@ -151,7 +169,7 @@ const ListNftModal = ({
       }
     );
     if (sign) {
-      mutate({ ...params, signature: sign });
+      mutate({ ...params, signature: sign, nftId: nftData?.id });
     }
   };
 
@@ -178,6 +196,8 @@ const ListNftModal = ({
                 </InputRightAddon>
               </InputGroup>
             </FormControl>
+
+            <DatePickerReact />
 
             <FormControl mt={4} mb="24px">
               <FormLabel>Set Duration</FormLabel>
@@ -241,7 +261,7 @@ const ListNftModal = ({
               variant="primary"
               w="100%"
               onClick={() => {
-                handleListing();
+                approveNFT(nftData?.minting_contract_address);
               }}
             >
               List For Sale

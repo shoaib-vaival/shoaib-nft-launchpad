@@ -18,6 +18,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../src/components/Loader";
 import { collectionType, nftType } from "../src/types";
 import { GridView } from "../src/views/GridView";
+import { currencySymbol } from "../src/constants";
 
 const Categories: NextPage = () => {
   const { data: bannerCollection } = useQuery<collectionType>({
@@ -91,7 +92,7 @@ const Categories: NextPage = () => {
                     {bannerCollection?.nftCount ?? 0} items
                   </Text>
                   <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                    {bannerCollection?.price ?? 0} ETH
+                    {bannerCollection?.price ?? 0} {currencySymbol}
                   </Text>
                 </Flex>
               </Box>
