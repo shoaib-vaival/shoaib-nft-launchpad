@@ -37,7 +37,6 @@ import { PropertyTypes } from "../../src/types";
 import { Header } from "../../src/components/Header";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useNFTContract } from "../../src/connectors/erc721Provider";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { getFromLocalStorage } from "../../src/utils";
