@@ -8,6 +8,9 @@ import {
   Tooltip,
   Legend
 } from "recharts";
+import { QUERY_KEYS } from "../../../../src/hooks/queryKeys";
+import { useQuery } from "../../../../src/hooks/useQuery";
+import { ApiUrl } from "../../../apis/apiUrl";
 
 const data = [
   {
@@ -78,7 +81,14 @@ const data = [
   }
 ];
 
+
 const CustomLineChart = () => {
+  const { data: LineChartData } = useQuery<string>({
+      queryKey: [QUERY_KEYS.GET_LINE_CHART],
+      url: ApiUrl.GET_LINE_CHART,
+    })
+
+    console.log("datadatadata", LineChartData)
   return (
     <>
     <LineChart
