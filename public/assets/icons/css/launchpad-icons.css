@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'launchpad-icons';
-  src: url('../font/launchpad-icons.eot?43524756');
-  src: url('../font/launchpad-icons.eot?43524756#iefix') format('embedded-opentype'),
-       url('../font/launchpad-icons.woff2?43524756') format('woff2'),
-       url('../font/launchpad-icons.woff?43524756') format('woff'),
-       url('../font/launchpad-icons.ttf?43524756') format('truetype'),
-       url('../font/launchpad-icons.svg?43524756#launchpad-icons') format('svg');
+  src: url('../font/launchpad-icons.eot?48267768');
+  src: url('../font/launchpad-icons.eot?48267768#iefix') format('embedded-opentype'),
+       url('../font/launchpad-icons.woff2?48267768') format('woff2'),
+       url('../font/launchpad-icons.woff?48267768') format('woff'),
+       url('../font/launchpad-icons.ttf?48267768') format('truetype'),
+       url('../font/launchpad-icons.svg?48267768#launchpad-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'launchpad-icons';
-    src: url('../font/launchpad-icons.svg?43524756#launchpad-icons') format('svg');
+    src: url('../font/launchpad-icons.svg?48267768#launchpad-icons') format('svg');
   }
 }
 */
@@ -27,8 +27,8 @@
 
   display: inline-block;
   text-decoration: inherit;
-  /* width: 1em;
-  margin-right: .2em; */
+  width: 1em;
+  margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
 
@@ -41,7 +41,7 @@
 
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
-  /* margin-left: .2em; */
+  margin-left: .2em;
 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
@@ -87,6 +87,8 @@
 .icon-fill-tele:before { content: '\e81e'; } /* '' */
 .icon-at:before { content: '\e81f'; } /* '' */
 .icon-copy-1:before { content: '\e820'; } /* '' */
+.icon-dropdown:before { content: '\e820'; } /* '' */
 .icon-plus:before { content: '\e821'; } /* '' */
 .icon-arrow-left:before { content: '\e822'; } /* '' */
 .icon-arrow-right:before { content: '\e823'; } /* '' */
+.icon-eye:before { content: '\e83b'; } /* '' */
