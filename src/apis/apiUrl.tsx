@@ -20,7 +20,7 @@ export const ApiUrl = {
   GET_MORE_NFTS_BY_COLLECTION: "minting/more-nfts-by-collection",
   GET_BANNER_COLLECTION: "collection/get-banner-collection",
   GET_ALL_COLLECTIONS: "collection/get-collections",
-  GET_ACTIVITIES: "collection/get-activities",
+  GET_ACTIVITIES: "activity/get-all-activities",
   GET_USER: "user/get-profile",
   GET_COLLECTION_BY_USER_ID: "collection/getCollectionsByWalletAddress",
   SAVE_SIGNATURE: "user/connect-wallet",
@@ -28,4 +28,6 @@ export const ApiUrl = {
   CREATE_NOTIFICATION: "user/send-notification",
   LIST_FOR_SALE: "nft-listing/list-nft",
   GET_USER_NFTS: "minting/get-user-nfts",
+  GET_COLLECTION_ACTIVITIES: "activity/get-activities-by-collection",
+  GET_NFT_ACTIVITIES: "activity/get-activities-by-nft",
 };
