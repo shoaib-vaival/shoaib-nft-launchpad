@@ -9,7 +9,7 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer
+  TableContainer,
 } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { NextPage } from "next";
@@ -20,7 +20,7 @@ import { ReactSelect } from "../src/components/common";
 import { Loader } from "../src/components/Loader";
 import ProfileDetail from "../src/components/Profile/ProfileDetail";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
-import { SlickSlider } from '../src/components/ReactSlick'
+import { SlickSlider } from "../src/components/ReactSlick";
 import CustomSlider from "../src/components/Slider";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useDebounce } from "../src/hooks/useDebounce";
@@ -60,43 +60,69 @@ const ProfilCreated: NextPage = () => {
     queryKey: [QUERY_KEYS.GET_USER],
     url: ApiUrl.GET_USER,
     token: true,
-  })
-  const { data: userCollections, isLoading: isUserCollectionLoading } = useQuery<collectionType[]>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_BY_USER_ID],
-    url: ApiUrl.GET_COLLECTION_BY_USER_ID,
-    token: true
-  })
-  const { data: userNfts, error, fetchNextPage, status, hasNextPage, isLoading: isUserNftLoading } = useInfiniteQuery<nftType[]>({
+  });
+  const { data: userCollections, isLoading: isLoadingUserCollection } =
+    useQuery<collectionType[]>({
+      queryKey: [QUERY_KEYS.GET_COLLECTION_BY_USER_ID],
+      url: ApiUrl.GET_COLLECTION_BY_USER_ID,
+      token: true,
+    });
+  const {
+    data: userNfts,
+    error,
+    fetchNextPage,
+    status,
+    hasNextPage,
+    isLoading: isLoadingUserNfts,
+  } = useInfiniteQuery<nftType[]>({
     queryKey: [QUERY_KEYS.GET_USER_NFTS, filters],
     url: ApiUrl.GET_USER_NFTS,
     params: { ...filters },
-    token: true
-  })
+    token: true,
+  });
   const socialIcons = [
-    { icon: 'icon-internet', url: data?.websiteUrl },
-    { icon: 'icon-telegram', url: data?.telegram },
-    { icon: 'icon-froggy', url: data?.discord },
-    { icon: 'icon-instagram', url: data?.instagram },
-    { icon: 'icon-twitter', url: data?.twitter },
-    { icon: 'icon-groupbar', url: data?.etherScanUrl }
-  ]
-
+    { icon: "icon-internet", url: data?.websiteUrl },
+    { icon: "icon-telegram", url: data?.telegram },
+    { icon: "icon-froggy", url: data?.discord },
+    { icon: "icon-instagram", url: data?.instagram },
+    { icon: "icon-twitter", url: data?.twitter },
+    { icon: "icon-groupbar", url: data?.etherScanUrl },
+  ];
 
   return (
     <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
-        <Box px={{ base: '0', sm: '17px' }}>
-          {isProfileLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
-            <ProfileHeader socialIcons={socialIcons} showSocialIcons={true} coverPhoto={data?.profileCoverURL} profilePhoto={data?.profileUrl} />}
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
+        <Box px={{ base: "0", sm: "17px" }}>
+          {isProfileLoading && data === undefined ? (
+            <Flex
+              width="100%"
+              height="100%"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Loader />
+            </Flex>
+          ) : (
+            <ProfileHeader
+              socialIcons={socialIcons}
+              showSocialIcons={true}
+              coverPhoto={data?.profileCoverURL}
+              profilePhoto={data?.profileUrl}
+            />
+          )}
         </Box>
-        <Box mb={{ base: '12px', md: '35px' }}>
-          <ProfileDetail showStats={false} data={{ ...data, description: data?.bio }} isCollection={false} />
+        <Box mb={{ base: "12px", md: "35px" }}>
+          <ProfileDetail
+            showStats={false}
+            data={{ ...data, description: data?.bio }}
+            isCollection={false}
+          />
         </Box>
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box>
           <Tabs>
-            <TabList ml='12px' pl='0'>
+            <TabList ml="12px" pl="0">
               <Tab>Created</Tab>
               <Tab>Activity</Tab>
               <Tab>Analytics</Tab>
@@ -104,108 +130,217 @@ const ProfilCreated: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-
                 <Box>
-                  {userCollections && userCollections?.length <= 0 ? '' :
-                    <SlickSlider >
-                      {userCollections?.map((collection: any, index: number) => {
-                        return <CollectionCard type='withBody' isEditAble={true} key={index} featureImage={collection?.bannerImageUrl} logoImage={collection?.logoImageUrl} isShowFeatureImage={true} isShowLogoImage={true} name={collection.name} />
-                      })}
+                  {userCollections && userCollections?.length <= 0 ? (
+                    ""
+                  ) : (
+                    <SlickSlider>
+                      {userCollections?.map(
+                        (collection: any, index: number) => {
+                          return (
+                            <CollectionCard
+                              type="withBody"
+                              isEditAble={true}
+                              key={index}
+                              featureImage={collection?.bannerImageUrl}
+                              logoImage={collection?.logoImageUrl}
+                              isShowFeatureImage={true}
+                              isShowLogoImage={true}
+                              name={collection.name}
+                            />
+                          );
+                        }
+                      )}
                     </SlickSlider>
-                  }
+                  )}
                 </Box>
-                <Flex mt='15px' mx='12px' borderTop={userCollections?.length ? '1px solid rgba(53, 53, 53, 0.2)' : ''} justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
-                  <Box order='1'>
+                <Flex
+                  mt="15px"
+                  mx="12px"
+                  borderTop={
+                    userCollections?.length
+                      ? "1px solid rgba(53, 53, 53, 0.2)"
+                      : ""
+                  }
+                  justifyContent={"end"}
+                  alignItems="center"
+                  pt="20px"
+                  flexWrap="wrap"
+                >
+                  <Box order="1">
                     <IconButton
-                      variant='outline'
-                      colorScheme='primary'
-                      aria-label='Send email'
-                      icon={<i className='icon-funnel'></i>}
+                      variant="outline"
+                      colorScheme="primary"
+                      aria-label="Send email"
+                      icon={<i className="icon-funnel"></i>}
                     />
                   </Box>
-                  <Box order={{ base: '4', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
-                    <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "200px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' onChange={(e) => searchHandler(e)} value={filters?.search} />
+                  <Box
+                    order={{ base: "4", sm: "2" }}
+                    w={{ base: "100%", sm: "auto" }}
+                    pl={{ base: "0", sm: "8px" }}
+                    pt={{ base: "15px", md: "0", xl: "0" }}
+                  >
+                    <InputGroup
+                      variant="custom"
+                      colorScheme="purple"
+                      w={{ base: "full", sm: "200px", md: "sm" }}
+                      marginBottom={{ base: "3", md: "initial", xl: "initial" }}
+                    >
+                      <Input
+                        placeholder="Search..."
+                        onChange={(e) => searchHandler(e)}
+                        value={filters?.search}
+                      />
                       <InputLeftElement>
-                        <img src='/assets/images/search-icon.svg' />
+                        <img src="/assets/images/search-icon.svg" />
                       </InputLeftElement>
                     </InputGroup>
                   </Box>
-                  <Box width={{ base: '119px', sm: "150px" }} ml='8px' order={{ base: '2', sm: '3' }}>
-                    <ReactSelect options={[{ label: 'Ascending ', value: 'ASC' }, { label: 'Descending ', value: 'DESC' }]} placeholder="Sort By" isMultiple={false} identifier='filter' getSelectedData={(selectedOption: any) => setFilters({ ...filters, sort: selectedOption?.value })} />
+                  <Box
+                    width={{ base: "119px", sm: "150px" }}
+                    ml="8px"
+                    order={{ base: "2", sm: "3" }}
+                  >
+                    <ReactSelect
+                      options={[
+                        { label: "Ascending ", value: "ASC" },
+                        { label: "Descending ", value: "DESC" },
+                      ]}
+                      placeholder="Sort By"
+                      isMultiple={false}
+                      identifier="filter"
+                      getSelectedData={(selectedOption: any) =>
+                        setFilters({ ...filters, sort: selectedOption?.value })
+                      }
+                    />
                   </Box>
-                  <ButtonGroup order={{ base: '3', sm: '3' }} size='md' isAttached variant='outline' ml="8px">
+                  <ButtonGroup
+                    order={{ base: "3", sm: "3" }}
+                    size="md"
+                    isAttached
+                    variant="outline"
+                    ml="8px"
+                  >
                     <IconButton
-                      variant='outline'
-                      colorScheme='primary'
-                      aria-label='Send email'
-                      icon={<i className='icon-list'></i>}
-                      onClick={() => changeViewMode('list')}
-                      bg={view === 'list' ? 'rgba(111, 107, 243, 0.3)' : ''}
-                      color={view === 'list' ? 'rgba(111, 107, 243, 0.3)' : "#756C99"}
+                      variant="outline"
+                      colorScheme="primary"
+                      aria-label="Send email"
+                      icon={<i className="icon-list"></i>}
+                      onClick={() => changeViewMode("list")}
+                      bg={view === "list" ? "rgba(111, 107, 243, 0.3)" : ""}
+                      color={
+                        view === "list" ? "rgba(111, 107, 243, 0.3)" : "#756C99"
+                      }
                     />
                     <IconButton
-                      variant='outline'
-                      colorScheme='primary'
-                      aria-label='Send email'
-                      icon={<i className='icon-grid'></i>}
-                      onClick={() => changeViewMode('grid')}
-                      bg={view === 'grid' ? 'rgba(111, 107, 243, 0.3)' : ''}
-                      color={view === 'grid' ? 'rgba(111, 107, 243, 0.3)' : "#756C99"}
+                      variant="outline"
+                      colorScheme="primary"
+                      aria-label="Send email"
+                      icon={<i className="icon-grid"></i>}
+                      onClick={() => changeViewMode("grid")}
+                      bg={view === "grid" ? "rgba(111, 107, 243, 0.3)" : ""}
+                      color={
+                        view === "grid" ? "rgba(111, 107, 243, 0.3)" : "#756C99"
+                      }
                     />
                   </ButtonGroup>
-                  <Box>
-                  </Box>
-                  <Box>
-                  </Box>
+                  <Box></Box>
+                  <Box></Box>
                 </Flex>
-                {view === 'grid' ? userNfts !== undefined && <GridView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} type="nft" /> : userNfts !== undefined && <ListView data={userNfts} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />}
+                {view === "grid" ? (
+                  <GridView
+                    data={userNfts}
+                    fetchNextPage={fetchNextPage}
+                    hasNextPage={hasNextPage}
+                    type="nft"
+                    isLoading={isLoadingUserNfts}
+                  />
+                ) : (
+                  userNfts !== undefined && (
+                    <ListView
+                      data={userNfts}
+                      fetchNextPage={fetchNextPage}
+                      hasNextPage={hasNextPage}
+                    />
+                  )
+                )}
               </TabPanel>
-              <TabPanel pt='0'>
-                <Flex justifyContent={'end'} alignItems="center" pt='20px' flexWrap='wrap'>
-                  <Box order='1'>
+              <TabPanel pt="0">
+                <Flex
+                  justifyContent={"end"}
+                  alignItems="center"
+                  pt="20px"
+                  flexWrap="wrap"
+                >
+                  <Box order="1">
                     <IconButton
-                      variant='outline'
-                      colorScheme='primary'
-                      aria-label='Send'
-                      icon={<i className='icon-funnel'></i>}
+                      variant="outline"
+                      colorScheme="primary"
+                      aria-label="Send"
+                      icon={<i className="icon-funnel"></i>}
                     />
                   </Box>
-                  <Box order={{ base: '3', sm: '2' }} w={{ base: '100%', sm: 'auto' }} pl={{ base: '0', sm: '8px' }} pt={{ base: '15px', md: '0', xl: '0' }} >
-                    <InputGroup variant='custom' colorScheme='purple' w={{ base: "full", sm: "200px", md: 'sm' }} marginBottom={{ base: '3', md: 'initial', xl: 'initial' }} >
-                      <Input placeholder='Search...' />
+                  <Box
+                    order={{ base: "3", sm: "2" }}
+                    w={{ base: "100%", sm: "auto" }}
+                    pl={{ base: "0", sm: "8px" }}
+                    pt={{ base: "15px", md: "0", xl: "0" }}
+                  >
+                    <InputGroup
+                      variant="custom"
+                      colorScheme="purple"
+                      w={{ base: "full", sm: "200px", md: "sm" }}
+                      marginBottom={{ base: "3", md: "initial", xl: "initial" }}
+                    >
+                      <Input placeholder="Search..." />
                       <InputLeftElement>
-                        <img src='/assets/images/search-icon.svg' />
+                        <img src="/assets/images/search-icon.svg" />
                       </InputLeftElement>
                     </InputGroup>
                   </Box>
-                  <Box width="150px" ml='8px' order={{ base: '2', sm: '3' }}>
-                    <ReactSelect options={[{ key: 'Sorty By', value: 'Sort By' }]} isMultiple={false} identifier='filter' getSelectedData={(value: string) => console.log(value)} placeholder="Sort By" />
+                  <Box width="150px" ml="8px" order={{ base: "2", sm: "3" }}>
+                    <ReactSelect
+                      options={[{ key: "Sorty By", value: "Sort By" }]}
+                      isMultiple={false}
+                      identifier="filter"
+                      getSelectedData={(value: string) => console.log(value)}
+                      placeholder="Sort By"
+                    />
                   </Box>
                 </Flex>
-                <TableContainer pt='24px'>
-                  <Table variant='simple'>
+                <TableContainer pt="24px">
+                  <Table variant="simple">
                     <Thead>
                       <Tr>
                         <Th textAlign="center">ITEM</Th>
-                        <Th>PARITY</Th>
-                        <Th >LAST Transfer</Th>
-                        <Th >OWNER</Th>
-                        <Th >TIME</Th>
+                        <Th>LAST Transfer</Th>
+                        <Th>OWNER</Th>
+                        <Th>TIME</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
                       <Tr>
                         <Td>
-                          <Flex gap="2" alignItems="center" mr='48px'>
-                            <Box color='#6863F3'>
-                              <i className='icon-transfer'></i>
+                          <Flex gap="2" alignItems="center" mr="48px">
+                            <Box color="#6863F3">
+                              <i className="icon-transfer"></i>
                             </Box>
-                            <Text fontWeight='700'>Transfer</Text>
-                            <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5" alignItems='flex-start'>
+                            <Text fontWeight="700">Transfer</Text>
+                            <Image
+                              src="/assets/images/cover-image1.png"
+                              boxSize="100px"
+                              objectFit="cover"
+                              border="1px solid white"
+                              borderRadius="16px"
+                              w={{ base: "50px", md: "96px" }}
+                              h={{ base: "50px", md: "96px" }}
+                            />
+                            <VStack spacing="0.5" alignItems="flex-start">
                               <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">Angeli Sunstorm</Text>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
+                                Angeli Sunstorm
+                              </Text>
                             </VStack>
                           </Flex>
                         </Td>
@@ -636,7 +771,7 @@ const ProfilCreated: NextPage = () => {
         </Box>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default ProfilCreated
+export default ProfilCreated;

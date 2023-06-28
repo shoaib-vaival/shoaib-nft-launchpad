@@ -79,8 +79,16 @@ const CreateNFT = () => {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
             const receipt = await ethProvider.waitForTransaction(result.hash);
+            console.log(
+              "🚀 ~ file: create.tsx:82 ~ minting ~ receipt:",
+              receipt
+            );
             abiDecoder.addABI(erc721Abi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+            console.log(
+              "🚀 ~ file: create.tsx:88 ~ minting ~ decodedLogs:",
+              decodedLogs
+            );
 
             const data = {
               contractAddress: receipt?.to,
@@ -90,6 +98,7 @@ const CreateNFT = () => {
               activityType: "mint",
               transactionId: receipt?.transactionHash,
             };
+            console.log("🚀 ~ file: create.tsx:98 ~ minting ~ data:", data);
             updateNFT(data);
 
             if (receipt.status == 1) router.push("/profile-created");
@@ -231,7 +240,6 @@ const CreateNFT = () => {
                     placeholder="Describe your collection, 1000 characters are allowed"
                     descp={nftDetail?.desc}
                   />
-
 
                   <FormLabel
                     fontSize="24px!important"
