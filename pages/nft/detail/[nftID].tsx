@@ -45,6 +45,7 @@ import { marketContractAbi } from "../../../src/connectors/marketContractAbi";
 import { ethers } from "ethers";
 import { useContract } from "../../../src/connectors/marketProvider";
 import  SocialShare  from "../../../src/components/SocialShare";
+import { useRouter } from "next/router";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
@@ -55,6 +56,8 @@ const NftDetail = ({ param }: any) => {
     onClose: onReportModalClose,
   } = useDisclosure();
   const [nftData, setNftData] = useState<any>({});
+  const router = useRouter();
+  const currentUrl = router.asPath;
 
   const { data } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
@@ -212,7 +215,7 @@ const NftDetail = ({ param }: any) => {
                 </Box>
                 <Box display='flex' alignItems='center' gap='8px'>
                   <Box textAlign='center'>
-                  <SocialShare title="Check this link" url={`${typeof window !== "undefined" && window.location.search}`} />
+                  <SocialShare title="Check this link" url={`https://ibanera-launchpad.bloxbytes.com${currentUrl}`} />
                   </Box>
                   {account && (<Box textAlign='center'>
                     <Menu>
