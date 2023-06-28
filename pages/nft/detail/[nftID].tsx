@@ -234,7 +234,7 @@ const NftDetail = ({ param }: any) => {
             </MenuButton>
             <MenuList  w='191px' minW='191px' p='8px'>
               <MenuItem><Box color='#393F59' onClick={onReportModalOpen}>Report</Box></MenuItem>
-              <ReportModal isOpen={isReportModalOpen} onClose={onReportModalClose} onOpen={onReportModalOpen}/>
+              <ReportModal isOpen={isReportModalOpen} onClose={onReportModalClose} onOpen={onReportModalOpen} nftId={`${param?.nftID}`}/>
             </MenuList>
           </Menu>
                   </Box>

@@ -12,12 +12,11 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ApiUrl } from "../src/apis/apiUrl";
 import InputField from "../src/components/InputField";
-import ProfileHeader from "../src/components/Profile/ProfileHeader";
 import ChakraTextarea from "../src/components/Textarea";
 import { PATCH, POST } from "../src/hooks/consts";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";

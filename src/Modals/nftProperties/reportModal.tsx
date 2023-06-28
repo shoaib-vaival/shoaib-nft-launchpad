@@ -10,44 +10,38 @@ import {
   FormControl,
   Text,
   FormLabel,
-  Input,
-  Flex,
-  Divider,
-  Box,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
-  InputRightElement,
-  Select,
-  Icon,
   Textarea,
 } from "@chakra-ui/react";
-import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
-import { ApiUrl } from "../../apis/apiUrl";
-import { POST } from "../../hooks/consts";
-import { useMutation } from "../../hooks/useMutation";
-import { signMessage } from "../../context/signListing";
-import { erc721Abi } from "../../connectors/erc721Abi";
-import { ethers } from "ethers";
-import { useNFTContract } from "../../connectors/erc721Provider";
-import DatePickerReact from "../../components/DatePicker";
+import { POST } from "../../../src/hooks/consts";
+import { useMutation } from "../../../src/hooks/useMutation";
+import { ApiUrl } from "../../../src/apis/apiUrl";
 
 const ReportModal = ({
   isOpen,
   onClose,
-  onOpen,
-  nftData,
+  nftId,
 }: {
   isOpen?: any;
   onClose?: any;
   onOpen?: any;
-  nftData?: any;
+  nftId: string;
 }) => {
-  console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
+  const [textareaValue, setTextareaValue] = useState("");
 
+  const { mutate, isLoading } = useMutation<{ nftId: string; detail: string }>({
+    method: POST,
+    url: ApiUrl.REPORT_NFT,
+    token: true,
+    successMessage: "Nft reported successfuly!",
+    onSuccess: ()=> onClose(),
+  });
 
-
+  const handleTextareaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setTextareaValue(event.target.value);
+  };
 
   return (
     <>
@@ -57,30 +51,38 @@ const ReportModal = ({
           <ModalHeader>Report</ModalHeader>
           <ModalCloseButton />
           <ModalBody pt={6}>
-            <FormControl mb='0'>
-              <FormLabel fontSize='28px!important' mb='5px'>Why are you Reporting</FormLabel>
+            <FormControl mb="0">
+              <FormLabel fontSize="28px!important" mb="5px">
+                Why are you Reporting
+              </FormLabel>
               <Text>Describe to us why you reporting about this NFT.</Text>
-              <Textarea h='120px' mt='12px' mb='18px' placeholder='Please Describe here...' />
-              
+              <Textarea
+                h="120px"
+                mt="12px"
+                mb="18px"
+                placeholder="Please Describe here..."
+                value={textareaValue}
+                onChange={handleTextareaChange}
+              />
             </FormControl>
-
           </ModalBody>
 
-          <ModalFooter gap='12px' pt='0' pb='20px'>
+          <ModalFooter gap="12px" pt="0" pb="20px">
             <Button
               variant="primary"
               w="100%"
-              textTransform='uppercase'
+              textTransform="uppercase"
+              isLoading={isLoading}
+              isDisabled={
+                textareaValue?.length < 5 || textareaValue?.length > 500
+              }
+              onClick={() => mutate({ nftId: nftId, detail: textareaValue })}
             >
-             Report
+              Report
             </Button>
 
-            <Button
-              variant="secondary"
-              w="100%"
-              textTransform='uppercase'
-            >
-             Cancel
+            <Button variant="secondary" w="100%" textTransform="uppercase" onClick={onClose}>
+              Cancel
             </Button>
           </ModalFooter>
         </ModalContent>
