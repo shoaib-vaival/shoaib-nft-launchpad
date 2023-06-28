@@ -9,6 +9,7 @@ import {
   Text,
   Heading,
   VStack,
+  HStack,
   Grid,
 } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
@@ -43,6 +44,7 @@ import { PATCH, POST } from "../../../src/hooks/consts";
 import { marketContractAbi } from "../../../src/connectors/marketContractAbi";
 import { ethers } from "ethers";
 import { useContract } from "../../../src/connectors/marketProvider";
+import  SocialShare  from "../../../src/components/SocialShare";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
@@ -210,34 +212,27 @@ const NftDetail = ({ param }: any) => {
                 </Box>
                 <Box display='flex' alignItems='center' gap='8px'>
                   <Box textAlign='center'>
-                    <IconButton color=' #756C99'
-                      variant='outline'
-                      aria-label='Send email'
-                      fontSize='20px'
-                      border='1px solid #c4c3f9'
-                      bg='#fff'
-                      icon={<i className='icon-share'></i>}
-                    />
+                  <SocialShare title="Check this link" url={`${typeof window !== "undefined" && window.location.search}`} />
                   </Box>
-                  <Box textAlign='center'>
-                  <Menu>
-            <MenuButton
-              as={IconButton}
-              color='#756C99'
-              ml={{base:'5px',sm:'8px'}} mb={{base:'8px',sm:'0'}}
-              variant='outline'
-              aria-label='Send'
-              fontSize='20px'
-              border='1px solid #c4c3f9'
-              bg='#fff'
-              icon={<i className="icon-menu"></i>} >
-            </MenuButton>
-            <MenuList  w='191px' minW='191px' p='8px'>
-              <MenuItem><Box color='#393F59' onClick={onReportModalOpen}>Report</Box></MenuItem>
-              <ReportModal isOpen={isReportModalOpen} onClose={onReportModalClose} onOpen={onReportModalOpen} nftId={`${param?.nftID}`}/>
-            </MenuList>
-          </Menu>
-                  </Box>
+                  {account && (<Box textAlign='center'>
+                    <Menu>
+                      <MenuButton
+                        as={IconButton}
+                        color='#756C99'
+                        ml={{ base: '5px', sm: '8px' }} mb={{ base: '8px', sm: '0' }}
+                        variant='outline'
+                        aria-label='Send'
+                        fontSize='20px'
+                        border='1px solid #c4c3f9'
+                        bg='#fff'
+                        icon={<i className="icon-menu"></i>} >
+                      </MenuButton>
+                      <MenuList w='191px' minW='191px' p='8px'>
+                        <MenuItem><Box color='#393F59' onClick={onReportModalOpen}>Report</Box></MenuItem>
+                        <ReportModal isOpen={isReportModalOpen} onClose={onReportModalClose} onOpen={onReportModalOpen} nftId={`${param?.nftID}`}/>
+                      </MenuList>
+                    </Menu>
+                  </Box>)}
                 </Box>
               </Flex>
               <Heading fontSize="32px" marginBottom="10px">
@@ -365,7 +360,7 @@ const NftDetail = ({ param }: any) => {
               </Box>
             </Box>
           </Box>
-        </Stack>
+        </Stack >
         <Stack
           spacing={{ base: "0px", sm: "48px" }}
           direction="row"
@@ -594,7 +589,7 @@ const NftDetail = ({ param }: any) => {
               })}
           </SlickSlider>
         </Box>
-      </Container>
+      </Container >
     </>
   );
 };

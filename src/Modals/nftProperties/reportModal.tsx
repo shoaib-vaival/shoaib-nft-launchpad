@@ -51,10 +51,8 @@ const ReportModal = ({
           <ModalHeader>Report</ModalHeader>
           <ModalCloseButton />
           <ModalBody pt={6}>
-            <FormControl mb="0">
-              <FormLabel fontSize="28px!important" mb="5px">
-                Why are you Reporting
-              </FormLabel>
+            <FormControl mb='0'>
+              <FormLabel fontSize={{base:'21px!important', md:'28px!important'}} mb='5px'>Why are you Reporting</FormLabel>
               <Text>Describe to us why you reporting about this NFT.</Text>
               <Textarea
                 h="120px"
@@ -67,7 +65,7 @@ const ReportModal = ({
             </FormControl>
           </ModalBody>
 
-          <ModalFooter gap="12px" pt="0" pb="20px">
+          <ModalFooter gap='12px' pt='0' pb='20px' flexDirection={{base:'column', md:'row'}} >
             <Button
               variant="primary"
               w="100%"
