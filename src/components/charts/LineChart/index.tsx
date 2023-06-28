@@ -6,7 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from "recharts";
 import { QUERY_KEYS } from "../../../../src/hooks/queryKeys";
 import { useQuery } from "../../../../src/hooks/useQuery";
@@ -91,9 +92,9 @@ const CustomLineChart = () => {
     console.log("datadatadata", LineChartData)
   return (
     <>
+    <ResponsiveContainer width="100%" height={400}>
     <LineChart
-      width={500}
-      height={300}
+
       data={data}
       margin={{
         top: 5,
@@ -114,6 +115,7 @@ const CustomLineChart = () => {
         // activeDot={{ r: 8 }}
       />
     </LineChart>
+    </ResponsiveContainer>
     </>
   );
 }
