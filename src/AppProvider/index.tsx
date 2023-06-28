@@ -25,20 +25,6 @@ const connectors: [MetaMask | WalletConnect, Web3ReactHooks][] = [
   [walletConnect, walletConnecthooks],
 ];
 
-// function getLibrary(provider: any, connectors: any) {
-//   return new Web3Provider(provider);
-// }
-// function getLibrary(provider: any) {
-//   const library = new ethers.providers.Web3Provider(provider);
-//   return library;
-// }
-
-// function getLibrary(provider: any): Web3Provider {
-//   // this will vary according to whether you use e.g. ethers or web3.js
-//   const library = new Web3Provider(provider)
-//   library.pollingInterval = 12000
-//   return library
-// }
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <GlobalStateContextProvider>
