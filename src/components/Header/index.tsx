@@ -7,9 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Collapse,
   Flex,
-  Avatar,
   Menu,
   MenuButton,
   MenuList,
@@ -23,7 +21,6 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
 import { useWeb3React } from "@web3-react/core";
@@ -33,10 +30,8 @@ import { POST } from "../../hooks/consts";
 import { ApiUrl } from "../../apis/apiUrl";
 import { useMutation } from "../../hooks/useMutation";
 import { useQuery } from "../../hooks/useQuery";
-import { setToLocalStorage, getFromLocalStorage } from "../../utils";
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { error } from "console";
+import { setToLocalStorage } from "../../utils";
+import { useState } from "react";
 import { setCookie } from "typescript-cookie";
 
 export const Header = () => {
@@ -47,17 +42,11 @@ export const Header = () => {
     onClose: onConnectionModalClose,
   } = useDisclosure();
   const {
-    connect,
     disconnect,
-    connectWalletConnect,
-    walletConnectAccount,
     disconnectWalletConnect,
-    chainId,
   } = useWeb3Context();
 
-  const { account, provider, isActive } = useWeb3React();
-  const [address, setAddress] = useState<any>(null);
-  const router = useRouter();
+  const { account, provider } = useWeb3React();
 
   const { mutate } = useMutation<any>({
     method: POST,

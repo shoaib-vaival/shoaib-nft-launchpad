@@ -34,4 +34,5 @@ export const ApiUrl = {
   GET_DOT_CHART: "stats/sales-price-chart",
   GET_COLLECTION_ACTIVITIES: "activity/get-activities-by-collection",
   GET_NFT_ACTIVITIES: "activity/get-activities-by-nft",
+  REPORT_NFT: "minting/report-nft",
 };
