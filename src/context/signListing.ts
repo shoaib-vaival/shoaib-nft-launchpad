@@ -47,7 +47,7 @@ export const signMessage = async (
           { name: "seller", type: "address" },
           { name: "erc721", type: "address" },
           { name: "tokenId", type: "uint256" },
-          { name: "price", type: "uint256" },
+          { name: "price", type: "string" },
           { name: "duration", type: "uint256" },
           { name: "collaboratorAddress", type: "address[]" },
           { name: "collaboratorAmount", type: "uint256[]" },

@@ -104,10 +104,23 @@ const NftDetail = ({ param }: any) => {
     collectionId: data?.collectionId,
   };
 
+  const convertToWei = (valueInEther: string): string => {
+    // Convert the input value to a BigNumber object
+    const valueInBigNumber = ethers.utils.parseEther(valueInEther);
+
+    // Convert the BigNumber to Wei
+    const valueInWei = ethers.utils.formatUnits(valueInBigNumber, "wei");
+
+    // Return the value in Wei as a string
+    return valueInWei;
+  };
   // Call the contract
 
   const buy = async () => {
     if (contractInst) {
+      const valueInWei = convertToWei(params?.price);
+      console.log("🚀 ~ file: [nftID].tsx:122 ~ buy ~ valueInWei:", params);
+
       alert(buy);
       try {
         const result = await contractInst.buy(
@@ -121,7 +134,7 @@ const NftDetail = ({ param }: any) => {
           params?.collaboratorAmount,
           params?.collectionId,
           {
-            value: String(ethers.utils.parseEther(params.price)), // Specify the amount of ETH to send with the transaction
+            value: valueInWei, // Specify the amount of ETH to send with the transaction
           }
         );
         if (result) {
@@ -142,7 +155,7 @@ const NftDetail = ({ param }: any) => {
           // if (receipt) router.push("/profile-created");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Buy Error", error);
         // Handle errors here
       }
     }
@@ -155,15 +168,41 @@ const NftDetail = ({ param }: any) => {
     token: true,
   });
 
-  const handleBuy = async () => {
-    // CONTRACT FUNCTION CALL TO BUY NFT
-    // API CALL TO SAVE BOUGHT DATA
-  };
-
   const cancelListing = async () => {
-    cancelList("");
-    // CONTRACT FUNCTION CALL CANCEL LISTING
-    // API CALL TO SAVE BOUGHT DATA
+    if (contractInst) {
+      console.log("SignHash to Cancel", params.signature);
+      try {
+        const result = await contractInst.cancelListing(params?.signature);
+        if (result) {
+          console.log("Cancel Listing Contract Success");
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt.status == 1) {
+            cancelList("");
+          }
+          console.log("🚀 ~ file: [nftID].tsx:86 ~ buy ~ receipt:", receipt);
+          abiDecoder.addABI(marketContractAbi);
+          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+          console.log(
+            "🚀 ~ file: [nftID].tsx:185 ~ cancelListing ~ decodedLogs:",
+            decodedLogs
+          );
+
+          // const data = {
+          //   contractAddress: decodedLogs[2]?.events[1]?.value,
+          //   collectionName: decodedLogs[2]?.events[0]?.value,
+          // };
+          // update(data);
+
+          // if (receipt) router.push("/profile-created");
+        }
+      } catch (error) {
+        console.error("Buy Error", error);
+        // Handle errors here
+      }
+    }
   };
 
   return (
