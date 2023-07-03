@@ -509,6 +509,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "040e72500c863813088c9f9c9415f8e9",
+      "css": "up",
+      "code": 59428,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "3838a5aba604532d2dbae5904615ea39",
+      "css": "down",
+      "code": 59429,
+      "src": "mfglabs"
+    },
+    {
       "uid": "5e7a7f99aee909f4b01f7825607afbe8",
       "css": "dropdown",
       "code": 59424,
