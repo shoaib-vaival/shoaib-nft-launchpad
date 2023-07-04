@@ -233,7 +233,7 @@ const ListNftModal = ({
               <Flex mb="24px" justifyContent="space-between">
                 <Text color="#393F59">Listing Price</Text>
                 <Text color="#393F59" mb="auto">
-                  1.00 ETH
+                  1.00 MATIC
                 </Text>
               </Flex>
               <Flex mb="24px" justifyContent="space-between">
@@ -263,7 +263,7 @@ const ListNftModal = ({
                   color="#393F59"
                   mb="auto"
                 >
-                  0.975 ETH
+                  0.975 MATIC
                 </Text>
               </Flex>
             </Box>
