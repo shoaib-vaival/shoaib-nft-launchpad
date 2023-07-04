@@ -10,6 +10,7 @@ import { Tabs } from './components/tabs'
 import { Container } from './components/container'
 import { Modal } from './components/modal'
 import { Table } from './components/table'
+import { before } from 'node:test';
 
 
 
@@ -38,7 +39,8 @@ export const theme = extendTheme({
             body:{
                 color: colors.black,
                 backgroundImage:'url("/assets/images/bg.webp")',
-                backgroundSize:'cover'
+                backgroundSize:'cover',
+                
             },
             h1:{
                 fontSize:'56px'
@@ -57,7 +59,15 @@ export const theme = extendTheme({
                 '.react-datepicker__header':{
                     backgroundColor:'#F0F0F0',
                 }
+            },
+            
+            'i:before':{
+                width:'auto!important',
+                marginRight: 'initial!important',
+                marginLeft: 'initial!important',
+
             }
+             
         }
     }
 })
