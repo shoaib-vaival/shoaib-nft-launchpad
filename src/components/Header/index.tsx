@@ -33,6 +33,7 @@ import { useQuery } from "../../hooks/useQuery";
 import { setToLocalStorage } from "../../utils";
 import { useState } from "react";
 import { setCookie } from "typescript-cookie";
+import { bg } from "date-fns/locale";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -120,7 +121,7 @@ export const Header = () => {
               <InputGroup
                 variant="custom"
                 colorScheme="purple"
-                w={{ base: "full", md: "full", lg: "200px", xl: "xs" }}
+                w={{ base: "full", md: "full", lg: "200px", xl: "md" }}
                 marginBottom={{ base: "3", md: "initial", xl: "initial" }}
               >
                 <Input placeholder="Search..." />
@@ -160,7 +161,16 @@ export const Header = () => {
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explore</Link>
-                <Link href="/activity">Activity</Link>
+                <Menu>
+                  <MenuButton as={Button} bg='transparent' _active={{bg:'transparent'}} _focusVisible={{boxShadow:'transparent'}} p='0' _hover={{bg:'transparent'}} textTransform="uppercase"
+                fontSize={{ base: "15px", xl: "16px" }} rightIcon={<Box fontSize='8px'><i className="icon-ChevronDown"></i></Box>}>
+                    Stats
+                  </MenuButton>
+                  <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px">
+                    <MenuItem as='a' href='/ranking'>Ranking</MenuItem>
+                    <MenuItem as='a' href='/activity'>Activity</MenuItem>
+                  </MenuList>
+                </Menu>
               </HStack>
             </Box>
 
@@ -192,7 +202,7 @@ export const Header = () => {
                     Create
                   </MenuButton>
                 )}
-                <MenuList>
+                <MenuList  w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
                     <Link href="/nft/create">Create NFT</Link>
                   </MenuItem>
