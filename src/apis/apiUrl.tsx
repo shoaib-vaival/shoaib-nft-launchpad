@@ -7,6 +7,7 @@ export const ApiUrl = {
   GET_COLLECTIONS_NAME: "collection/get-collection-name",
   UPDATE_COLLECTION_ADDRESS: "collection/update-contract-address",
   UPDATE_NFT_MINT_DATA: "activity/create-activity",
+  UPDATE_NFT_SALE_DATA: "sale/buy-nft",
   CREATE_NFT: "minting/create-nft",
   GET_COLLECTION: "collection/editCollectionById",
   GET_DASHBOARD_COLLECTION: "minting/get-dashboard-collection-nfts",

@@ -114,6 +114,7 @@ const CreateNFT = () => {
   const { mutate: updateNFT } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_NFT_MINT_DATA,
+    successMessage: "NFT Minted Successfully",
     showSuccessToast: true,
     token: true,
   });
@@ -123,6 +124,7 @@ const CreateNFT = () => {
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
     token: true,
+    showSuccessToast: true,
     onSuccess: async (data) => {
       console.log("🚀 ~ file: create.tsx:127 ~ onSuccess: ~ data:", data);
       const ipfsJsonUrl = data?.data?.ipfsJsonUrl;

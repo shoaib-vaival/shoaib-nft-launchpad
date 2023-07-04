@@ -11,31 +11,38 @@ export const collectionSchema = Yup.object().shape({
     .max(1000, "Collection detail must not exceed 1000 characters"),
   category: Yup.string().required("Category is required"),
   logoImageUrl: Yup.string().required("Logo image is required"),
-  creatorFee: Yup.array().of(
-    Yup.object().shape({
-      walletAddress: Yup.string().test(
-        "checksum-validation",
-        "Invalid wallet address",
-        (value: string | undefined, AnyObject) => {
-          try {
-            const isValidChecksum = ethers.utils.isAddress(`${value}`);
-            return isValidChecksum;
-          } catch (error) {
-            return false;
-          }
-        }
-      ),
-      percentage: Yup.number()
-        .required("Percentage is required")
-        .max(10, "Total percentage should be less than 10"),
-    })
-  ),
-  website_url:Yup.string().url('Website Url must be a valid URL'),
-  etherscan:Yup.string().url('EtherScan Url must be a valid URL'),
-  twitter:Yup.string().url('Twitter Url must be a valid URL'),
-  instagram:Yup.string().url('Instagram Url must be a valid URL'),
-  telegram:Yup.string().url('Telegram Url must be a valid URL'),
-  Discord_id:Yup.string().url('Discord Url must be a valid URL'),
+  // creatorFee: Yup.array().of(
+  //   Yup.object().shape({
+  //     walletAddress: Yup.string()
+  //       .nullable()
+  //       .test(
+  //         "checksum-validation",
+  //         "Invalid wallet address",
+  //         function (value) {
+  //           if (value === null || value === "") {
+  //             return true; // Allow null or empty string
+  //           }
+  //           try {
+  //             const isValidChecksum = ethers.utils.isAddress(`${value}`);
+  //             return isValidChecksum;
+  //           } catch (error) {
+  //             return false;
+  //           }
+  //         }
+  //       ),
+  //     percentage: Yup.number().max(
+  //       10,
+  //       "Total percentage should be less than 10"
+  //     ),
+  //   })
+  // ),
+
+  website_url: Yup.string().url("Website Url must be a valid URL"),
+  etherscan: Yup.string().url("EtherScan Url must be a valid URL"),
+  twitter: Yup.string().url("Twitter Url must be a valid URL"),
+  instagram: Yup.string().url("Instagram Url must be a valid URL"),
+  telegram: Yup.string().url("Telegram Url must be a valid URL"),
+  Discord_id: Yup.string().url("Discord Url must be a valid URL"),
 });
 
 export const nftSchema = Yup.object().shape({
@@ -60,11 +67,11 @@ export const propertiesSchema = Yup.object().shape({
 });
 
 export const settingSchema = Yup.object().shape({
-  email:Yup.string().email(),
-  websiteUrl:Yup.string().url('Website Url must be a valid URL'),
-  etherScanUrl:Yup.string().url('EtherScan Url must be a valid URL'),
-  twitter:Yup.string().url('Twitter Url must be a valid URL'),
-  instagram:Yup.string().url('Instagram Url must be a valid URL'),
-  telegram:Yup.string().url('Telegram Url must be a valid URL'),
-  discord:Yup.string().url('Discord Url must be a valid URL'),
-})
+  email: Yup.string().email(),
+  websiteUrl: Yup.string().url("Website Url must be a valid URL"),
+  etherScanUrl: Yup.string().url("EtherScan Url must be a valid URL"),
+  twitter: Yup.string().url("Twitter Url must be a valid URL"),
+  instagram: Yup.string().url("Instagram Url must be a valid URL"),
+  telegram: Yup.string().url("Telegram Url must be a valid URL"),
+  discord: Yup.string().url("Discord Url must be a valid URL"),
+});
