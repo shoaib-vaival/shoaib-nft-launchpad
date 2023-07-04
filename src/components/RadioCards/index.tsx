@@ -13,6 +13,7 @@ function RadioCard(props:any) {
         {...checkbox}
         cursor='pointer'
         borderWidth='1px'
+        borderColor='#6863F3'
         borderRadius='8px'
         color='#6863F3'
         fontSize='14px'
@@ -25,7 +26,7 @@ function RadioCard(props:any) {
         }}
        
         px={props.type=='small'?'16px':5}
-        py={props.type=='small'?'12px':3}
+        py={props.type=='small'?'9px':3}
       >
         {props.children}
       </Box>

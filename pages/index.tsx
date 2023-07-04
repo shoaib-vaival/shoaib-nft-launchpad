@@ -13,8 +13,9 @@ import { categoriesType, collectionType } from "../src/types";
 import Link from "next/link";
 import { dashboardApiType } from "../src/types/response.type";
 import { Loader } from "../src/components/Loader";
-import  RadioCards  from "../src/components/RadioCards";
+import RadioCards from "../src/components/RadioCards";
 import RadioCard from "../src/components/RadioCards";
+import { ReactSelect } from "../src/components/common";
 
 const Home: NextPage = () => {
   const { data, isLoading } = useQuery<dashboardApiType>({
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl.GET_CATEGORIES,
   });
-  const options = ['15m', '1h', '24h','7d']
+  const options = ['15m', '1h', '24h', '7d']
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'framework',
     defaultValue: 'react',
@@ -56,186 +57,6 @@ const Home: NextPage = () => {
         </Container>
       </Box>
 
-      <Box>
-        
-      <Container
-            maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-            mt={{ base: "40px", lg: "80px" }}
-          >
-            <HStack {...group} float='right'>
-      {options.map((value) => {
-        const radio = getRadioProps({ value })
-        return (
-          <RadioCards key={value} type='small' {...radio}>
-            {value}
-          </RadioCards>
-        )
-      })}
-            </HStack>
-
-            <Tabs>
-            <TabList ml="12px" pl="0" w='100%'>
-              <Tab>Activity</Tab>
-              <Tab>Analytics</Tab>
-            </TabList>
-            
-
-            <TabPanels>
-
-              <TabPanel pt="0">
-                <TableContainer pt="24px">
-                  <Box display='flex'>
-                    
-                  <Table variant="simple">
-                    <Thead>
-                      <Tr>
-                        <Th>COLLECTION</Th>
-                        <Th>FLOOR PRICE</Th>
-                        <Th>VOLUME</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                    </Tbody>
-                  </Table>
-                  <Table variant="simple">
-                    <Thead>
-                      <Tr>
-                        <Th>COLLECTION</Th>
-                        <Th>FLOOR PRICE</Th>
-                        <Th>VOLUME</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                        <Flex gap="2" alignItems="center" mr='48px'>
-                        <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
-                            <VStack spacing="0.5">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                            </VStack>
-                            </Flex>
-                        </Td>
-                        <Td >5.30 MATIC</Td>
-                        <Td >2,792 MATIC</Td>
-                      </Tr>
-                    </Tbody>
-                  </Table>
-                  </Box>
-                </TableContainer>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-            </Container>
-
-      </Box>
       {isLoading && data === undefined ? (
         <Flex
           width="100%"
@@ -252,7 +73,7 @@ const Home: NextPage = () => {
             mt={{ base: "40px", lg: "80px" }}
           >
             <Heading
-              px={{ base: "0", md: "0 17px", xl: "0" }}
+              px={{ base: "0", md: "12px" }}
               fontSize={{ base: "24px", md: "36px", xl: "48px" }}
             >
               Featured Collections
@@ -274,11 +95,207 @@ const Home: NextPage = () => {
                 })}
             </SlickSlider>
           </Container>
+          
+      <Box>
+
+<Container
+  maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
+  mt={{ base: "40px", lg: "80px" }}
+>
+  <Tabs>
+    <TabList pl='0' alignItems='center' flexWrap='wrap'>
+      <Tab>Trending</Tab>
+      <Tab>Top</Tab>
+
+      <Flex alignItems='center' ml={{ base: 'initial', sm: "auto" }} pb='8px' flexWrap='wrap' {...group} gap='8px' mt={{ base: '12px', md: '0' }} >
+        {options.map((value) => {
+          const radio = getRadioProps({ value })
+          return (
+            <RadioCards key={value} type='small' {...radio}>
+              {value}
+            </RadioCards>
+          )
+        })}
+        <ReactSelect
+          options=''
+          isMultiple={true}
+          getSelectedData=''
+          identifier="collection"
+          label=""
+          placeholder="All chains"
+        />
+        <Button
+          p={{ base: "15px", md: "20px 32px" }}
+          as={Link}
+          href="/categories"
+          variant="primary"
+        >
+          View All
+        </Button>
+      </Flex>
+    </TabList>
+
+    <TabPanels>
+
+      <TabPanel pt="0">
+        <TableContainer py="24px" borderBottom='1px solid #35353533'>
+          <Box display='flex'>
+
+            <Table variant='simple'>
+              <Thead>
+                <Tr>
+                  <Th border='0'>COLLECTION</Th>
+                  <Th border='0'>FLOOR PRICE</Th>
+                  <Th border='0'>VOLUME</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th border='0'>COLLECTION</Th>
+                  <Th border='0'>FLOOR PRICE</Th>
+                  <Th border='0'>VOLUME</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex gap="2" alignItems="center" mr='48px'>
+                      <Image src="/assets/images/cover-image1.png" boxSize='100px' objectFit='cover' border="1px solid white" borderRadius="16px" w={{ base: '50px', md: '96px' }} h={{ base: '50px', md: '96px' }} />
+                      <VStack spacing="0.5">
+                        <Heading fontSize="18px">Panthera Leo</Heading>
+                      </VStack>
+                    </Flex>
+                  </Td>
+                  <Td >5.30 MATIC</Td>
+                  <Td >2,792 MATIC</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </Box>
+        </TableContainer>
+      </TabPanel>
+    </TabPanels>
+  </Tabs>
+</Container>
+
+</Box>
           <Container
             maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-            mt={{ base: "40px", lg: "80px" }}
-          >
-            <Flex justifyContent="space-between" alignItems="center" mb="40px">
+            mt={{ base: "40px", lg: "80px" }}>
+            <Flex justifyContent="space-between" alignItems="center" mb="40px"
+              px={{ base: "0", md: "12px" }}>
               <Heading
                 fontSize={{ base: "28px", sm: "32px", md: "36px", xl: "56px" }}
               >
@@ -306,7 +323,7 @@ const Home: NextPage = () => {
               justifyContent="space-between"
               alignItems="center"
               mb={{ base: "20px", lg: "40px" }}
-              px={{ base: "0", md: "0 17px", xl: "0" }}
+              px={{ base: "0", md: "12px" }}
             >
               <Heading fontSize={{ base: "24px", md: "36px", xl: "48px" }}>
                 Trending Collection
@@ -344,7 +361,7 @@ const Home: NextPage = () => {
               justifyContent="space-between"
               alignItems="center"
               mb={{ base: "20px", lg: "40px" }}
-              px={{ base: "0", md: "0 17px", xl: "0" }}
+              px={{ base: "0", md: "12px" }}
             >
               <Heading fontSize={{ base: "24px", md: "36px", xl: "48px" }}>
                 Trending in Art
