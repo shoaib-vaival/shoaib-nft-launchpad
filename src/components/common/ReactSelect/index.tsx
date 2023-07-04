@@ -60,6 +60,7 @@ ReactSelectPropsTypes) => {
           control: (baseStyles, state) => ({
             ...baseStyles,
             borderColor: state.isFocused ? "#6863F3" : "#6f6bf366",
+            padding:'0.07rem',
             boxShadow: "none",
             width: "100%",
             borderRadius: "6px",
@@ -70,7 +71,7 @@ ReactSelectPropsTypes) => {
             backgroundColor: "rgba(104, 99, 243, 0.3)",
             borderRadius: "6px",
             border: "1px solid #6f6bf366",
-            height: "32px",
+            height: '40px',
             alignItems: "center",
           }),
           multiValueLabel: (styles, { data }) => ({
