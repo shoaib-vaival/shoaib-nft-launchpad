@@ -124,7 +124,14 @@ const CreateNFT = () => {
     isFileData: true,
     token: true,
     onSuccess: async (data) => {
-      await minting(String(data?.ipfsJsonUrl), collectionAddress);
+      console.log("🚀 ~ file: create.tsx:127 ~ onSuccess: ~ data:", data);
+      const ipfsJsonUrl = data?.data?.ipfsJsonUrl;
+      const prefixedUrl = "ipfs://" + ipfsJsonUrl;
+      console.log(
+        "🚀 ~ file: create.tsx:130 ~ onSuccess: ~ prefixedUrl:",
+        prefixedUrl
+      );
+      await minting(prefixedUrl, collectionAddress);
     },
   });
 
