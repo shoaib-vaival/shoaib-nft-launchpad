@@ -10,7 +10,7 @@ import { Tabs } from './components/tabs'
 import { Container } from './components/container'
 import { Modal } from './components/modal'
 import { Table } from './components/table'
-import { before } from 'node:test';
+import { Accordion } from './components/accordion'
 
 
 
@@ -32,7 +32,8 @@ export const theme = extendTheme({
         Tabs,
         Container,
         Modal,
-        Table
+        Table,
+        Accordion
     },
     styles:{
         global:{

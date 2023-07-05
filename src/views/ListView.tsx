@@ -24,7 +24,7 @@ const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th textAlign="center">ITEM</Th>
+              <Th>ITEM</Th>
               <Th>LAST Transfer</Th>
               <Th>OWNER</Th>
               <Th>TIME</Th>
@@ -36,10 +36,6 @@ const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
                 <Tr key={index}>
                   <Td p={{ base: "12px", md: "17px 25px" }}>
                     <Flex gap="2" alignItems="center" mr="48px">
-                      <Box color="#6863F3">
-                        <i className="icon-transfer"></i>
-                      </Box>
-                      <Text fontWeight="700">Transfer</Text>
                       <Image
                         src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
                         boxSize="100px"
