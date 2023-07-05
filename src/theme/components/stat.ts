@@ -14,7 +14,7 @@ export const Stat: ComponentStyleConfig = {
         label: {
             color: '#756C99',
             fontsize: '14px',
-            fontWeight: 400
+            fontWeight: 400,
         },
         helpText:{
             color: '#756C99',
@@ -26,6 +26,7 @@ export const Stat: ComponentStyleConfig = {
             fontSize: '18px',
             color: '#0D0D0D',
             fontWeight: '700',
+            margin:'8px 0'
         },
         
 

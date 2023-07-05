@@ -8,14 +8,15 @@ export const Table:ComponentStyleConfig = {
                 fontSize:'14px',
                 fontStyle:'normal',
                 fontWeight:'500',
-                paddingBottom:'16px',
                 borderBottom:'1px solid',
-                borderColor:'rgba(53, 53, 53, 0.2)'
+                borderColor:'rgba(53, 53, 53, 0.2)',
+                padding:'17px 12px'
             },
             td:{
                 border:'none',
                 fontSize:'16px',
-                color:'rgba(57, 63, 89, 1)'
+                color:'rgba(57, 63, 89, 1)',
+                padding:'8px 12px'
             }
         },
         bordered:{

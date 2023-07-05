@@ -32,7 +32,7 @@ import ListView from "../src/views/ListView";
 import BarChart from "../src/components/charts/BarChart";
 import LineChart from "../src/components/charts/LineChart";
 import DotChart from "../src/components/charts/DotChart";
-import { FormControl, FormLabel, Progress } from "@chakra-ui/react";
+import { FormControl, FormLabel, Icon, Progress, Stat, StatHelpText, StatLabel, StatNumber } from "@chakra-ui/react";
 
 
 type filters = {
@@ -488,8 +488,44 @@ const ProfilCreated: NextPage = () => {
               </TabPanel>
               <TabPanel>
                 <Box>
+                  <Flex>
+                    <Stat
+                      flexBasis={"22%"}
+                      flex={"0% 1 0%)"}
+                      margin={"12px 12px 12px 0"}
+                    >
+                      <Flex justifyContent='space-between'>
+                     <StatLabel mb='12px'>Volume</StatLabel>
+                      <StatHelpText color='#F00'><i className='icon-down'></i>-45%</StatHelpText>
+                      </Flex>
+                      <StatNumber>225,278 MATIC</StatNumber>
+                    </Stat>
+                    <Stat
+                      flexBasis={"22%"}
+                      flex={"0% 1 0%)"}
+                      margin={"12px 12px 12px 0"}
+                    >
+                      <Flex justifyContent='space-between'>
+                      <StatLabel mb='8px'>Sales</StatLabel>
+                      <StatHelpText color='#F00'><i className='icon-down'></i>-42%</StatHelpText>
+                      </Flex>
+                      <StatNumber>1,679</StatNumber>
+                    </Stat>
+                    <Stat
+                      flexBasis={"22%"}
+                      flex={"0% 1 0%)"}
+                      margin={"12px 12px 12px 0"}
+                    >
+                      <Flex justifyContent='space-between'>
+                      <StatLabel mb='8px'>Floor Price</StatLabel>
+                      <StatHelpText color='#00F59B'><i className='icon-up'></i>+8%</StatHelpText>
+                      </Flex>
+
+                      <StatNumber>5.55</StatNumber>
+                    </Stat>
+                  </Flex>
                   <Flex gap='24px'>
-                    <Box p='24px' borderRadius='16px' w='50%' border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
+                    <Box p='24px' borderRadius='16px' w={{base:'100%',lg:'50%'}} border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
                       <Text fontSize='24px' fontWeight='700'>Volume and Price</Text>
                       <Box>
                         <BarChart />
@@ -498,14 +534,14 @@ const ProfilCreated: NextPage = () => {
                       <Text position='absolute' top='50%' right='-18px' fontSize='10px' transform='rotate(90deg)'>Average Price (MATIC)</Text>
 
                     </Box>
-                    <Box p='24px' borderRadius='16px' w='50%' border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
+                    <Box p='24px' borderRadius='16px' w={{base:'100%',lg:'50%'}} border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
                       <Text fontSize='24px' fontWeight='700'>Floor Price</Text>
                       <Box> <LineChart /> </Box>
                       <Text position='absolute' top='50%' left='0' fontSize='10px' transform='rotate(-90deg)'>Floor (MATIC)</Text>
                     </Box>
                   </Flex>
                   <Flex gap='24px' pt='24px'>
-                    <Box p='24px' borderRadius='16px' w='50%' border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
+                    <Box p='24px' borderRadius='16px' w={{base:'100%',lg:'50%'}} border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
                       <Box>
                         <TableContainer>
                           <Flex justifyContent={'space-between'} w='100%' alignItems="center" flexWrap='wrap'>
@@ -609,14 +645,14 @@ const ProfilCreated: NextPage = () => {
                       </Box>
 
                     </Box>
-                    <Box p='24px' borderRadius='16px' w='50%' border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
+                    <Box p='24px' borderRadius='16px' w={{base:'100%',lg:'50%'}} border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
                       <Text fontSize='24px' fontWeight='700'>Floor Price</Text>
                       <Box> <DotChart /> </Box>
                       <Text position='absolute' top='50%' left='0' fontSize='10px' transform='rotate(-90deg)'>Floor (MATIC)</Text>
                     </Box>
                   </Flex>
                   <Flex gap='24px' pt='24px'>
-                    <Box p='24px' borderRadius='16px' w='50%' border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
+                    <Box p='24px' borderRadius='16px' w={{base:'100%',lg:'50%'}} border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
                       <Flex alignItems='center' mb='30px'>
                         <Text fontSize='24px' fontWeight='700'>Owner Distribution</Text>
                         <Text fontSize='14px' ml='12px' color='#15171A'>Floor</Text>
@@ -626,38 +662,38 @@ const ProfilCreated: NextPage = () => {
                           <FormLabel mb='8px!important' htmlFor="progress" fontWeight='400!important'>79%</FormLabel>
                           <FormLabel mb='8px!important' fontWeight='400!important'>1 Item</FormLabel>
                         </Flex>
-                        <Progress value={79} id="progress" />
+                        <Progress value={79} id="progress" borderRadius= '4px' colorScheme='purple' h='16px'/>
                       </FormControl>
                       <FormControl mb='33px'>
                         <Flex alignItems='center' justifyContent='space-between'>
                           <FormLabel mb='8px!important' htmlFor="progress" fontWeight='400!important'>30%</FormLabel>
                           <FormLabel mb='8px!important' fontWeight='400!important'>1 Item</FormLabel>
                         </Flex>
-                        <Progress value={30} id="progress" />
+                        <Progress value={30} id="progress" borderRadius= '4px' colorScheme='purple' h='16px'/>
                       </FormControl>
                       <FormControl>
                         <Flex alignItems='center' justifyContent='space-between'>
                           <FormLabel mb='8px!important' htmlFor="progress" fontWeight='400!important'>20%</FormLabel>
                           <FormLabel mb='8px!important' fontWeight='400!important'>1 Item</FormLabel>
                         </Flex>
-                        <Progress value={20} id="progress" />
+                        <Progress value={20} id="progress" borderRadius= '4px' colorScheme='purple' h='16px'/>
                       </FormControl>
                       <FormControl mb='33px'>
                         <Flex alignItems='center' justifyContent='space-between'>
                           <FormLabel mb='8px!important' htmlFor="progress" fontWeight='400!important'>5%</FormLabel>
                           <FormLabel mb='8px!important' fontWeight='400!important'>1 Item</FormLabel>
                         </Flex>
-                        <Progress value={5} id="progress" />
+                        <Progress value={5} id="progress" borderRadius= '4px' colorScheme='purple' h='16px' />
                       </FormControl>
                       <FormControl mb='33px'>
                         <Flex alignItems='center' justifyContent='space-between'>
                           <FormLabel mb='8px!important' htmlFor="progress" fontWeight='400!important'>0.5%</FormLabel>
                           <FormLabel mb='8px!important' fontWeight='400!important'>1 Item</FormLabel>
                         </Flex>
-                        <Progress value={0.5} id="progress" />
+                        <Progress value={0.5} id="progress" borderRadius= '4px' colorScheme='purple' h='16px'/>
                       </FormControl>
                     </Box>
-                    <Box p='24px' borderRadius='16px' w='50%' border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
+                    <Box p='24px' borderRadius='16px' w={{base:'100%',lg:'50%'}} border='1px solid rgba(111, 107, 243, 0.40)' bg='rgba(255, 255, 255, 0.40)' boxShadow='2px 2px 8px 0px rgba(13, 13, 13, 0.10)' backdropFilter='blur(30px)'>
                       <Box>
                         <TableContainer>
 
@@ -751,7 +787,7 @@ const ProfilCreated: NextPage = () => {
                                   1.08%
                                 </Td>
                               </Tr>
-                              
+
 
 
                             </Tbody>
