@@ -46,3 +46,16 @@ export const dayJs = (date:any)=>{
    dayjs.extend(relativeTime)
    return dayjs(date)
 }
+export function convertToQueryParam(obj: Record<string, any>): Record<string, string> {
+  const queryParams: Record<string, string> = {};
+
+  for (const key in obj) {
+    if (Array.isArray(obj[key])) {
+      queryParams[key] = obj[key]
+        .map((value: any) => encodeURIComponent(value))
+        .join(`&${encodeURIComponent(key)}=`);
+    }
+  }
+
+  return queryParams;
+}

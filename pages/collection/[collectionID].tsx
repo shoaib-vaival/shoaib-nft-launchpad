@@ -29,18 +29,13 @@ import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
 import ListView from "../../src/views/ListView";
 import { GridView } from "../../src/views/GridView";
-import { collectionType, nftType } from "../../src/types";
+import { collectionType, filters, nftType } from "../../src/types";
 import { useDebounce } from "./../../src/hooks/useDebounce";
 import { SidebarFilter } from "../../src/components/SidebarFilter";
-import { dayJs } from "../../src/utils";
-
-type filters = {
-  status?: string;
-  quantity?: string;
-  collections?: string;
-  sort?: string;
-  search?: string;
-};
+import { convertToQueryParam, dayJs } from "../../src/utils";
+import { ActivitySideFilter } from "../../src/components/SidebarFilter/ActivitySideFilter";
+import { CollectionSideFilter } from "../../src/components/SidebarFilter/CollectionSideFilter";
+import { ActivityTable } from "../../src/components/Table/ActivityTable";
 
 const Collection: NextPage = () => {
   const router = useRouter();
@@ -83,8 +78,11 @@ const Collection: NextPage = () => {
     hasNextPage: hasNextPageActivities,
     isLoading: isLoadingActivities,
   } = useInfiniteQuery<any>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_ACTIVITIES],
+    queryKey: [QUERY_KEYS.GET_COLLECTION_ACTIVITIES, filters],
     url: ApiUrl.GET_COLLECTION_ACTIVITIES,
+    params: {
+      ...filters,
+    },
   });
 
   const searchHandler = (e: any) => {
@@ -100,38 +98,6 @@ const Collection: NextPage = () => {
     { icon: "icon-instagram", url: collectionDetail?.instagram },
     { icon: "icon-twitter", url: collectionDetail?.twitter },
     { icon: "icon-groupbar", url: collectionDetail?.email },
-  ];
-  const filterGroups = [
-    {
-      name: "Status",
-      filters: [
-        { label: "Listed", name: "list", type: "checkbox" },
-        { label: "On Auction", name: "auction", type: "checkbox" },
-        { label: "Has Offers", name: "offers", type: "checkbox" },
-        { label: "New", name: "new", type: "checkbox" },
-      ],
-    },
-    {
-      name: "Quantity",
-      filters: [
-        {
-          name: "Listed",
-          type: "radio",
-          options: ["all", "single", "bundle"],
-          label: ["All items", "Single Items", "Bundles"],
-        },
-      ],
-    },
-    {
-      name: "Collections",
-      filters: [
-        { label: "Ragile", name: "Ragile", type: "checkbox" },
-        { label: "Crypto", name: "Crypto", type: "checkbox" },
-        { label: "Valhaila", name: "Valhaila", type: "checkbox" },
-        { label: "Otherdeed", name: "Otherdeed", type: "checkbox" },
-      ],
-    },
-    // Add more filter groups here if needed
   ];
   return (
     <>
@@ -163,9 +129,13 @@ const Collection: NextPage = () => {
             <TabPanels>
               <TabPanel p={0}>
                 <Flex pt="20px">
-                  <SidebarFilter
-                    filterGroups={filterGroups}
-                    onFilterChange={(filters: any) => console.log(filters)}
+                  <CollectionSideFilter
+                    onChange={(filter: any) => {
+                      setFilters({
+                        ...filters,
+                        ...convertToQueryParam(filter),
+                      });
+                    }}
                   />
                   <Box w="100%">
                     <Flex
@@ -287,158 +257,75 @@ const Collection: NextPage = () => {
                 </Flex>
               </TabPanel>
               <TabPanel pt="0">
-                <Flex
-                  justifyContent={"end"}
-                  alignItems="center"
-                  pt="20px"
-                  flexWrap="wrap"
-                >
-                  <Box order="1">
-                    <IconButton
-                      variant="outline"
-                      colorScheme="primary"
-                      aria-label="Send email"
-                      icon={<i className="icon-funnel"></i>}
-                    />
-                  </Box>
-                  <Box
-                    order={{ base: "3", sm: "2" }}
-                    w={{ base: "100%", sm: "auto" }}
-                    pl={{ base: "0", sm: "8px" }}
-                    pt={{ base: "15px", md: "0", xl: "0" }}
-                  >
-                    <InputGroup
-                      variant="custom"
-                      colorScheme="purple"
-                      w={{ base: "full", sm: "200px", md: "sm" }}
-                      marginBottom={{ base: "3", md: "initial", xl: "initial" }}
+                <Flex pt="20px" gap="4">
+                  <ActivitySideFilter
+                    onChange={(filter: any) => {
+                      setFilters({
+                        ...filters,
+                        ...convertToQueryParam(filter),
+                      });
+                    }}
+                  />
+                  <Box w="100%">
+                    <Flex
+                      justifyContent={"end"}
+                      alignItems="center"
+                      flexWrap="wrap"
                     >
-                      <Input placeholder="Search..." />
-                      <InputLeftElement>
-                        <img src="/assets/images/search-icon.svg" />
-                      </InputLeftElement>
-                    </InputGroup>
-                  </Box>
-                  <Box width="150px" ml="8px" order={{ base: "2", sm: "3" }}>
-                    <ReactSelect
-                      options={[{ key: "Sorty By", value: "Sort By" }]}
-                      isMultiple={false}
-                      identifier="filter"
-                      getSelectedData={(value: string) => console.log(value)}
-                      placeholder="Sort By"
+                      <Box order="1">
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-funnel"></i>}
+                        />
+                      </Box>
+                      <Box
+                        order={{ base: "3", sm: "2" }}
+                        w={{ base: "100%", sm: "auto" }}
+                        pl={{ base: "0", sm: "8px" }}
+                        pt={{ base: "15px", md: "0", xl: "0" }}
+                      >
+                        <InputGroup
+                          variant="custom"
+                          colorScheme="purple"
+                          w={{ base: "full", sm: "200px", md: "sm" }}
+                          marginBottom={{
+                            base: "3",
+                            md: "initial",
+                            xl: "initial",
+                          }}
+                        >
+                          <Input placeholder="Search..." />
+                          <InputLeftElement>
+                            <img src="/assets/images/search-icon.svg" />
+                          </InputLeftElement>
+                        </InputGroup>
+                      </Box>
+                      <Box
+                        width="150px"
+                        ml="8px"
+                        order={{ base: "2", sm: "3" }}
+                      >
+                        <ReactSelect
+                          options={[{ key: "Sorty By", value: "Sort By" }]}
+                          isMultiple={false}
+                          identifier="filter"
+                          getSelectedData={(value: string) =>
+                            console.log(value)
+                          }
+                          placeholder="Sort By"
+                        />
+                      </Box>
+                    </Flex>
+                    <ActivityTable
+                      data={activities}
+                      hasNextPage={hasNextPageActivities}
+                      fetchNextPage={fetchNextPageActivities}
+                      isLoading={isLoadingActivities}
                     />
                   </Box>
                 </Flex>
-                <TableContainer pt="24px">
-                  <Table variant="simple">
-                    <Thead>
-                      <Tr>
-                        <Th textAlign="center">ITEM</Th>
-                        <Th>LAST Transfer</Th>
-                        <Th>OWNER</Th>
-                        <Th>TIME</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {isLoadingActivities && (
-                        <Tr>
-                          <Td colSpan={5}>
-                            <Flex
-                              width="100%"
-                              height="100%"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Loader />
-                            </Flex>
-                          </Td>
-                        </Tr>
-                      )}
-                      {activities && activities?.length <= 0 ? (
-                        <Tr>
-                          <Td colSpan={5}>
-                            <Flex
-                              width="100%"
-                              height="100%"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Heading>Record Not Found</Heading>
-                            </Flex>
-                          </Td>
-                        </Tr>
-                      ) : (
-                        ""
-                      )}
-                      {activities &&
-                        activities?.map((activity: any, index: number) => {
-                          return (
-                            <>
-                              <Tr>
-                                <Td p={{ base: "12px", md: "17px 25px" }}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Box color="#6863F3">
-                                      {activity?.event === "Transfer" && (
-                                        <i className="icon-transfer"></i>
-                                      )}
-                                      {activity?.event === "List" && (
-                                        <i className="icon-list"></i>
-                                      )}
-                                    </Box>
-                                    {activity?.event === "List" && (
-                                      <Text fontWeight="700" flex="15%">
-                                        List
-                                      </Text>
-                                    )}
-                                    {activity?.event === "Transfer" && (
-                                      <Text fontWeight="700" flex="15%">
-                                        Transfer
-                                      </Text>
-                                    )}
-                                    <Flex
-                                      alignItems="center"
-                                      gap="2"
-                                      flex="85%"
-                                    >
-                                      <Image
-                                        src={activity?.logoImageUrl}
-                                        boxSize="100px"
-                                        objectFit="cover"
-                                        border="1px solid white"
-                                        borderRadius="16px"
-                                        w={{ base: "50px", md: "96px" }}
-                                        h={{ base: "50px", md: "96px" }}
-                                      />
-                                      <VStack spacing="0.5">
-                                        <Heading fontSize="18px">
-                                          {activity?.name}
-                                        </Heading>
-                                        <Text
-                                          color="rgba(57, 63, 89, 1)"
-                                          fontSize="14px"
-                                        >
-                                          {activity?.collection?.name}
-                                        </Text>
-                                      </VStack>
-                                    </Flex>
-                                  </Flex>
-                                </Td>
-                                <Td p={{ base: "12px", md: "17px 25px" }}>
-                                  {activity?.sale}
-                                </Td>
-                                <Td p={{ base: "12px", md: "17px 25px" }}>
-                                  {activity?.owner}
-                                </Td>
-                                <Td p={{ base: "12px", md: "17px 25px" }}>
-                                  {dayJs(activity?.insertedDate).fromNow()}
-                                </Td>
-                              </Tr>
-                            </>
-                          );
-                        })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
               </TabPanel>
             </TabPanels>
           </Tabs>

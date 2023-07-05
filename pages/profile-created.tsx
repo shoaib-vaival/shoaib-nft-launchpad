@@ -21,27 +21,24 @@ import { Loader } from "../src/components/Loader";
 import ProfileDetail from "../src/components/Profile/ProfileDetail";
 import ProfileHeader from "../src/components/Profile/ProfileHeader";
 import { SlickSlider } from "../src/components/ReactSlick";
+import { ActivitySideFilter } from "../src/components/SidebarFilter/ActivitySideFilter";
+import { UserCollectionSideFilter } from "../src/components/SidebarFilter/UserCollectionSideFilter";
 import CustomSlider from "../src/components/Slider";
+import { ActivityTable } from "../src/components/Table/ActivityTable";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useDebounce } from "../src/hooks/useDebounce";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
-import { collectionType, nftType, profileType } from "../src/types";
+import { collectionType, filters, nftType, profileType } from "../src/types";
+import { convertToQueryParam } from "../src/utils";
 import { GridView } from "../src/views/GridView";
 import ListView from "../src/views/ListView";
 
-type filters = {
-  status?: string;
-  quantity?: string;
-  collections?: string;
-  sort?: string;
-  search?: string;
-};
 const ProfilCreated: NextPage = () => {
   const [view, setView] = useState<string>("grid");
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
   const [search, setSearch] = useState<string>();
-  const debounceValue = useDebounce(search, 1000);
+  const debounceValue = useDebounce(search, 500);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
@@ -74,6 +71,18 @@ const ProfilCreated: NextPage = () => {
     url: ApiUrl.GET_USER_NFTS,
     params: { ...filters },
     token: true,
+  });
+  const {
+    data: activities,
+    fetchNextPage: fetchNextPageActivities,
+    hasNextPage: hasNextPageActivities,
+    isLoading: isLoadingActivities,
+  } = useInfiniteQuery<any>({
+    queryKey: [QUERY_KEYS.GET_USER_ACTIVITES, filters],
+    url: ApiUrl.GET_USER_ACTIVITES,
+    params: {
+      ...filters,
+    },
   });
   const socialIcons = [
     { icon: "icon-internet", url: data?.websiteUrl },
@@ -149,202 +158,212 @@ const ProfilCreated: NextPage = () => {
                   )}
                 </Box>
                 <Flex
-                  mt="15px"
-                  mx="12px"
+                  pt="20px"
                   borderTop={
                     userCollections?.length
                       ? "1px solid rgba(53, 53, 53, 0.2)"
                       : ""
                   }
-                  justifyContent={"end"}
-                  alignItems="center"
-                  pt="20px"
-                  flexWrap="wrap"
                 >
-                  <Box order="1">
-                    <IconButton
-                      variant="outline"
-                      colorScheme="primary"
-                      aria-label="Send email"
-                      icon={<i className="icon-funnel"></i>}
-                    />
-                  </Box>
-                  <Box
-                    order={{ base: "4", sm: "2" }}
-                    w={{ base: "100%", sm: "auto" }}
-                    pl={{ base: "0", sm: "8px" }}
-                    pt={{ base: "15px", md: "0", xl: "0" }}
-                  >
-                    <InputGroup
-                      variant="custom"
-                      colorScheme="purple"
-                      w={{ base: "full", sm: "200px", md: "sm" }}
-                      marginBottom={{ base: "3", md: "initial", xl: "initial" }}
-                    >
-                      <Input
-                        placeholder="Search..."
-                        onChange={(e) => searchHandler(e)}
-                        value={filters?.search}
-                      />
-                      <InputLeftElement>
-                        <img src="/assets/images/search-icon.svg" />
-                      </InputLeftElement>
-                    </InputGroup>
-                  </Box>
-                  <Box
-                    width={{ base: "119px", sm: "150px" }}
-                    ml="8px"
-                    order={{ base: "2", sm: "3" }}
-                  >
-                    <ReactSelect
-                      options={[
-                        { label: "Ascending ", value: "ASC" },
-                        { label: "Descending ", value: "DESC" },
-                      ]}
-                      placeholder="Sort By"
-                      isMultiple={false}
-                      identifier="filter"
-                      getSelectedData={(selectedOption: any) =>
-                        setFilters({ ...filters, sort: selectedOption?.value })
-                      }
-                    />
-                  </Box>
-                  <ButtonGroup
-                    order={{ base: "3", sm: "3" }}
-                    size="md"
-                    isAttached
-                    variant="outline"
-                    ml="8px"
-                  >
-                    <IconButton
-                      variant="outline"
-                      colorScheme="primary"
-                      aria-label="Send email"
-                      icon={<i className="icon-list"></i>}
-                      onClick={() => changeViewMode("list")}
-                      bg={view === "list" ? "rgba(111, 107, 243, 0.3)" : ""}
-                      color={
-                        view === "list" ? "rgba(111, 107, 243, 0.3)" : "#756C99"
-                      }
-                    />
-                    <IconButton
-                      variant="outline"
-                      colorScheme="primary"
-                      aria-label="Send email"
-                      icon={<i className="icon-grid"></i>}
-                      onClick={() => changeViewMode("grid")}
-                      bg={view === "grid" ? "rgba(111, 107, 243, 0.3)" : ""}
-                      color={
-                        view === "grid" ? "rgba(111, 107, 243, 0.3)" : "#756C99"
-                      }
-                    />
-                  </ButtonGroup>
-                  <Box></Box>
-                  <Box></Box>
-                </Flex>
-                {view === "grid" ? (
-                  <GridView
-                    data={userNfts}
-                    fetchNextPage={fetchNextPage}
-                    hasNextPage={hasNextPage}
-                    type="nft"
-                    isLoading={isLoadingUserNfts}
+                  <UserCollectionSideFilter
+                    onChange={(filter: any) => {
+                      setFilters({
+                        ...filters,
+                        ...convertToQueryParam(filter),
+                      });
+                    }}
                   />
-                ) : (
-                  userNfts !== undefined && (
-                    <ListView
-                      data={userNfts}
-                      fetchNextPage={fetchNextPage}
-                      hasNextPage={hasNextPage}
-                    />
-                  )
-                )}
+                  <Box w="100%">
+                    <Flex
+                      mx="12px"
+                      justifyContent={"end"}
+                      alignItems="center"
+                      flexWrap="wrap"
+                    >
+                      <Box order="1">
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-funnel"></i>}
+                        />
+                      </Box>
+                      <Box
+                        order={{ base: "4", sm: "2" }}
+                        w={{ base: "100%", sm: "auto" }}
+                        pl={{ base: "0", sm: "8px" }}
+                        pt={{ base: "15px", md: "0", xl: "0" }}
+                      >
+                        <InputGroup
+                          variant="custom"
+                          colorScheme="purple"
+                          w={{ base: "full", sm: "200px", md: "sm" }}
+                          marginBottom={{
+                            base: "3",
+                            md: "initial",
+                            xl: "initial",
+                          }}
+                        >
+                          <Input
+                            placeholder="Search..."
+                            onChange={(e) => searchHandler(e)}
+                            value={filters?.search}
+                          />
+                          <InputLeftElement>
+                            <img src="/assets/images/search-icon.svg" />
+                          </InputLeftElement>
+                        </InputGroup>
+                      </Box>
+                      <Box
+                        width={{ base: "119px", sm: "150px" }}
+                        ml="8px"
+                        order={{ base: "2", sm: "3" }}
+                      >
+                        <ReactSelect
+                          options={[
+                            { label: "Ascending ", value: "ASC" },
+                            { label: "Descending ", value: "DESC" },
+                          ]}
+                          placeholder="Sort By"
+                          isMultiple={false}
+                          identifier="filter"
+                          getSelectedData={(selectedOption: any) =>
+                            setFilters({
+                              ...filters,
+                              sort: selectedOption?.value,
+                            })
+                          }
+                        />
+                      </Box>
+                      <ButtonGroup
+                        order={{ base: "3", sm: "3" }}
+                        size="md"
+                        isAttached
+                        variant="outline"
+                        ml="8px"
+                      >
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-list"></i>}
+                          onClick={() => changeViewMode("list")}
+                          bg={view === "list" ? "rgba(111, 107, 243, 0.3)" : ""}
+                          color={
+                            view === "list"
+                              ? "rgba(111, 107, 243, 0.3)"
+                              : "#756C99"
+                          }
+                        />
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-grid"></i>}
+                          onClick={() => changeViewMode("grid")}
+                          bg={view === "grid" ? "rgba(111, 107, 243, 0.3)" : ""}
+                          color={
+                            view === "grid"
+                              ? "rgba(111, 107, 243, 0.3)"
+                              : "#756C99"
+                          }
+                        />
+                      </ButtonGroup>
+                      <Box></Box>
+                      <Box></Box>
+                    </Flex>
+                    {view === "grid" ? (
+                      <GridView
+                        data={userNfts}
+                        fetchNextPage={fetchNextPage}
+                        hasNextPage={hasNextPage}
+                        type="nft"
+                        isLoading={isLoadingUserNfts}
+                      />
+                    ) : (
+                      userNfts !== undefined && (
+                        <ListView
+                          data={userNfts}
+                          fetchNextPage={fetchNextPage}
+                          hasNextPage={hasNextPage}
+                        />
+                      )
+                    )}
+                  </Box>
+                </Flex>
               </TabPanel>
               <TabPanel pt="0">
-                <Flex
-                  justifyContent={"end"}
-                  alignItems="center"
-                  pt="20px"
-                  flexWrap="wrap"
-                >
-                  <Box order="1">
-                    <IconButton
-                      variant="outline"
-                      colorScheme="primary"
-                      aria-label="Send"
-                      icon={<i className="icon-funnel"></i>}
-                    />
-                  </Box>
-                  <Box
-                    order={{ base: "3", sm: "2" }}
-                    w={{ base: "100%", sm: "auto" }}
-                    pl={{ base: "0", sm: "8px" }}
-                    pt={{ base: "15px", md: "0", xl: "0" }}
-                  >
-                    <InputGroup
-                      variant="custom"
-                      colorScheme="purple"
-                      w={{ base: "full", sm: "200px", md: "sm" }}
-                      marginBottom={{ base: "3", md: "initial", xl: "initial" }}
+                <Flex pt="20px" gap="4">
+                  <ActivitySideFilter
+                    onChange={(filter: any) => {
+                      setFilters({
+                        ...filters,
+                        ...convertToQueryParam(filter),
+                      });
+                    }}
+                    type="user"
+                  />
+                  <Box w="100%">
+                    <Flex
+                      justifyContent={"end"}
+                      alignItems="center"
+                      pt="20px"
+                      flexWrap="wrap"
                     >
-                      <Input placeholder="Search..." />
-                      <InputLeftElement>
-                        <img src="/assets/images/search-icon.svg" />
-                      </InputLeftElement>
-                    </InputGroup>
-                  </Box>
-                  <Box width="150px" ml="8px" order={{ base: "2", sm: "3" }}>
-                    <ReactSelect
-                      options={[{ key: "Sorty By", value: "Sort By" }]}
-                      isMultiple={false}
-                      identifier="filter"
-                      getSelectedData={(value: string) => console.log(value)}
-                      placeholder="Sort By"
+                      <Box order="1">
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send"
+                          icon={<i className="icon-funnel"></i>}
+                        />
+                      </Box>
+                      <Box
+                        order={{ base: "3", sm: "2" }}
+                        w={{ base: "100%", sm: "auto" }}
+                        pl={{ base: "0", sm: "8px" }}
+                        pt={{ base: "15px", md: "0", xl: "0" }}
+                      >
+                        <InputGroup
+                          variant="custom"
+                          colorScheme="purple"
+                          w={{ base: "full", sm: "200px", md: "sm" }}
+                          marginBottom={{
+                            base: "3",
+                            md: "initial",
+                            xl: "initial",
+                          }}
+                        >
+                          <Input placeholder="Search..." />
+                          <InputLeftElement>
+                            <img src="/assets/images/search-icon.svg" />
+                          </InputLeftElement>
+                        </InputGroup>
+                      </Box>
+                      <Box
+                        width="150px"
+                        ml="8px"
+                        order={{ base: "2", sm: "3" }}
+                      >
+                        <ReactSelect
+                          options={[{ key: "Sorty By", value: "Sort By" }]}
+                          isMultiple={false}
+                          identifier="filter"
+                          getSelectedData={(value: string) =>
+                            console.log(value)
+                          }
+                          placeholder="Sort By"
+                        />
+                      </Box>
+                    </Flex>
+                    <ActivityTable
+                      data={activities}
+                      hasNextPage={hasNextPageActivities}
+                      fetchNextPage={fetchNextPageActivities}
+                      isLoading={isLoadingActivities}
                     />
                   </Box>
                 </Flex>
-                <TableContainer pt="24px">
-                  <Table variant="simple">
-                    <Thead>
-                      <Tr>
-                        <Th textAlign="center">ITEM</Th>
-                        <Th>LAST Transfer</Th>
-                        <Th>OWNER</Th>
-                        <Th>TIME</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      <Tr>
-                        <Td>
-                          <Flex gap="2" alignItems="center" mr="48px">
-                            <Box color="#6863F3">
-                              <i className="icon-transfer"></i>
-                            </Box>
-                            <Text fontWeight="700">Transfer</Text>
-                            <Image
-                              src="/assets/images/cover-image1.png"
-                              boxSize="100px"
-                              objectFit="cover"
-                              border="1px solid white"
-                              borderRadius="16px"
-                              w={{ base: "50px", md: "96px" }}
-                              h={{ base: "50px", md: "96px" }}
-                            />
-                            <VStack spacing="0.5" alignItems="flex-start">
-                              <Heading fontSize="18px">Panthera Leo</Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
-                                Angeli Sunstorm
-                              </Text>
-                            </VStack>
-                          </Flex>
-                        </Td>
-                        <Td>John Smith</Td>
-                        <Td>CryotoDL</Td>
-                        <Td>3m ago</Td>
-                      </Tr>
-                    </Tbody>
-                  </Table>
-                </TableContainer>
               </TabPanel>
             </TabPanels>
           </Tabs>

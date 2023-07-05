@@ -21,9 +21,12 @@ export const QUERY_KEYS = {
   GET_USER_NFTS:'get-user-nfts',
   GET_STATS:'get-stats',
   ADD_TO_WATCHLIST:'add-to-watchlist',
+  REMOVE_FROM_WATCHLIST:'remove-from-watchlist',
   GET_BAR_CHART: 'get-bar-chart',
   GET_LINE_CHART: 'get-line-chart',
   GET_DOT_CHART: 'get-dot-chart',
   GET_COLLECTION_ACTIVITIES: 'get-collection-activities',
   GET_NFT_ACTIVITIES:'get-nft-activites',
+  GET_All_COLLECTIONS_NAME:'get-all-collections-name',
+  GET_USER_ACTIVITES:'get-all-user-activites'
 };
