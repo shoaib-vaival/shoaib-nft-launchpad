@@ -9,6 +9,7 @@ import {
   Text,
   Heading,
   VStack,
+  HStack,
   Grid,
 } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
@@ -32,6 +33,7 @@ import { useQuery } from "../../../src/hooks/useQuery";
 import { nftType } from "../../../src/types";
 import { useWeb3React } from "@web3-react/core";
 import ListNftModal from "../../../src/Modals/nftProperties/listNft";
+import ReportModal from "../../../src/Modals/nftProperties/reportModal";
 import { useState } from "react";
 import { Loader } from "../../../src/components/Loader";
 import { dayJs } from "../../../src/utils";
@@ -42,11 +44,20 @@ import { PATCH, POST } from "../../../src/hooks/consts";
 import { marketContractAbi } from "../../../src/connectors/marketContractAbi";
 import { ethers } from "ethers";
 import { useContract } from "../../../src/connectors/marketProvider";
+import  SocialShare  from "../../../src/components/SocialShare";
+import { useRouter } from "next/router";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: isReportModalOpen,
+    onOpen: onReportModalOpen,
+    onClose: onReportModalClose,
+  } = useDisclosure();
   const [nftData, setNftData] = useState<any>({});
+  const router = useRouter();
+  const currentUrl = router.asPath;
 
   const { data } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_NFT_DETAIL],
@@ -104,10 +115,23 @@ const NftDetail = ({ param }: any) => {
     collectionId: data?.collectionId,
   };
 
+  const convertToWei = (valueInEther: string): string => {
+    // Convert the input value to a BigNumber object
+    const valueInBigNumber = ethers.utils.parseEther(valueInEther);
+
+    // Convert the BigNumber to Wei
+    const valueInWei = ethers.utils.formatUnits(valueInBigNumber, "wei");
+
+    // Return the value in Wei as a string
+    return valueInWei;
+  };
   // Call the contract
 
   const buy = async () => {
     if (contractInst) {
+      const valueInWei = convertToWei(params?.price);
+      console.log("🚀 ~ file: [nftID].tsx:122 ~ buy ~ valueInWei:", params);
+
       alert(buy);
       try {
         const result = await contractInst.buy(
@@ -121,7 +145,7 @@ const NftDetail = ({ param }: any) => {
           params?.collaboratorAmount,
           params?.collectionId,
           {
-            value: String(ethers.utils.parseEther(params.price)), // Specify the amount of ETH to send with the transaction
+            value: valueInWei, // Specify the amount of ETH to send with the transaction
           }
         );
         if (result) {
@@ -142,7 +166,7 @@ const NftDetail = ({ param }: any) => {
           // if (receipt) router.push("/profile-created");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Buy Error", error);
         // Handle errors here
       }
     }
@@ -155,15 +179,41 @@ const NftDetail = ({ param }: any) => {
     token: true,
   });
 
-  const handleBuy = async () => {
-    // CONTRACT FUNCTION CALL TO BUY NFT
-    // API CALL TO SAVE BOUGHT DATA
-  };
-
   const cancelListing = async () => {
-    cancelList("");
-    // CONTRACT FUNCTION CALL CANCEL LISTING
-    // API CALL TO SAVE BOUGHT DATA
+    if (contractInst) {
+      console.log("SignHash to Cancel", params.signature);
+      try {
+        const result = await contractInst.cancelListing(params?.signature);
+        if (result) {
+          console.log("Cancel Listing Contract Success");
+          const ethProvider = new ethers.providers.Web3Provider(
+            provider?.provider as any
+          );
+          const receipt = await ethProvider.waitForTransaction(result.hash);
+          if (receipt.status == 1) {
+            cancelList("");
+          }
+          console.log("🚀 ~ file: [nftID].tsx:86 ~ buy ~ receipt:", receipt);
+          abiDecoder.addABI(marketContractAbi);
+          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+          console.log(
+            "🚀 ~ file: [nftID].tsx:185 ~ cancelListing ~ decodedLogs:",
+            decodedLogs
+          );
+
+          // const data = {
+          //   contractAddress: decodedLogs[2]?.events[1]?.value,
+          //   collectionName: decodedLogs[2]?.events[0]?.value,
+          // };
+          // update(data);
+
+          // if (receipt) router.push("/profile-created");
+        }
+      } catch (error) {
+        console.error("Buy Error", error);
+        // Handle errors here
+      }
+    }
   };
 
   return (
@@ -196,9 +246,37 @@ const NftDetail = ({ param }: any) => {
               borderBottom="1px solid"
               borderColor="rgba(53, 53, 53, 0.2)"
             >
-              <Text marginTop="-15px" marginBottom="16px" fontSize="16px">
-                {data?.collection?.name}
-              </Text>
+              <Flex alignItems='center' justifyContent='space-between' marginBottom="15px">
+                <Box>
+                  <Text fontSize="16px">
+                    {data?.collection?.name}
+                  </Text>
+                </Box>
+                <Box display='flex' alignItems='center' gap='8px'>
+                  <Box textAlign='center'>
+                  <SocialShare title="Check this link" url={`https://ibanera-launchpad.bloxbytes.com${currentUrl}`} />
+                  </Box>
+                  {account && (<Box textAlign='center'>
+                    <Menu>
+                      <MenuButton
+                        as={IconButton}
+                        color='#756C99'
+                        ml={{ base: '5px', sm: '8px' }} mb={{ base: '8px', sm: '0' }}
+                        variant='outline'
+                        aria-label='Send'
+                        fontSize='20px'
+                        border='1px solid #c4c3f9'
+                        bg='#fff'
+                        icon={<i className="icon-menu"></i>} >
+                      </MenuButton>
+                      <MenuList w='191px' minW='191px' p='8px'>
+                        <MenuItem><Box color='#393F59' onClick={onReportModalOpen}>Report</Box></MenuItem>
+                        <ReportModal isOpen={isReportModalOpen} onClose={onReportModalClose} onOpen={onReportModalOpen} nftId={`${param?.nftID}`}/>
+                      </MenuList>
+                    </Menu>
+                  </Box>)}
+                </Box>
+              </Flex>
               <Heading fontSize="32px" marginBottom="10px">
                 {data?.name}
               </Heading>
@@ -233,9 +311,9 @@ const NftDetail = ({ param }: any) => {
             />
 
             {data &&
-            data.owner?.toLowerCase() === account?.toLowerCase() &&
-            (data?.listings[0]?.listingStatus == false ||
-              data?.listings.length == 0) ? (
+              data.owner?.toLowerCase() === account?.toLowerCase() &&
+              (data?.listings[0]?.listingStatus == false ||
+                data?.listings.length == 0) ? (
               <Button onClick={onOpen} variant="primary" mt="16px">
                 List For Sale
               </Button>
@@ -324,7 +402,7 @@ const NftDetail = ({ param }: any) => {
               </Box>
             </Box>
           </Box>
-        </Stack>
+        </Stack >
         <Stack
           spacing={{ base: "0px", sm: "48px" }}
           direction="row"
@@ -553,7 +631,7 @@ const NftDetail = ({ param }: any) => {
               })}
           </SlickSlider>
         </Box>
-      </Container>
+      </Container >
     </>
   );
 };

@@ -102,7 +102,7 @@ const Collection: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box px={{ base: "0", md: "17px" }}>
+        <Box px="0">
           <ProfileHeader
             socialIcons={socialIcons}
             showSocialIcons={true}
@@ -120,7 +120,7 @@ const Collection: NextPage = () => {
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box>
           <Tabs>
-            <TabList>
+            <TabList pl='0'>
               <Tab>Items</Tab>
               <Tab>Activity</Tab>
               <Tab>Analytics</Tab>
