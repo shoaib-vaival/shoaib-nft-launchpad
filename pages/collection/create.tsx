@@ -87,6 +87,7 @@ const CreateCollection = () => {
   const { mutate: update } = useMutation<any>({
     method: PATCH,
     url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
+    successMessage: "Collection Created Successfully",
     showSuccessToast: true,
     token: true,
   });

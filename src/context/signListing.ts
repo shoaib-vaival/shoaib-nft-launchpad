@@ -4,12 +4,22 @@ interface ListedItemParams {
   seller: string | undefined;
   erc721: string;
   tokenId: number;
-  price: string;
+  price: number;
   duration: number;
   collaboratorAddress: string[];
   collaboratorAmount: string[];
   collectionId: string;
 }
+const convertToWei = (valueInEther: string): string => {
+  // Convert the input value to a BigNumber object
+  const valueInBigNumber = ethers.utils.parseEther(String(valueInEther));
+
+  // Convert the BigNumber to Wei
+  const valueInWei = ethers.utils.formatUnits(valueInBigNumber, "wei");
+
+  // Return the value in Wei as a string
+  return valueInWei;
+};
 
 export const signMessage = async (
   params: ListedItemParams,
@@ -18,6 +28,8 @@ export const signMessage = async (
   chainId: any
 ): Promise<string | null> => {
   if (provider && account) {
+    const valueInWei = convertToWei(String(params?.price));
+
     const msgParams = JSON.stringify({
       domain: {
         chainId,
@@ -29,7 +41,7 @@ export const signMessage = async (
         seller: params.seller,
         erc721: params.erc721,
         tokenId: params.tokenId,
-        price: params.price,
+        price: String(valueInWei),
         duration: params.duration,
         collaboratorAddress: params.collaboratorAddress,
         collaboratorAmount: params.collaboratorAmount,
@@ -47,7 +59,7 @@ export const signMessage = async (
           { name: "seller", type: "address" },
           { name: "erc721", type: "address" },
           { name: "tokenId", type: "uint256" },
-          { name: "price", type: "string" },
+          { name: "price", type: "uint256" },
           { name: "duration", type: "uint256" },
           { name: "collaboratorAddress", type: "address[]" },
           { name: "collaboratorAmount", type: "uint256[]" },
@@ -57,6 +69,7 @@ export const signMessage = async (
     });
 
     const paramss = [account, msgParams];
+    console.log("🚀 ~ file: signListing.ts:72 ~ paramss:", paramss);
 
     if (window.ethereum) {
       try {

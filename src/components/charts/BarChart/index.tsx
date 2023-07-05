@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 import { ApiUrl } from "../../../apis/apiUrl";
 
@@ -59,37 +59,42 @@ import { ApiUrl } from "../../../apis/apiUrl";
 //   }
 // ];
 
- const BarChart = () => {
-    const { data } = useQuery<any>({
-        queryKey: [QUERY_KEYS.GET_BAR_CHART],
-        url: ApiUrl.GET_BAR_CHART,
-      })
+const BarChart = () => {
+  const { data } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_BAR_CHART],
+    url: ApiUrl.GET_BAR_CHART,
+  });
 
-      console.log("datadatadata", data)
+  // console.log("datadatadata", data)
 
   return (
     <ResponsiveContainer width="100%" height={400}>
-    <ComposedChart
-      data={data}
-      margin={{
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
-      }}
-    >
-      <CartesianGrid stroke="#f5f5f5" />
-      <XAxis dataKey="date" scale="band" />
-      <YAxis dataKey="volume"/>
-      <YAxis dataKey="avgPrice" yAxisId="right" orientation="right" stroke="#82ca9d"/>
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="volume" barSize={20} fill="#413ea0" />
-      {/* <XAxis dataKey="date" scale="band" /> */}
-      <Line type="monotone" dataKey="volume" stroke="#ff7300" />
-    </ComposedChart>
+      <ComposedChart
+        data={data}
+        margin={{
+          top: 20,
+          right: 20,
+          bottom: 20,
+          left: 20,
+        }}
+      >
+        <CartesianGrid stroke="#f5f5f5" />
+        <XAxis dataKey="date" scale="band" />
+        <YAxis dataKey="volume" />
+        <YAxis
+          dataKey="avgPrice"
+          yAxisId="right"
+          orientation="right"
+          stroke="#82ca9d"
+        />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="volume" barSize={20} fill="#413ea0" />
+        {/* <XAxis dataKey="date" scale="band" /> */}
+        <Line type="monotone" dataKey="volume" stroke="#ff7300" />
+      </ComposedChart>
     </ResponsiveContainer>
   );
-}
+};
 
-export default BarChart
+export default BarChart;
