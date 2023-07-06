@@ -42,23 +42,23 @@ interface Item {
 }
 
 interface GenericTableProps {
-  data: Item[];
+  data: any;
   columns: Column[];
   fetchNextPage?: () => void;
   hasNextPage?: boolean;
   isLoading?: boolean | undefined;
 }
 
-export const GenericTable: React.FC<GenericTableProps> = ({
+export const GenericTable = ({
   data,
   columns,
   fetchNextPage,
   hasNextPage,
   isLoading,
-}) => {
+}: GenericTableProps) => {
   return (
     <InfiniteScroll
-      dataLength={data ? data.length : 0}
+      dataLength={data ? data?.length : 0}
       next={() => fetchNextPage && fetchNextPage()}
       hasMore={!!hasNextPage}
       loader={
@@ -76,8 +76,8 @@ export const GenericTable: React.FC<GenericTableProps> = ({
         <Table variant="simple">
           <Thead>
             <Tr>
-              {columns.map((column) => (
-                <Th key={column.key}>{column.title}</Th>
+              {columns?.map((column: Column) => (
+                <Th key={column?.key}>{column?.title}</Th>
               ))}
             </Tr>
           </Thead>
@@ -111,15 +111,15 @@ export const GenericTable: React.FC<GenericTableProps> = ({
               </Tr>
             )}
             {data &&
-              data?.map((item) => (
-                <Tr key={item.id}>
-                  {columns.map((column) => (
+              data?.map((item: any) => (
+                <Tr key={item?.id}>
+                  {columns?.map((column) => (
                     <Td
-                      key={`${item.id}-${column.key}`}
+                      key={`${item?.id}-${column?.key}`}
                       isNumeric={column?.isNumeric}
                     >
-                      {column.actions
-                        ? column.actions.map((action) => {
+                      {column?.actions
+                        ? column?.actions?.map((action) => {
                             switch (action.type) {
                               case "button":
                                 return (
@@ -139,22 +139,25 @@ export const GenericTable: React.FC<GenericTableProps> = ({
                               case "checkbox":
                                 return (
                                   <Checkbox
-                                    key={action.label}
-                                    defaultChecked={item[column.key]}
+                                    key={action?.label}
+                                    defaultChecked={item[column?.key]}
                                     onChange={(e) =>
-                                      action.onChange &&
-                                      action.onChange(item.id, e.target.checked)
+                                      action?.onChange &&
+                                      action?.onChange(
+                                        item.id,
+                                        e.target.checked
+                                      )
                                     }
                                   >
-                                    {action.label}
+                                    {action?.label}
                                   </Checkbox>
                                 );
                               case "menu":
                                 return (
-                                  <Menu key={action.label}>
+                                  <Menu key={action?.label}>
                                     <MenuButton
                                       as={IconButton}
-                                      aria-label={action.label}
+                                      aria-label={action?.label}
                                       bg="transparent"
                                       textAlign="center"
                                       _hover={{ bg: "transparent" }}
@@ -162,19 +165,19 @@ export const GenericTable: React.FC<GenericTableProps> = ({
                                       mr={2}
                                     />
                                     <MenuList>
-                                      {action.options &&
-                                        action.options.map((option) => (
+                                      {action?.options &&
+                                        action?.options?.map((option) => (
                                           <MenuItem
-                                            key={option.value}
+                                            key={option?.value}
                                             onClick={() =>
                                               action.onSelect &&
                                               action.onSelect(
-                                                item.id,
-                                                option.value
+                                                item?.id,
+                                                option?.value
                                               )
                                             }
                                           >
-                                            {option.label}
+                                            {option?.label}
                                           </MenuItem>
                                         ))}
                                     </MenuList>
@@ -184,7 +187,7 @@ export const GenericTable: React.FC<GenericTableProps> = ({
                                 return null;
                             }
                           })
-                        : item[column.key]}
+                        : item[column?.key]}
                     </Td>
                   ))}
                 </Tr>
