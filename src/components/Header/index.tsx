@@ -96,8 +96,6 @@ export const Header = () => {
             justifyContent={{ base: "flex-start", xl: "initial" }}
             flexWrap="wrap"
             gap={{ base: "0", md: "initial" }}
-            position='relative'
-            zIndex='1'
           >
             <Box
               pb="8px"
@@ -168,7 +166,7 @@ export const Header = () => {
                 fontSize={{ base: "15px", xl: "16px" }} rightIcon={<Box fontSize='8px'><i className="icon-ChevronDown"></i></Box>}>
                     Stats
                   </MenuButton>
-                  <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px" zIndex='1'>
+                  <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px">
                     <MenuItem as='a' href='/ranking'>Ranking</MenuItem>
                     <MenuItem as='a' href='/activity'>Activity</MenuItem>
                   </MenuList>
@@ -272,11 +270,6 @@ export const Header = () => {
                     as={IconButton}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
-                    _hover= {{
-                      bg: 'purple.500',
-                      color:'white',
-                      border:'1px solid #6863F3',
-                  }}
                   />
                 )}
 

@@ -219,7 +219,7 @@ const ProfilCreated: NextPage = () => {
                           }}
                         >
                           <Input
-                            placeholder="Search by Collections…"
+                            placeholder="Search..."
                             onChange={(e) => searchHandler(e)}
                             value={filters?.search}
                           />
@@ -348,7 +348,7 @@ const ProfilCreated: NextPage = () => {
                             xl: "initial",
                           }}
                         >
-                          <Input placeholder="Search by Collections…" />
+                          <Input placeholder="Search..." />
                           <InputLeftElement>
                             <img src="/assets/images/search-icon.svg" />
                           </InputLeftElement>

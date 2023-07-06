@@ -117,9 +117,9 @@ const Home: NextPage = () => {
               mt={{ base: "40px", lg: "80px" }}
             >
               <Tabs>
-                <TabList pl="0" alignItems="center" flexWrap="wrap" >
-                  <Tab fontSize={{base:'20px',md:'24px'}}>Trending</Tab>
-                  <Tab fontSize={{base:'20px',md:'24px'}}>Top</Tab>
+                <TabList pl="0" alignItems="center" flexWrap="wrap">
+                  <Tab>Trending</Tab>
+                  <Tab>Top</Tab>
 
                   <Flex
                     alignItems="center"
@@ -431,7 +431,6 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
               >
                 View All
               </Button>
@@ -459,7 +458,6 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
               >
                 View All
               </Button>
@@ -498,7 +496,6 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
               >
                 View All
               </Button>
