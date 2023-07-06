@@ -237,8 +237,8 @@ const NftDetail = ({ param }: any) => {
         >
           <Box
             w={{ base: "100%", lg: "50%" }}
-            maxH={{ base: "initial", md: "500px", lg: "650px" }}
-            borderRadius="lg"
+            maxH={{ base: "initial", md: "500px", lg: "100%" }}
+            borderRadius="16px"
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${data?.ipfsImageUrl}`}
@@ -252,7 +252,7 @@ const NftDetail = ({ param }: any) => {
             <Box
               paddingBottom={{ base: "20px", sm: "28px" }}
               borderBottom="1px solid"
-              borderColor="rgba(53, 53, 53, 0.2)"
+              borderColor="#35353533"
             >
               <Flex
                 alignItems="center"
@@ -327,6 +327,29 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
+            <Box paddingBottom={{ base: "20px", sm: "28px" }}
+              borderBottom="1px solid"
+              borderColor="#35353533">
+              <Text fontSize='16px' color='#393F59' pt='24px' pb='16px'>Sale ends 2 December 2022 at 1:29 am GMT+5</Text>
+              <HStack gap={{ base: "30px", md: "40px" }} color='#393F59'>
+                <Box>
+                  <Text fontSize='24px' >3</Text>
+                  <Text fontSize='14px' color='#756C99'>Hours</Text>
+                </Box>
+                <Box>
+                  <Text fontSize='24px' >1</Text>
+                  <Text fontSize='14px' color='#756C99'>Days</Text>
+                </Box>
+                <Box>
+                  <Text fontSize='24px' >49</Text>
+                  <Text fontSize='14px' color='#756C99'>Minutes</Text>
+                </Box>
+                <Box>
+                  <Text fontSize='24px' >32</Text>
+                  <Text fontSize='14px' color='#756C99'>Seconds</Text>
+                </Box>
+              </HStack>
+            </Box>
 
             <ListNftModal
               isOpen={isOpen}
@@ -334,38 +357,44 @@ const NftDetail = ({ param }: any) => {
               onOpen={onOpen}
               nftData={nftData}
             />
-
-            {data &&
-            data.owner?.toLowerCase() === account?.toLowerCase() &&
-            (data?.listings[0]?.listingStatus == "sold" ||
-              data?.listings[0]?.listingStatus == "canceled" ||
-              data?.listings.length == 0) ? (
-              <Button onClick={onOpen} variant="primary" mt="16px">
-                List For Sale
-              </Button>
-            ) : data &&
-              data.owner === account?.toLowerCase() &&
-              data?.listings[0]?.listingStatus == "listed" ? (
-              <Button
-                onClick={() => {
-                  cancelListing();
-                }}
-                variant="primary"
-                mt="16px"
-              >
-                Cancel Listing
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  buy();
-                }}
-                variant="primary"
-                mt="16px"
-              >
-                Buy Now
-              </Button>
-            )}
+            <Box>
+              <Text fontSize='16px' color='#393F59' pt='24px' pb='16px'>Current Price</Text>
+              <HStack gap='8px' color='#393F59' display='flex'>
+                  <Text fontSize={{ base: "32px", md: "40px" }} fontWeight='700' >0.15 MATIC</Text>
+                  <Text fontSize='16px' color='#51608B' mt='10px'>($168.99)</Text>
+              </HStack>
+              {data &&
+                data.owner?.toLowerCase() === account?.toLowerCase() &&
+                (data?.listings[0]?.listingStatus == "sold" ||
+                  data?.listings[0]?.listingStatus == "canceled" ||
+                  data?.listings.length == 0) ? (
+                <Button onClick={onOpen} variant="primary" mt="16px"  p='20px 64px' >
+                  List For Sale
+                </Button>
+              ) : data &&
+                data.owner === account?.toLowerCase() &&
+                data?.listings[0]?.listingStatus == "listed" ? (
+                <Button
+                  onClick={() => {
+                    cancelListing();
+                  }}
+                  variant="primary"
+                  mt="16px"  p='20px 64px' 
+                >
+                  Cancel Listing
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    buy();
+                  }}
+                  variant="primary"
+                  mt="16px"  p='20px 64px' 
+                >
+                  Buy Now
+                </Button>
+              )}
+            </Box>
 
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
@@ -385,8 +414,63 @@ const NftDetail = ({ param }: any) => {
               >
                 READ MORE
               </Button>
-              <Heading fontSize="24px" marginBottom="16px">
-                Details
+              
+            </Box>
+          </Box>
+        </Stack>
+        <Stack
+          spacing={{ base: "0px", sm: "48px" }}
+          direction={{base:'column-reverse',lg:'row'}}
+          px={{ base: "0", sm: "17px" }}
+          marginTop={{base:'0px' ,lg:'40px'}}>
+          <Box w={{ base: "100%", lg: "55%" }}>
+            <Heading fontSize="24px"marginBottom="16px">
+            Attributes
+            </Heading>
+            <Grid
+              templateColumns={{
+                base: "repeat(1, 1fr)",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+              }}
+              gap="3"
+            >
+              <Stat p="14px">
+                <StatLabel>Background</StatLabel>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Dark Orange
+                </StatNumber>
+              </Stat>
+              <Stat p="14px">
+                <StatLabel>Body</StatLabel>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Shirt Orange
+                </StatNumber>
+              </Stat>
+              <Stat p="14px">
+                <StatLabel>Head</StatLabel>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Glasses
+                </StatNumber>
+             
+              </Stat>
+              <Stat p="14px">
+                <StatLabel>Face</StatLabel>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Brown
+                </StatNumber>
+              </Stat>
+              <Stat p="14px">
+                <StatLabel>Hair</StatLabel>
+                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                  Puffballs
+                </StatNumber>
+              </Stat>
+            </Grid>
+          </Box>
+          <Box w={{ base: "100%", lg: "55%" }} marginTop={{base:'20px' ,lg:'0'}}>
+          <Heading fontSize="24px" marginBottom="16px">
+          Description
               </Heading>
               <Box fontSize="16px">
                 <Flex justifyContent="space-between" mb="8px">
@@ -426,87 +510,14 @@ const NftDetail = ({ param }: any) => {
                   </Text>
                 </Flex>
               </Box>
-            </Box>
           </Box>
-        </Stack>
-        <Stack
-          spacing={{ base: "0px", sm: "48px" }}
-          direction="row"
-          px={{ base: "0", sm: "17px" }}
-        >
-          <Box w={{ base: "100%", lg: "55%" }}>
-            <Heading fontSize="24px" marginBottom="16px" marginTop="40px">
-              Details
-            </Heading>
-            <Grid
-              templateColumns={{
-                base: "repeat(1, 1fr)",
-                sm: "repeat(2, 1fr)",
-                md: "repeat(3, 1fr)",
-              }}
-              gap="3"
-            >
-              <Stat p="14px">
-                <StatLabel>Background</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
-                  Dark Orange
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    {" "}
-                    10%
-                  </Text>
-                </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Body</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
-                  Shirt Orange
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    6%
-                  </Text>
-                </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Head</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
-                  Glasses
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    8%
-                  </Text>
-                </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Face</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
-                  Brown
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    8%
-                  </Text>
-                </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Hair</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
-                  Puffballs
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    8%
-                  </Text>
-                </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
-              </Stat>
-            </Grid>
-          </Box>
-          <Box w={{ base: "0%", lg: "55%" }}></Box>
         </Stack>
         <Flex
           px={{ base: "0", sm: "17px" }}
           justifyContent="space-between"
           alignItems={{ base: "flex-start", sm: "center" }}
           marginBottom="16px"
-          marginTop="40px"
+          marginTop="80px"
           flexWrap="wrap"
           flexDirection={{ base: "column", sm: "row" }}
         >
