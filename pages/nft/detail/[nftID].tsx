@@ -229,6 +229,40 @@ const NftDetail = ({ param }: any) => {
       }
     }
   };
+  const [maticPrice, setMaticPrice] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        const response = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=usd"
+        );
+        const data = await response.json();
+        const maticPrice = data["matic-network"].usd;
+        setMaticPrice(maticPrice);
+      } catch (error) {
+        console.error("Error fetching Matic price:", error);
+      }
+    };
+
+    fetchPrice();
+  }, []);
+
+  const saleEndUnixSeconds = data?.listings[0]?.duration;
+  const saleEndUnixMilliseconds = saleEndUnixSeconds * 1000;
+  const saleEndDate = new Date(saleEndUnixMilliseconds);
+
+  const formatDate = (date: Date): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      timeZoneName: "short",
+    };
+    return date.toLocaleString("en-US", options);
+  };
 
   return (
     <>
@@ -337,26 +371,38 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
-            <Box paddingBottom={{ base: "20px", sm: "28px" }}
+            <Box
+              paddingBottom={{ base: "20px", sm: "28px" }}
               borderBottom="1px solid"
-              borderColor="#35353533">
-              <Text fontSize='16px' color='#393F59' pt='24px' pb='16px'>Sale ends 2 December 2022 at 1:29 am GMT+5</Text>
-              <HStack gap={{ base: "30px", md: "40px" }} color='#393F59'>
+              borderColor="#35353533"
+            >
+              <Text fontSize="16px" color="#393F59" pt="24px" pb="16px">
+                Sale ends {formatDate(saleEndDate)}
+              </Text>
+              <HStack gap={{ base: "30px", md: "40px" }} color="#393F59">
                 <Box>
-                  <Text fontSize='24px' >3</Text>
-                  <Text fontSize='14px' color='#756C99'>Hours</Text>
+                  <Text fontSize="24px">3</Text>
+                  <Text fontSize="14px" color="#756C99">
+                    Hours
+                  </Text>
                 </Box>
                 <Box>
-                  <Text fontSize='24px' >1</Text>
-                  <Text fontSize='14px' color='#756C99'>Days</Text>
+                  <Text fontSize="24px">1</Text>
+                  <Text fontSize="14px" color="#756C99">
+                    Days
+                  </Text>
                 </Box>
                 <Box>
-                  <Text fontSize='24px' >49</Text>
-                  <Text fontSize='14px' color='#756C99'>Minutes</Text>
+                  <Text fontSize="24px">49</Text>
+                  <Text fontSize="14px" color="#756C99">
+                    Minutes
+                  </Text>
                 </Box>
                 <Box>
-                  <Text fontSize='24px' >32</Text>
-                  <Text fontSize='14px' color='#756C99'>Seconds</Text>
+                  <Text fontSize="24px">32</Text>
+                  <Text fontSize="14px" color="#756C99">
+                    Seconds
+                  </Text>
                 </Box>
               </HStack>
             </Box>
@@ -367,18 +413,44 @@ const NftDetail = ({ param }: any) => {
               onOpen={onOpen}
               nftData={nftData}
             />
+
             <Box>
-              <Text fontSize='16px' color='#393F59' pt='24px' pb='16px'>Current Price</Text>
-              <HStack gap='8px' color='#393F59' display='flex'>
-                  <Text fontSize={{ base: "32px", md: "40px" }} fontWeight='700' >0.15 MATIC</Text>
-                  <Text fontSize='16px' color='#51608B' mt='10px'>($168.99)</Text>
-              </HStack>
+              {data?.listings[0]?.listingStatus == "listed" ? (
+                <>
+                  <Text fontSize="16px" color="#393F59" pt="24px" pb="16px">
+                    Current Price
+                  </Text>
+                  <HStack gap="8px" color="#393F59" display="flex">
+                    <Text
+                      fontSize={{ base: "32px", md: "40px" }}
+                      fontWeight="700"
+                    >
+                      {data?.listings[0]?.price} MATIC
+                    </Text>
+                    <Text fontSize="16px" color="#51608B" mt="10px">
+                      ({" "}
+                      {String(maticPrice * data?.listings[0]?.price).slice(
+                        0,
+                        7
+                      )}
+                      {""}
+                      $)
+                    </Text>
+                  </HStack>
+                </>
+              ) : null}
+
               {data &&
-                data.owner?.toLowerCase() === account?.toLowerCase() &&
-                (data?.listings[0]?.listingStatus == "sold" ||
-                  data?.listings[0]?.listingStatus == "canceled" ||
-                  data?.listings.length == 0) ? (
-                <Button onClick={onOpen} variant="primary" mt="16px"  p='20px 64px' >
+              data.owner?.toLowerCase() === account?.toLowerCase() &&
+              (data?.listings[0]?.listingStatus == "sold" ||
+                data?.listings[0]?.listingStatus == "canceled" ||
+                data?.listings.length == 0) ? (
+                <Button
+                  onClick={onOpen}
+                  variant="primary"
+                  mt="16px"
+                  p="20px 64px"
+                >
                   List For Sale
                 </Button>
               ) : data &&
@@ -389,7 +461,8 @@ const NftDetail = ({ param }: any) => {
                     cancelListing();
                   }}
                   variant="primary"
-                  mt="16px"  p='20px 64px' 
+                  mt="16px"
+                  p="20px 64px"
                 >
                   Cancel Listing
                 </Button>
@@ -399,7 +472,8 @@ const NftDetail = ({ param }: any) => {
                     buy();
                   }}
                   variant="primary"
-                  mt="16px"  p='20px 64px' 
+                  mt="16px"
+                  p="20px 64px"
                 >
                   Buy Now
                 </Button>
@@ -424,18 +498,18 @@ const NftDetail = ({ param }: any) => {
               >
                 READ MORE
               </Button>
-              
             </Box>
           </Box>
         </Stack>
         <Stack
           spacing={{ base: "0px", sm: "48px" }}
-          direction={{base:'column-reverse',lg:'row'}}
+          direction={{ base: "column-reverse", lg: "row" }}
           px={{ base: "0", sm: "17px" }}
-          marginTop={{base:'0px' ,lg:'40px'}}>
+          marginTop={{ base: "0px", lg: "40px" }}
+        >
           <Box w={{ base: "100%", lg: "55%" }}>
-            <Heading fontSize="24px"marginBottom="16px">
-            Attributes
+            <Heading fontSize="24px" marginBottom="16px">
+              Attributes
             </Heading>
             <Grid
               templateColumns={{
@@ -462,7 +536,6 @@ const NftDetail = ({ param }: any) => {
                 <StatNumber fontSize="18px" display="flex" alignItems="center">
                   Glasses
                 </StatNumber>
-             
               </Stat>
               <Stat p="14px">
                 <StatLabel>Face</StatLabel>
@@ -478,50 +551,53 @@ const NftDetail = ({ param }: any) => {
               </Stat>
             </Grid>
           </Box>
-          <Box w={{ base: "100%", lg: "55%" }} marginTop={{base:'20px' ,lg:'0'}}>
-          <Heading fontSize="24px" marginBottom="16px">
-          Description
-              </Heading>
-              <Box fontSize="16px">
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Contract Address</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.minting_contract_address?.slice(0, 7) +
-                      "..." +
-                      data?.minting_contract_address?.slice(35, 42)}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Token ID</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.tokenId}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Token Standard</Text>
-                  <Text color="#6863F3" mb="auto">
-                    ERC 721
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Chain</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {chainId}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Metadata</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.metadata}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Creator Earnings</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {totalCreatorFee}
-                  </Text>
-                </Flex>
-              </Box>
+          <Box
+            w={{ base: "100%", lg: "55%" }}
+            marginTop={{ base: "20px", lg: "0" }}
+          >
+            <Heading fontSize="24px" marginBottom="16px">
+              Description
+            </Heading>
+            <Box fontSize="16px">
+              <Flex justifyContent="space-between" mb="8px">
+                <Text color="#756C99">Contract Address</Text>
+                <Text color="#6863F3" mb="auto">
+                  {data?.minting_contract_address?.slice(0, 7) +
+                    "..." +
+                    data?.minting_contract_address?.slice(35, 42)}
+                </Text>
+              </Flex>
+              <Flex justifyContent="space-between" mb="8px">
+                <Text color="#756C99">Token ID</Text>
+                <Text color="#6863F3" mb="auto">
+                  {data?.tokenId}
+                </Text>
+              </Flex>
+              <Flex justifyContent="space-between" mb="8px">
+                <Text color="#756C99">Token Standard</Text>
+                <Text color="#6863F3" mb="auto">
+                  ERC 721
+                </Text>
+              </Flex>
+              <Flex justifyContent="space-between" mb="8px">
+                <Text color="#756C99">Chain</Text>
+                <Text color="#6863F3" mb="auto">
+                  {chainId}
+                </Text>
+              </Flex>
+              <Flex justifyContent="space-between" mb="8px">
+                <Text color="#756C99">Metadata</Text>
+                <Text color="#6863F3" mb="auto">
+                  {data?.metadata}
+                </Text>
+              </Flex>
+              <Flex justifyContent="space-between" mb="8px">
+                <Text color="#756C99">Creator Earnings</Text>
+                <Text color="#6863F3" mb="auto">
+                  {totalCreatorFee}
+                </Text>
+              </Flex>
+            </Box>
           </Box>
         </Stack>
         <Flex
