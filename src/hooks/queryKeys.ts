@@ -24,7 +24,7 @@ export const QUERY_KEYS = {
   REMOVE_FROM_WATCHLIST:'remove-from-watchlist',
   GET_BAR_CHART: 'get-bar-chart',
   GET_LINE_CHART: 'get-line-chart',
-  GET_DOT_CHART: 'get-dot-chart',
+  GET_DOT_CHART: 'get-sale-chart',
   GET_COLLECTION_ACTIVITIES: 'get-collection-activities',
   GET_NFT_ACTIVITIES:'get-nft-activites',
   GET_All_COLLECTIONS_NAME:'get-all-collections-name',

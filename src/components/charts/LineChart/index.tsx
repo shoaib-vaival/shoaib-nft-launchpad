@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React from "react";
 import {
   LineChart,
@@ -7,117 +8,60 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 import { QUERY_KEYS } from "../../../../src/hooks/queryKeys";
 import { useQuery } from "../../../../src/hooks/useQuery";
 import { ApiUrl } from "../../../apis/apiUrl";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  }
-];
-
-
-const CustomLineChart = () => {
-  const { data: LineChartData } = useQuery<string>({
-      queryKey: [QUERY_KEYS.GET_LINE_CHART],
-      url: ApiUrl.GET_LINE_CHART,
-    })
-
-    console.log("datadatadata", LineChartData)
+const CustomLineChart = ({
+  collectionId,
+}: {
+  collectionId: string | undefined;
+}) => {
+  const { data } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_LINE_CHART],
+    url: ApiUrl.GET_LINE_CHART,
+    params: {
+      collectionId: "22323d12-8d05-4d51-94ec-98097e6f2b88",
+      interval: "week",
+    },
+    enabled: collectionId ? true : false,
+  });
+  const getGraphData = (graphData: any) => {
+    return (
+      graphData &&
+      graphData?.map((item: any, index: number) => {
+        return { x: dayjs(item?.date).format("MMM DD"), y: item?.floorPrice };
+      })
+    );
+  };
   return (
     <>
-    <ResponsiveContainer width="100%" height={400}>
-    <LineChart
-
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5
-      }}
-    >
-      <CartesianGrid  />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="pv"
-        stroke="#8884d8"
-        // activeDot={{ r: 8 }}
-      />
-    </LineChart>
-    </ResponsiveContainer>
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart
+          data={getGraphData(data)}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid horizontal={true} vertical={false} />
+          <XAxis dataKey="x" />
+          <YAxis />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="y"
+            stroke="#8884d8"
+            // activeDot={{ r: 8 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </>
   );
-}
+};
 
-export default CustomLineChart
+export default CustomLineChart;
