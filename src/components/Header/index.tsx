@@ -7,9 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Collapse,
   Flex,
-  Avatar,
   Menu,
   MenuButton,
   MenuList,
@@ -23,7 +21,6 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
 import { useWeb3React } from "@web3-react/core";
@@ -33,31 +30,24 @@ import { POST } from "../../hooks/consts";
 import { ApiUrl } from "../../apis/apiUrl";
 import { useMutation } from "../../hooks/useMutation";
 import { useQuery } from "../../hooks/useQuery";
-import { setToLocalStorage, getFromLocalStorage } from "../../utils";
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { error } from "console";
+import { setToLocalStorage } from "../../utils";
+import { useState } from "react";
 import { setCookie } from "typescript-cookie";
+import { bg } from "date-fns/locale";
 
 export const Header = () => {
-  const [toggleMenu, setToggleMenu] = useState<boolean>(false)
+  const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
     onClose: onConnectionModalClose,
   } = useDisclosure();
   const {
-    connect,
     disconnect,
-    connectWalletConnect,
-    walletConnectAccount,
     disconnectWalletConnect,
-    chainId,
   } = useWeb3Context();
 
-  const { account, provider, isActive } = useWeb3React();
-  const [address, setAddress] = useState<any>(null);
-  const router = useRouter();
+  const { account, provider } = useWeb3React();
 
   const { mutate } = useMutation<any>({
     method: POST,
@@ -98,16 +88,17 @@ export const Header = () => {
 
   return (
     <>
-      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }} >
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box py="30px" px={{ base: "0", md: "17px", xl: "0" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
             justifyContent={{ base: "flex-start", xl: "initial" }}
             flexWrap="wrap"
-            gap={{base:'0',md:'initial'}}
+            gap={{ base: "0", md: "initial" }}
           >
-            <Box pb="8px"
+            <Box
+              pb="8px"
               order={{ base: "1", sm: "1" }}
               marginRight={{ base: "auto", md: "initial" }}
               as={Link}
@@ -120,16 +111,17 @@ export const Header = () => {
                 maxH="45px"
               />
             </Box>
-            <Box order={{ base: "5", sm: "5", md: "6", lg: "2" }}
+            <Box
+              order={{ base: "5", sm: "5", md: "6", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
               pr={{ base: "0", lg: "30px" }}
-              pt={{ base:"5px" }}
+              pt={{ base: "5px" }}
             >
               <InputGroup
                 variant="custom"
                 colorScheme="purple"
-                w={{ base: "full", md: "full", lg: "200px", xl: "xs" }}
+                w={{ base: "full", md: "full", lg: "200px", xl: "md" }}
                 marginBottom={{ base: "3", md: "initial", xl: "initial" }}
               >
                 <Input placeholder="Search..." />
@@ -138,17 +130,21 @@ export const Header = () => {
                 </InputLeftElement>
               </InputGroup>
             </Box>
-            <Box order={{ base: "4", sm: "4", md: "5", lg: "3" }}
-              visibility={{ base: toggleMenu?'visible':'hidden', lg: "initial" }}
-              h={{ base: toggleMenu?'auto':'0px',lg: "initial" }}
-              display={{ base: toggleMenu?'block':'none', lg: "initial"}}
-              transform= {toggleMenu ? 'translateY(5px)':'translateY(0px)'}
-              w={{base:'100%',lg:'inherit'}}
-              bg={{base:'#ffdafe75',lg:'transparent'}}
-              mt={{base:'5px',lg:'initial'}}
-                borderTopLeftRadius={{base:'16px',lg:'0'}}
-                borderTopRightRadius={{base:'16px',lg:'0'}}
-                transition='.5s cubic-bezier(0.64, 0.46, 0.47, 0.87)'
+            <Box
+              order={{ base: "4", sm: "4", md: "5", lg: "3" }}
+              visibility={{
+                base: toggleMenu ? "visible" : "hidden",
+                lg: "initial",
+              }}
+              h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
+              display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
+              transform={toggleMenu ? "translateY(5px)" : "translateY(0px)"}
+              w={{ base: "100%", lg: "inherit" }}
+              bg={{ base: "#ffdafe75", lg: "transparent" }}
+              mt={{ base: "5px", lg: "initial" }}
+              borderTopLeftRadius={{ base: "16px", lg: "0" }}
+              borderTopRightRadius={{ base: "16px", lg: "0" }}
+              transition=".5s cubic-bezier(0.64, 0.46, 0.47, 0.87)"
             >
               <HStack
                 textTransform="uppercase"
@@ -162,15 +158,24 @@ export const Header = () => {
                 w={{ base: "100%", lg: "initial" }}
                 spacing={{ base: "8px", lg: "11px", xl: "24px" }}
                 p={{ base: "10px", lg: "0" }}
-                
               >
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explore</Link>
-                <Link href="/activity">Activity</Link>
+                <Menu>
+                  <MenuButton as={Button} bg='transparent' _active={{bg:'transparent'}} _focusVisible={{boxShadow:'transparent'}} p='0' _hover={{bg:'transparent'}} textTransform="uppercase"
+                fontSize={{ base: "15px", xl: "16px" }} rightIcon={<Box fontSize='8px'><i className="icon-ChevronDown"></i></Box>}>
+                    Stats
+                  </MenuButton>
+                  <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px">
+                    <MenuItem as='a' href='/ranking'>Ranking</MenuItem>
+                    <MenuItem as='a' href='/activity'>Activity</MenuItem>
+                  </MenuList>
+                </Menu>
               </HStack>
             </Box>
 
-            <Flex order={{ base: "6", sm: "6", md: "2", lg: "4" }}
+            <Flex
+              order={{ base: "6", sm: "6", md: "2", lg: "4" }}
               marginLeft={{ base: "auto", md: "auto !important" }}
               alignItems="center"
               justifyContent={{ sm: "flex-end" }}
@@ -197,7 +202,7 @@ export const Header = () => {
                     Create
                   </MenuButton>
                 )}
-                <MenuList>
+                <MenuList  w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
                     <Link href="/nft/create">Create NFT</Link>
                   </MenuItem>
@@ -235,18 +240,21 @@ export const Header = () => {
                 </Button>
               )}
             </Flex>
-            <Box order={{ base: "3", sm: "3", md: "4", lg: "5" }}
+            <Box
+              order={{ base: "3", sm: "3", md: "4", lg: "5" }}
               display={{ base: "block", lg: "none" }}
             >
-                <IconButton
-                  mr="0" 
-                  ml="8px"
-                  colorScheme="purple"
-                  variant="outline"
-                  icon={<HamburgerIcon />}
-                  aria-label="Options"
-                  onClick={()=>{setToggleMenu(!toggleMenu)}}
-                />
+              <IconButton
+                mr="0"
+                ml="8px"
+                colorScheme="purple"
+                variant="outline"
+                icon={<HamburgerIcon />}
+                aria-label="Options"
+                onClick={() => {
+                  setToggleMenu(!toggleMenu);
+                }}
+              />
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
               <Menu>

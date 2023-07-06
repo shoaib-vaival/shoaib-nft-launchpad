@@ -84,7 +84,7 @@ export type fileUploadType = {
         updatedDate?: Date
     }
 
-    export type profileType = {
+export type profileType = {
         id?: number,
         displayName?: string,
         userName?: string,
@@ -105,3 +105,13 @@ export type fileUploadType = {
         updatedDate?: Date,
         collections?:collectionType[]
     }
+
+export type filters = {
+  status?: string;
+  quantity?: string;
+  collections?: string;
+  sort?: string;
+  search?: string;
+  event?: string;
+  properties?: string;
+};

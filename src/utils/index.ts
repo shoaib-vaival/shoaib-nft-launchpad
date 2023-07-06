@@ -1,7 +1,8 @@
 import { MetaMask } from "@web3-react/metamask";
 import type { Connector } from "@web3-react/types";
 import { WalletConnect as WalletConnect } from "@web3-react/walletconnect";
-
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 export const getName = (connector: Connector) => {
   if (connector instanceof MetaMask) return "MetaMask";
   if (connector instanceof WalletConnect) return "WalletConnect";
@@ -40,3 +41,21 @@ export const validateFile = (file?: File | null, fileSizeLimit?: number) => {
     return "ok";
   }
 };
+
+export const dayJs = (date:any)=>{
+   dayjs.extend(relativeTime)
+   return dayjs(date)
+}
+export  const convertToQueryParam = (obj: Record<string, any>): Record<string, string> =>{
+  const queryParams: Record<string, string> = {};
+
+  for (const key in obj) {
+    if (Array.isArray(obj[key])) {
+      queryParams[key] = obj[key]
+        .map((value: any) => encodeURIComponent(value))
+        .join(`&${encodeURIComponent(key)}=`);
+    }
+  }
+
+  return queryParams;
+}

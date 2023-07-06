@@ -37,7 +37,6 @@ import { PropertyTypes } from "../../src/types";
 import { Header } from "../../src/components/Header";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useNFTContract } from "../../src/connectors/erc721Provider";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { getFromLocalStorage } from "../../src/utils";
@@ -63,6 +62,11 @@ const CreateNFT = () => {
     showToast: false,
     token: true,
   });
+  const { mutate: updatePending } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
+    token: true,
+  });
 
   const minting = async (uri: string, contractAddress: any) => {
     if (provider) {
@@ -79,10 +83,16 @@ const CreateNFT = () => {
         try {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
+            const pendingParams = {
+              hash: result?.hash,
+              status: "pending",
+              type: "mint",
+              nonce: result?.nonce,
+            };
+            updatePending(pendingParams);
             const receipt = await ethProvider.waitForTransaction(result.hash);
             abiDecoder.addABI(erc721Abi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-
             const data = {
               contractAddress: receipt?.to,
               tokenId: Number(decodedLogs[0]?.events[2]?.value),
@@ -95,10 +105,8 @@ const CreateNFT = () => {
 
             if (receipt.status == 1) router.push("/profile-created");
           }
-          // Handle the returned result here
         } catch (error) {
           console.error(error);
-          // Handle errors here
         }
       }
     }
@@ -106,6 +114,7 @@ const CreateNFT = () => {
   const { mutate: updateNFT } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_NFT_MINT_DATA,
+    successMessage: "NFT Minted Successfully",
     showSuccessToast: true,
     token: true,
   });
@@ -115,8 +124,16 @@ const CreateNFT = () => {
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
     token: true,
+    showSuccessToast: true,
     onSuccess: async (data) => {
-      await minting(String(data?.ipfsJsonUrl), collectionAddress);
+      console.log("🚀 ~ file: create.tsx:127 ~ onSuccess: ~ data:", data);
+      const ipfsJsonUrl = data?.data?.ipfsJsonUrl;
+      const prefixedUrl = "ipfs://" + ipfsJsonUrl;
+      console.log(
+        "🚀 ~ file: create.tsx:130 ~ onSuccess: ~ prefixedUrl:",
+        prefixedUrl
+      );
+      await minting(prefixedUrl, collectionAddress);
     },
   });
 
@@ -230,11 +247,8 @@ const CreateNFT = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={nftDetail?.desc}
+                    descp={nftDetail?.desc}
                   />
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
 
                   <FormLabel
                     fontSize="24px!important"

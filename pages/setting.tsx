@@ -1,12 +1,22 @@
 import { Container, Flex, Box, Heading, Text } from "@chakra-ui/layout";
-import { Button, Select, Stack, Switch, FormControl, FormLabel, Input, Textarea, Checkbox, Image } from '@chakra-ui/react';
+import {
+  Button,
+  Select,
+  Stack,
+  Switch,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Checkbox,
+  Image,
+} from "@chakra-ui/react";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ApiUrl } from "../src/apis/apiUrl";
 import InputField from "../src/components/InputField";
-import ProfileHeader from "../src/components/Profile/ProfileHeader";
 import ChakraTextarea from "../src/components/Textarea";
 import { PATCH, POST } from "../src/hooks/consts";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
@@ -15,35 +25,35 @@ import { useQuery } from "../src/hooks/useQuery";
 import { EditUploadFile } from "../src/components/common/EditUploadFile";
 import { UploadFileOnServer } from "../src/components/common/UploadFile/types";
 import { profileType } from "../src/types";
-
+import { settingSchema } from "../src/schemas";
 
 type imagesType = {
-  imageUrl: string,
-  label: string
-}
+  imageUrl: string;
+  label: string;
+};
 
 const Setting: NextPage = () => {
-  const [coverImage, setCoverImage] = useState<imagesType>()
-  const [profileImage, setProfileImage] = useState<imagesType>()
+  const [coverImage, setCoverImage] = useState<imagesType>();
+  const [profileImage, setProfileImage] = useState<imagesType>();
 
   const { data: profile } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_PROFILE],
     url: ApiUrl.GET_PROFILE_BY_ID,
-    token: true
-  })
+    token: true,
+  });
 
   const { mutate } = useMutation<profileType>({
     method: PATCH,
     url: ApiUrl.UPDATE_PROFILE,
     showSuccessToast: true,
-    token: true
+    token: true,
   });
   const { mutate: save } = useMutation<any>({
     method: POST,
     url: ApiUrl.CREATE_NOTIFICATION,
     showSuccessToast: true,
-    token: true
-  })
+    token: true,
+  });
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
     useMutation<UploadFileOnServer>({
       method: POST,
@@ -51,14 +61,20 @@ const Setting: NextPage = () => {
       showSuccessToast: false,
       isFileData: true,
       onSuccess: (data) => {
-        if (data?.data?.label === 'userCoverPhoto') {
-          setCoverImage({ imageUrl: data?.data?.path, label: data?.data?.label })
+        if (data?.data?.label === "userCoverPhoto") {
+          setCoverImage({
+            imageUrl: data?.data?.path,
+            label: data?.data?.label,
+          });
         }
         if (data?.data?.label === "userProfilePhoto") {
-          setProfileImage({ imageUrl: data?.data?.path, label: data?.data?.label })
+          setProfileImage({
+            imageUrl: data?.data?.path,
+            label: data?.data?.label,
+          });
         }
-      }
-    })
+      },
+    });
 
   const initialValues = {
     displayName: profile?.displayName,
@@ -72,175 +88,283 @@ const Setting: NextPage = () => {
     twitter: profile?.twitter,
     instagram: profile?.instagram,
     discord: profile?.discord,
-
-  }
+  };
 
   const initialSettings = {
-    status: false // Initialize the switch field value
+    status: false, // Initialize the switch field value
   };
 
   return (
     <>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Flex
-          p={{ base: '0', md: '0 17px' }}
-          alignItems='initial'
-          textAlign={{ base: 'initial', md: 'initial' }}
-          flexDirection={{ base: 'column', md: 'row' }}
+          p={{ base: "0", md: "0 17px" }}
+          alignItems="initial"
+          textAlign={{ base: "initial", md: "initial" }}
+          flexDirection={{ base: "column", md: "row" }}
         >
-          <Box pr={{ base: '0', md: '50px' }}>
+          <Box pr={{ base: "0", md: "50px" }}>
             <Heading
-              as='h1'
+              as="h1"
               fontSize={{
-                base: '26px',
-                sm: '36px',
-                lg: '42px',
-                xl: '56px',
+                base: "26px",
+                sm: "36px",
+                lg: "42px",
+                xl: "56px",
               }}
-              mb={{ base: '10px', lg: '24px' }}>
+              mb={{ base: "10px", lg: "24px" }}
+            >
               Settings
             </Heading>
-            <Text fontSize={{ base: '18px', md: '24px' }}>
+            <Text fontSize={{ base: "18px", md: "24px" }}>
               Profile and Notification Settings
             </Text>
           </Box>
         </Flex>
-
       </Container>
-      <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
-        <Box mt='24px'>
+      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
+        <Box mt="24px">
           <Tabs>
-            <TabList ml='12px' pl='0'>
+            <TabList ml="12px" pl="0">
               <Tab>Account</Tab>
               {/* <Tab>Notifications</Tab> */}
             </TabList>
 
             <TabPanels>
               <TabPanel p={0}>
-                <Box mt='15px' px={{ base: '0', md: '17px' }} mb={{ base: '55px', md: '85px' }} position="relative">
-                  <Box h={{ base: '250px', md: '358px' }}>
-                    <EditUploadFile image={profile?.profileCoverURL ? profile?.profileCoverURL : ''} id="coverPhoto" onChange={(e) => uploadFileOnServerFunc({ photo: e.target.files[0], label: 'userCoverPhoto' })} isShowLabel={true} />
+                <Box
+                  mt="15px"
+                  px={{ base: "0", md: "17px" }}
+                  mb={{ base: "55px", md: "85px" }}
+                  position="relative"
+                >
+                  <Box h={{ base: "250px", md: "358px" }}>
+                    <EditUploadFile
+                      image={
+                        profile?.profileCoverURL ? profile?.profileCoverURL : ""
+                      }
+                      id="coverPhoto"
+                      onChange={(e) =>
+                        uploadFileOnServerFunc({
+                          photo: e.target.files[0],
+                          label: "userCoverPhoto",
+                        })
+                      }
+                      isShowLabel={true}
+                    />
                   </Box>
-                  <Box w={{ base: '100px', sm: '150px', md: '200px' }} h={{ base: '100px', sm: '150px', md: '200px' }} borderRadius="16px" border="2px solid white" position="absolute" left='5%' bottom={{ base: '-30%', sm: '-43%', md: '-45%' }} transform="translateY(-50%)">
-                    <EditUploadFile image={profile?.profileUrl ? profile?.profileUrl : ''} id="profilePhoto" onChange={(e) => uploadFileOnServerFunc({ photo: e.target.files[0], label: 'userProfilePhoto' })} isShowLabel={false} />
+                  <Box
+                    w={{ base: "100px", sm: "150px", md: "200px" }}
+                    h={{ base: "100px", sm: "150px", md: "200px" }}
+                    borderRadius="16px"
+                    border="2px solid white"
+                    position="absolute"
+                    left="5%"
+                    bottom={{ base: "-30%", sm: "-43%", md: "-45%" }}
+                    transform="translateY(-50%)"
+                  >
+                    <EditUploadFile
+                      image={profile?.profileUrl ? profile?.profileUrl : ""}
+                      id="profilePhoto"
+                      onChange={(e) =>
+                        uploadFileOnServerFunc({
+                          photo: e.target.files[0],
+                          label: "userProfilePhoto",
+                        })
+                      }
+                      isShowLabel={false}
+                    />
                   </Box>
-                  
                 </Box>
-                <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} p={{ base: '0', md: '16px' }}>
+                <Container
+                  maxW={{ sm: "2xl", md: "3xl", lg: "4xl", xl: "5xl" }}
+                  p={{ base: "0", md: "16px" }}
+                >
                   <Box>
                     <Formik
                       initialValues={initialValues}
                       enableReinitialize
+                      validationSchema={settingSchema}
                       onSubmit={(values) => {
-                        mutate({ ...values, profileUrl: profileImage?.imageUrl, profileCoverURL: coverImage?.imageUrl })
+                        mutate({
+                          ...values,
+                          profileUrl: profileImage?.imageUrl,
+                          profileCoverURL: coverImage?.imageUrl,
+                        });
                       }}
                     >
                       {({ errors, touched, values }) => (
                         <Form>
                           <FormControl>
-                            <Flex mb='24px' gap={"10"}
+                            <Flex
+                              mb="24px"
+                              gap={"10"}
                               display={{ base: "block", sm: "flex" }}
                               justifyContent={{
                                 base: "initial",
                                 sm: "space-between",
                                 xl: "space-between",
-                              }}>
-
-                              <Box w='100%' mb={{ base: '24px', md: '0' }}>
+                              }}
+                            >
+                              <Box w="100%" mb={{ base: "24px", md: "0" }}>
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Display Name"
                                   type="text"
                                   placeholder="Enter your display name"
-                                  _placeholder={{ fontWeight: '400' }}
+                                  _placeholder={{ fontWeight: "400" }}
                                   name="displayName"
-                                  formLabelProps={{ fontWeight: '500!important' }}
-                                  formControlProps={{ marginTop: '0px', marginBottom: '0px', fontWeight: '500!important' }}
-                                  maxLength={50} />
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
+                                  formControlProps={{
+                                    marginTop: "0px",
+                                    marginBottom: "0px",
+                                    fontWeight: "500!important",
+                                  }}
+                                  maxLength={50}
+                                />
                               </Box>
 
-                              <Box w='100%'>
+                              <Box w="100%">
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Username"
                                   type="text"
                                   placeholder="Enter your username"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formLabelProps={{ fontWeight: '500!important' }}
-                                  formControlProps={{ marginTop: '0px', marginBottom: '0px'}}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
+                                  formControlProps={{
+                                    marginTop: "0px",
+                                    marginBottom: "0px",
+                                  }}
                                   name="userName"
-                                  maxLength={50} />
+                                  maxLength={50}
+                                />
                               </Box>
                             </Flex>
-                            <Box mb='24px'>
-                              <FormControl my='0' fontWeight='500'>Short bio</FormControl>
+                            <Box mb="24px">
+                              <FormControl my="0" fontWeight="500">
+                                Short Bio
+                              </FormControl>
                               <Field
                                 name="bio"
                                 component={ChakraTextarea}
-                                formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
-                                placeholder="Tel about your self in few words"
-                                desc=''
+                                formControlProps={{
+                                  marginTop: "0px",
+                                  marginBottom: "0px",
+                                }}
+                                placeholder="Tell about yourself in few words"
+                                desc=""
                               />
                             </Box>
-                            <Flex mb='24px' gap={"10"}
+                            <Flex
+                              mb="24px"
+                              gap={"10"}
                               display={{ base: "block", sm: "flex" }}
                               justifyContent={{
                                 base: "initial",
                                 sm: "space-between",
                                 xl: "space-between",
-                              }}>
-
-                              <Box w='100%' mb={{ base: '24px', md: '0' }}>
+                              }}
+                            >
+                              <Box w="100%" mb={{ base: "24px", md: "0" }}>
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Email"
-                                  type="text"
-                                  _placeholder={{fontWeight:'400'}}
+                                  type="email"
+                                  _placeholder={{ fontWeight: "400" }}
                                   placeholder="Enter your email"
-                                  formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  formControlProps={{
+                                    marginTop: "0px",
+                                    marginBottom: "0px",
+                                  }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
+                                  errorText={
+                                    touched["email"] && errors["email"]
+                                      ? errors["email"]
+                                      : undefined
+                                  }
                                   name="email"
-                                  maxLength={50} />
+                                  maxLength={50}
+                                />
                               </Box>
 
-                              <Box w='100%'>
+                              <Box w="100%">
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Website URL"
                                   type="text"
                                   placeholder="https://"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formControlProps={{
+                                    marginTop: "0px",
+                                    marginBottom: "0px",
+                                  }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
+                                  errorText={
+                                    touched["websiteUrl"] &&
+                                    errors["websiteUrl"]
+                                      ? errors["websiteUrl"]
+                                      : undefined
+                                  }
                                   name="websiteUrl"
-                                  maxLength={50} />
-
+                                  maxLength={50}
+                                />
                               </Box>
                             </Flex>
-                            <Flex mb='24px' display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
-
-                              <Box w={{ base: '100%', md: '47%', lg: '48%' }}>
+                            <Flex
+                              mb="24px"
+                              display={{ base: "block", sm: "flex" }}
+                              justifyContent={{
+                                base: "initial",
+                                sm: "space-between",
+                                xl: "space-between",
+                              }}
+                            >
+                              <Box w={{ base: "100%", md: "47%", lg: "48%" }}>
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Etherscan"
                                   type="text"
                                   placeholder="https://"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formControlProps={{
+                                    marginTop: "0px",
+                                    marginBottom: "0px",
+                                  }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
+                                  errorText={
+                                    touched["etherScanUrl"] &&
+                                    errors["etherScanUrl"]
+                                      ? errors["etherScanUrl"]
+                                      : undefined
+                                  }
                                   name="etherScanUrl"
-                                  maxLength={50} />
+                                  maxLength={50}
+                                />
                               </Box>
                             </Flex>
 
-                            <Box mb='24px'>
-                              <Heading fontSize={'24px'}>Social Links</Heading>
-                              <Text fontSize={'16px'} m='16px 0 20px'>Add your existing social links to build a stronger reputation.</Text>
+                            <Box mb="24px">
+                              <Heading fontSize={"24px"}>Social Links</Heading>
+                              <Text fontSize={"16px"} m="16px 0 20px">
+                                Add your existing social links to build a
+                                stronger reputation.
+                              </Text>
                               <Flex
                                 gap={"10"}
                                 display={{ base: "block", sm: "flex" }}
@@ -256,8 +380,10 @@ const Setting: NextPage = () => {
                                   label="Telegram"
                                   type="text"
                                   placeholder="https://"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
                                   name="telegram"
                                   errorText={
                                     touched["telegram"] && errors["telegram"]
@@ -272,8 +398,10 @@ const Setting: NextPage = () => {
                                   label="Twitter"
                                   type="text"
                                   placeholder="https://"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
                                   name="twitter"
                                   errorText={
                                     touched["twitter"] && errors["twitter"]
@@ -299,8 +427,10 @@ const Setting: NextPage = () => {
                                   type="text"
                                   placeholder="https://"
                                   name="instagram"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
                                   errorText={
                                     touched["instagram"] && errors["instagram"]
                                       ? errors["instagram"]
@@ -315,8 +445,10 @@ const Setting: NextPage = () => {
                                   type="text"
                                   placeholder="https://"
                                   name="discord"
-                                  _placeholder={{fontWeight:'400'}}
-                                  formLabelProps={{ fontWeight: '500!important' }}
+                                  _placeholder={{ fontWeight: "400" }}
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
                                   errorText={
                                     touched["discord"] && errors["discord"]
                                       ? errors["discord"]
@@ -325,27 +457,45 @@ const Setting: NextPage = () => {
                                   maxLength={50}
                                 />
                               </Flex>
-
                             </Box>
-                            <Flex gap={{ base: '0', sm: '2', md: '6' }} display={{ base: 'block', sm: 'flex' }} justifyContent={{ base: 'initial', sm: 'space-between', xl: 'space-between' }}>
-                              <Stack w={{ base: '100%', md: '47%', lg: '48%' }}>
+                            <Flex
+                              gap={{ base: "0", sm: "2", md: "6" }}
+                              display={{ base: "block", sm: "flex" }}
+                              justifyContent={{
+                                base: "initial",
+                                sm: "space-between",
+                                xl: "space-between",
+                              }}
+                            >
+                              <Stack w={{ base: "100%", md: "47%", lg: "48%" }}>
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Wallet Address"
                                   type="copy"
                                   placeholder="0X000000"
-                                  formControlProps={{ marginTop: '0px', marginBottom: '0px' }}
+                                  formControlProps={{
+                                    marginTop: "0px",
+                                    marginBottom: "0px",
+                                  }}
                                   name="walletAddress"
-                                  formLabelProps={{ fontWeight: '500!important' }}
-                                  fontSize='12px'
-                                  bg='rgba(104, 99, 243, 0.2)'
-                                  color='#393F59'
-                                  maxLength={50} />
+                                  formLabelProps={{
+                                    fontWeight: "500!important",
+                                  }}
+                                  fontSize="12px"
+                                  bg="rgba(104, 99, 243, 0.2)"
+                                  color="#393F59"
+                                  maxLength={50}
+                                />
                               </Stack>
                             </Flex>
                           </FormControl>
-                          <Button mt='30px' textTransform='uppercase' type='submit' variant='primary'>
+                          <Button
+                            mt="30px"
+                            textTransform="uppercase"
+                            type="submit"
+                            variant="primary"
+                          >
                             Save Settings
                           </Button>
                         </Form>
@@ -402,8 +552,10 @@ const Setting: NextPage = () => {
                 </Container>
               </TabPanel> */}
             </TabPanels>
-          </Tabs></Box></Container >
+          </Tabs>
+        </Box>
+      </Container>
     </>
-  )
-}
-export default Setting
+  );
+};
+export default Setting;

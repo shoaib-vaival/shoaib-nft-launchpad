@@ -38,8 +38,8 @@ import {
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { useContract } from "../../src/connectors/collectionProvider";
-import { collectionContractABI } from "../../src/connectors/collectionContractAbi";
+import { useContract } from "../../src/connectors/marketProvider";
+import { marketContractAbi } from "../../src/connectors/marketContractAbi";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -48,6 +48,13 @@ const CreateCollection = () => {
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
+  abiDecoder.addABI(marketContractAbi);
+
+  const { mutate: updatePending } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
+    token: true,
+  });
 
   // Call the contract
 
@@ -59,10 +66,15 @@ const CreateCollection = () => {
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
+          const pendingParams = {
+            hash: result?.hash,
+            status: "pending",
+            type: "collection",
+            nonce: result?.nonce,
+          };
+          updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          abiDecoder.addABI(collectionContractABI);
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-
+          const decodedLogs = abiDecoder.decodeLogs(receipt?.logs);
           const data = {
             contractAddress: decodedLogs[2]?.events[1]?.value,
             collectionName: decodedLogs[2]?.events[0]?.value,
@@ -73,7 +85,6 @@ const CreateCollection = () => {
         }
       } catch (error) {
         console.error(error);
-        // Handle errors here
       }
     }
   };
@@ -81,6 +92,7 @@ const CreateCollection = () => {
   const { mutate: update } = useMutation<any>({
     method: PATCH,
     url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
+    successMessage: "Collection Created Successfully",
     showSuccessToast: true,
     token: true,
   });
@@ -287,7 +299,7 @@ const CreateCollection = () => {
                     component={ChakraTextarea}
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed"
-                    desc={collectionDetail?.desc}
+                    descp={collectionDetail?.desc}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -298,9 +310,6 @@ const CreateCollection = () => {
                       {errors["category"] as React.ReactNode}
                     </Text>
                   )}
-                  <Text color="#393F59">
-                    Markdown syntax is supported. 0 of 1000 characters used.
-                  </Text>
                 </FormControl>
                 <FormControl isRequired>
                   <ReactSelect
@@ -314,7 +323,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -498,9 +507,9 @@ const CreateCollection = () => {
                               display="flex"
                               alignItems="baseline"
                               flexDirection="column"
-                              mb='16px'
+                              mb="16px"
                             >
-                              <FormControl isRequired mb='0'>
+                              <FormControl isRequired mb="0">
                                 <Field
                                   as={InputField}
                                   size="md"
@@ -520,10 +529,11 @@ const CreateCollection = () => {
                                   }}
                                 />
                               </FormControl>
-                              <Text marginTop={"0px!important"}
+                              <Text
+                                marginTop={"0px!important"}
                                 fontWeight={"500"}
-                                color={"red.700"}>
-
+                                color={"red.700"}
+                              >
                                 <ErrorMessage
                                   name={`creatorFee.${[index]}.walletAddress`}
                                   component="div"
