@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ApiUrl } from "../../../apis/apiUrl";
+import dayjs from "dayjs";
 
 // const data = [
 //   {
@@ -59,18 +60,32 @@ import { ApiUrl } from "../../../apis/apiUrl";
 //   }
 // ];
 
-const BarChart = () => {
+const BarChart = ({ collectionId }: { collectionId: string | undefined }) => {
   const { data } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_BAR_CHART],
     url: ApiUrl.GET_BAR_CHART,
+    params: {
+      collectionId: "22323d12-8d05-4d51-94ec-98097e6f2b88",
+      interval: "month",
+    },
+    enabled: collectionId ? true : false,
   });
-
-  // console.log("datadatadata", data)
-
+  const getGraphData = (graphData: any) => {
+    return (
+      graphData &&
+      graphData?.map((item: any, index: number) => {
+        return {
+          x: dayjs(item?.date).format("MMM DD"),
+          y: item?.volume,
+          z: item?.avgPrice,
+        };
+      })
+    );
+  };
   return (
     <ResponsiveContainer width="100%" height={400}>
       <ComposedChart
-        data={data}
+        data={getGraphData(data)}
         margin={{
           top: 20,
           right: 20,
@@ -79,19 +94,17 @@ const BarChart = () => {
         }}
       >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis dataKey="date" scale="band" />
-        <YAxis dataKey="volume" />
+        <XAxis dataKey="x" scale="band" />
+        <YAxis dataKey="y" />
         <YAxis
-          dataKey="avgPrice"
+          dataKey="z"
           yAxisId="right"
           orientation="right"
           stroke="#82ca9d"
         />
         <Tooltip />
-        <Legend />
-        <Bar dataKey="volume" barSize={20} fill="#413ea0" />
-        {/* <XAxis dataKey="date" scale="band" /> */}
-        <Line type="monotone" dataKey="volume" stroke="#ff7300" />
+        <Bar dataKey="y" barSize={20} fill="#413ea0" />
+        <Line type="monotone" dataKey="y" stroke="#ff7300" />
       </ComposedChart>
     </ResponsiveContainer>
   );

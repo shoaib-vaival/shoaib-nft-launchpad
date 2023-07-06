@@ -35,7 +35,7 @@ export const ApiUrl = {
   REMOVE_FROM_WATCHLIST: "user/remove-from-watchlist",
   GET_BAR_CHART: "stats/volume-price-chart",
   GET_LINE_CHART: "stats/floor-price-chart",
-  GET_DOT_CHART: "stats/sales-price-chart",
+  GET_SALE_CHART: "stats/sales-price-chart",
   GET_COLLECTION_ACTIVITIES: "activity/get-activities-by-collection",
   GET_NFT_ACTIVITIES: "activity/get-activities-by-nft",
   GET_All_COLLECTIONS_NAME: "collection/get-collections-filter",
