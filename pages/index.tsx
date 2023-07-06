@@ -22,8 +22,6 @@ import {
   Td,
   Text,
   Image,
-  useRadioGroup,
-  HStack,
 } from "@chakra-ui/react";
 import { SlickSlider } from "../src/components/ReactSlick";
 import CollectionCard from "../src/components/Cards/CollectionCard";
@@ -37,8 +35,10 @@ import { categoriesType, collectionType } from "../src/types";
 import Link from "next/link";
 import { dashboardApiType } from "../src/types/response.type";
 import { Loader } from "../src/components/Loader";
-import RadioCards from "../src/components/RadioCards";
 import { ReactSelect } from "../src/components/common";
+import React from "react";
+import { HorizentalButtonFilter } from "../src/components/HorizentalButtonFilters";
+import { timeFilterOptions } from "../src/constants";
 
 const Home: NextPage = () => {
   const { data, isLoading } = useQuery<dashboardApiType>({
@@ -50,14 +50,6 @@ const Home: NextPage = () => {
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl.GET_CATEGORIES,
   });
-  const options = ["15m", "1h", "24h", "7d"];
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    name: "framework",
-    defaultValue: "react",
-    onChange: console.log,
-  });
-
-  const group = getRootProps();
 
   return (
     <div>
@@ -134,18 +126,16 @@ const Home: NextPage = () => {
                     ml={{ base: "initial", sm: "auto" }}
                     pb="8px"
                     flexWrap="wrap"
-                    {...group}
                     gap="8px"
                     mt={{ base: "12px", md: "0" }}
                   >
-                    {options.map((value) => {
-                      const radio = getRadioProps({ value });
-                      return (
-                        <RadioCards key={value} type="small" {...radio}>
-                          {value}
-                        </RadioCards>
-                      );
-                    })}
+                    <HorizentalButtonFilter
+                      options={timeFilterOptions?.options}
+                      onChange={(value: string) => console.log(value)}
+                      type={timeFilterOptions?.type}
+                      defaultValue={timeFilterOptions?.defaultValue}
+                    />
+
                     <ReactSelect
                       options=""
                       isMultiple={true}

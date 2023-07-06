@@ -18,8 +18,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../src/components/Loader";
 import { collectionType, nftType } from "../src/types";
 import { GridView } from "../src/views/GridView";
-import { currencySymbol } from "../src/constants";
-import { useRouter } from "next/router";
+import {
+  categoriesFilterOptions,
+  currencySymbol,
+  timeFilterOptions,
+} from "../src/constants";
+import { HorizentalButtonFilter } from "../src/components/HorizentalButtonFilters";
+import { categoriesAndTagsTypes } from "../src/types/collection";
 import { useState } from "react";
 
 const Categories: NextPage = () => {
@@ -28,6 +33,7 @@ const Categories: NextPage = () => {
     url: ApiUrl.GET_BANNER_COLLECTION,
     token: false,
   });
+  const [catFilter, setCatFilter] = useState<string>();
   const {
     data: allCollections,
     error,
@@ -36,8 +42,11 @@ const Categories: NextPage = () => {
     hasNextPage,
     isLoading: isLoadingAllCollections,
   } = useInfiniteQuery<(collectionType & nftType)[]>({
-    queryKey: [QUERY_KEYS.GET_ALL_COLLECTIONS],
+    queryKey: [QUERY_KEYS.GET_ALL_COLLECTIONS, catFilter],
     url: ApiUrl.GET_ALL_COLLECTIONS,
+    params: {
+      catid: catFilter,
+    },
   });
   const [isVisible, setIsVisible] = useState<boolean>();
 
@@ -47,8 +56,22 @@ const Categories: NextPage = () => {
   const out = () => {
     setIsVisible(false);
   };
+  const { data: categories } = useQuery<categoriesAndTagsTypes>({
+    queryKey: [QUERY_KEYS.GET_CAT],
+    url: ApiUrl?.GET_CATEGORIES,
+    showToast: false,
+  });
+  const categoriesOptions = categories && categoriesFilterOptions(categories);
   return (
     <>
+      <Flex justifyContent="center">
+        <HorizentalButtonFilter
+          options={categoriesOptions?.options}
+          onChange={(value: string) => setCatFilter(value)}
+          type={categoriesOptions?.type}
+          defaultValue={"defaultValue"}
+        />
+      </Flex>
       <Container
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         mt={{ base: "40px" }}
