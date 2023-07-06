@@ -391,16 +391,6 @@ const NftDetail = ({ param }: any) => {
                   <Text fontSize="14px" mr="24px">
                     <i className="icon-document-eye"></i> 666 Views
                   </Text>
-                  <Text
-                    border="1px solid #6f6bf366"
-                    p="2px 4px"
-                    borderRadius="6px"
-                    color="#393F59"
-                    bg="#ffffff5e"
-                    fontSize="14px"
-                  >
-                    <i className="icon-hash"></i> 666
-                  </Text>
                 </Flex>
               </Stack>
             </Box>
@@ -414,7 +404,7 @@ const NftDetail = ({ param }: any) => {
                   <Text fontSize="16px" color="#393F59" pt="24px" pb="16px">
                     Sale ends {formatDate(saleEndDate)}
                   </Text>
-                  <HStack gap={{ base: "30px", md: "40px" }} color="#393F59">
+                  <HStack gap={{ base: "20px", md: "40px" }} color="#393F59">
                     <Box>
                       <Text fontSize="24px">{remainingTime.days}</Text>
                       <Text fontSize="14px" color="#756C99">

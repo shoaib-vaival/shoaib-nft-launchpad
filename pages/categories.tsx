@@ -48,6 +48,14 @@ const Categories: NextPage = () => {
       catid: catFilter,
     },
   });
+  const [isVisible, setIsVisible] = useState<boolean>();
+
+  const over = () => {
+    setIsVisible(true);
+  };
+  const out = () => {
+    setIsVisible(false);
+  };
   const { data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl?.GET_CATEGORIES,
@@ -68,9 +76,9 @@ const Categories: NextPage = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         mt={{ base: "40px" }}
       >
-        <Box px={{ base: "0", sm: "17px" }}>
+        <Box px={{ base: "0", sm: "0" }}>
           <Container
-            p={{ base: "24px", sm: "24px 40px", md: "48px 84px" }}
+            p={{ base: "24px", sm: "24px 40px", md: "48px" }}
             variant="colorful"
             position="relative"
             bgSize="cover"
@@ -89,6 +97,7 @@ const Categories: NextPage = () => {
             />
             <Flex
               alignItems={{ base: "baseline", md: "center" }}
+              justifyContent={{ base: "flex-start", md: "space-between" }}
               flexDirection={{ base: "column", md: "row" }}
             >
               <Box>
@@ -101,8 +110,8 @@ const Categories: NextPage = () => {
                   {bannerCollection?.user?.userName
                     ? bannerCollection?.user?.userName
                     : bannerCollection?.user?.walletAddress?.slice(0, 5) +
-                      "..." +
-                      bannerCollection?.user?.walletAddress?.slice(37, 42)}
+                    "..." +
+                    bannerCollection?.user?.walletAddress?.slice(37, 42)}
                 </Text>
                 <Heading
                   color="white"
@@ -114,23 +123,38 @@ const Categories: NextPage = () => {
                 </Heading>
                 <Flex gap="6" alignItems="center">
                   <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                    {bannerCollection?.nftCount ?? 0} items
+                    {bannerCollection?.nftCount ?? 0} Items
                   </Text>
                   <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
                     {bannerCollection?.price ?? 0} {currencySymbol}
                   </Text>
                 </Flex>
               </Box>
-              <Button
-                as={Link}
-                href={`collection/${bannerCollection?.id}`}
-                size={{ base: "md", lg: "lg" }}
-                mt="20px"
-                color="purple.500"
-                ms={{ base: "0", md: "auto" }}
-              >
-                View Collection
-              </Button>
+              <Box maxW='180px'>
+                <Button
+                  as={Link}
+                  href={`collection/${bannerCollection?.id}`}
+                  size={{ base: "md", lg: "lg" }}
+                  mt="20px"
+                  color="purple.500"
+                  _hover={{
+                    transitionDuration: "0.2s",
+                    transitionTimingFunction: "ease-in-out",
+                  }}
+                  onMouseOver={over}
+                  onMouseOut={out}
+                >
+                  View Collection{" "}
+                  <Box
+                    ml="5px"
+                    color="#6863F3"
+                    transform={isVisible ? "translateX(0px)" : "translateX(5px)"}
+                    display={isVisible ? "block" : "none"}
+                  >
+                    <i className="icon-right"></i>
+                  </Box>
+                </Button>
+              </Box>
             </Flex>
           </Container>
         </Box>
