@@ -11,7 +11,6 @@ import {
   IconButton,
   Flex,
   Text,
-  Box,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
 import InputField from "../../components/InputField";
@@ -107,7 +106,7 @@ const NftPropertiesModal = ({
                                   </div>
                                   {index > 0 && (
                                     <>
-                                      <IconButton aria-label='close' bg='#6863F34D' mb={{ base: '10px', sm: '0' }} ml={{ base: '0', sm: '10px' }} type='button' variant='secondary' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                      <IconButton aria-label='close' bg='#6863F34D' mb={{ base: '10px', sm: '0' }} ml={{ base: '0', sm: '10px' }} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
                                     </>
 
                                   )}
@@ -117,9 +116,9 @@ const NftPropertiesModal = ({
                           )}
                           {values?.properties?.length < 12 && (
 
-                            <Button _hover={{textDecoration:'none'}} color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
+                            <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
                               onClick={() => push({ type: '', name: '' })} >
-                              <Box fontSize='16px' mr='8px'><i className="icon-plus"></i></Box>Add Property</Button>
+                              +Add Property</Button>
 
                           )}
                         </>
