@@ -129,15 +129,15 @@ const NftDetail = ({ param }: any) => {
   const { mutate: updateNFTSale } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_NFT_SALE_DATA,
-    successMessage: "NFT Bought Successfully",
+    successMessage: "NFT bought successfully",
     showSuccessToast: true,
     token: true,
   });
 
   const { mutate: cancelList } = useMutation<any>({
-    method: PATCH,
-    url: `${ApiUrl?.CANCEL_LISTING}/${data?.listings[0]?.id}`,
-    successMessage: "Listing Cancelled Successfully",
+    method: POST,
+    url: ApiUrl?.CANCEL_LISTING,
+    successMessage: "Listing cancelled successfully",
     showSuccessToast: true,
     token: true,
   });
@@ -205,17 +205,16 @@ const NftDetail = ({ param }: any) => {
           );
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
-            cancelList("");
-          }
+          
+          
           abiDecoder.addABI(marketContractAbi);
           const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-          const dataa = {
+          const data  = {
             signature: decodedLogs[0]?.events[0]?.value,
           };
-          console.log(
-            "🚀 ~ file: [nftID].tsx:220 ~ cancelListing ~ data:",
-            dataa
-          );
+       
+          cancelList(data);
+        }
         }
       } catch (error) {
         console.error("Buy Error", error);

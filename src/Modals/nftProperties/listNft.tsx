@@ -138,9 +138,10 @@ const ListNftModal = ({
     method: POST,
     url: ApiUrl?.LIST_FOR_SALE,
     token: true,
+    successMessage:"Item listed for sale successfully",
+    showSuccessToast: true,
     onSuccess: async (data) => {
       onClose();
-      alert("NFT LISTED SUCCESSFULLY");
     },
   });
 
