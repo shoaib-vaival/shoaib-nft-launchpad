@@ -135,15 +135,6 @@ const Home: NextPage = () => {
                       type={timeFilterOptions?.type}
                       defaultValue={timeFilterOptions?.defaultValue}
                     />
-
-                    <ReactSelect
-                      options=""
-                      isMultiple={true}
-                      getSelectedData=""
-                      identifier="collection"
-                      label=""
-                      placeholder="All chains"
-                    />
                     <Button
                       p={{ base: "15px", md: "20px 32px" }}
                       as={Link}
