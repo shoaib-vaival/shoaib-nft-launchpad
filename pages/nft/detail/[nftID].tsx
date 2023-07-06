@@ -429,7 +429,7 @@ const NftDetail = ({ param }: any) => {
                     </Text>
                     <Text fontSize="16px" color="#51608B" mt="10px">
                       ({" "}
-                      {String(maticPrice * data?.listings[0]?.price).slice(
+                      {maticPrice && String(maticPrice * data?.listings[0]?.price).slice(
                         0,
                         7
                       )}
