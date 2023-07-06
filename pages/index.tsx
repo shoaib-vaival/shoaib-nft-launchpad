@@ -125,9 +125,9 @@ const Home: NextPage = () => {
               mt={{ base: "40px", lg: "80px" }}
             >
               <Tabs>
-                <TabList pl="0" alignItems="center" flexWrap="wrap">
-                  <Tab>Trending</Tab>
-                  <Tab>Top</Tab>
+                <TabList pl="0" alignItems="center" flexWrap="wrap" >
+                  <Tab fontSize={{base:'20px',md:'24px'}}>Trending</Tab>
+                  <Tab fontSize={{base:'20px',md:'24px'}}>Top</Tab>
 
                   <Flex
                     alignItems="center"
