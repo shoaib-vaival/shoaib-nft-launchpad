@@ -130,13 +130,17 @@ const Categories: NextPage = () => {
                   </Text>
                 </Flex>
               </Box>
-              <Box maxW='180px'>
+              <Box w='230px'>
                 <Button
                   as={Link}
                   href={`collection/${bannerCollection?.id}`}
                   size={{ base: "md", lg: "lg" }}
                   mt="20px"
+                  fontWeight='600'
                   color="purple.500"
+                  p={{ base: "18px 26px", md: "32px" }}
+                  fontSize='16px'
+                  textTransform='uppercase'
                   _hover={{
                     transitionDuration: "0.2s",
                     transitionTimingFunction: "ease-in-out",
@@ -146,7 +150,7 @@ const Categories: NextPage = () => {
                 >
                   View Collection{" "}
                   <Box
-                    ml="5px"
+                    ml="8px"
                     color="#6863F3"
                     transform={isVisible ? "translateX(0px)" : "translateX(5px)"}
                     display={isVisible ? "block" : "none"}
