@@ -41,4 +41,5 @@ export const ApiUrl = {
   GET_All_COLLECTIONS_NAME: "collection/get-collections-filter",
   GET_USER_ACTIVITES: "activity/get-nft-activities-by-user",
   REPORT_NFT: "minting/report-nft",
+  UPDATE_PENDING_TRANSACTIONS: "transactions/pending-transactions",
 };

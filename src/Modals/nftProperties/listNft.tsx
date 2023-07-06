@@ -53,7 +53,9 @@ const ListNftModal = ({
   const [listingPercentage, setListingPercentage] = useState<any>();
   const [totalCreatorFee, setTotalCreatorFree] = useState<any>();
   const handlePriceChange = (event: any) => {
-    setPrice(event.target.value);
+    const inputValue = event.target.value;
+    const limitedValue = inputValue.slice(0, 18);
+    setPrice(limitedValue);
   };
   interface CreatorFee {
     walletAddress: string;
@@ -138,7 +140,7 @@ const ListNftModal = ({
     method: POST,
     url: ApiUrl?.LIST_FOR_SALE,
     token: true,
-    successMessage:"Item listed for sale successfully",
+    successMessage: "Item listed for sale successfully",
     showSuccessToast: true,
     onSuccess: async (data) => {
       onClose();
@@ -198,13 +200,11 @@ const ListNftModal = ({
     let listingPercent = 0;
     if (contractInst) {
       listingPercent = await contractInst.listingPercent();
-      console.log(`listingPercent: ${listingPercent}`);
       setListingPercentage(String(listingPercent));
     }
   };
 
   useEffect(() => {
-    console.log("useee");
     getListingPercent();
     totalCreator();
   }, [nftData]);
@@ -240,6 +240,7 @@ const ListNftModal = ({
                   onChange={handlePriceChange}
                   type="number"
                   min="0"
+                  maxLength={18}
                 />
                 <InputRightAddon fontSize="14px" color="#393F59" bg="#6F6BF34D">
                   MATIC

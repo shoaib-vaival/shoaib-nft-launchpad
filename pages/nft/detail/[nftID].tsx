@@ -133,6 +133,11 @@ const NftDetail = ({ param }: any) => {
     showSuccessToast: true,
     token: true,
   });
+  const { mutate: updatePending } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
+    token: true,
+  });
 
   const { mutate: cancelList } = useMutation<any>({
     method: POST,
@@ -159,36 +164,35 @@ const NftDetail = ({ param }: any) => {
           params?.collaboratorAmount,
           params?.collectionId,
           {
-            value: valueInWei, // Specify the amount of ETH to send with the transaction
+            value: valueInWei,
           }
         );
         if (result) {
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
+          const pendingParams = {
+            hash: result?.hash,
+            status: "pending",
+            type: "buy",
+            nonce: result?.nonce,
+          };
+          updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          console.log("🚀 ~ file: [nftID].tsx:86 ~ buy ~ receipt:", receipt);
           abiDecoder.addABI(marketContractAbi);
           const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-          console.log(
-            "🚀 ~ file: [nftID].tsx:170 ~ buy ~ decodedLogs:",
-            decodedLogs
-          );
-
           const data = {
             tokenId: Number(decodedLogs[0]?.events[0]?.value),
             signature: decodedLogs[0]?.events[1]?.value,
             buyerWallet: decodedLogs[0]?.events[2]?.value,
             contractAddress: decodedLogs[0]?.events[4]?.value,
           };
-          console.log("🚀 ~ file: create.tsx:98 ~ minting ~ data:", data);
           updateNFTSale(data);
 
-          // if (receipt.status == 1) router.push("/profile-created");
+          if (receipt.status == 1) router.push("/profile-created");
         }
       } catch (error) {
         console.error("Buy Error", error);
-        // Handle errors here
       }
     }
   };
@@ -199,26 +203,29 @@ const NftDetail = ({ param }: any) => {
       try {
         const result = await contractInst.cancelListing(params?.signature);
         if (result) {
-          console.log("Cancel Listing Contract Success");
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
+          const pendingParams = {
+            hash: result?.hash,
+            status: "pending",
+            type: "cancel",
+            nonce: result?.nonce,
+          };
+          updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
-          
-          
-          abiDecoder.addABI(marketContractAbi);
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-          const data  = {
-            signature: decodedLogs[0]?.events[0]?.value,
-          };
-       
-          cancelList(data);
-        }
+            abiDecoder.addABI(marketContractAbi);
+            const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+            const data = {
+              signature: decodedLogs[0]?.events[0]?.value,
+            };
+
+            cancelList(data);
+          }
         }
       } catch (error) {
-        console.error("Buy Error", error);
-        // Handle errors here
+        console.error("Cancel Error", error);
       }
     }
   };
@@ -307,7 +314,11 @@ const NftDetail = ({ param }: any) => {
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
                   <Text mr="5px">Owned By</Text>
-                  <Text>{data?.owner}</Text>
+                  <Text>
+                    {data?.owner?.slice(0, 5) +
+                      "..." +
+                      data?.owner?.slice(37, 42)}
+                  </Text>
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontSize="14px" mr="24px">
@@ -391,7 +402,9 @@ const NftDetail = ({ param }: any) => {
                 <Flex justifyContent="space-between" mb="8px">
                   <Text color="#756C99">Contract Address</Text>
                   <Text color="#6863F3" mb="auto">
-                    {data?.minting_contract_address}
+                    {data?.minting_contract_address?.slice(0, 7) +
+                      "..." +
+                      data?.minting_contract_address?.slice(35, 42)}
                   </Text>
                 </Flex>
                 <Flex justifyContent="space-between" mb="8px">

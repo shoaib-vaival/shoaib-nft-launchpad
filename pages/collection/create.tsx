@@ -50,6 +50,12 @@ const CreateCollection = () => {
   const { account, provider } = useWeb3React<Web3Provider>();
   abiDecoder.addABI(marketContractAbi);
 
+  const { mutate: updatePending } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
+    token: true,
+  });
+
   // Call the contract
 
   const deployy = async (name: string) => {
@@ -60,26 +66,25 @@ const CreateCollection = () => {
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
+          const pendingParams = {
+            hash: result?.hash,
+            status: "pending",
+            type: "collection",
+            nonce: result?.nonce,
+          };
+          updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          console.log("🚀 ~ file: create.tsx:63 ~ deployy ~ receipt:", receipt);
           const decodedLogs = abiDecoder.decodeLogs(receipt?.logs);
-          console.log(
-            "🚀 ~ file: create.tsx:66 ~ deployy ~ decodedLogs:",
-            decodedLogs
-          );
-
           const data = {
             contractAddress: decodedLogs[2]?.events[1]?.value,
             collectionName: decodedLogs[2]?.events[0]?.value,
           };
-          console.log("🚀 ~ file: create.tsx:71 ~ deployy ~ data:", data);
           update(data);
 
           if (receipt) router.push("/profile-created");
         }
       } catch (error) {
         console.error(error);
-        // Handle errors here
       }
     }
   };
