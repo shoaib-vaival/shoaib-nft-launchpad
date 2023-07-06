@@ -270,6 +270,11 @@ export const Header = () => {
                     as={IconButton}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
+                    _hover= {{
+                      bg: 'purple.500',
+                      color:'white',
+                      border:'1px solid #6863F3',
+                  }}
                   />
                 )}
 

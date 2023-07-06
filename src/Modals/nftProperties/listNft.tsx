@@ -281,7 +281,9 @@ const ListNftModal = ({
               <Flex mb="24px" justifyContent="space-between">
                 <Text color="#393F59">Listing Price</Text>
                 <Text color="#393F59" mb="auto">
+
                   {price ? price : "0"} MATIC
+
                 </Text>
               </Flex>
               <Flex mb="24px" justifyContent="space-between">
@@ -311,9 +313,11 @@ const ListNftModal = ({
                   color="#393F59"
                   mb="auto"
                 >
+
                   {Number(price) -
                     ((Number(price) * (listingPercentage / 10)) / 100 +
                       (Number(price) * totalCreatorFee) / 100)}
+
                 </Text>
               </Flex>
             </Box>

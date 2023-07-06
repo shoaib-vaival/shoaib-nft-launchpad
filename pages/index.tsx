@@ -441,6 +441,7 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
+                textTransform='uppercase'
               >
                 View All
               </Button>
@@ -468,6 +469,7 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
+                textTransform='uppercase'
               >
                 View All
               </Button>
@@ -506,6 +508,7 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
+                textTransform='uppercase'
               >
                 View All
               </Button>
