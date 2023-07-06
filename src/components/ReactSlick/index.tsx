@@ -11,7 +11,8 @@ export const SlickSlider = ({ children, customSettings }: any) => {
   return (
     <>
       {children === undefined || children?.length <= 0 ? (
-        <Heading textAlign="center">Record Not Found</Heading>
+        <Heading  p='75px 0 75px' fontSize='32px' textAlign="center">Record Not Found</Heading>
+
       ) : (
         <Box position="relative" marginTop="24px">
           {children && children?.length > 4 ? (

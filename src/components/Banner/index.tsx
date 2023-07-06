@@ -61,9 +61,10 @@ export const Banner = () => {
             <Button
               mt={{ md: "0px", xl: "50px" }}
               color="#6863F3"
-              textTransform="uppercase"
               fontWeight='600'
-              p={{ base: "18px 26px", md: "23px 32px" }}
+              p={{ base: "18px 26px", md: "32px" }}
+              textTransform='uppercase'
+              fontSize='16px'
               _hover={{
                 transitionDuration: "0.2s",
                 transitionTimingFunction: "ease-in-out",
