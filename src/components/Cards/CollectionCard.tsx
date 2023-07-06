@@ -163,6 +163,7 @@ const CollectionCard = ({
                     h="100%"
                     variant="primary"
                     colorScheme="blue"
+                    textTransform='uppercase'
                     w="100%"
                     onClick={() =>
                       router.push(

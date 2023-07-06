@@ -264,6 +264,39 @@ const NftDetail = ({ param }: any) => {
     return date.toLocaleString("en-US", options);
   };
 
+  interface RemainingTime {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }
+  const [remainingTime, setRemainingTime] = useState<RemainingTime>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const timeDifference = data?.listings[0]?.duration - currentTime;
+
+      if (timeDifference > 0) {
+        const days = Math.floor(timeDifference / (60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (60 * 60 * 24)) / (60 * 60));
+        const minutes = Math.floor((timeDifference % (60 * 60)) / 60);
+        const seconds = Math.floor(timeDifference % 60);
+
+        setRemainingTime({ days, hours, minutes, seconds });
+      } else {
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [data]);
+
   return (
     <>
       <Container
@@ -358,54 +391,48 @@ const NftDetail = ({ param }: any) => {
                   <Text fontSize="14px" mr="24px">
                     <i className="icon-document-eye"></i> 666 Views
                   </Text>
-                  <Text
-                    border="1px solid #6f6bf366"
-                    p="2px 4px"
-                    borderRadius="6px"
-                    color="#393F59"
-                    bg="#ffffff5e"
-                    fontSize="14px"
-                  >
-                    <i className="icon-hash"></i> 666
-                  </Text>
                 </Flex>
               </Stack>
             </Box>
-            <Box
-              paddingBottom={{ base: "20px", sm: "28px" }}
-              borderBottom="1px solid"
-              borderColor="#35353533"
-            >
-              <Text fontSize="16px" color="#393F59" pt="24px" pb="16px">
-                Sale ends {formatDate(saleEndDate)}
-              </Text>
-              <HStack gap={{ base: "30px", md: "40px" }} color="#393F59">
-                <Box>
-                  <Text fontSize="24px">3</Text>
-                  <Text fontSize="14px" color="#756C99">
-                    Hours
+            {data?.listings[0]?.listingStatus == "listed" ? (
+              <>
+                <Box
+                  paddingBottom={{ base: "20px", sm: "28px" }}
+                  borderBottom="1px solid"
+                  borderColor="#35353533"
+                >
+                  <Text fontSize="16px" color="#393F59" pt="24px" pb="16px">
+                    Sale ends {formatDate(saleEndDate)}
                   </Text>
+                  <HStack gap={{ base: "20px", md: "40px" }} color="#393F59">
+                    <Box>
+                      <Text fontSize="24px">{remainingTime.days}</Text>
+                      <Text fontSize="14px" color="#756C99">
+                        Days
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text fontSize="24px"> {remainingTime.hours}</Text>
+                      <Text fontSize="14px" color="#756C99">
+                        Hours
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text fontSize="24px"> {remainingTime.minutes}</Text>
+                      <Text fontSize="14px" color="#756C99">
+                        Minutes
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text fontSize="24px"> {remainingTime.seconds}</Text>
+                      <Text fontSize="14px" color="#756C99">
+                        Seconds
+                      </Text>
+                    </Box>
+                  </HStack>
                 </Box>
-                <Box>
-                  <Text fontSize="24px">1</Text>
-                  <Text fontSize="14px" color="#756C99">
-                    Days
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontSize="24px">49</Text>
-                  <Text fontSize="14px" color="#756C99">
-                    Minutes
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontSize="24px">32</Text>
-                  <Text fontSize="14px" color="#756C99">
-                    Seconds
-                  </Text>
-                </Box>
-              </HStack>
-            </Box>
+              </>
+            ) : null}
 
             <ListNftModal
               isOpen={isOpen}
