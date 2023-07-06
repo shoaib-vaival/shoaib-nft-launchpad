@@ -347,7 +347,7 @@ const Collection: NextPage = () => {
                           <i className="icon-down"></i>-45%
                         </StatHelpText>
                       </Flex>
-                      <StatNumber>225,278 MATIC</StatNumber>
+                      <StatNumber>0 MATIC</StatNumber>
                     </Stat>
                     <Stat
                       flexBasis={"22%"}
