@@ -22,7 +22,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { useWeb3React } from "@web3-react/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ApiUrl } from "../../apis/apiUrl";
 import { POST } from "../../hooks/consts";
 import { useMutation } from "../../hooks/useMutation";
@@ -31,6 +31,7 @@ import { erc721Abi } from "../../connectors/erc721Abi";
 import { ethers } from "ethers";
 import { useNFTContract } from "../../connectors/erc721Provider";
 import DatePickerReact from "../../components/DatePicker";
+import { useContract } from "../../connectors/marketProvider";
 
 const ListNftModal = ({
   isOpen,
@@ -45,10 +46,16 @@ const ListNftModal = ({
 }) => {
   console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
-  const [price, setPrice] = useState<string>("");
+  const [price, setPrice] = useState<number>();
+  const contractInst = useContract();
 
+  const [transformedData, setTransformedData] = useState<any>();
+  const [listingPercentage, setListingPercentage] = useState<any>();
+  const [totalCreatorFee, setTotalCreatorFree] = useState<any>();
   const handlePriceChange = (event: any) => {
-    setPrice(event.target.value);
+    const inputValue = event.target.value;
+    const limitedValue = inputValue.slice(0, 18);
+    setPrice(limitedValue);
   };
   interface CreatorFee {
     walletAddress: string;
@@ -80,23 +87,39 @@ const ListNftModal = ({
       collaboratorAmount,
     };
   };
+  const convertToWei = (valueInEther: string): string => {
+    // Convert the input value to a BigNumber object
+    const valueInBigNumber = ethers.utils.parseEther(String(valueInEther));
+
+    // Convert the BigNumber to Wei
+    const valueInWei = ethers.utils.formatUnits(valueInBigNumber, "wei");
+
+    // Return the value in Wei as a string
+    return valueInWei;
+  };
 
   const calculateCollaboratorAmount = (percentage: number): string => {
-    const totalAmount = "5000000000000000000"; // Total amount to be distributed
+    const totalAmount = convertToWei(String(price)); // Total amount to be distributed
 
     const amount = (percentage / 100) * parseFloat(totalAmount);
 
     return amount.toString();
   };
 
-  const transformedData: CollaboratorData = transformCreatorFeeData(
-    nftData?.collection?.creatorFee
-  );
+  useEffect(() => {
+    if (Number(price) > 0) {
+      const transformed: CollaboratorData = transformCreatorFeeData(
+        nftData?.collection?.creatorFee
+      );
+      setTransformedData(transformed);
+    }
+  }, [price]);
+
   interface ListedItemParams {
     seller: string | undefined;
     erc721: string;
     tokenId: number;
-    price: string;
+    price: number;
     duration: number;
     collaboratorAddress: string[];
     collaboratorAmount: string[];
@@ -107,7 +130,7 @@ const ListNftModal = ({
     seller: account,
     erc721: nftData?.minting_contract_address,
     tokenId: nftData?.tokenId,
-    price: price,
+    price: Number(price),
     duration: 1690467627,
     collaboratorAddress: transformedData?.collaboratorAddress,
     collaboratorAmount: transformedData?.collaboratorAmount,
@@ -117,8 +140,10 @@ const ListNftModal = ({
     method: POST,
     url: ApiUrl?.LIST_FOR_SALE,
     token: true,
+    successMessage: "Item listed for sale successfully",
+    showSuccessToast: true,
     onSuccess: async (data) => {
-      alert("NFT LISTED SUCCESSFULLY");
+      onClose();
     },
   });
 
@@ -163,6 +188,26 @@ const ListNftModal = ({
       }
     }
   };
+  const totalCreator = () => {
+    let totalFee = 0;
+    for (let i = 0; i < nftData?.collection?.creatorFee.length; i++) {
+      totalFee = totalFee + nftData?.collection?.creatorFee[i].percentage;
+    }
+    setTotalCreatorFree(String(totalFee));
+  };
+
+  const getListingPercent = async () => {
+    let listingPercent = 0;
+    if (contractInst) {
+      listingPercent = await contractInst.listingPercent();
+      setListingPercentage(String(listingPercent));
+    }
+  };
+
+  useEffect(() => {
+    getListingPercent();
+    totalCreator();
+  }, [nftData]);
 
   const handleListing = async () => {
     // approveNFT(nftData?.minting_contract_address);
@@ -193,6 +238,9 @@ const ListNftModal = ({
                 <Input
                   placeholder="Enter price for this item"
                   onChange={handlePriceChange}
+                  type="number"
+                  min="0"
+                  maxLength={18}
                 />
                 <InputRightAddon fontSize="14px" color="#393F59" bg="#6F6BF34D">
                   MATIC
@@ -233,19 +281,19 @@ const ListNftModal = ({
               <Flex mb="24px" justifyContent="space-between">
                 <Text color="#393F59">Listing Price</Text>
                 <Text color="#393F59" mb="auto">
-                  1.00 ETH
+                  {price ? price : "0"} MATIC
                 </Text>
               </Flex>
               <Flex mb="24px" justifyContent="space-between">
                 <Text color="#393F59">Service Fee</Text>
                 <Text color="#393F59" mb="auto">
-                  2.5%
+                  {listingPercentage / 10} %
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="24px">
                 <Text color="#393F59">Creator Fee</Text>
                 <Text color="#393F59" mb="auto">
-                  0%
+                  {totalCreatorFee} %
                 </Text>
               </Flex>
               <Divider />
@@ -263,7 +311,9 @@ const ListNftModal = ({
                   color="#393F59"
                   mb="auto"
                 >
-                  0.975 ETH
+                  {Number(price) -
+                    ((Number(price) * (listingPercentage / 10)) / 100 +
+                      (Number(price) * totalCreatorFee) / 100)}
                 </Text>
               </Flex>
             </Box>

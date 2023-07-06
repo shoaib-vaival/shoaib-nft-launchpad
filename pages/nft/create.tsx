@@ -62,6 +62,11 @@ const CreateNFT = () => {
     showToast: false,
     token: true,
   });
+  const { mutate: updatePending } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
+    token: true,
+  });
 
   const minting = async (uri: string, contractAddress: any) => {
     if (provider) {
@@ -78,18 +83,16 @@ const CreateNFT = () => {
         try {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
+            const pendingParams = {
+              hash: result?.hash,
+              status: "pending",
+              type: "mint",
+              nonce: result?.nonce,
+            };
+            updatePending(pendingParams);
             const receipt = await ethProvider.waitForTransaction(result.hash);
-            console.log(
-              "🚀 ~ file: create.tsx:82 ~ minting ~ receipt:",
-              receipt
-            );
             abiDecoder.addABI(erc721Abi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-            console.log(
-              "🚀 ~ file: create.tsx:88 ~ minting ~ decodedLogs:",
-              decodedLogs
-            );
-
             const data = {
               contractAddress: receipt?.to,
               tokenId: Number(decodedLogs[0]?.events[2]?.value),
@@ -98,15 +101,12 @@ const CreateNFT = () => {
               activityType: "mint",
               transactionId: receipt?.transactionHash,
             };
-            console.log("🚀 ~ file: create.tsx:98 ~ minting ~ data:", data);
             updateNFT(data);
 
             if (receipt.status == 1) router.push("/profile-created");
           }
-          // Handle the returned result here
         } catch (error) {
           console.error(error);
-          // Handle errors here
         }
       }
     }
@@ -114,6 +114,7 @@ const CreateNFT = () => {
   const { mutate: updateNFT } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_NFT_MINT_DATA,
+    successMessage: "NFT Minted Successfully",
     showSuccessToast: true,
     token: true,
   });
@@ -123,6 +124,7 @@ const CreateNFT = () => {
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
     token: true,
+    showSuccessToast: true,
     onSuccess: async (data) => {
       console.log("🚀 ~ file: create.tsx:127 ~ onSuccess: ~ data:", data);
       const ipfsJsonUrl = data?.data?.ipfsJsonUrl;

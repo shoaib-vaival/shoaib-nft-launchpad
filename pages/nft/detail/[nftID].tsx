@@ -34,7 +34,7 @@ import { nftType } from "../../../src/types";
 import { useWeb3React } from "@web3-react/core";
 import ListNftModal from "../../../src/Modals/nftProperties/listNft";
 import ReportModal from "../../../src/Modals/nftProperties/reportModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "../../../src/components/Loader";
 import { dayJs } from "../../../src/utils";
 import { currencySymbol } from "../../../src/constants";
@@ -44,12 +44,13 @@ import { PATCH, POST } from "../../../src/hooks/consts";
 import { marketContractAbi } from "../../../src/connectors/marketContractAbi";
 import { ethers } from "ethers";
 import { useContract } from "../../../src/connectors/marketProvider";
-import  SocialShare  from "../../../src/components/SocialShare";
+import SocialShare from "../../../src/components/SocialShare";
 import { useRouter } from "next/router";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [totalCreatorFee, setTotalCreatorFree] = useState<any>();
   const {
     isOpen: isReportModalOpen,
     onOpen: onReportModalOpen,
@@ -69,13 +70,17 @@ const NftDetail = ({ param }: any) => {
       setNftData(data);
     },
   });
+  const totalCreator = () => {
+    let totalFee = 0;
+    for (let i = 0; i < data?.collection?.creatorFee.length; i++) {
+      totalFee = totalFee + data?.collection?.creatorFee[i].percentage;
+    }
+    setTotalCreatorFree(String(totalFee));
+  };
 
-  const { mutate: cancelList } = useMutation<any>({
-    method: PATCH,
-    url: `${ApiUrl?.CANCEL_LISTING}/${data?.listings[0]?.id}`,
-    showSuccessToast: true,
-    token: true,
-  });
+  useEffect(() => {
+    totalCreator();
+  }, [data]);
 
   const { data: moreNftSByCollection } = useQuery<nftType[]>({
     queryKey: [QUERY_KEYS.GET_MORE_NFTS_BY_COLLECTION],
@@ -96,7 +101,7 @@ const NftDetail = ({ param }: any) => {
     erc721: string;
     tokenId: number;
     price: string;
-    endTime: number;
+    duration: number;
     signature: string;
     collaboratorAddress: string[];
     collaboratorAmount: string[];
@@ -108,7 +113,7 @@ const NftDetail = ({ param }: any) => {
     erc721: data?.minting_contract_address,
     tokenId: data?.tokenId,
     price: data?.listings[0]?.price,
-    endTime: data?.listings[0]?.duration,
+    duration: data?.listings[0]?.duration,
     signature: data?.listings[0]?.signature,
     collaboratorAddress: data?.listings[0]?.collaboratorAddress,
     collaboratorAmount: data?.listings[0]?.collaboratorAmount,
@@ -116,68 +121,81 @@ const NftDetail = ({ param }: any) => {
   };
 
   const convertToWei = (valueInEther: string): string => {
-    // Convert the input value to a BigNumber object
     const valueInBigNumber = ethers.utils.parseEther(valueInEther);
-
-    // Convert the BigNumber to Wei
     const valueInWei = ethers.utils.formatUnits(valueInBigNumber, "wei");
-
-    // Return the value in Wei as a string
     return valueInWei;
   };
-  // Call the contract
+
+  const { mutate: updateNFTSale } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_NFT_SALE_DATA,
+    successMessage: "NFT bought successfully",
+    showSuccessToast: true,
+    token: true,
+  });
+  const { mutate: updatePending } = useMutation<any>({
+    method: POST,
+    url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
+    token: true,
+  });
+
+  const { mutate: cancelList } = useMutation<any>({
+    method: POST,
+    url: ApiUrl?.CANCEL_LISTING,
+    successMessage: "Listing cancelled successfully",
+    showSuccessToast: true,
+    token: true,
+  });
 
   const buy = async () => {
     if (contractInst) {
-      const valueInWei = convertToWei(params?.price);
       console.log("🚀 ~ file: [nftID].tsx:122 ~ buy ~ valueInWei:", params);
+      const valueInWei = convertToWei(params?.price);
 
-      alert(buy);
       try {
         const result = await contractInst.buy(
           params?.seller,
           params?.erc721,
           params?.tokenId,
-          params?.price,
-          params?.endTime,
+          valueInWei,
+          params?.duration,
           params?.signature,
           params?.collaboratorAddress,
           params?.collaboratorAmount,
           params?.collectionId,
           {
-            value: valueInWei, // Specify the amount of ETH to send with the transaction
+            value: valueInWei,
           }
         );
         if (result) {
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
+          const pendingParams = {
+            hash: result?.hash,
+            status: "pending",
+            type: "buy",
+            nonce: result?.nonce,
+          };
+          updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          console.log("🚀 ~ file: [nftID].tsx:86 ~ buy ~ receipt:", receipt);
-          // abiDecoder.addABI(marketContractAbi);
-          // const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+          abiDecoder.addABI(marketContractAbi);
+          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+          const data = {
+            tokenId: Number(decodedLogs[0]?.events[0]?.value),
+            signature: decodedLogs[0]?.events[1]?.value,
+            buyerWallet: decodedLogs[0]?.events[2]?.value,
+            contractAddress: decodedLogs[0]?.events[4]?.value,
+          };
+          updateNFTSale(data);
 
-          // const data = {
-          //   contractAddress: decodedLogs[2]?.events[1]?.value,
-          //   collectionName: decodedLogs[2]?.events[0]?.value,
-          // };
-          // update(data);
-
-          // if (receipt) router.push("/profile-created");
+          if (receipt.status == 1) router.push("/profile-created");
         }
       } catch (error) {
         console.error("Buy Error", error);
-        // Handle errors here
       }
     }
   };
-
-  const { mutate: update } = useMutation<any>({
-    method: PATCH,
-    url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
-    showSuccessToast: true,
-    token: true,
-  });
 
   const cancelListing = async () => {
     if (contractInst) {
@@ -185,33 +203,29 @@ const NftDetail = ({ param }: any) => {
       try {
         const result = await contractInst.cancelListing(params?.signature);
         if (result) {
-          console.log("Cancel Listing Contract Success");
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
+          const pendingParams = {
+            hash: result?.hash,
+            status: "pending",
+            type: "cancel",
+            nonce: result?.nonce,
+          };
+          updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
-            cancelList("");
+            abiDecoder.addABI(marketContractAbi);
+            const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+            const data = {
+              signature: decodedLogs[0]?.events[0]?.value,
+            };
+
+            cancelList(data);
           }
-          console.log("🚀 ~ file: [nftID].tsx:86 ~ buy ~ receipt:", receipt);
-          abiDecoder.addABI(marketContractAbi);
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-          console.log(
-            "🚀 ~ file: [nftID].tsx:185 ~ cancelListing ~ decodedLogs:",
-            decodedLogs
-          );
-
-          // const data = {
-          //   contractAddress: decodedLogs[2]?.events[1]?.value,
-          //   collectionName: decodedLogs[2]?.events[0]?.value,
-          // };
-          // update(data);
-
-          // if (receipt) router.push("/profile-created");
         }
       } catch (error) {
-        console.error("Buy Error", error);
-        // Handle errors here
+        console.error("Cancel Error", error);
       }
     }
   };
@@ -229,8 +243,8 @@ const NftDetail = ({ param }: any) => {
         >
           <Box
             w={{ base: "100%", lg: "50%" }}
-            maxH={{ base: "initial", md: "500px", lg: "650px" }}
-            borderRadius="lg"
+            maxH={{ base: "initial", md: "500px", lg: "100%" }}
+            borderRadius="16px"
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${data?.ipfsImageUrl}`}
@@ -244,37 +258,54 @@ const NftDetail = ({ param }: any) => {
             <Box
               paddingBottom={{ base: "20px", sm: "28px" }}
               borderBottom="1px solid"
-              borderColor="rgba(53, 53, 53, 0.2)"
+              borderColor="#35353533"
             >
-              <Flex alignItems='center' justifyContent='space-between' marginBottom="15px">
+              <Flex
+                alignItems="center"
+                justifyContent="space-between"
+                marginBottom="15px"
+              >
                 <Box>
-                  <Text fontSize="16px">
-                    {data?.collection?.name}
-                  </Text>
+                  <Text fontSize="16px">{data?.collection?.name}</Text>
                 </Box>
-                <Box display='flex' alignItems='center' gap='8px'>
-                  <Box textAlign='center'>
-                  <SocialShare title="Check this link" url={`https://ibanera-launchpad.bloxbytes.com${currentUrl}`} />
+                <Box display="flex" alignItems="center" gap="8px">
+                  <Box textAlign="center">
+                    <SocialShare
+                      title="Check this link"
+                      url={`https://ibanera-launchpad.bloxbytes.com${currentUrl}`}
+                    />
                   </Box>
-                  {account && (<Box textAlign='center'>
-                    <Menu>
-                      <MenuButton
-                        as={IconButton}
-                        color='#756C99'
-                        ml={{ base: '5px', sm: '8px' }} mb={{ base: '8px', sm: '0' }}
-                        variant='outline'
-                        aria-label='Send'
-                        fontSize='20px'
-                        border='1px solid #c4c3f9'
-                        bg='#fff'
-                        icon={<i className="icon-menu"></i>} >
-                      </MenuButton>
-                      <MenuList w='191px' minW='191px' p='8px'>
-                        <MenuItem><Box color='#393F59' onClick={onReportModalOpen}>Report</Box></MenuItem>
-                        <ReportModal isOpen={isReportModalOpen} onClose={onReportModalClose} onOpen={onReportModalOpen} nftId={`${param?.nftID}`}/>
-                      </MenuList>
-                    </Menu>
-                  </Box>)}
+                  {account && (
+                    <Box textAlign="center">
+                      <Menu>
+                        <MenuButton
+                          as={IconButton}
+                          color="#756C99"
+                          ml={{ base: "5px", sm: "8px" }}
+                          mb={{ base: "8px", sm: "0" }}
+                          variant="outline"
+                          aria-label="Send"
+                          fontSize="20px"
+                          border="1px solid #c4c3f9"
+                          bg="#fff"
+                          icon={<i className="icon-menu"></i>}
+                        ></MenuButton>
+                        <MenuList w="191px" minW="191px" p="8px">
+                          <MenuItem>
+                            <Box color="#393F59" onClick={onReportModalOpen}>
+                              Report
+                            </Box>
+                          </MenuItem>
+                          <ReportModal
+                            isOpen={isReportModalOpen}
+                            onClose={onReportModalClose}
+                            onOpen={onReportModalOpen}
+                            nftId={`${param?.nftID}`}
+                          />
+                        </MenuList>
+                      </Menu>
+                    </Box>
+                  )}
                 </Box>
               </Flex>
               <Heading fontSize="32px" marginBottom="10px">
@@ -283,7 +314,11 @@ const NftDetail = ({ param }: any) => {
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
                   <Text mr="5px">Owned By</Text>
-                  <Text>{data?.owner}</Text>
+                  <Text>
+                    {data?.owner?.slice(0, 5) +
+                      "..." +
+                      data?.owner?.slice(37, 42)}
+                  </Text>
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontSize="14px" mr="24px">
@@ -302,6 +337,29 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
+            <Box paddingBottom={{ base: "20px", sm: "28px" }}
+              borderBottom="1px solid"
+              borderColor="#35353533">
+              <Text fontSize='16px' color='#393F59' pt='24px' pb='16px'>Sale ends 2 December 2022 at 1:29 am GMT+5</Text>
+              <HStack gap={{ base: "30px", md: "40px" }} color='#393F59'>
+                <Box>
+                  <Text fontSize='24px' >3</Text>
+                  <Text fontSize='14px' color='#756C99'>Hours</Text>
+                </Box>
+                <Box>
+                  <Text fontSize='24px' >1</Text>
+                  <Text fontSize='14px' color='#756C99'>Days</Text>
+                </Box>
+                <Box>
+                  <Text fontSize='24px' >49</Text>
+                  <Text fontSize='14px' color='#756C99'>Minutes</Text>
+                </Box>
+                <Box>
+                  <Text fontSize='24px' >32</Text>
+                  <Text fontSize='14px' color='#756C99'>Seconds</Text>
+                </Box>
+              </HStack>
+            </Box>
 
             <ListNftModal
               isOpen={isOpen}
@@ -309,37 +367,44 @@ const NftDetail = ({ param }: any) => {
               onOpen={onOpen}
               nftData={nftData}
             />
-
-            {data &&
-              data.owner?.toLowerCase() === account?.toLowerCase() &&
-              (data?.listings[0]?.listingStatus == false ||
-                data?.listings.length == 0) ? (
-              <Button onClick={onOpen} variant="primary" mt="16px">
-                List For Sale
-              </Button>
-            ) : data &&
-              data.owner === account?.toLowerCase() &&
-              data?.listings[0]?.listingStatus == true ? (
-              <Button
-                onClick={() => {
-                  cancelListing();
-                }}
-                variant="primary"
-                mt="16px"
-              >
-                Cancel Listing
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  buy();
-                }}
-                variant="primary"
-                mt="16px"
-              >
-                Buy Now
-              </Button>
-            )}
+            <Box>
+              <Text fontSize='16px' color='#393F59' pt='24px' pb='16px'>Current Price</Text>
+              <HStack gap='8px' color='#393F59' display='flex'>
+                  <Text fontSize={{ base: "32px", md: "40px" }} fontWeight='700' >0.15 MATIC</Text>
+                  <Text fontSize='16px' color='#51608B' mt='10px'>($168.99)</Text>
+              </HStack>
+              {data &&
+                data.owner?.toLowerCase() === account?.toLowerCase() &&
+                (data?.listings[0]?.listingStatus == "sold" ||
+                  data?.listings[0]?.listingStatus == "canceled" ||
+                  data?.listings.length == 0) ? (
+                <Button onClick={onOpen} variant="primary" mt="16px"  p='20px 64px' >
+                  List For Sale
+                </Button>
+              ) : data &&
+                data.owner === account?.toLowerCase() &&
+                data?.listings[0]?.listingStatus == "listed" ? (
+                <Button
+                  onClick={() => {
+                    cancelListing();
+                  }}
+                  variant="primary"
+                  mt="16px"  p='20px 64px' 
+                >
+                  Cancel Listing
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    buy();
+                  }}
+                  variant="primary"
+                  mt="16px"  p='20px 64px' 
+                >
+                  Buy Now
+                </Button>
+              )}
+            </Box>
 
             <Box paddingTop={{ base: "20px", sm: "32px" }}>
               <Heading fontSize="18px" marginBottom="16px">
@@ -359,58 +424,18 @@ const NftDetail = ({ param }: any) => {
               >
                 READ MORE
               </Button>
-              <Heading fontSize="24px" marginBottom="16px">
-                Details
-              </Heading>
-              <Box fontSize="16px">
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Contract Address</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.minting_contract_address}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Token ID</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.tokenId}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Token Standard</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.tokenStandard}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Chain</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.chain}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Metadata</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.metadata}
-                  </Text>
-                </Flex>
-                <Flex justifyContent="space-between" mb="8px">
-                  <Text color="#756C99">Creator Earnings</Text>
-                  <Text color="#6863F3" mb="auto">
-                    {data?.creatorEarning}
-                  </Text>
-                </Flex>
-              </Box>
+              
             </Box>
           </Box>
-        </Stack >
+        </Stack>
         <Stack
           spacing={{ base: "0px", sm: "48px" }}
-          direction="row"
+          direction={{base:'column-reverse',lg:'row'}}
           px={{ base: "0", sm: "17px" }}
-        >
+          marginTop={{base:'0px' ,lg:'40px'}}>
           <Box w={{ base: "100%", lg: "55%" }}>
-            <Heading fontSize="24px" marginBottom="16px" marginTop="40px">
-              Details
+            <Heading fontSize="24px"marginBottom="16px">
+            Attributes
             </Heading>
             <Grid
               templateColumns={{
@@ -424,63 +449,87 @@ const NftDetail = ({ param }: any) => {
                 <StatLabel>Background</StatLabel>
                 <StatNumber fontSize="18px" display="flex" alignItems="center">
                   Dark Orange
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    {" "}
-                    10%
-                  </Text>
                 </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Body</StatLabel>
                 <StatNumber fontSize="18px" display="flex" alignItems="center">
                   Shirt Orange
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    6%
-                  </Text>
                 </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Head</StatLabel>
                 <StatNumber fontSize="18px" display="flex" alignItems="center">
                   Glasses
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    8%
-                  </Text>
                 </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
+             
               </Stat>
               <Stat p="14px">
                 <StatLabel>Face</StatLabel>
                 <StatNumber fontSize="18px" display="flex" alignItems="center">
                   Brown
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    8%
-                  </Text>
                 </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Hair</StatLabel>
                 <StatNumber fontSize="18px" display="flex" alignItems="center">
                   Puffballs
-                  <Text pl="8px" color="#756C99" fontSize="14px">
-                    8%
-                  </Text>
                 </StatNumber>
-                <StatHelpText>Floor: 0.0289 MATIC</StatHelpText>
               </Stat>
             </Grid>
           </Box>
-          <Box w={{ base: "0%", lg: "55%" }}></Box>
+          <Box w={{ base: "100%", lg: "55%" }} marginTop={{base:'20px' ,lg:'0'}}>
+          <Heading fontSize="24px" marginBottom="16px">
+          Description
+              </Heading>
+              <Box fontSize="16px">
+                <Flex justifyContent="space-between" mb="8px">
+                  <Text color="#756C99">Contract Address</Text>
+                  <Text color="#6863F3" mb="auto">
+                    {data?.minting_contract_address?.slice(0, 7) +
+                      "..." +
+                      data?.minting_contract_address?.slice(35, 42)}
+                  </Text>
+                </Flex>
+                <Flex justifyContent="space-between" mb="8px">
+                  <Text color="#756C99">Token ID</Text>
+                  <Text color="#6863F3" mb="auto">
+                    {data?.tokenId}
+                  </Text>
+                </Flex>
+                <Flex justifyContent="space-between" mb="8px">
+                  <Text color="#756C99">Token Standard</Text>
+                  <Text color="#6863F3" mb="auto">
+                    ERC 721
+                  </Text>
+                </Flex>
+                <Flex justifyContent="space-between" mb="8px">
+                  <Text color="#756C99">Chain</Text>
+                  <Text color="#6863F3" mb="auto">
+                    {chainId}
+                  </Text>
+                </Flex>
+                <Flex justifyContent="space-between" mb="8px">
+                  <Text color="#756C99">Metadata</Text>
+                  <Text color="#6863F3" mb="auto">
+                    {data?.metadata}
+                  </Text>
+                </Flex>
+                <Flex justifyContent="space-between" mb="8px">
+                  <Text color="#756C99">Creator Earnings</Text>
+                  <Text color="#6863F3" mb="auto">
+                    {totalCreatorFee}
+                  </Text>
+                </Flex>
+              </Box>
+          </Box>
         </Stack>
         <Flex
           px={{ base: "0", sm: "17px" }}
           justifyContent="space-between"
           alignItems={{ base: "flex-start", sm: "center" }}
           marginBottom="16px"
-          marginTop="40px"
+          marginTop="80px"
           flexWrap="wrap"
           flexDirection={{ base: "column", sm: "row" }}
         >
@@ -631,7 +680,7 @@ const NftDetail = ({ param }: any) => {
               })}
           </SlickSlider>
         </Box>
-      </Container >
+      </Container>
     </>
   );
 };

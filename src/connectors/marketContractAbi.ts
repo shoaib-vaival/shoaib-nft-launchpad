@@ -15,6 +15,12 @@ export const marketContractAbi = [
       },
       {
         indexed: false,
+        internalType: "bytes",
+        name: "signature",
+        type: "bytes",
+      },
+      {
+        indexed: false,
         internalType: "address",
         name: "buyer",
         type: "address",
@@ -27,12 +33,25 @@ export const marketContractAbi = [
       },
       {
         indexed: false,
-        internalType: "string",
-        name: "collectionId",
-        type: "string",
+        internalType: "address",
+        name: "erc721",
+        type: "address",
       },
     ],
     name: "Bought",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes",
+        name: "signature",
+        type: "bytes",
+      },
+    ],
+    name: "Cancelled",
     type: "event",
   },
   {
@@ -97,7 +116,7 @@ export const marketContractAbi = [
       },
       {
         internalType: "uint256",
-        name: "endTime",
+        name: "duration",
         type: "uint256",
       },
       {
@@ -245,7 +264,7 @@ export const marketContractAbi = [
       },
       {
         internalType: "uint256",
-        name: "endTime",
+        name: "duration",
         type: "uint256",
       },
       {
