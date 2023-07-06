@@ -54,6 +54,14 @@ const Categories: NextPage = () => {
     showToast: false,
   });
   const categoriesOptions = categories && categoriesFilterOptions(categories);
+  const [isVisible, setIsVisible] = useState<boolean>();
+
+  const over = () => {
+    setIsVisible(true);
+  };
+  const out = () => {
+    setIsVisible(false);
+  };
   return (
     <>
       <Flex justifyContent="center">
@@ -70,7 +78,7 @@ const Categories: NextPage = () => {
       >
         <Box px={{ base: "0", sm: "17px" }}>
           <Container
-            p={{ base: "24px", sm: "24px 40px", md: "48px 84px" }}
+            p={{ base: "24px", sm: "24px 40px", md: "48px" }}
             variant="colorful"
             position="relative"
             bgSize="cover"
@@ -121,7 +129,7 @@ const Categories: NextPage = () => {
                   </Text>
                 </Flex>
               </Box>
-              <Box w='230px'>
+              <Box w='220px' ml={{base:'initial',md:'auto'}}>
                 <Button
                   as={Link}
                   href={`collection/${bannerCollection?.id}`}
@@ -135,6 +143,7 @@ const Categories: NextPage = () => {
                   _hover={{
                     transitionDuration: "0.2s",
                     transitionTimingFunction: "ease-in-out",
+                  
                   }}
                   onMouseOver={over}
                   onMouseOut={out}
