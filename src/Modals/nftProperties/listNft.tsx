@@ -34,6 +34,8 @@ import DatePickerReact from "../../components/DatePicker";
 import { useContract } from "../../connectors/marketProvider";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
+import { showToaster } from "../../components/Toaster";
+import { addDays, getTime } from "date-fns";
 
 const ListNftModal = ({
   isOpen,
@@ -48,8 +50,11 @@ const ListNftModal = ({
 }) => {
   console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
-  const [price, setPrice] = useState<number>();
-  const [datee, setDatee] = useState<any>();
+  const [price, setPrice] = useState<number>(0);
+  const [datee, setDatee] = useState<number>(
+    Math.floor(getTime(addDays(new Date(), 1)) / 1000)
+  );
+  console.log("🚀 ~ file: listNft.tsx:57 ~ datee:", datee);
   const contractInst = useContract();
   const queryClient = useQueryClient();
   const [transformedData, setTransformedData] = useState<any>();
@@ -218,7 +223,11 @@ const ListNftModal = ({
   }, [nftData]);
 
   const handleListing = async () => {
-    // approveNFT(nftData?.minting_contract_address);
+    console.log(params?.price);
+    if (params.price === 0) {
+      showToaster("Price must be greater than 0.", "warning");
+      return;
+    }
     const sign = await signMessage(params, provider, account, chainId).catch(
       (err) => {
         console.log(err);
