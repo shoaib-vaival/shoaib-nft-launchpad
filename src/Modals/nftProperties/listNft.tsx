@@ -48,13 +48,12 @@ const ListNftModal = ({
   onOpen?: any;
   nftData?: any;
 }) => {
-  console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
+  // console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
   const [price, setPrice] = useState<number>(0);
   const [datee, setDatee] = useState<number>(
     Math.floor(getTime(addDays(new Date(), 1)) / 1000)
   );
-  console.log("🚀 ~ file: listNft.tsx:57 ~ datee:", datee);
   const contractInst = useContract();
   const queryClient = useQueryClient();
   const [transformedData, setTransformedData] = useState<any>();
@@ -223,7 +222,6 @@ const ListNftModal = ({
   }, [nftData]);
 
   const handleListing = async () => {
-    console.log(params?.price);
     if (params.price === 0) {
       showToaster("Price must be greater than 0.", "warning");
       return;

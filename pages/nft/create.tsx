@@ -112,7 +112,7 @@ const CreateNFT = () => {
               };
               updateNFT(data);
 
-              // router.push("/profile-created");
+              router.push("/profile-created");
             }
           }
         } catch (error) {
