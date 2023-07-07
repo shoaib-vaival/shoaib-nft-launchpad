@@ -47,6 +47,7 @@ import { useContract } from "../../../src/connectors/marketProvider";
 import SocialShare from "../../../src/components/SocialShare";
 import { useRouter } from "next/router";
 import { showToaster } from "../../../src/components/Toaster";
+import { useQueryClient } from "@tanstack/react-query";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
@@ -57,6 +58,8 @@ const NftDetail = ({ param }: any) => {
     onOpen: onReportModalOpen,
     onClose: onReportModalClose,
   } = useDisclosure();
+
+  const queryClient = useQueryClient();
   const [nftData, setNftData] = useState<any>({});
   const [loader, setLoader] = useState<any>(false);
   const router = useRouter();
@@ -183,6 +186,7 @@ const NftDetail = ({ param }: any) => {
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
+            queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
             setLoader(false);
             showToaster("NFT bought successfully", "success");
             abiDecoder.addABI(marketContractAbi);
@@ -226,6 +230,7 @@ const NftDetail = ({ param }: any) => {
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
+            queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
             setLoader(false);
             showToaster("Listing cancelled successfully.", "success");
             abiDecoder.addABI(marketContractAbi);
