@@ -161,16 +161,17 @@ export const Header = () => {
                 spacing={{ base: "8px", lg: "11px", xl: "24px" }}
                 p={{ base: "10px", lg: "0" }}
               >
-                <Link href="/">Home</Link>
-                <Link href="/categories">Explore</Link>
+                <Box _hover={{color:'#6863f3'}}><Link  href="/" >Home</Link></Box>
+                <Box _hover={{color:'#6863f3'}}><Link  href="/categories">Explore</Link></Box>
+                
                 <Menu>
                   <MenuButton as={Button} bg='transparent' _active={{bg:'transparent'}} _focusVisible={{boxShadow:'transparent'}} p='0' _hover={{bg:'transparent'}} textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }} rightIcon={<Box fontSize='8px'><i className="icon-ChevronDown"></i></Box>}>
                     Stats
                   </MenuButton>
                   <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px">
-                    <MenuItem as='a' href='/ranking'>Ranking</MenuItem>
-                    <MenuItem as='a' href='/activity'>Activity</MenuItem>
+                    <MenuItem as='a' href='/ranking'  _hover={{color:'#6863f3'}}>Ranking</MenuItem>
+                    <MenuItem as='a' href='/activity'  _hover={{color:'#6863f3'}}>Activity</MenuItem>
                   </MenuList>
                 </Menu>
               </HStack>
@@ -271,7 +272,6 @@ export const Header = () => {
                     w="40px"
                     as={IconButton}
                     _hover={{bg:'#6F6BF3',color:'#fff'}}
-                    
                     _active={{bg:'#6F6BF3',color:'#fff'}}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
@@ -280,7 +280,7 @@ export const Header = () => {
 
                 <MenuList w="191px" minW="191px" h="232px" p="16px 8px">
                   <MenuItem>
-                    <Link href="/profile-created">Profile</Link>
+                    <Link href="/profile-created" >Profile</Link>
                   </MenuItem>
                   <MenuItem>
                     <Link href="/collection/my-collection">My Collection</Link>
