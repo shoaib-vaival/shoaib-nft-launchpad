@@ -28,5 +28,7 @@ export const QUERY_KEYS = {
   GET_COLLECTION_ACTIVITIES: 'get-collection-activities',
   GET_NFT_ACTIVITIES:'get-nft-activites',
   GET_All_COLLECTIONS_NAME:'get-all-collections-name',
-  GET_USER_ACTIVITES:'get-all-user-activites'
+  GET_USER_ACTIVITES:'get-all-user-activites',
+  GET_COLLECTION_PROPERTIES:'get-collection-properties',
+  GET_TOPTEN_COLLECTIONS:'get-top-ten-collections'
 };

@@ -42,10 +42,7 @@ export const Header = () => {
     onOpen: onConnectionModalOpen,
     onClose: onConnectionModalClose,
   } = useDisclosure();
-  const {
-    disconnect,
-    disconnectWalletConnect,
-  } = useWeb3Context();
+  const { disconnect, disconnectWalletConnect } = useWeb3Context();
 
   const { account, provider } = useWeb3React();
 
@@ -96,8 +93,8 @@ export const Header = () => {
             justifyContent={{ base: "flex-start", xl: "initial" }}
             flexWrap="wrap"
             gap={{ base: "0", md: "initial" }}
-            zIndex='1'
-            position='relative'
+            zIndex="1"
+            position="relative"
           >
             <Box
               pb="8px"
@@ -161,16 +158,51 @@ export const Header = () => {
                 spacing={{ base: "8px", lg: "11px", xl: "24px" }}
                 p={{ base: "10px", lg: "0" }}
               >
-                <Link href="/">Home</Link>
-                <Link href="/categories">Explore</Link>
+                <Box _hover={{ color: "#6863f3" }}>
+                  <Link href="/">Home</Link>
+                </Box>
+                <Box _hover={{ color: "#6863f3" }}>
+                  <Link href="/categories">Explore</Link>
+                </Box>
+
                 <Menu>
-                  <MenuButton as={Button} bg='transparent' _active={{bg:'transparent'}} _focusVisible={{boxShadow:'transparent'}} p='0' _hover={{bg:'transparent'}} textTransform="uppercase"
-                fontSize={{ base: "15px", xl: "16px" }} rightIcon={<Box fontSize='8px'><i className="icon-ChevronDown"></i></Box>}>
+                  <MenuButton
+                    as={Button}
+                    bg="transparent"
+                    _active={{ bg: "transparent" }}
+                    _focusVisible={{ boxShadow: "transparent" }}
+                    p="0"
+                    _hover={{ bg: "transparent" }}
+                    textTransform="uppercase"
+                    fontSize={{ base: "15px", xl: "16px" }}
+                    rightIcon={
+                      <Box fontSize="8px">
+                        <i className="icon-ChevronDown"></i>
+                      </Box>
+                    }
+                  >
                     Stats
                   </MenuButton>
-                  <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px">
-                    <MenuItem as='a' href='/ranking'>Ranking</MenuItem>
-                    <MenuItem as='a' href='/activity'>Activity</MenuItem>
+                  <MenuList
+                    textTransform="capitalize"
+                    w="191px"
+                    minW="191px"
+                    p="16px 8px"
+                  >
+                    <MenuItem
+                      as="a"
+                      href="collection/state"
+                      _hover={{ color: "#6863f3" }}
+                    >
+                      Ranking
+                    </MenuItem>
+                    <MenuItem
+                      as="a"
+                      href="/activity"
+                      _hover={{ color: "#6863f3" }}
+                    >
+                      Activity
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </HStack>
@@ -204,7 +236,7 @@ export const Header = () => {
                     Create
                   </MenuButton>
                 )}
-                <MenuList  w="191px" minW="191px" p="16px 8px">
+                <MenuList w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
                     <Link href="/nft/create">Create NFT</Link>
                   </MenuItem>
@@ -270,9 +302,8 @@ export const Header = () => {
                     height="40px"
                     w="40px"
                     as={IconButton}
-                    _hover={{bg:'#6F6BF3',color:'#fff'}}
-                    
-                    _active={{bg:'#6F6BF3',color:'#fff'}}
+                    _hover={{ bg: "#6F6BF3", color: "#fff" }}
+                    _active={{ bg: "#6F6BF3", color: "#fff" }}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
                   />

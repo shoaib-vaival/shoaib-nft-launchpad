@@ -7,25 +7,25 @@ import { Loader } from "../../src/components/Loader";
 import { useInfiniteQuery } from "../../src/hooks/useInfiniteQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
-import Link from 'next/link'
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ApiUrl } from "../../src/apis/apiUrl";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
 import { collectionType } from "../../src/types";
 
-const myCollection: NextPage = (props) => {
-  const router = useRouter()
+const MyCollection: NextPage = (props) => {
+  const router = useRouter();
   const { data, error, fetchNextPage, status, hasNextPage, isLoading } =
     useInfiniteQuery<collectionType[]>({
       queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
       url: ApiUrl.GET_MY_COLLECTION,
-      token:true
+      token: true,
     });
   return (
     <div>
       <Box>
-        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
-          <Box pt="30px" pb="40px" px={{base:'0',sm:'17px'}}>
+        <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
+          <Box pt="30px" pb="40px" px={{ base: "0", sm: "17px" }}>
             <Flex
               justifyContent="space-between"
               alignItems="center"
@@ -57,37 +57,79 @@ const myCollection: NextPage = (props) => {
                   fontSize="14px"
                   mt={{ base: "30px", lg: "0" }}
                   onClick={() => {
-                    router.push('/collection/create')
+                    router.push("/collection/create");
                   }}
-
                 >
                   Create Collection
-
                 </Button>
               </Box>
             </Flex>
           </Box>
         </Container>
-        <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}
+        <Container
+          maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
           pb={{ xl: "100px", md: "50px" }}
         >
-          <Box px={{base:'0',sm:'17px'}}>
+          <Box px={{ base: "0", sm: "17px" }}>
             <InfiniteScroll
               dataLength={data ? data.length : 0}
               next={() => fetchNextPage()}
               hasMore={!!hasNextPage}
-              loader={<Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
+              loader={
+                <Flex
+                  width="100%"
+                  height="100%"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Loader />
+                </Flex>
+              }
             >
-              <Flex direction={['column', 'row']} flexWrap={{ base: 'nowrap', sm: 'wrap', md: 'wrap', lg: 'wrap', xl: 'wrap' }}>
-                {isLoading && data === undefined ? <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex> :
+              <Flex
+                direction={["column", "row"]}
+                flexWrap={{
+                  base: "nowrap",
+                  sm: "wrap",
+                  md: "wrap",
+                  lg: "wrap",
+                  xl: "wrap",
+                }}
+              >
+                {isLoading && data === undefined ? (
+                  <Flex
+                    width="100%"
+                    height="100%"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Loader />
+                  </Flex>
+                ) : (
                   data?.map((nftCollection: any, index: number) => {
                     return (
-                      <Box w={{ xl: '25%', md: '50%', sm: '100%' }} display='initial' key={index}>
-                        <CollectionCard isEditAble={true} key={index} type="withBody" isShowLogoImage={true} isShowFeatureImage={true} logoImage={nftCollection.logoImageUrl} featureImage={nftCollection.bannerImageUrl} name={nftCollection.name} volume='-.-' price='-.-' nftCollectionId={nftCollection?.id} />
+                      <Box
+                        w={{ xl: "25%", md: "50%", sm: "100%" }}
+                        display="initial"
+                        key={index}
+                      >
+                        <CollectionCard
+                          isEditAble={true}
+                          key={index}
+                          type="withBody"
+                          isShowLogoImage={true}
+                          isShowFeatureImage={true}
+                          logoImage={nftCollection.logoImageUrl}
+                          featureImage={nftCollection.bannerImageUrl}
+                          name={nftCollection.name}
+                          volume="-.-"
+                          price="-.-"
+                          nftCollectionId={nftCollection?.id}
+                        />
                       </Box>
-                    )
+                    );
                   })
-                }
+                )}
                 {/* <Loader /> */}
               </Flex>
               {/* <Flex
@@ -140,4 +182,4 @@ const myCollection: NextPage = (props) => {
   );
 };
 
-export default myCollection;
+export default MyCollection;

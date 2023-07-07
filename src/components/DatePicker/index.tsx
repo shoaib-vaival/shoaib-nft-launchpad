@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { getYear, getMonth } from "date-fns";
+import { getYear, getMonth, addDays } from "date-fns";
 import enGB from "date-fns/locale/en-GB";
 import { Box, Button, Select } from "@chakra-ui/react";
 
 registerLocale("en-GB", enGB);
 
 const DatePickerReact = ({ getDate }: any) => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(
+    addDays(new Date(), 1)
+  );
 
   const getYearsRange = (start: number, end: number) => {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
@@ -29,6 +31,7 @@ const DatePickerReact = ({ getDate }: any) => {
     "November",
     "December",
   ];
+  const minDate = addDays(new Date(), 1);
 
   return (
     <DatePicker
@@ -108,7 +111,7 @@ const DatePickerReact = ({ getDate }: any) => {
         </Box>
       )}
       selected={startDate}
-      minDate={new Date()}
+      minDate={minDate}
       onChange={(date) => {
         setStartDate(date as Date);
         getDate && getDate(date);

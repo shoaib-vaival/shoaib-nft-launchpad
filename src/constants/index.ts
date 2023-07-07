@@ -1,18 +1,18 @@
 export const collectionDetail = {
   logoDetail:
-    "This image will also be used for display purposes. 350 X 350 recommended.",
+    "This image will also be used for display purposes. 350 x 350 recommended.",
   featuredImg:
-    "This image will be used for featuring your collection on the homepage, category pages, or other displays areas. recommended size 600 X 400.",
+    "This image will be used for featuring your collection on the homepage, category pages, or other displays areas. recommended size 600 x 400.",
   bannerImg:
-    "This image will appear at the top of your collection page. Avoid including too much text in it , as the dimentions change on different devices. 1320 X 360 recommended.",
+    "This image will appear at the top of your collection page. Avoid including too much text in it , as the dimentions change on different devices. 1320 x 360 recommended.",
   desc: "Markdown syntax is supported. 0 of 1000 characters used.",
 };
 
 export const nftDetail = {
   logoDetail:
-    "This image will also be used for display purposes. 350 X 350 recommended.",
+    "This image will also be used for display purposes. 350 x 350 recommended.",
   featuredImg:
-    "This image will be used for featuring your collection on the homepage, category pages, or other displays areas. recommended size 600 X 400.",
+    "This image will be used for featuring your collection on the homepage, category pages, or other displays areas. recommended size 600 x 400.",
   bannerImg:
     "This image will appear at the top of your collection page. Avoid including too much text in it , as the dimentions change on different devices. 1320 X 360 recommended.",
   desc: "Markdown syntax is supported. 0 of 1000 characters used.",
@@ -29,12 +29,11 @@ export const pagePaths = {
 export const currencySymbol = "MATIC";
 export const timeFilterOptions = {
   type: "small",
-  defaultValue: "15m",
+  defaultValue: "1",
   options: [
-    { name: "15m", label: "15m" },
-    { name: "1h", label: "1h" },
-    { name: "24h", label: "24h" },
-    { name: "7d", label: "7d" },
+    { name: "1", label: "1d" },
+    { name: "7", label: "7d" },
+    { name: "13", label: "13d" },
   ],
 };
 
