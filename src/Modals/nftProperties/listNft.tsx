@@ -206,6 +206,9 @@ const ListNftModal = ({
       setListingPercentage(String(listingPercent));
     }
   };
+  const getDate = (date: any) => {
+    console.log("dateeeeeeeeeeeee", date);
+  };
 
   useEffect(() => {
     getListingPercent();
@@ -261,7 +264,7 @@ const ListNftModal = ({
                 borderRadius="md"
                 pl="10px"
               >
-                <DatePickerReact />
+                <DatePickerReact getDate={getDate} />
                 <InputRightElement color="#756C99">
                   <i className="icon-calendar"></i>
                 </InputRightElement>

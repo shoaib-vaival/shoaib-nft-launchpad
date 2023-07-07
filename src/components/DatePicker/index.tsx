@@ -7,7 +7,7 @@ import { Box, Button, Icon, IconButton, Select } from "@chakra-ui/react";
 
 registerLocale("en-GB", enGB);
 
-const DatePickerReact: React.FC = () => {
+const DatePickerReact: React.FC = ({ getDate }: any) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   const getYearsRange = (start: number, end: number) => {
@@ -34,7 +34,7 @@ const DatePickerReact: React.FC = () => {
     <DatePicker
       locale="en-GB"
       wrapperClassName="datePicker"
-      popperClassName='DatePickerPopper'
+      popperClassName="DatePickerPopper"
       renderCustomHeader={({
         date,
         changeYear,
@@ -44,11 +44,26 @@ const DatePickerReact: React.FC = () => {
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
       }) => (
-        <Box m='10px' display='flex' justifyContent='center'>
-          <Button h='32px'  bg='transparent!important' p='0' onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-            {<><Box> <i className="icon-arrow-left"></i></Box></>}
+        <Box m="10px" display="flex" justifyContent="center">
+          <Button
+            h="32px"
+            bg="transparent!important"
+            p="0"
+            onClick={decreaseMonth}
+            disabled={prevMonthButtonDisabled}
+          >
+            {
+              <>
+                <Box>
+                  {" "}
+                  <i className="icon-arrow-left"></i>
+                </Box>
+              </>
+            }
           </Button>
-          <Select h='32px' borderRadius='4px'
+          <Select
+            h="32px"
+            borderRadius="4px"
             value={getYear(date)}
             onChange={({ target: { value } }) => changeYear(Number(value))}
           >
@@ -59,7 +74,9 @@ const DatePickerReact: React.FC = () => {
             ))}
           </Select>
 
-          <Select h='32px' borderRadius='4px'
+          <Select
+            h="32px"
+            borderRadius="4px"
             value={months[getMonth(date)]}
             onChange={({ target: { value } }) =>
               changeMonth(months.indexOf(value))
@@ -72,14 +89,30 @@ const DatePickerReact: React.FC = () => {
             ))}
           </Select>
 
-          <Button p='0' h='32px' bg='transparent!important' onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-            {<><Box> <i className="icon-arrow-right"></i></Box></>}
+          <Button
+            p="0"
+            h="32px"
+            bg="transparent!important"
+            onClick={increaseMonth}
+            disabled={nextMonthButtonDisabled}
+          >
+            {
+              <>
+                <Box>
+                  {" "}
+                  <i className="icon-arrow-right"></i>
+                </Box>
+              </>
+            }
           </Button>
         </Box>
       )}
       selected={startDate}
-      minDate={startDate}
-      onChange={(date) => setStartDate(date as Date)}
+      minDate={new Date()}
+      onChange={(date) => {
+        setStartDate(date as Date);
+        getDate && getDate(date);
+      }}
     />
   );
 };
