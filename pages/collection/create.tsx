@@ -45,6 +45,7 @@ const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
   const [nftName, setNftName] = useState<string>("");
   const [nftDesc, setNftDesc] = useState<string>("");
+  const [loader, setLoader] = useState<any>(false);
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
@@ -63,6 +64,7 @@ const CreateCollection = () => {
       try {
         const result = await contractInst.deploy(name, "TOKEN");
         if (result) {
+          setLoader(true);
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
@@ -74,16 +76,20 @@ const CreateCollection = () => {
           };
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          const decodedLogs = abiDecoder.decodeLogs(receipt?.logs);
-          const data = {
-            contractAddress: decodedLogs[2]?.events[1]?.value,
-            collectionName: decodedLogs[2]?.events[0]?.value,
-          };
-          update(data);
+          if (receipt.status == 1) {
+            setLoader(false);
+            const decodedLogs = abiDecoder.decodeLogs(receipt?.logs);
+            const data = {
+              contractAddress: decodedLogs[2]?.events[1]?.value,
+              collectionName: decodedLogs[2]?.events[0]?.value,
+            };
+            update(data);
 
-          if (receipt) router.push("/profile-created");
+            router.push("/profile-created");
+          }
         }
       } catch (error) {
+        setLoader(false);
         console.error(error);
       }
     }
@@ -596,7 +602,7 @@ const CreateCollection = () => {
             </FormControl>
 
             <Button
-              isLoading={isLoading}
+              isLoading={isLoading ? isLoading : loader}
               type="submit"
               variant="primary"
               textTransform="uppercase"

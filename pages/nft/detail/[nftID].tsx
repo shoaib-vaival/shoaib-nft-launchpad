@@ -46,6 +46,7 @@ import { ethers } from "ethers";
 import { useContract } from "../../../src/connectors/marketProvider";
 import SocialShare from "../../../src/components/SocialShare";
 import { useRouter } from "next/router";
+import { showToaster } from "../../../src/components/Toaster";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
@@ -57,6 +58,7 @@ const NftDetail = ({ param }: any) => {
     onClose: onReportModalClose,
   } = useDisclosure();
   const [nftData, setNftData] = useState<any>({});
+  const [loader, setLoader] = useState<any>(false);
   const router = useRouter();
   const currentUrl = router.asPath;
 
@@ -129,8 +131,6 @@ const NftDetail = ({ param }: any) => {
   const { mutate: updateNFTSale } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_NFT_SALE_DATA,
-    successMessage: "NFT bought successfully",
-    showSuccessToast: true,
     token: true,
   });
   const { mutate: updatePending } = useMutation<any>({
@@ -142,8 +142,6 @@ const NftDetail = ({ param }: any) => {
   const { mutate: cancelList } = useMutation<any>({
     method: POST,
     url: ApiUrl?.CANCEL_LISTING,
-    successMessage: "Listing cancelled successfully",
-    showSuccessToast: true,
     token: true,
   });
 
@@ -168,6 +166,11 @@ const NftDetail = ({ param }: any) => {
           }
         );
         if (result) {
+          showToaster(
+            "Transaction submitted successfuly. Wait for confirmation.",
+            "success"
+          );
+          setLoader(true);
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
@@ -179,30 +182,38 @@ const NftDetail = ({ param }: any) => {
           };
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          abiDecoder.addABI(marketContractAbi);
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-          const data = {
-            tokenId: Number(decodedLogs[0]?.events[0]?.value),
-            signature: decodedLogs[0]?.events[1]?.value,
-            buyerWallet: decodedLogs[0]?.events[2]?.value,
-            contractAddress: decodedLogs[0]?.events[4]?.value,
-          };
-          updateNFTSale(data);
-
-          if (receipt.status == 1) router.push("/profile-created");
+          if (receipt.status == 1) {
+            setLoader(false);
+            showToaster("NFT bought successfully", "success");
+            abiDecoder.addABI(marketContractAbi);
+            const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+            const data = {
+              tokenId: Number(decodedLogs[0]?.events[0]?.value),
+              signature: decodedLogs[0]?.events[1]?.value,
+              buyerWallet: decodedLogs[0]?.events[2]?.value,
+              contractAddress: decodedLogs[0]?.events[4]?.value,
+            };
+            updateNFTSale(data);
+            router.push("/profile-created");
+          }
         }
       } catch (error) {
         console.error("Buy Error", error);
+        showToaster(String(error), "error");
       }
     }
   };
 
   const cancelListing = async () => {
     if (contractInst) {
-      console.log("SignHash to Cancel", params.signature);
       try {
         const result = await contractInst.cancelListing(params?.signature);
         if (result) {
+          showToaster(
+            "Transaction submitted successfuly. Wait for confirmation.",
+            "success"
+          );
+          setLoader(true);
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
@@ -215,6 +226,8 @@ const NftDetail = ({ param }: any) => {
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
+            setLoader(false);
+            showToaster("Listing cancelled successfully.", "success");
             abiDecoder.addABI(marketContractAbi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
             const data = {
@@ -225,6 +238,8 @@ const NftDetail = ({ param }: any) => {
           }
         }
       } catch (error) {
+        setLoader(false);
+        showToaster(String(error), "error");
         console.error("Cancel Error", error);
       }
     }
@@ -466,10 +481,11 @@ const NftDetail = ({ param }: any) => {
                     </Text>
                     <Text fontSize="16px" color="#51608B" mt="10px">
                       ({" "}
-                      {String(maticPrice * data?.listings[0]?.price).slice(
-                        0,
-                        7
-                      )}
+                      {maticPrice &&
+                        String(maticPrice * data?.listings[0]?.price).slice(
+                          0,
+                          7
+                        )}
                       {""}
                       $)
                     </Text>
@@ -487,6 +503,7 @@ const NftDetail = ({ param }: any) => {
                   variant="primary"
                   mt="16px"
                   p="20px 64px"
+                  isLoading={loader}
                 >
                   List For Sale
                 </Button>
@@ -494,6 +511,7 @@ const NftDetail = ({ param }: any) => {
                 data.owner === account?.toLowerCase() &&
                 data?.listings[0]?.listingStatus == "listed" ? (
                 <Button
+                  isLoading={loader}
                   onClick={() => {
                     cancelListing();
                   }}
@@ -511,6 +529,7 @@ const NftDetail = ({ param }: any) => {
                   variant="primary"
                   mt="16px"
                   p="20px 64px"
+                  isLoading={loader}
                 >
                   Buy Now
                 </Button>

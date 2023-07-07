@@ -50,6 +50,7 @@ const CreateNFT = () => {
   const [nftName, setNftName] = useState<string>("");
   const [nftDesc, setNftDesc] = useState<string>("");
   const [nftFile, setNftFile] = useState<any>();
+  const [loader, setLoader] = useState<any>(false);
   const [properties, setProperties] = useState<PropertyTypes[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -83,6 +84,7 @@ const CreateNFT = () => {
         try {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
+            setLoader(true);
             const pendingParams = {
               hash: result?.hash,
               status: "pending",
@@ -91,22 +93,26 @@ const CreateNFT = () => {
             };
             updatePending(pendingParams);
             const receipt = await ethProvider.waitForTransaction(result.hash);
-            abiDecoder.addABI(erc721Abi);
-            const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-            const data = {
-              contractAddress: receipt?.to,
-              tokenId: Number(decodedLogs[0]?.events[2]?.value),
-              fromAddress: decodedLogs[0]?.events[0]?.value,
-              toAddress: decodedLogs[0]?.events[1]?.value,
-              activityType: "mint",
-              transactionId: receipt?.transactionHash,
-            };
-            updateNFT(data);
+            if (receipt.status == 1) {
+              setLoader(false);
+              abiDecoder.addABI(erc721Abi);
+              const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+              const data = {
+                contractAddress: receipt?.to,
+                tokenId: Number(decodedLogs[0]?.events[2]?.value),
+                fromAddress: decodedLogs[0]?.events[0]?.value,
+                toAddress: decodedLogs[0]?.events[1]?.value,
+                activityType: "mint",
+                transactionId: receipt?.transactionHash,
+              };
+              updateNFT(data);
 
-            if (receipt.status == 1) router.push("/profile-created");
+              router.push("/profile-created");
+            }
           }
         } catch (error) {
           console.error(error);
+          setLoader(false);
         }
       }
     }
@@ -343,7 +349,7 @@ const CreateNFT = () => {
               </FormControl>
 
               <Button
-                isLoading={isLoading}
+                isLoading={isLoading ? isLoading : loader}
                 type="submit"
                 variant="primary"
                 textTransform="uppercase"

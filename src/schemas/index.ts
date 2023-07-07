@@ -37,12 +37,12 @@ export const collectionSchema = Yup.object().shape({
   //   })
   // ),
 
-  website_url: Yup.string().url("Website Url must be a valid URL"),
-  etherscan: Yup.string().url("EtherScan Url must be a valid URL"),
-  twitter: Yup.string().url("Twitter Url must be a valid URL"),
-  instagram: Yup.string().url("Instagram Url must be a valid URL"),
-  telegram: Yup.string().url("Telegram Url must be a valid URL"),
-  Discord_id: Yup.string().url("Discord Url must be a valid URL"),
+  website_url: Yup.string().url("Website URL must be a valid URL"),
+  etherscan: Yup.string().url("EtherScan URL must be a valid URL"),
+  twitter: Yup.string().url("Twitter URL must be a valid URL"),
+  instagram: Yup.string().url("Instagram URL must be a valid URL"),
+  telegram: Yup.string().url("Telegram URL must be a valid URL"),
+  Discord_id: Yup.string().url("Discord URL must be a valid URL"),
 });
 
 export const nftSchema = Yup.object().shape({
