@@ -295,13 +295,13 @@ const ListNftModal = ({
               <Flex mb="24px" justifyContent="space-between">
                 <Text color="#393F59">Service Fee</Text>
                 <Text color="#393F59" mb="auto">
-                  {listingPercentage / 10} %
+                  {listingPercentage ? listingPercentage / 10 : null} %
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="24px">
                 <Text color="#393F59">Creator Fee</Text>
                 <Text color="#393F59" mb="auto">
-                  {totalCreatorFee} %
+                  {totalCreatorFee ? totalCreatorFee : null} %
                 </Text>
               </Flex>
               <Divider />
@@ -319,9 +319,10 @@ const ListNftModal = ({
                   color="#393F59"
                   mb="auto"
                 >
-                  {Number(price) -
-                    ((Number(price) * (listingPercentage / 10)) / 100 +
-                      (Number(price) * totalCreatorFee) / 100)}
+                  {price &&
+                    Number(price) -
+                      ((Number(price) * (listingPercentage / 10)) / 100 +
+                        (Number(price) * totalCreatorFee) / 100)}
                 </Text>
               </Flex>
             </Box>
