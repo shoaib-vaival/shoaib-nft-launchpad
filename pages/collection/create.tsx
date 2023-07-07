@@ -499,7 +499,7 @@ const CreateCollection = () => {
                             gap={{ base: "0", sm: "6" }}
                             alignItems={{
                               base: "flex-start",
-                              sm: "baseline",
+                              sm: "center",
                             }}
                             flexDirection={{
                               base: "column",
@@ -593,7 +593,7 @@ const CreateCollection = () => {
                           push({ walletAddress: "", percentage: 0 })
                         }
                       >
-                        + Add Address
+                        <Box color='#6863F3' mr='8px'><i className="icon-plus"></i></Box> Add Address
                       </Button>
                     )}
                   </>

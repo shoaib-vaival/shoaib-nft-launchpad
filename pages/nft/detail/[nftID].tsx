@@ -319,13 +319,12 @@ const NftDetail = ({ param }: any) => {
   return (
     <>
       <Container
-        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "7xl" }}
+        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         pt={{ base: "20px", sm: "40px" }}
       >
         <Stack
           direction={{ base: "column", lg: "row" }}
           spacing={{ base: "18px", md: "48px" }}
-          px={{ base: "0", sm: "17px" }}
         >
           <Box
             w={{ base: "100%", lg: "50%" }}
@@ -349,7 +348,7 @@ const NftDetail = ({ param }: any) => {
               <Flex
                 alignItems="center"
                 justifyContent="space-between"
-                marginBottom="15px"
+                marginBottom="7px"
               >
                 <Box>
                   <Text fontSize="16px">{data?.collection?.name}</Text>
@@ -400,7 +399,7 @@ const NftDetail = ({ param }: any) => {
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
                   <Text mr="5px">Owned By</Text>
-                  <Text>
+                  <Text color='#6863F3' fontWeight='600'>
                     {data?.owner?.slice(0, 5) +
                       "..." +
                       data?.owner?.slice(37, 42)}
@@ -409,16 +408,6 @@ const NftDetail = ({ param }: any) => {
                 <Flex alignItems="center">
                   <Text fontSize="14px" mr="24px">
                     <i className="icon-document-eye"></i> 666 Views
-                  </Text>
-                  <Text
-                    border="1px solid #6f6bf366"
-                    p="2px 4px"
-                    borderRadius="6px"
-                    color="#393F59"
-                    bg="#ffffff5e"
-                    fontSize="14px"
-                  >
-                    <i className="icon-hash"></i> 666
                   </Text>
                 </Flex>
               </Stack>
@@ -564,7 +553,6 @@ const NftDetail = ({ param }: any) => {
         <Stack
           spacing={{ base: "0px", sm: "48px" }}
           direction={{ base: "column-reverse", lg: "row" }}
-          px={{ base: "0", sm: "17px" }}
           marginTop={{ base: "0px", lg: "40px" }}
         >
           <Box w={{ base: "100%", lg: "55%" }}>
@@ -661,7 +649,6 @@ const NftDetail = ({ param }: any) => {
           </Box>
         </Stack>
         <Flex
-          px={{ base: "0", sm: "17px" }}
           justifyContent="space-between"
           alignItems={{ base: "flex-start", sm: "center" }}
           marginBottom="16px"
@@ -679,7 +666,7 @@ const NftDetail = ({ param }: any) => {
             <Input type="tel" placeholder="Filter" />
           </InputGroup>
         </Flex>
-        <Box px={{ base: "0", sm: "17px" }}>
+        <Box>
           <TableContainer
             border="1px solid"
             borderColor="rgba(111, 107, 243, 0.4)"
@@ -721,7 +708,7 @@ const NftDetail = ({ param }: any) => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Heading p="75px 0 0 25px" fontSize="32px">
+                        <Heading p='75px 0' fontSize='20px' color='#0d0d0d'>
                           Record Not Found
                         </Heading>
                       </Flex>
@@ -784,7 +771,6 @@ const NftDetail = ({ param }: any) => {
           </TableContainer>
 
           <Flex
-            px={{ base: "0", sm: "17px" }}
             justifyContent="space-between"
             alignItems="center"
             mb={{ base: "20px", lg: "40px" }}

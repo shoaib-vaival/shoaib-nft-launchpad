@@ -1,5 +1,5 @@
 
-import { Tab, TabList, Tabs, SimpleGrid, Flex, Box, Menu, MenuButton, MenuList, MenuItem, Text} from "@chakra-ui/react"
+import { Tab, TabList, Tabs, SimpleGrid, Flex, Box, Menu, MenuButton, MenuList, MenuItem, Text, Heading} from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { ApiUrl } from "../../apis/apiUrl"
 import { QUERY_KEYS } from "../../hooks/queryKeys"
@@ -44,7 +44,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
          <Flex flexWrap='wrap' rowGap='16px' pt='24px'>
              {isLoading && <Flex width="100%" height="100%" justifyContent='center' alignItems="center"><Loader /></Flex>}
              {data?.length <= 0 ?      
-             <Text textAlign="center" w="100%">Data Not Found</Text>:
+             <Heading p='75px 0' fontSize='20px' textAlign="center" w="100%" color='#0d0d0d'>Record Not Found</Heading>:
              data?.map((collection:any, index:number)=>{
                  return (
              <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}} key={index}>
