@@ -29,8 +29,8 @@ export const Footer = () => {
                 <Box pb='8px' maxW='390px'>
                   <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >Stats</Heading>
                   <Stack spacing={{base:'16px',lg:'24px'}} color='#756C99'>
-                    <Link href='/activity'>Ranking</Link>
-                    <Link href='/activity'>Activity</Link>
+                    <Link href='/activity'  color='#756C99'>Ranking</Link>
+                    <Link href='/activity'  color='#756C99'>Activity</Link>
                   </Stack>
                 </Box>
                 <Box pb='8px'>
@@ -111,8 +111,8 @@ export const Footer = () => {
                   </Link>
                 </Text>
                 <HStack mt={{base:'20px',md:'0!important'}} spacing='24px' fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
-                  <Link href='#'>Privacy Policy</Link>
-                  <Link href='#'>Refund Policy</Link>
+                  <Link href='#' color='#756C99'>Privacy Policy</Link>
+                  <Link href='#' color='#756C99'>Refund Policy</Link>
                 </HStack>
               </Flex>
             </Box>
