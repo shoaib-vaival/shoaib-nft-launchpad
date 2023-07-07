@@ -11,6 +11,7 @@ import {
   IconButton,
   Flex,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldArray, ErrorMessage } from "formik";
 import InputField from "../../components/InputField";
@@ -80,7 +81,7 @@ const NftPropertiesModal = ({
                                       size="md"
                                       type="text"
                                       maxLength={50}
-                                      placeholder="Enter proprty type"
+                                      placeholder="Enter property type"
                                       name={`properties.${[index]}.type`}
                                     />
                                     <ErrorMessage className=""
@@ -95,7 +96,7 @@ const NftPropertiesModal = ({
                                         size="md"
                                         type="name"
                                         maxLength={50}
-                                        placeholder="Enter proprty name"
+                                        placeholder="Enter property name"
                                         name={`properties.${[index]}.name`}
                                       />
                                       <ErrorMessage
@@ -118,7 +119,7 @@ const NftPropertiesModal = ({
 
                             <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
                               onClick={() => push({ type: '', name: '' })} >
-                              +Add Property</Button>
+                              <Box color='#6863F3' mr='8px'><i className="icon-plus"></i></Box>Add Property</Button>
 
                           )}
                         </>
