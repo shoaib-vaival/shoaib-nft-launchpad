@@ -186,7 +186,6 @@ const NftDetail = ({ param }: any) => {
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
           if (receipt.status == 1) {
-            queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
             setLoader(false);
             showToaster("NFT bought successfully", "success");
             abiDecoder.addABI(marketContractAbi);
@@ -198,7 +197,7 @@ const NftDetail = ({ param }: any) => {
               contractAddress: decodedLogs[0]?.events[4]?.value,
             };
             updateNFTSale(data);
-            router.push("/profile-created");
+            queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
           }
         }
       } catch (error) {
@@ -399,7 +398,7 @@ const NftDetail = ({ param }: any) => {
               <Stack direction="row" alignItems="center" flexWrap="wrap">
                 <Flex mr="24px" fontSize="16px">
                   <Text mr="5px">Owned By</Text>
-                  <Text color='#6863F3' fontWeight='600'>
+                  <Text color="#6863F3" fontWeight="600">
                     {data?.owner?.slice(0, 5) +
                       "..." +
                       data?.owner?.slice(37, 42)}
@@ -710,7 +709,7 @@ const NftDetail = ({ param }: any) => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Heading p='75px 0' fontSize='20px' color='#0d0d0d'>
+                        <Heading p="75px 0" fontSize="20px" color="#0d0d0d">
                           Record Not Found
                         </Heading>
                       </Flex>

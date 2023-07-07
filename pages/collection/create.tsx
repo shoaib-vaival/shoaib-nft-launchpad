@@ -89,6 +89,7 @@ const CreateCollection = () => {
               collectionName: decodedLogs[2]?.events[0]?.value,
             };
             update(data);
+            showToaster("Collection Created Successfully.");
 
             router.push("/profile-created");
           }
@@ -103,8 +104,6 @@ const CreateCollection = () => {
   const { mutate: update } = useMutation<any>({
     method: PATCH,
     url: ApiUrl.UPDATE_COLLECTION_ADDRESS,
-    successMessage: "Collection Created Successfully",
-    showSuccessToast: true,
     token: true,
   });
 
@@ -597,7 +596,10 @@ const CreateCollection = () => {
                           push({ walletAddress: "", percentage: 0 })
                         }
                       >
-                        <Box color='#6863F3' mr='8px'><i className="icon-plus"></i></Box> Add Address
+                        <Box color="#6863F3" mr="8px">
+                          <i className="icon-plus"></i>
+                        </Box>{" "}
+                        Add Address
                       </Button>
                     )}
                   </>
