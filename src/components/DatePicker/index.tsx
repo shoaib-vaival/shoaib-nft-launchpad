@@ -3,11 +3,11 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getYear, getMonth } from "date-fns";
 import enGB from "date-fns/locale/en-GB";
-import { Box, Button, Icon, IconButton, Select } from "@chakra-ui/react";
+import { Box, Button, Select } from "@chakra-ui/react";
 
 registerLocale("en-GB", enGB);
 
-const DatePickerReact: React.FC = ({ getDate }: any) => {
+const DatePickerReact = ({ getDate }: any) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   const getYearsRange = (start: number, end: number) => {
