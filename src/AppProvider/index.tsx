@@ -11,7 +11,7 @@ import { WalletConnect } from "@web3-react/walletconnect";
 import { walletConnect, walletConnecthooks } from "../connectors/walletConnect";
 import { Web3Provider } from "@ethersproject/providers";
 import { ethers } from "ethers";
-import { Toastify } from "../components/Toaster"
+import { Toastify } from "../components/Toaster";
 
 const queryClient = new QueryClient({
   defaultOptions: {

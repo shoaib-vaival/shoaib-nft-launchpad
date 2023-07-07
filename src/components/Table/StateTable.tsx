@@ -9,16 +9,29 @@ import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { useInfiniteQuery } from "../../hooks/useInfiniteQuery";
 import { useMutation } from "../../hooks/useMutation";
 
-export const CollectionStatTable = ({ type }: { type: string }) => {
+export const CollectionStatTable = ({
+  type,
+  tabFilter,
+  dayFilter,
+}: {
+  type: string;
+  tabFilter: string;
+  dayFilter: string;
+}) => {
   const {
     data: collectionStats,
     fetchNextPage,
     hasNextPage,
     isLoading,
   } = useInfiniteQuery<any>({
-    queryKey: [QUERY_KEYS.GET_STATS],
+    queryKey: [QUERY_KEYS.GET_STATS, tabFilter, dayFilter],
     url: ApiUrl.GET_STATS,
+    params: {
+      type: tabFilter,
+      day: dayFilter,
+    },
   });
+  console.log(collectionStats, "collectionStats");
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
@@ -34,7 +47,6 @@ export const CollectionStatTable = ({ type }: { type: string }) => {
   const columns = [
     { key: "collection", title: "Collection" },
     { key: "volume", title: "Volume", isNumeric: true },
-    { key: "percentageChange", title: "%Change", isNumeric: true },
     { key: "floorPrice", title: "Floor Price", isNumeric: true },
     { key: "Sales", title: "Sales", isNumeric: true },
     { key: "uniqueOwner", title: "% Unique Owners", isNumeric: true },
@@ -81,30 +93,21 @@ export const CollectionStatTable = ({ type }: { type: string }) => {
               h={{ base: "50px", md: "64px" }}
             />
             <VStack spacing="0.5">
-              <Heading fontSize="18px">{collectionStat?.name}</Heading>
+              <Heading fontSize="18px">
+                {collectionStat?.name &&
+                  collectionStat?.name?.substring(0, 16) + "..."}
+              </Heading>
             </VStack>
           </Flex>
         ),
         volume: `${collectionStat?.volume ?? ""} ${currencySymbol}`,
-        percentageChange: (
-          <Text
-            color={
-              collectionStat?.percentageChange < 0
-                ? "red"
-                : collectionStat?.percentageChange > 0
-                ? "green.500"
-                : ""
-            }
-          >
-            {`${collectionStat?.percentageChange} %`}
-          </Text>
-        ),
+
         floorPrice: (
-          <Text>{`${collectionStat?.floorPrice} ${currencySymbol}`}</Text>
+          <Text>{`${collectionStat?.floor_price} ${currencySymbol}`}</Text>
         ),
-        Sales: <Text>{collectionStat?.sales}</Text>,
-        uniqueOwner: <Text>{`${collectionStat?.uniqueOwners}`}</Text>,
-        itemlisted: <Text>{`${collectionStat?.uniqueOwners}`}</Text>,
+        Sales: <Text>{collectionStat?.sale}</Text>,
+        uniqueOwner: <Text>{`${collectionStat?.uniqueOwner}`}</Text>,
+        itemlisted: <Text>{`${collectionStat?.itemListedCount}`}</Text>,
       };
     });
   return (

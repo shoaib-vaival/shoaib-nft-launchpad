@@ -57,7 +57,6 @@ export const ActivityTable = ({
     data &&
     data?.map((activity: any, index: number) => {
       return {
-        id: activity?.id,
         status: getActivityStatus(activity?.activityType?.toLowerCase()),
         itme: (
           <Flex alignItems="center" gap="2" flex="85%">
@@ -71,7 +70,9 @@ export const ActivityTable = ({
               h={{ base: "50px", md: "96px" }}
             />
             <VStack spacing="0.5">
-              <Heading fontSize="18px">{activity?.name}</Heading>
+              <Heading fontSize="18px">
+                {activity && activity?.name?.subString(0, 16) + "..."}
+              </Heading>
               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
                 Angeli Sunstorm
               </Text>

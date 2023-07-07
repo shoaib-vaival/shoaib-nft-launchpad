@@ -142,6 +142,7 @@ const Collection: NextPage = () => {
                         ...convertToQueryParam(filter),
                       });
                     }}
+                    collectionId={router?.query?.collectionID}
                   />
                   <Box w="100%">
                     <Flex
