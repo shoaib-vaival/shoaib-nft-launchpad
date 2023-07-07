@@ -32,6 +32,8 @@ import { ethers } from "ethers";
 import { useNFTContract } from "../../connectors/erc721Provider";
 import DatePickerReact from "../../components/DatePicker";
 import { useContract } from "../../connectors/marketProvider";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../hooks/queryKeys";
 
 const ListNftModal = ({
   isOpen,
@@ -48,7 +50,7 @@ const ListNftModal = ({
   const { provider, account, chainId } = useWeb3React();
   const [price, setPrice] = useState<number>();
   const contractInst = useContract();
-
+  const queryClient = useQueryClient();
   const [transformedData, setTransformedData] = useState<any>();
   const [listingPercentage, setListingPercentage] = useState<any>();
   const [totalCreatorFee, setTotalCreatorFree] = useState<any>();
@@ -143,6 +145,7 @@ const ListNftModal = ({
     successMessage: "Item listed for sale successfully",
     showSuccessToast: true,
     onSuccess: async (data) => {
+      queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
       onClose();
     },
   });
