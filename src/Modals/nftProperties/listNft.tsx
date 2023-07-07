@@ -34,6 +34,8 @@ import DatePickerReact from "../../components/DatePicker";
 import { useContract } from "../../connectors/marketProvider";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
+import { showToaster } from "../../components/Toaster";
+import { addDays, getTime } from "date-fns";
 
 const ListNftModal = ({
   isOpen,
@@ -46,9 +48,12 @@ const ListNftModal = ({
   onOpen?: any;
   nftData?: any;
 }) => {
-  console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
+  // console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
-  const [price, setPrice] = useState<number>();
+  const [price, setPrice] = useState<number>(0);
+  const [datee, setDatee] = useState<number>(
+    Math.floor(getTime(addDays(new Date(), 1)) / 1000)
+  );
   const contractInst = useContract();
   const queryClient = useQueryClient();
   const [transformedData, setTransformedData] = useState<any>();
@@ -133,7 +138,7 @@ const ListNftModal = ({
     erc721: nftData?.minting_contract_address,
     tokenId: nftData?.tokenId,
     price: Number(price),
-    duration: 1690467627,
+    duration: datee,
     collaboratorAddress: transformedData?.collaboratorAddress,
     collaboratorAmount: transformedData?.collaboratorAmount,
     collectionId: nftData?.collectionId,
@@ -207,7 +212,8 @@ const ListNftModal = ({
     }
   };
   const getDate = (date: any) => {
-    console.log("dateeeeeeeeeeeee", date);
+    const datee = parseInt((date.getTime() / 1000).toFixed(0));
+    setDatee(datee);
   };
 
   useEffect(() => {
@@ -216,7 +222,10 @@ const ListNftModal = ({
   }, [nftData]);
 
   const handleListing = async () => {
-    // approveNFT(nftData?.minting_contract_address);
+    if (params.price === 0) {
+      showToaster("Price must be greater than 0.", "warning");
+      return;
+    }
     const sign = await signMessage(params, provider, account, chainId).catch(
       (err) => {
         console.log(err);
@@ -293,13 +302,13 @@ const ListNftModal = ({
               <Flex mb="24px" justifyContent="space-between">
                 <Text color="#393F59">Service Fee</Text>
                 <Text color="#393F59" mb="auto">
-                  {listingPercentage / 10} %
+                  {listingPercentage ? listingPercentage / 10 : null} %
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="24px">
                 <Text color="#393F59">Creator Fee</Text>
                 <Text color="#393F59" mb="auto">
-                  {totalCreatorFee} %
+                  {totalCreatorFee ? totalCreatorFee : null} %
                 </Text>
               </Flex>
               <Divider />
@@ -317,9 +326,10 @@ const ListNftModal = ({
                   color="#393F59"
                   mb="auto"
                 >
-                  {Number(price) -
-                    ((Number(price) * (listingPercentage / 10)) / 100 +
-                      (Number(price) * totalCreatorFee) / 100)}
+                  {price &&
+                    Number(price) -
+                      ((Number(price) * (listingPercentage / 10)) / 100 +
+                        (Number(price) * totalCreatorFee) / 100)}
                 </Text>
               </Flex>
             </Box>

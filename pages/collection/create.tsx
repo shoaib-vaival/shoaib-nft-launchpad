@@ -40,6 +40,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/marketProvider";
 import { marketContractAbi } from "../../src/connectors/marketContractAbi";
+import { showToaster } from "../../src/components/Toaster";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
@@ -64,6 +65,10 @@ const CreateCollection = () => {
       try {
         const result = await contractInst.deploy(name, "TOKEN");
         if (result) {
+          showToaster(
+            "Transaction submitted successfuly. Wait for confirmation.",
+            "success"
+          );
           setLoader(true);
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
@@ -304,8 +309,7 @@ const CreateCollection = () => {
                     name="description"
                     component={ChakraTextarea}
                     label="Description"
-                    placeholder="Describe your collection, 1000 characters are allowed"
-                    descp={collectionDetail?.desc}
+                    placeholder="Describe your collection, 1000 characters are allowed."
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
