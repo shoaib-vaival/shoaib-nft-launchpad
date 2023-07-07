@@ -429,7 +429,7 @@ const NftDetail = ({ param }: any) => {
                     </Text>
                     <Text fontSize="16px" color="#51608B" mt="10px">
                       ({" "}
-                      {String(maticPrice * data?.listings[0]?.price).slice(
+                      {maticPrice && String(maticPrice * data?.listings[0]?.price).slice(
                         0,
                         7
                       )}
@@ -661,7 +661,7 @@ const NftDetail = ({ param }: any) => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Heading>Record Not Found</Heading>
+                        <Heading p='75px 0 0 25px' fontSize='32px'>Record Not Found</Heading>
                       </Flex>
                     </Td>
                   </Tr>
