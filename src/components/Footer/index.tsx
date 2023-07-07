@@ -11,7 +11,7 @@ export const Footer = () => {
 
           <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
 
-            <Box pt={{ base: '40px', lg: '80px', xl:'100px' }}  pb={{ base: '10px', md: '30px' }}>
+            <Box pt={{ base: '40px', lg: '80px' }}  pb={{ base: '10px', md: '30px' }}>
               <Stack flexDirection={{base:'column',lg:'row'}} justifyContent='space-between' flexWrap={{md:'wrap',lg:'nowrap'}}>
                 <Box pb='8px' maxW='390px'>
                   <Image src='/assets/images/Logo.png' alt='logo' maxW='138' maxH='45px' />
@@ -102,7 +102,7 @@ export const Footer = () => {
               </Stack>
             </Box>
             <Divider orientation='horizontal' />
-            <Box pb={{ base: '50px', md: '100px' }} pt={{ base: '10px', md: '30px' }}>
+            <Box pb={{ base: '50px', md: '90px' }} pt={{ base: '10px', md: '30px' }}>
               <Flex flexDirection={{base:'column',md:'row'}} justifyContent='space-between'>
                 <Text color='#756C99'>
                   © 2023 Monex Inc. All Rights Reserved. Powered by {' '}
