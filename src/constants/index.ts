@@ -29,12 +29,11 @@ export const pagePaths = {
 export const currencySymbol = "MATIC";
 export const timeFilterOptions = {
   type: "small",
-  defaultValue: "15m",
+  defaultValue: "1",
   options: [
-    { name: "15m", label: "15m" },
-    { name: "1h", label: "1h" },
-    { name: "24h", label: "24h" },
-    { name: "7d", label: "7d" },
+    { name: "1", label: "1d" },
+    { name: "7", label: "7d" },
+    { name: "13", label: "13d" },
   ],
 };
 

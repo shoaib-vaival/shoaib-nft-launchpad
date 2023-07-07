@@ -42,10 +42,7 @@ export const Header = () => {
     onOpen: onConnectionModalOpen,
     onClose: onConnectionModalClose,
   } = useDisclosure();
-  const {
-    disconnect,
-    disconnectWalletConnect,
-  } = useWeb3Context();
+  const { disconnect, disconnectWalletConnect } = useWeb3Context();
 
   const { account, provider } = useWeb3React();
 
@@ -162,13 +159,35 @@ export const Header = () => {
                 <Link href="/">Home</Link>
                 <Link href="/categories">Explore</Link>
                 <Menu>
-                  <MenuButton as={Button} bg='transparent' _active={{bg:'transparent'}} _focusVisible={{boxShadow:'transparent'}} p='0' _hover={{bg:'transparent'}} textTransform="uppercase"
-                fontSize={{ base: "15px", xl: "16px" }} rightIcon={<Box fontSize='8px'><i className="icon-ChevronDown"></i></Box>}>
+                  <MenuButton
+                    as={Button}
+                    bg="transparent"
+                    _active={{ bg: "transparent" }}
+                    _focusVisible={{ boxShadow: "transparent" }}
+                    p="0"
+                    _hover={{ bg: "transparent" }}
+                    textTransform="uppercase"
+                    fontSize={{ base: "15px", xl: "16px" }}
+                    rightIcon={
+                      <Box fontSize="8px">
+                        <i className="icon-ChevronDown"></i>
+                      </Box>
+                    }
+                  >
                     Stats
                   </MenuButton>
-                  <MenuList textTransform="capitalize" w="191px" minW="191px" p="16px 8px">
-                    <MenuItem as='a' href='/ranking'>Ranking</MenuItem>
-                    <MenuItem as='a' href='/activity'>Activity</MenuItem>
+                  <MenuList
+                    textTransform="capitalize"
+                    w="191px"
+                    minW="191px"
+                    p="16px 8px"
+                  >
+                    <MenuItem as="a" href="collection/state">
+                      Ranking
+                    </MenuItem>
+                    <MenuItem as="a" href="/activity">
+                      Activity
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </HStack>
@@ -202,7 +221,7 @@ export const Header = () => {
                     Create
                   </MenuButton>
                 )}
-                <MenuList  w="191px" minW="191px" p="16px 8px">
+                <MenuList w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
                     <Link href="/nft/create">Create NFT</Link>
                   </MenuItem>
