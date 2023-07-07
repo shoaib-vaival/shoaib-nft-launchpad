@@ -42,6 +42,7 @@ import { ethers } from "ethers";
 import { getFromLocalStorage } from "../../src/utils";
 import ConnectionModal from "../../src/Modals/nftProperties/connectionModal";
 import { erc721Abi } from "../../src/connectors/erc721Abi";
+import { showToaster } from "../../src/components/Toaster";
 const abiDecoder = require("abi-decoder");
 
 const CreateNFT = () => {
@@ -84,6 +85,10 @@ const CreateNFT = () => {
         try {
           const result = await contractInstance.safeMint(account, uri);
           if (result) {
+            showToaster(
+              "Transaction submitted successfuly. Wait for confirmation.",
+              "success"
+            );
             setLoader(true);
             const pendingParams = {
               hash: result?.hash,
@@ -107,7 +112,7 @@ const CreateNFT = () => {
               };
               updateNFT(data);
 
-              router.push("/profile-created");
+              // router.push("/profile-created");
             }
           }
         } catch (error) {

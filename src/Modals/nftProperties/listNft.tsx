@@ -49,6 +49,7 @@ const ListNftModal = ({
   console.log("🚀 ~ file: listNft.tsx:41 ~ nftData:", nftData);
   const { provider, account, chainId } = useWeb3React();
   const [price, setPrice] = useState<number>();
+  const [datee, setDatee] = useState<any>();
   const contractInst = useContract();
   const queryClient = useQueryClient();
   const [transformedData, setTransformedData] = useState<any>();
@@ -133,7 +134,7 @@ const ListNftModal = ({
     erc721: nftData?.minting_contract_address,
     tokenId: nftData?.tokenId,
     price: Number(price),
-    duration: 1690467627,
+    duration: datee,
     collaboratorAddress: transformedData?.collaboratorAddress,
     collaboratorAmount: transformedData?.collaboratorAmount,
     collectionId: nftData?.collectionId,
@@ -207,7 +208,8 @@ const ListNftModal = ({
     }
   };
   const getDate = (date: any) => {
-    console.log("dateeeeeeeeeeeee", date);
+    const datee = parseInt((date.getTime() / 1000).toFixed(0));
+    setDatee(datee);
   };
 
   useEffect(() => {
