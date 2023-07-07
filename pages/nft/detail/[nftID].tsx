@@ -525,7 +525,9 @@ const NftDetail = ({ param }: any) => {
                 >
                   Cancel Listing
                 </Button>
-              ) : (
+              ) : (data?.owner != account?.toLowerCase() &&
+                  data?.listings[0]?.listingStatus == "sold") ||
+                data?.listings[0]?.listingStatus == "canceled" ? null : (
                 <Button
                   onClick={() => {
                     buy();
