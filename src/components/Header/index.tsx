@@ -96,6 +96,8 @@ export const Header = () => {
             justifyContent={{ base: "flex-start", xl: "initial" }}
             flexWrap="wrap"
             gap={{ base: "0", md: "initial" }}
+            zIndex='1'
+            position='relative'
           >
             <Box
               pb="8px"

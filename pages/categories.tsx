@@ -54,6 +54,14 @@ const Categories: NextPage = () => {
     showToast: false,
   });
   const categoriesOptions = categories && categoriesFilterOptions(categories);
+  const [isVisible, setIsVisible] = useState<boolean>();
+
+  const over = () => {
+    setIsVisible(true);
+  };
+  const out = () => {
+    setIsVisible(false);
+  };
   return (
     <>
       <Flex justifyContent="center">
@@ -70,7 +78,7 @@ const Categories: NextPage = () => {
       >
         <Box px={{ base: "0", sm: "17px" }}>
           <Container
-            p={{ base: "24px", sm: "24px 40px", md: "48px 84px" }}
+            p={{ base: "24px", sm: "24px 40px", md: "48px" }}
             variant="colorful"
             position="relative"
             bgSize="cover"
@@ -121,16 +129,36 @@ const Categories: NextPage = () => {
                   </Text>
                 </Flex>
               </Box>
-              <Button
-                as={Link}
-                href={`collection/${bannerCollection?.id}`}
-                size={{ base: "md", lg: "lg" }}
-                mt="20px"
-                color="purple.500"
-                ms={{ base: "0", md: "auto" }}
-              >
-                View Collection
-              </Button>
+              <Box w='220px' ml={{base:'initial',md:'auto'}}>
+                <Button
+                  as={Link}
+                  href={`collection/${bannerCollection?.id}`}
+                  size={{ base: "md", lg: "lg" }}
+                  mt="20px"
+                  fontWeight='600'
+                  color="purple.500"
+                  p={{ base: "18px 26px", md: "32px" }}
+                  fontSize='16px'
+                  textTransform='uppercase'
+                  _hover={{
+                    transitionDuration: "0.2s",
+                    transitionTimingFunction: "ease-in-out",
+                  
+                  }}
+                  onMouseOver={over}
+                  onMouseOut={out}
+                >
+                  View Collection{" "}
+                  <Box
+                    ml="8px"
+                    color="#6863F3"
+                    transform={isVisible ? "translateX(0px)" : "translateX(5px)"}
+                    display={isVisible ? "block" : "none"}
+                  >
+                    <i className="icon-right"></i>
+                  </Box>
+                </Button>
+              </Box>
             </Flex>
           </Container>
         </Box>
