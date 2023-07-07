@@ -47,6 +47,7 @@ interface GenericTableProps {
   fetchNextPage?: () => void;
   hasNextPage?: boolean;
   isLoading?: boolean | undefined;
+  variant?: string;
 }
 
 export const GenericTable = ({
@@ -55,6 +56,7 @@ export const GenericTable = ({
   fetchNextPage,
   hasNextPage,
   isLoading,
+  variant,
 }: GenericTableProps) => {
   return (
     <InfiniteScroll
@@ -73,7 +75,7 @@ export const GenericTable = ({
       }
     >
       <TableContainer>
-        <Table variant="simple">
+        <Table variant={variant ? variant : "simple"}>
           <Thead>
             <Tr>
               {columns?.map((column: Column) => (
