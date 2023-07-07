@@ -650,13 +650,13 @@ const NftDetail = ({ param }: any) => {
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Metadata</Text>
                 <Text color="#6863F3" mb="auto">
-                  {data?.metadata}
+                  Decentralized
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Creator Earnings</Text>
                 <Text color="#6863F3" mb="auto">
-                  {totalCreatorFee}
+                  {totalCreatorFee} %
                 </Text>
               </Flex>
             </Box>
