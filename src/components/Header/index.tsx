@@ -191,7 +191,7 @@ export const Header = () => {
                   >
                     <MenuItem
                       as="a"
-                      href="collection/state"
+                      href="/collection/state"
                       _hover={{ color: "#6863f3" }}
                     >
                       Ranking
