@@ -257,8 +257,7 @@ const CreateNFT = () => {
                     name="description"
                     component={ChakraTextarea}
                     label="Description"
-                    placeholder="Describe your collection, 1000 characters are allowed"
-                    descp={nftDetail?.desc}
+                    placeholder="Describe your collection, 1000 characters are allowed."
                   />
 
                   <FormLabel

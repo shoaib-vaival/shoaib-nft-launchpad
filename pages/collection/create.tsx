@@ -309,8 +309,7 @@ const CreateCollection = () => {
                     name="description"
                     component={ChakraTextarea}
                     label="Description"
-                    placeholder="Describe your collection, 1000 characters are allowed"
-                    descp={collectionDetail?.desc}
+                    placeholder="Describe your collection, 1000 characters are allowed."
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
