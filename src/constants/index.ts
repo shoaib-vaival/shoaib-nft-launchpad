@@ -33,7 +33,7 @@ export const timeFilterOptions = {
   options: [
     { name: "1", label: "1d" },
     { name: "7", label: "7d" },
-    { name: "13", label: "13d" },
+    { name: "13", label: "30d" },
   ],
 };
 

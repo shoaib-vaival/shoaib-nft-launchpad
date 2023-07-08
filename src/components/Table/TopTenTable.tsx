@@ -14,7 +14,7 @@ export const TopTenTable = ({ data }: { data: any }) => {
     data?.map((collection: any, index: number) => {
       return {
         collection: (
-          <Flex alignItems="center" gap="2" flex="85%">
+          <Flex alignItems="center" gap="24px" flex="85%">
             <Image
               src={collection?.logoImageUrl}
               boxSize="100px"
