@@ -3,6 +3,7 @@ import type { Connector } from "@web3-react/types";
 import { WalletConnect as WalletConnect } from "@web3-react/walletconnect";
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { color, Text} from "@chakra-ui/react";
 export const getName = (connector: Connector) => {
   if (connector instanceof MetaMask) return "MetaMask";
   if (connector instanceof WalletConnect) return "WalletConnect";
@@ -34,7 +35,7 @@ const supportedFileTypes = [
 // Function to handle file selection
 export const validateFile = (file?: File | null, fileSizeLimit?: number) => {
   if (file && !supportedFileTypes?.includes(file?.type?.split("/")[1])) {
-    return "Only png and jpg files are allowed";
+    return  ("Only png and jpg files are allowed");
   } else if (file && file?.size > (fileSizeLimit ? fileSizeLimit : 6e6)) {
     return `Please select a file upto ${fileSizeLimit ? "11MB" : "6MB"}`;
   } else {
