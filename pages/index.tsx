@@ -129,9 +129,9 @@ const Home: NextPage = () => {
               mt={{ base: "40px", lg: "80px" }}
             >
               <Tabs onChange={(index) => setTabIndex(index)}>
-                <TabList pl="0" alignItems="center" flexWrap="wrap">
-                  <Tab>Trending</Tab>
-                  <Tab>Top</Tab>
+                <TabList pl="0" alignItems="center" flexWrap="wrap" >
+                  <Tab fontSize={{base:'20px',md:'24px'}} fontWeight='700'>Trending</Tab>
+                  <Tab fontSize={{base:'20px',md:'24px'}} fontWeight='700'>Top</Tab>
 
                   <Flex
                     alignItems="center"
@@ -152,6 +152,7 @@ const Home: NextPage = () => {
                       as={Link}
                       href="/categories"
                       variant="primary"
+                      textTransform='uppercase'
                     >
                       View All
                     </Button>
@@ -159,7 +160,7 @@ const Home: NextPage = () => {
                 </TabList>
 
                 <TabPanels>
-                  <TabPanel pt="0">
+                  <TabPanel p="0">
                     <Flex>
                       <Box w="50%">
                         <TopTenTable
@@ -173,7 +174,7 @@ const Home: NextPage = () => {
                       </Box>
                     </Flex>
                   </TabPanel>
-                  <TabPanel pt="0">
+                  <TabPanel p="0">
                     <Flex>
                       <Box w="50%">
                         <TopTenTable
@@ -198,7 +199,7 @@ const Home: NextPage = () => {
             <Flex
               justifyContent="space-between"
               alignItems="center"
-              mb="40px"
+              mb="30px"
               px={{ base: "0", md: "12px" }}
             >
               <Heading
@@ -211,6 +212,8 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
+                textTransform='uppercase'
+
               >
                 View All
               </Button>
@@ -231,13 +234,15 @@ const Home: NextPage = () => {
               px={{ base: "0", md: "12px" }}
             >
               <Heading fontSize={{ base: "24px", md: "36px", xl: "48px" }}>
-                Trending Collection
+                Trending Collections
               </Heading>
               <Button
                 p={{ base: "15px", md: "20px 32px" }}
                 as={Link}
                 href="/categories"
                 variant="primary"
+                textTransform='uppercase'
+
               >
                 View All
               </Button>
@@ -276,8 +281,11 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
+                textTransform='uppercase'
+
               >
                 View All
+                
               </Button>
             </Flex>
             <SlickSlider>

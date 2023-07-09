@@ -111,6 +111,7 @@ const CreateNFT = () => {
                 transactionId: receipt?.transactionHash,
               };
               updateNFT(data);
+              showToaster("NFT Minted Successfully.");
 
               router.push("/profile-created");
             }
@@ -125,8 +126,6 @@ const CreateNFT = () => {
   const { mutate: updateNFT } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_NFT_MINT_DATA,
-    successMessage: "NFT Minted Successfully",
-    showSuccessToast: true,
     token: true,
   });
 

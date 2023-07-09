@@ -114,7 +114,7 @@ export const Header = () => {
               order={{ base: "5", sm: "5", md: "6", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
-              pr={{ base: "0", lg: "30px" }}
+              pr={{ base: "0", lg: "15px" ,xl: "30px" }}
               pt={{ base: "5px" }}
             >
               <InputGroup
@@ -125,7 +125,9 @@ export const Header = () => {
               >
                 <Input placeholder="Search..." />
                 <InputLeftElement>
-                  <img src="/assets/images/search-icon.svg" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+<path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M8.71293 0.5C4.05453 0.5 0.264648 4.28989 0.264648 8.94829C0.264648 13.6067 4.05453 17.3966 8.71293 17.3966C10.7767 17.3966 12.67 16.6527 14.1389 15.4191L19.0033 20.2835C19.1477 20.4279 19.3366 20.5 19.5258 20.5C19.7149 20.5 19.9038 20.4279 20.0482 20.2835C20.3368 19.9951 20.3368 19.5271 20.0482 19.2387L15.1837 14.3742C16.4174 12.9054 17.1612 11.0121 17.1612 8.94829C17.1612 4.28989 13.3713 0.5 8.71293 0.5ZM13.7123 13.801C14.9316 12.5451 15.6834 10.8329 15.6834 8.94829C15.6834 5.10469 12.5563 1.97785 8.71293 1.97785C4.86934 1.97785 1.7425 5.10469 1.7425 8.94829C1.7425 12.7919 4.86934 15.9187 8.71293 15.9187C10.5974 15.9187 12.3096 15.1671 13.5655 13.9478C13.5861 13.9204 13.6089 13.8942 13.6338 13.8692C13.6587 13.8443 13.685 13.8216 13.7123 13.801ZM5.7868 5.05149C5.49836 4.76282 5.03039 4.76282 4.74196 5.05149C3.67102 6.12243 3.14465 7.6143 3.29762 9.14485C3.33578 9.52614 3.65699 9.81036 4.03211 9.81036C4.05676 9.81036 4.0816 9.80911 4.10625 9.80665C4.51242 9.76602 4.80871 9.40368 4.76809 8.99778C4.65922 7.91008 5.03067 6.85247 5.7868 6.09629C6.07547 5.8079 6.07547 5.33989 5.7868 5.05149Z" fill="#6863F3"/>
+</svg>
                 </InputLeftElement>
               </InputGroup>
             </Box>
@@ -144,11 +146,13 @@ export const Header = () => {
               borderTopLeftRadius={{ base: "16px", lg: "0" }}
               borderTopRightRadius={{ base: "16px", lg: "0" }}
               transition=".5s cubic-bezier(0.64, 0.46, 0.47, 0.87)"
+              position='relative'
+              zIndex='1'
             >
               <HStack
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
-                alignItems={{ base: "initial", lg: "center" }}
+                alignItems={{ base: "flex-start", lg: "center" }}
                 flexDirection={{
                   base: "column",
                   sm: "column",
@@ -185,19 +189,21 @@ export const Header = () => {
                   </MenuButton>
                   <MenuList
                     textTransform="capitalize"
-                    w="191px"
-                    minW="191px"
-                    p="16px 8px"
+                    w="109px"
+                    minW="109px"
+                    p=" 8px 16px"
                   >
                     <MenuItem
                       as="a"
-                      href="collection/state"
+                      p='8px'
+                      href="/collection/state"
                       _hover={{ color: "#6863f3" }}
                     >
                       Ranking
                     </MenuItem>
                     <MenuItem
                       as="a"
+                      p='8px'
                       href="/activity"
                       _hover={{ color: "#6863f3" }}
                     >
@@ -252,6 +258,7 @@ export const Header = () => {
                   textTransform="uppercase"
                   mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
+                  fontWeight= '600'
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
                   mt={{ base: "10px", sm: "0" }}
@@ -266,6 +273,8 @@ export const Header = () => {
                   disabled={true}
                   mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
+                  fontWeight= '600'
+                  letterSpacing='0.84px'
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
                   mt={{ base: "10px", sm: "0" }}
