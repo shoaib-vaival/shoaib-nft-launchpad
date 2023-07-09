@@ -134,7 +134,7 @@ const Collection: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Flex pt="20px">
+                <Flex pt="20px" gap='24px'>
                   <CollectionSideFilter
                     onChange={(filter: any) => {
                       setFilters({
@@ -264,7 +264,7 @@ const Collection: NextPage = () => {
                 </Flex>
               </TabPanel>
               <TabPanel pt="0">
-                <Flex pt="20px" gap="4">
+                <Flex pt="20px" gap="24px">
                   <ActivitySideFilter
                     onChange={(filter: any) => {
                       setFilters({
@@ -366,8 +366,7 @@ const Collection: NextPage = () => {
                     <Stat
                       flexBasis={"22%"}
                       flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}
-                    >
+                      margin={"12px 12px 12px 0"}>
                       <Flex justifyContent="space-between">
                         <StatLabel mb="8px">Floor Price</StatLabel>
                         <StatHelpText color="#00F59B">
