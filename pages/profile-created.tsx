@@ -224,7 +224,7 @@ const ProfilCreated: NextPage = () => {
                             value={filters?.search}
                           />
                           <InputLeftElement>
-                            <img src="/assets/images/search-icon.svg" />
+                            <img src="/assets/images/search.svg" />
                           </InputLeftElement>
                         </InputGroup>
                       </Box>
@@ -350,7 +350,7 @@ const ProfilCreated: NextPage = () => {
                         >
                           <Input placeholder="Search..." />
                           <InputLeftElement>
-                            <img src="/assets/images/search-icon.svg" />
+                            <img src="/assets/images/search.svg" />
                           </InputLeftElement>
                         </InputGroup>
                       </Box>

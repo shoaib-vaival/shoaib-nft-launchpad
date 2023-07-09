@@ -181,7 +181,7 @@ const Collection: NextPage = () => {
                             value={search}
                           />
                           <InputLeftElement>
-                            <img src="/assets/images/search-icon.svg" />
+                            <img src="/assets/images/search.svg" />
                           </InputLeftElement>
                         </InputGroup>
                       </Box>
@@ -305,7 +305,7 @@ const Collection: NextPage = () => {
                         >
                           <Input placeholder="Search..." />
                           <InputLeftElement>
-                            <img src="/assets/images/search-icon.svg" />
+                            <img src="/assets/images/search.svg" />
                           </InputLeftElement>
                         </InputGroup>
                       </Box>
