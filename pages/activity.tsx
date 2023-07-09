@@ -57,7 +57,7 @@ const Categories: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pr={{ base: "0", md: "50px" }}>
+        <Box pr={{ base: "0", md: "50px" }} pt='40px'>
           <Heading
             as="h1"
             fontSize={{
@@ -66,12 +66,12 @@ const Categories: NextPage = () => {
               lg: "42px",
               xl: "56px",
             }}
-            mb={{ base: "10px", lg: "24px" }}
+            mb={{ base: "10px", lg: "36px" }}
           >
             Activity
           </Heading>
         </Box>
-        <Flex pt="20px" gap="4">
+        <Flex pt="20px" gap="24px">
           <ActivitySideFilter
             onChange={(filter: any) => {
               setFilters({
@@ -109,7 +109,7 @@ const Categories: NextPage = () => {
                   marginBottom={{ base: "3", md: "initial", xl: "initial" }}
                 >
                   <Input
-                    placeholder="Search..."
+                    placeholder="Search by Collections…"
                     onChange={(e) => searchHandler(e)}
                     value={search}
                   />

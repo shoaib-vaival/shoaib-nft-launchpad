@@ -176,7 +176,7 @@ const Collection: NextPage = () => {
                           }}
                         >
                           <Input
-                            placeholder="Search..."
+                            placeholder="Search by Collections…"
                             onChange={(e) => searchHandler(e)}
                             value={search}
                           />
@@ -338,39 +338,39 @@ const Collection: NextPage = () => {
                 <Box>
                   <Flex>
                     <Stat
-                      flexBasis={"22%"}
+                      flexBasis={"33%"}
                       flex={"0% 1 0%)"}
                       margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between">
+                      <Flex justifyContent="space-between" alignItems='center'>
                         <StatLabel mb="12px">Volume</StatLabel>
-                        <StatHelpText color="#F00">
-                          <i className="icon-down"></i>-45%
+                        <StatHelpText color="#F00" display='flex'>
+                          <i className="icon-down"></i><Text ml='8px'>-45%</Text>
                         </StatHelpText>
                       </Flex>
                       <StatNumber>0 MATIC</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"22%"}
+                      flexBasis={"33%"}
                       flex={"0% 1 0%)"}
                       margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between">
+                      <Flex justifyContent="space-between" alignItems='center'>
                         <StatLabel mb="8px">Sales</StatLabel>
-                        <StatHelpText color="#F00">
-                          <i className="icon-down"></i>-42%
+                        <StatHelpText color="#F00" display='flex'>
+                          <i className="icon-down"></i><Text ml='8px'>-42%</Text>
                         </StatHelpText>
                       </Flex>
                       <StatNumber>1,679</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"22%"}
+                      flexBasis={"33%"}
                       flex={"0% 1 0%)"}
                       margin={"12px 12px 12px 0"}>
-                      <Flex justifyContent="space-between">
+                      <Flex justifyContent="space-between" alignItems='center'>
                         <StatLabel mb="8px">Floor Price</StatLabel>
-                        <StatHelpText color="#00F59B">
-                          <i className="icon-up"></i>+8%
+                        <StatHelpText color="#00F59B" display='flex'>
+                          <i className="icon-up"></i><Text ml='8px'>+8%</Text>
                         </StatHelpText>
                       </Flex>
 
@@ -464,7 +464,7 @@ const Collection: NextPage = () => {
                             <Text fontSize="20px" fontWeight="700">
                               Listings
                             </Text>
-                            <Box width="150px" order={{ base: "2", sm: "3" }}>
+                            <Box width="98px" order={{ base: "2", sm: "3" }}>
                               <ReactSelect
                                 options={[
                                   { key: "Sorty By", value: "Sort By" },
@@ -474,7 +474,7 @@ const Collection: NextPage = () => {
                                 getSelectedData={(value: string) =>
                                   console.log(value)
                                 }
-                                placeholder="Sort By"
+                                placeholder="Price"
                               />
                             </Box>
                           </Flex>
@@ -874,10 +874,18 @@ const Collection: NextPage = () => {
                     >
                       <Box>
                         <TableContainer>
+                          <Flex alignItems='center'>
+                        <Text fontSize="24px" fontWeight="700">
+                        Owners
+                        </Text>
+                        <Text fontSize="14px" ml="12px" color="#15171A">
+                        Top 100
+                        </Text>
+                        </Flex>
                           <Table variant="simple">
                             <Thead>
                               <Tr>
-                                <Th textAlign="center">ITEM</Th>
+                                <Th>NAME</Th>
                                 <Th>Wallet</Th>
                                 <Th>OWNED</Th>
                                 <Th>% OWNED</Th>
