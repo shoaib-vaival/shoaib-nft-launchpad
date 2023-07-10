@@ -1,6 +1,7 @@
 import { HStack } from "@chakra-ui/layout";
 import { useRadioGroup } from "@chakra-ui/radio";
 import RadioCard from "../RadioCards";
+import { Container } from "@chakra-ui/react";
 
 export const HorizentalButtonFilter = ({
   options,
@@ -16,7 +17,9 @@ export const HorizentalButtonFilter = ({
   const group = getRootProps();
   return (
     <>
-      <HStack {...group}>
+       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
+        mt={{ base: "20px" }}>
+      <HStack {...group} flexWrap="wrap" justifyContent='center'>
         {options &&
           options?.map((option: any, index: number) => {
             const radio = getRadioProps({ value: option?.name });
@@ -27,6 +30,7 @@ export const HorizentalButtonFilter = ({
             );
           })}
       </HStack>
+      </Container>
     </>
   );
 };
