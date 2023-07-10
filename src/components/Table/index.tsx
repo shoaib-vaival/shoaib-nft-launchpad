@@ -79,7 +79,7 @@ export const GenericTable = ({
           <Thead>
             <Tr>
               {columns?.map((column: Column) => (
-                <Th key={column?.key}>{column?.title}</Th>
+                <Th textTransform='uppercase' key={column?.key}>{column?.title}</Th>
               ))}
             </Tr>
           </Thead>

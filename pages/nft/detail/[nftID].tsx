@@ -493,6 +493,7 @@ const NftDetail = ({ param }: any) => {
                 <Button
                   onClick={onOpen}
                   variant="primary"
+                  textTransform='uppercase'
                   mt="16px"
                   p="20px 64px"
                   isLoading={loader}
@@ -510,6 +511,7 @@ const NftDetail = ({ param }: any) => {
                   variant="primary"
                   mt="16px"
                   p="20px 64px"
+                  textTransform='uppercase'
                 >
                   Cancel Listing
                 </Button>
@@ -522,6 +524,7 @@ const NftDetail = ({ param }: any) => {
                   }}
                   variant="primary"
                   mt="16px"
+                  textTransform='uppercase'
                   p="20px 64px"
                   isLoading={loader}
                 >
@@ -541,7 +544,7 @@ const NftDetail = ({ param }: any) => {
                 marginBottom="20px"
                 bg="transparent"
                 paddingLeft="0px"
-                _hover={{ bg: "transparent" }}
+                _hover={{ bg: "transparent" ,color:'#6863F3' }}
                 fontWeight="600"
                 fontSize="14px"
                 color="#393F59"
@@ -570,31 +573,31 @@ const NftDetail = ({ param }: any) => {
             >
               <Stat p="14px">
                 <StatLabel>Background</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                <StatNumber fontSize="18px" fontWeight='700' display="flex" alignItems="center">
                   Dark Orange
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Body</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
                   Shirt Orange
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Head</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
                   Glasses
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Face</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
                   Brown
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Hair</StatLabel>
-                <StatNumber fontSize="18px" display="flex" alignItems="center">
+                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
                   Puffballs
                 </StatNumber>
               </Stat>
@@ -610,7 +613,7 @@ const NftDetail = ({ param }: any) => {
             <Box fontSize="16px">
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Contract Address</Text>
-                <Text color="#6863F3" mb="auto">
+                <Text color="#6863F3" fontWeight='700' mb="auto">
                   {data?.minting_contract_address?.slice(0, 7) +
                     "..." +
                     data?.minting_contract_address?.slice(35, 42)}
@@ -618,31 +621,31 @@ const NftDetail = ({ param }: any) => {
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Token ID</Text>
-                <Text color="#6863F3" mb="auto">
+                <Text color="#6863F3" fontWeight='700' mb="auto">
                   {data?.tokenId}
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Token Standard</Text>
-                <Text color="#6863F3" mb="auto">
+                <Text color="#393F59" fontWeight='700' mb="auto">
                   ERC 721
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Chain</Text>
-                <Text color="#6863F3" mb="auto">
+                <Text color="#393F59" fontWeight='700' mb="auto">
                   {chainId}
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Metadata</Text>
-                <Text color="#6863F3" mb="auto">
+                <Text color="#393F59" fontWeight='700' mb="auto">
                   Decentralized
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Creator Earnings</Text>
-                <Text color="#6863F3" mb="auto">
+                <Text color="#393F59"  fontWeight='700'mb="auto">
                   {totalCreatorFee} %
                 </Text>
               </Flex>

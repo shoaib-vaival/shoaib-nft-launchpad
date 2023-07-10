@@ -20,7 +20,7 @@ export const ActivitySideFilter = ({ onChange, type }: any) => {
 
   const filters = [
     {
-      label: "EventType",
+      label: "Event Type",
       name: "event",
       hasFilters: true,
       border: true,
