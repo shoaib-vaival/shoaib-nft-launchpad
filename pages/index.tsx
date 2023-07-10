@@ -310,7 +310,7 @@ const Home: NextPage = () => {
             maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
             mt={{ base: "40px", lg: "80px" }}
           >
-            <CustomSlider name="Recent Collection">
+            <CustomSlider name="Recent Collections">
               {data?.recent?.map((item: collectionType, index: number) => {
                 return (
                   <Link href={`collection/${item?.id}`} key={index}>

@@ -171,10 +171,10 @@ export const Header = () => {
                   <MenuButton
                     as={Button}
                     bg="transparent"
-                    _active={{ bg: "transparent" }}
+                    _active={{ bg: "transparent",color:'#6863f3' }}
                     _focusVisible={{ boxShadow: "transparent" }}
                     p="0"
-                    _hover={{ bg: "transparent" }}
+                    _hover={{ bg: "transparent",color:'#6863f3' }}
                     textTransform="uppercase"
                     fontSize={{ base: "15px", xl: "16px" }}
                     rightIcon={

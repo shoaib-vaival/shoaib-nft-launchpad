@@ -24,6 +24,11 @@ const RadioCard = (props: any) => {
           color: "white",
           borderColor: "#6863F3",
         }}
+        _hover={{
+          bg: "#6863F3",
+          color: "white",
+          borderColor: "#6863F3",
+        }}
         px={props.type == "small" ? "16px" : 5}
         py={props.type == "small" ? "9px" : 3}
       >
