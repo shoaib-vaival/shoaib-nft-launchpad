@@ -310,13 +310,13 @@ const CreateCollection = () => {
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed."
                   />
-                  {touched["category"] && errors["category"] && (
+                  {touched["description"] && errors["description"] && (
                     <Text
                       marginTop={"8px!important"}
                       fontWeight={"500"}
                       color={"red.700"}
                     >
-                      {errors["category"] as React.ReactNode}
+                      {errors["description"] as React.ReactNode}
                     </Text>
                   )}
                 </FormControl>

@@ -31,7 +31,6 @@ export const CollectionStatTable = ({
       day: dayFilter,
     },
   });
-  console.log(collectionStats, "collectionStats");
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
@@ -120,6 +119,7 @@ export const CollectionStatTable = ({
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
       isLoading={isLoading}
+      tableName="stateTable"
     />
   );
 };
