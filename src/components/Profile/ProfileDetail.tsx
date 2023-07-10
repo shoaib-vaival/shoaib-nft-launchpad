@@ -197,23 +197,27 @@ const ProfileDetail = ({
               >
                 <Stat>
                   <StatLabel>Total Volume</StatLabel>
-                  <StatNumber>{data?.volume} MATIC</StatNumber>
+                  <StatNumber fontSize="18px">{data?.volume} MATIC</StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Floor Price</StatLabel>
-                  <StatNumber>{data?.floor_price} MATIC</StatNumber>
+                  <StatNumber fontSize="18px">
+                    {data?.floor_price} MATIC
+                  </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Items Listed</StatLabel>
-                  <StatNumber>{data?.itemListedCount}%</StatNumber>
+                  <StatNumber fontSize="18px">
+                    {data?.itemListedCount}%
+                  </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Owners</StatLabel>
-                  <StatNumber>{data?.owner}0</StatNumber>
+                  <StatNumber fontSize="18px">{data?.owner}0</StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Unique Owners</StatLabel>
-                  <StatNumber>{data?.uniqueOwner}%</StatNumber>
+                  <StatNumber fontSize="18px">{data?.uniqueOwner}%</StatNumber>
                 </Stat>
               </Grid>
             </Box>

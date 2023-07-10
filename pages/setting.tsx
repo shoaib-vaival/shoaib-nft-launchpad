@@ -26,6 +26,8 @@ import { EditUploadFile } from "../src/components/common/EditUploadFile";
 import { UploadFileOnServer } from "../src/components/common/UploadFile/types";
 import { profileType } from "../src/types";
 import { settingSchema } from "../src/schemas";
+import { useWeb3React } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
 
 type imagesType = {
   imageUrl: string;
@@ -35,6 +37,7 @@ type imagesType = {
 const Setting: NextPage = () => {
   const [coverImage, setCoverImage] = useState<imagesType>();
   const [profileImage, setProfileImage] = useState<imagesType>();
+  const { account } = useWeb3React<Web3Provider>();
 
   const { data: profile } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_PROFILE],

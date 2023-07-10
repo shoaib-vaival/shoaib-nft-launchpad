@@ -160,8 +160,8 @@ const Home: NextPage = () => {
                 </TabList>
 
                 <TabPanels>
-                  <TabPanel p="0">
-                    <Flex>
+                  <TabPanel p="0" pb='25px' borderBottom='1px solid #35353533'>
+                    <Flex gap='33px'>
                       <Box w="50%">
                         <TopTenTable
                           data={topTenData && topTenData?.slice(0, 5)}
@@ -310,7 +310,7 @@ const Home: NextPage = () => {
             maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
             mt={{ base: "40px", lg: "80px" }}
           >
-            <CustomSlider name="Recent Collection">
+            <CustomSlider name="Recent Collections">
               {data?.recent?.map((item: collectionType, index: number) => {
                 return (
                   <Link href={`collection/${item?.id}`} key={index}>

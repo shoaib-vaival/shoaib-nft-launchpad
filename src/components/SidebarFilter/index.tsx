@@ -116,7 +116,7 @@ export const SidebarFilter = ({
     switch (filter.type) {
       case "checkbox":
         return (
-          <Checkbox
+          <Checkbox  
             key={filter.label}
             onChange={(event) =>
               handleFilterChange(
@@ -186,15 +186,16 @@ export const SidebarFilter = ({
                     borderBottom={"none"}
                   >
                     <h2>
-                      <AccordionButton _disabled={{ color: "black" }}>
-                        <Box as="span" flex="1" textAlign="left">
+                      <AccordionButton _disabled={{ color: "black" }} >
+                        <Box as="span" flex="1" textAlign="left"  fontSize='18px' color='#393F59'>
                           {group && group?.label}
                         </Box>
                       </AccordionButton>
                     </h2>
                   </AccordionItem>
                 ) : (
-                  <AccordionItem
+                  <AccordionItem 
+                  color='#756C99'
                     key={group?.name}
                     borderBottom={
                       group && !group?.border ? "none" : "1px solid #6863f34d"
@@ -202,7 +203,7 @@ export const SidebarFilter = ({
                   >
                     <h2>
                       <AccordionButton>
-                        <Box as="span" flex="1" textAlign="left">
+                        <Box as="span" flex="1" textAlign="left"  fontSize='18px' color='#393F59'>
                           {group?.label}
                         </Box>
                         {group && group?.showQuantity ? (

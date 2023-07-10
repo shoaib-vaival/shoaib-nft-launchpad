@@ -27,6 +27,7 @@ export const signMessage = async (
   account: any,
   chainId: any
 ): Promise<string | null> => {
+  console.log("🚀 ~ file: signListing.ts:30 ~ params:", params);
   if (provider && account) {
     const valueInWei = convertToWei(String(params?.price));
 

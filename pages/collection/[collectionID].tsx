@@ -50,6 +50,10 @@ import { ListingTable } from "../../src/components/Table/ListingTable";
 import { TopOwnerTable } from "../../src/components/Table/TopOwnerTable";
 
 const Collection: NextPage = () => {
+  const [isFilterVisible, setIsFilterVisible] = useState(true);
+  const toggleFilterVisibility = () => {
+    setIsFilterVisible(!isFilterVisible);
+  };
   const router = useRouter();
   const [collectionID, setCollectionID] = useState<string | undefined>("");
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
@@ -155,7 +159,7 @@ const Collection: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Flex pt="20px">
+                <Flex pt="20px" gap="24px">
                   <CollectionSideFilter
                     onChange={(filter: any) => {
                       setPropertyQuery(
@@ -176,7 +180,7 @@ const Collection: NextPage = () => {
                       alignItems="center"
                       flexWrap="wrap"
                     >
-                      <Box order="1">
+                      <Box order="1" onClick={toggleFilterVisibility}>
                         <IconButton
                           variant="outline"
                           colorScheme="primary"
@@ -202,12 +206,12 @@ const Collection: NextPage = () => {
                           }}
                         >
                           <Input
-                            placeholder="Search..."
+                            placeholder="Search by Collections…"
                             onChange={(e) => searchHandler(e)}
                             value={search}
                           />
                           <InputLeftElement>
-                            <img src="/assets/images/search-icon.svg" />
+                            <img src="/assets/images/search.svg" />
                           </InputLeftElement>
                         </InputGroup>
                       </Box>
@@ -290,7 +294,7 @@ const Collection: NextPage = () => {
                 </Flex>
               </TabPanel>
               <TabPanel pt="0">
-                <Flex pt="20px" gap="4">
+                <Flex pt="20px" gap="24px">
                   <ActivitySideFilter
                     onChange={(filter: any) => {
                       setFilters({
@@ -331,7 +335,7 @@ const Collection: NextPage = () => {
                         >
                           <Input placeholder="Search..." />
                           <InputLeftElement>
-                            <img src="/assets/images/search-icon.svg" />
+                            <img src="/assets/images/search.svg" />
                           </InputLeftElement>
                         </InputGroup>
                       </Box>
@@ -364,11 +368,11 @@ const Collection: NextPage = () => {
                 <Box>
                   <Flex>
                     <Stat
-                      flexBasis={"22%"}
+                      flexBasis={"33%"}
                       flex={"0% 1 0%)"}
                       margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between">
+                      <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="12px">Volume</StatLabel>
                         <StatHelpText color="#F00">
                           {/* <i className="icon-down"></i>-45% */}
@@ -377,11 +381,11 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.volume} MATIC</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"22%"}
+                      flexBasis={"33%"}
                       flex={"0% 1 0%)"}
                       margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between">
+                      <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="8px">Sales</StatLabel>
                         <StatHelpText color="#F00">
                           {/* <i className="icon-down"></i>-42% */}
@@ -390,11 +394,11 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.sale}</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"22%"}
+                      flexBasis={"33%"}
                       flex={"0% 1 0%)"}
                       margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between">
+                      <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="8px">Floor Price</StatLabel>
                         <StatHelpText color="#00F59B">
                           {/* <i className="icon-up"></i>+8% */}
