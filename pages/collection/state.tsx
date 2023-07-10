@@ -74,6 +74,7 @@ const CollectionStat: NextPage = () => {
               xl: "56px",
             }}
             mb={{ base: "10px", lg: "24px" }}
+            mt={{ base: "10px", lg: "30px" }}
           >
             Collection Stats
           </Heading>
