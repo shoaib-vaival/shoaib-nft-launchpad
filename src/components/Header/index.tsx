@@ -30,31 +30,74 @@ import { POST } from "../../hooks/consts";
 import { ApiUrl } from "../../apis/apiUrl";
 import { useMutation } from "../../hooks/useMutation";
 import { useQuery } from "../../hooks/useQuery";
-import { setToLocalStorage } from "../../utils";
-import { useState } from "react";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils";
+import { useEffect, useState } from "react";
 import { setCookie } from "typescript-cookie";
 import { bg } from "date-fns/locale";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
+
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
     onClose: onConnectionModalClose,
   } = useDisclosure();
   const { disconnect, disconnectWalletConnect } = useWeb3Context();
+  const queryClient = useQueryClient();
 
   const { account, provider } = useWeb3React();
 
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.SAVE_SIGNATURE,
-    showSuccessToast: true,
+    showToast: false,
+    showSuccessToast: false,
     onSuccess: (data: any) => {
+      if (data?.data?.status == 220) {
+        signature(data);
+      }
       setToLocalStorage("accessToken", data?.data?.access_token);
       setCookie("accessToken", data?.data?.access_token);
     },
   });
+
+  const invalidateQuery = () => {
+    queryClient.invalidateQueries([QUERY_KEYS.GET_SIGN]);
+  };
+
+  const [currentAccount, setCurrentAccount] = useState<string | null>(null);
+
+  // Function to handle account change
+  const handleAccountChange = (accounts: string[]) => {
+    const selectedAccount = accounts[0];
+    setCurrentAccount(selectedAccount);
+  };
+
+  useEffect(() => {
+    if (account) {
+      setCurrentAccount(account);
+    }
+  }, [account]);
+
+  useEffect(() => {
+    if (provider) {
+      provider.on("accountsChanged", handleAccountChange);
+    }
+
+    return () => {
+      if (provider) {
+        provider.off("accountsChanged", handleAccountChange);
+      }
+    };
+  }, [provider]);
+
+  useEffect(() => {
+    if (currentAccount) {
+      invalidateQuery();
+    }
+  }, [currentAccount]);
 
   const signature = async (savedSign: any) => {
     signMessage(provider).then((signature) => {
@@ -72,12 +115,13 @@ export const Header = () => {
   const { data: savedSign } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_SIGN],
     url: `${ApiUrl?.GET_SIGNATURE}/${account}`,
-    showToast: true,
     onSuccess: (data: any) => {
-      if (data.status == 220) {
-        signature(data);
-      } else {
-        mutate({ walletAddress: account });
+      if (account == currentAccount) {
+        if (data.status == 220) {
+          signature(data);
+        } else {
+          mutate({ walletAddress: account });
+        }
       }
     },
     enabled: account ? true : false,
@@ -114,7 +158,7 @@ export const Header = () => {
               order={{ base: "5", sm: "5", md: "6", lg: "2" }}
               w={{ base: "full", lg: "initial" }}
               pl={{ base: "0", lg: "10px", xl: "30px" }}
-              pr={{ base: "0", lg: "15px" ,xl: "30px" }}
+              pr={{ base: "0", lg: "15px", xl: "30px" }}
               pt={{ base: "5px" }}
             >
               <InputGroup
@@ -125,7 +169,7 @@ export const Header = () => {
               >
                 <Input placeholder="Search..." />
                 <InputLeftElement>
-                <img src="/assets/images/search.svg" />
+                  <img src="/assets/images/search.svg" />
                 </InputLeftElement>
               </InputGroup>
             </Box>
@@ -144,8 +188,8 @@ export const Header = () => {
               borderTopLeftRadius={{ base: "16px", lg: "0" }}
               borderTopRightRadius={{ base: "16px", lg: "0" }}
               transition=".5s cubic-bezier(0.64, 0.46, 0.47, 0.87)"
-              position='relative'
-              zIndex='1'
+              position="relative"
+              zIndex="1"
             >
               <HStack
                 textTransform="uppercase"
@@ -171,12 +215,12 @@ export const Header = () => {
                   <MenuButton
                     as={Button}
                     bg="transparent"
-                    _active={{ bg: "transparent",color:'#6863f3' }}
+                    _active={{ bg: "transparent", color: "#6863f3" }}
                     _focusVisible={{ boxShadow: "transparent" }}
-                    p={{base:'0 0 8px 0',md:'0'}}
-                    h='auto'
-                    lineHeight='1.5'
-                    _hover={{ bg: "transparent",color:'#6863f3' }}
+                    p={{ base: "0 0 8px 0", md: "0" }}
+                    h="auto"
+                    lineHeight="1.5"
+                    _hover={{ bg: "transparent", color: "#6863f3" }}
                     textTransform="uppercase"
                     fontSize={{ base: "15px", xl: "16px" }}
                     rightIcon={
@@ -195,7 +239,7 @@ export const Header = () => {
                   >
                     <MenuItem
                       as="a"
-                      p='8px'
+                      p="8px"
                       href="/collection/state"
                       _hover={{ color: "#6863f3" }}
                     >
@@ -203,7 +247,7 @@ export const Header = () => {
                     </MenuItem>
                     <MenuItem
                       as="a"
-                      p='8px'
+                      p="8px"
                       href="/activity"
                       _hover={{ color: "#6863f3" }}
                     >
@@ -235,9 +279,9 @@ export const Header = () => {
                     fontSize="16px"
                     ml={{ base: "0", md: "30px", lg: "0" }}
                     mr={{ base: "0", sm: "25px", md: "0" }}
-                    p={{base:'initial',lg:'12px 16px'}}
+                    p={{ base: "initial", lg: "12px 16px" }}
                     variant="primary"
-                    h='42px'
+                    h="42px"
                     w={{ base: "full", sm: "50%", md: "75%", xl: "100px" }}
                     size="md"
                   >
@@ -260,7 +304,7 @@ export const Header = () => {
                   textTransform="uppercase"
                   mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
-                  fontWeight= '600'
+                  fontWeight="600"
                   w={{ base: "full", sm: "100%", md: "100%", xl: "initial" }}
                   size="md"
                   mt={{ base: "10px", sm: "0" }}
@@ -275,8 +319,8 @@ export const Header = () => {
                   disabled={true}
                   mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
-                  fontWeight= '600'
-                  letterSpacing='0.84px'
+                  fontWeight="600"
+                  letterSpacing="0.84px"
                   w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
                   size="md"
                   mt={{ base: "10px", sm: "0" }}

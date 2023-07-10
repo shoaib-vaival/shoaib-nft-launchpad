@@ -89,7 +89,7 @@ const CreateCollection = () => {
               collectionName: decodedLogs[2]?.events[0]?.value,
             };
             update(data);
-            showToaster("Collection Created Successfully.");
+            showToaster("Collection Created Successfully.", "success");
 
             router.push("/profile-created");
           }
@@ -206,7 +206,7 @@ const CreateCollection = () => {
     instagram: getCollectionById?.instagram || "",
     Discord_id: getCollectionById?.Discord_id || "",
     creatorFee: getCollectionByIdLoading
-      ? [{ walletAddress: "", percentage: 0 }]
+      ? [{ walletAddress: "", percentage: null }]
       : getCollectionById?.creatorFee,
     collectionId: getCollectionById?.id || undefined,
   };
