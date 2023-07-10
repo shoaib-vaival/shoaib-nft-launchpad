@@ -8,6 +8,7 @@ import { categoriesType } from "../../types"
 import CollectionCard from "../Cards/CollectionCard"
 import { color } from "framer-motion"
 import { Loader } from "../Loader"
+import { useRouter } from "next/router"
 
 type FilterTabs = {
     tabsList?:categoriesType[] | undefined,
@@ -19,6 +20,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
     const filterUsingTabs = (index: string)=>{
        setCatId({categoryId:index})
     }
+    const router = useRouter()
 
     const {data, isLoading} = useQuery<any>({
         queryKey:[QUERY_KEYS.GET_COLLECTION_BY_CAT_ID, catId],
@@ -47,7 +49,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
              <Heading p='75px 0' fontSize='20px' textAlign="center" w="100%" color='#0d0d0d'>Record Not Found</Heading>:
              data?.map((collection:any, index:number)=>{
                  return (
-             <Box width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}} key={index}>
+             <Box cursor="pointer" width={{base:'100%',sm:'50%',md:'33%',xl:'25%'}} key={index} onClick={()=>router.push(`/collection/${collection?.id}`)}>
                  <CollectionCard type="withBody" featureImage={collection?.logoImageUrl} isShowFeatureImage = {true} isShowLogoImage={false} name={collection?.name}/>
                  </Box>
                  )
