@@ -26,7 +26,7 @@ export const Stat: ComponentStyleConfig = {
             fontSize: '18px',
             color: '#0D0D0D',
             fontWeight: '700',
-            margin:'8px 0'
+            margin:'8px 0 0 0',
         },
         
 
