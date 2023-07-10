@@ -33,9 +33,10 @@ export const TopTenTable = ({ data }: { data: any }) => {
         ),
         floorPrice: collection?.floor_price + `${currencySymbol}`,
         volume: collection?.volume + `${currencySymbol}`,
+        id: collection?.id
       };
     });
   return (
-    <GenericTable data={tableData} columns={columns} variant="borderLess" />
+    <GenericTable data={tableData} columns={columns} variant="borderLess" tableName="topTen" />
   );
 };
