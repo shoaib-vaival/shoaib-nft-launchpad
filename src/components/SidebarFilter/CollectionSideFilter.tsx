@@ -11,7 +11,6 @@ export const CollectionSideFilter = ({ onChange, collectionId }: any) => {
     token: true,
     enabled: collectionId ? true : false,
   });
-  console.log("collectionId", collectionId);
   const filters = [
     {
       label: "Status",
@@ -28,52 +27,70 @@ export const CollectionSideFilter = ({ onChange, collectionId }: any) => {
       ],
     },
     {
-      label: "Quantity",
-      name: "quantity",
+      label: "Background",
+      name: "background",
       hasFilters: true,
-      border: true,
+      border: false,
+      showQuantity: true,
+      filterType: "properties",
       filters: [
         {
-          name: "quantity",
-          type: "radio",
-          options: ["all", "single", "bundle"],
-          label: ["All items", "Single Items", "Bundles"],
+          label: "Purple",
+          name: "purple",
+          type: "checkbox",
+        },
+        {
+          label: "Black",
+          name: "black",
+          type: "checkbox",
         },
       ],
     },
     {
-      label: "Properties",
-      name: "quantity",
-      hasFilters: false,
+      label: "Clothes",
+      name: "clothes",
+      hasFilters: true,
       border: false,
-      filters: [],
+      showQuantity: true,
+      filterType: "properties",
+      filters: [
+        {
+          label: "Purple",
+          name: "purple",
+          type: "checkbox",
+        },
+        {
+          label: "Black",
+          name: "black",
+          type: "checkbox",
+        },
+      ],
     },
   ];
-  const propertyList =
-    properties &&
-    properties?.map((property: any, index: number) => {
-      const propertyValues = property.propertyValues.map(
-        (propertyValue: any, index: number) => {
-          return {
-            label: propertyValue?.value?.substring(0, 16) + "...",
-            name: propertyValue?.value,
-            type: "checkbox",
-          };
-        }
-      );
-      return {
-        label: property?.name,
-        name: property?.name?.toLowerCase(),
-        hasFilters: true,
-        border: false,
-        showQuantity: true,
-        filters: propertyValues,
-      };
-    });
-  console.log(propertyList, "propertyList");
+  // const propertyList =
+  //   properties &&
+  //   properties?.map((property: any, index: number) => {
+  //     const propertyValues = property.propertyValues.map(
+  //       (propertyValue: any, index: number) => {
+  //         return {
+  //           label: propertyValue?.value?.substring(0, 16) + "...",
+  //           name: propertyValue?.value,
+  //           type: "checkbox",
+  //         };
+  //       }
+  //     );
+  //     return {
+  //       label: property?.name,
+  //       name: property?.name?.toLowerCase(),
+  //       hasFilters: true,
+  //       border: false,
+  //       showQuantity: true,
+  //       filters: propertyValues,
+  //     };
+  //   });
   return (
     <SidebarFilter
-      filterGroups={propertyList ? filters.concat(propertyList) : filters}
+      filterGroups={filters}
       onFilterChange={(filters: any) => onChange(filters)}
     />
   );

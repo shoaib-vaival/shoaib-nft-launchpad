@@ -44,4 +44,6 @@ export const ApiUrl = {
   UPDATE_PENDING_TRANSACTIONS: "transactions/pending-transactions",
   GET_COLLECTION_PROPERTIES: "collection/get-collection-properties",
   GET_TOPTEN_COLLECTIONS: "minting/get-trending-collection-nfts",
+  GET_ANALYTICS_LISTING: "stats/stat-listing-nft",
+  GET_TOP_OWNERS: "stats/stat-top-owner",
 };

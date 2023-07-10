@@ -60,3 +60,17 @@ export  const convertToQueryParam = (obj: Record<string, any>): Record<string, s
 
   return queryParams;
 }
+
+export  const convertPropertyObject=(obj: any): any=> {
+  const convertedObj: any = {};
+
+  for (const key in obj.property) {
+    if (obj.property.hasOwnProperty(key)) {
+      const value = obj.property[key];
+      const nestedKey = `property[${key}]`;
+      convertedObj[nestedKey] = value.join(',');
+    }
+  }
+
+  return { property: convertedObj };
+}

@@ -30,5 +30,7 @@ export const QUERY_KEYS = {
   GET_All_COLLECTIONS_NAME:'get-all-collections-name',
   GET_USER_ACTIVITES:'get-all-user-activites',
   GET_COLLECTION_PROPERTIES:'get-collection-properties',
-  GET_TOPTEN_COLLECTIONS:'get-top-ten-collections'
+  GET_TOPTEN_COLLECTIONS:'get-top-ten-collections',
+  GET_ANALYTICS_LISTING:'stat-listing-nft',
+  GET_TOP_OWNERS:'stats/stat-top-owner'
 };
