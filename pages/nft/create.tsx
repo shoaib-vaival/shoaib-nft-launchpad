@@ -111,7 +111,7 @@ const CreateNFT = () => {
                 transactionId: receipt?.transactionHash,
               };
               updateNFT(data);
-              showToaster("NFT Minted Successfully.");
+              showToaster("NFT Minted Successfully.", "success");
 
               router.push("/profile-created");
             }
