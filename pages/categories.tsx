@@ -76,12 +76,7 @@ const Categories: NextPage = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         mt={{ base: "40px" }}
       >
-        <Box px={{ base: "0", sm: "17px" }}    bg={`url("/assets/images/cover-image1.png")`}
-      bgSize="cover"
-      bgPosition="center"
-      w="100%"
-      h="380px"
-      borderRadius={'20px'}>
+        <Box px={{ base: "0", sm: "17px" }} >
           <Container
             p={{ base: "24px", sm: "24px 40px", md: "48px" }}
             variant="colorful"
