@@ -747,19 +747,28 @@ const NftDetail = ({ param }: any) => {
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
-                          {`${activity?.fromAddress} ${currencySymbol}`}
+                          {`${activity?.fromAddress?.slice(0, 7) +
+                          "..." +
+                          activity?.fromAddress?.slice(35, 42)
+                        } ${currencySymbol}`}
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
-                          {activity?.fromAddress}
+                          {activity?.fromAddress?.slice(0, 7) +
+                          "..." +
+                          activity?.fromAddress?.slice(35, 42)
+                        }
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
-                          {activity?.fromAddress}
+                          {activity?.fromAddress?.slice(0, 7) +
+                          "..." +
+                          activity?.fromAddress?.slice(35, 42)
+                        }
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}

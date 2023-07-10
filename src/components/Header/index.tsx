@@ -86,7 +86,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box py="30px" px={{ base: "0", md: "17px", xl: "0" }}>
+        <Box py="30px">
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -173,7 +173,9 @@ export const Header = () => {
                     bg="transparent"
                     _active={{ bg: "transparent",color:'#6863f3' }}
                     _focusVisible={{ boxShadow: "transparent" }}
-                    p="0"
+                    p={{base:'0 0 8px 0',md:'0'}}
+                    h='auto'
+                    lineHeight='1.5'
                     _hover={{ bg: "transparent",color:'#6863f3' }}
                     textTransform="uppercase"
                     fontSize={{ base: "15px", xl: "16px" }}
@@ -233,8 +235,10 @@ export const Header = () => {
                     fontSize="16px"
                     ml={{ base: "0", md: "30px", lg: "0" }}
                     mr={{ base: "0", sm: "25px", md: "0" }}
+                    p={{base:'initial',lg:'12px 16px'}}
                     variant="primary"
-                    w={{ base: "full", sm: "50%", md: "75%", xl: "initial" }}
+                    h='42px'
+                    w={{ base: "full", sm: "50%", md: "75%", xl: "100px" }}
                     size="md"
                   >
                     Create
@@ -257,7 +261,7 @@ export const Header = () => {
                   mx={{ base: "0", md: "10px", lg: "16px" }}
                   fontSize="14px"
                   fontWeight= '600'
-                  w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
+                  w={{ base: "full", sm: "100%", md: "100%", xl: "initial" }}
                   size="md"
                   mt={{ base: "10px", sm: "0" }}
                   onClick={onConnectionModalOpen}

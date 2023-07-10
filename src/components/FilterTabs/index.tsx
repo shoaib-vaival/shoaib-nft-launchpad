@@ -35,7 +35,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
         <Menu>
             <TabList pl='0' overflowX={{base:'auto',md:'initial'}} mx='17px' borderBottom={{base:'0px solid rgba(53, 53, 53, 0.2)',sm:'1px solid rgba(53, 53, 53, 0.2)'}} gap={{base:'15px',md:'22px'}}>
         {tabsList && tabsList?.slice(0,5).map((category, index)=> <Tab p='17px 8px 8px'  mb='0' _selected={{mb:'0', borderBottom:'2px solid #6863F3',color:'#6863F3',p:{base:'17px 8px'}}} onClick={()=>filterUsingTabs(category?.id)} key = {index}>{category?.name}</Tab>)}
-        {tabsList && tabsList?.length >= 5?<Tab _active={{bg:'transparent'}} as={MenuButton}>More <IconButton _active={{color:'#6863F3'}} aria-label="" minW='20px' fontSize='7px' ml='6px' bg='transparent' icon={<i className="icon-ChevronDown"></i>}/></Tab>:''}
+        {tabsList && tabsList?.length >= 5?<Tab _active={{bg:'transparent',color:'#6863F3'}} as={MenuButton} p='17px 8px 8px'>More <IconButton _active={{color:'#6863F3'}} _hover={{color:'#6863F3'}} aria-label="" minW='20px' fontSize='7px' ml='6px' bg='transparent' icon={<i className="icon-ChevronDown"></i>}/></Tab>:''}
          </TabList>
          <MenuList >
         {tabsList && tabsList?.slice(5,tabsList.length).map((category, index)=> {return(
