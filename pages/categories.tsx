@@ -64,13 +64,16 @@ const Categories: NextPage = () => {
   };
   return (
     <>
-      <Flex justifyContent="center" pt='20px'>
+      <Flex justifyContent="center" >
+        <Box  mt={{ base: "20px" }}>
         <HorizentalButtonFilter
           options={categoriesOptions?.options}
           onChange={(value: string) => setCatFilter(value)}
           type={categoriesOptions?.type}
           defaultValue={"defaultValue"}
         />
+        </Box>
+       
       </Flex>
       <Container
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
@@ -90,7 +93,7 @@ const Categories: NextPage = () => {
             <Image
               src={bannerCollection?.logoImageUrl}
               boxSize="100px"
-              objectFit="cover"
+              objectFit="cover"    
               mt="75px"
               border="1px solid white"
               borderRadius="16px"
