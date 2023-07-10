@@ -36,6 +36,6 @@ export const TopTenTable = ({ data }: { data: any }) => {
       };
     });
   return (
-    <GenericTable data={tableData} columns={columns} variant="borderLess" />
+    <GenericTable data={tableData} columns={columns} variant="borderLess" tablename='topTen' />
   );
 };

@@ -160,8 +160,8 @@ const Home: NextPage = () => {
                 </TabList>
 
                 <TabPanels>
-                  <TabPanel p="0">
-                    <Flex>
+                  <TabPanel p="0" pb='25px' borderBottom='1px solid #35353533'>
+                    <Flex gap='33px'>
                       <Box w="50%">
                         <TopTenTable
                           data={topTenData && topTenData?.slice(0, 5)}
