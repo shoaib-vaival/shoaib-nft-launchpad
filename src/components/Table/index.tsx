@@ -18,6 +18,7 @@ import {
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../Loader";
+import { useRouter } from "next/router";
 
 interface Action {
   type: string;
@@ -48,6 +49,7 @@ interface GenericTableProps {
   hasNextPage?: boolean;
   isLoading?: boolean | undefined;
   variant?: string;
+  tableName?:string;
 }
 
 export const GenericTable = ({
@@ -57,7 +59,16 @@ export const GenericTable = ({
   hasNextPage,
   isLoading,
   variant,
+  tableName,
 }: GenericTableProps) => {
+  const router = useRouter()
+
+  const handleClick = (id:string) => {
+    if(tableName=='topTen'){
+    router.push(`/collection/${id}`)
+    }
+  }
+
   return (
     <InfiniteScroll
       dataLength={data ? data?.length : 0}
@@ -114,7 +125,7 @@ export const GenericTable = ({
             )}
             {data &&
               data?.map((item: any) => (
-                <Tr key={item?.id}>
+                <Tr key={item?.id}  cursor="pointer" onClick={()=>handleClick(item?.id)}>
                   {columns?.map((column) => (
                     <Td
                       key={`${item?.id}-${column?.key}`}
