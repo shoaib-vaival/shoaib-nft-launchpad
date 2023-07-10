@@ -4,7 +4,6 @@ import * as Yup from "yup";
 export const collectionSchema = Yup.object().shape({
   name: Yup.string()
     .required("Collection name is required")
-    .nullable()
     .max(50, "Collection name must not exceed 50 characters"),
   description: Yup.string()
     .nullable()

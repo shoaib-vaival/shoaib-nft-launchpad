@@ -74,10 +74,11 @@ const Categories: NextPage = () => {
         <Flex pt="20px" gap="4">
           <ActivitySideFilter
             onChange={(filter: any) => {
-              setFilters({
-                ...filters,
-                ...convertToQueryParam(filter),
-              });
+              // setFilters({
+              //   ...filters,
+              //   ...convertToQueryParam(filter),
+              // });
+              console.log(filter);
             }}
             type=""
           />

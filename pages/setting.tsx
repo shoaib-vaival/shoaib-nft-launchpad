@@ -127,7 +127,7 @@ const Setting: NextPage = () => {
           <Tabs>
             <TabList ml="12px" pl="0">
               <Tab>Account</Tab>
-              {/* <Tab>Notifications</Tab> */}
+              <Tab>Notifications</Tab>
             </TabList>
 
             <TabPanels>
@@ -504,33 +504,63 @@ const Setting: NextPage = () => {
                   </Box>
                 </Container>
               </TabPanel>
-              {/* <TabPanel p={0}>
-                <Container maxW={{ sm: '2xl', md: '3xl', lg: '4xl', xl: '5xl' }} px={{ base: '0', md: '30px' }}>
-                  <Flex flexDirection='row' mt='15px' >
-                    <Box mb='10px'>
+              <TabPanel p={0}>
+                <Container
+                  maxW={{ sm: "2xl", md: "3xl", lg: "4xl", xl: "5xl" }}
+                  px={{ base: "0", md: "30px" }}
+                >
+                  <Flex flexDirection="row" mt="15px">
+                    <Box mb="10px">
                       <Heading
-                        as='h3'
+                        as="h3"
                         fontSize={{
-                          base: '20px',
-                          sm: '24px',
+                          base: "20px",
+                          sm: "24px",
                         }}
-                        mb={{ base: '10px', lg: '16px' }}>
+                        mb={{ base: "10px", lg: "16px" }}
+                      >
                         Notification Settings
                       </Heading>
-                      <Text fontSize={{ base: '14px', md: '16px' }} color='#393F59'>
-                        Select the kinds of notifications you’d like receive to your email and in-app notifications center.
+                      <Text
+                        fontSize={{ base: "14px", md: "16px" }}
+                        color="#393F59"
+                      >
+                        Select the kinds of notifications you’d like receive to
+                        your email and in-app notifications center.
                       </Text>
                     </Box>
                   </Flex>
-                  <Formik initialValues={initialSettings} onSubmit={(values) => {
-                    save(values)
-                  }}>
+                  <Formik
+                    initialValues={initialSettings}
+                    onSubmit={(values) => {
+                      save(values);
+                    }}
+                  >
                     <Form>
-                      <FormControl py={{ base: '0px', md: '16px' }}>
-                        <Flex alignItems='center' justifyContent='space-between' p='24px' borderRadius='6px' border='1px solid #6F6BF366' bg='#fff'>
+                      <FormControl py={{ base: "0px", md: "16px" }}>
+                        <Flex
+                          alignItems="center"
+                          justifyContent="space-between"
+                          p="24px"
+                          borderRadius="6px"
+                          border="1px solid #6F6BF366"
+                          bg="#fff"
+                        >
                           <Box>
-                            <FormLabel fontSize='20px' mb='12px' htmlFor='isRequired'>iBanera Newsletter</FormLabel>
-                            <Text fontSize={{ base: '14px', md: '16px' }} mr='18px' color='#393F59'>Occasional updates from the iBanera</Text>
+                            <FormLabel
+                              fontSize="20px"
+                              mb="12px"
+                              htmlFor="isRequired"
+                            >
+                              iBanera Newsletter
+                            </FormLabel>
+                            <Text
+                              fontSize={{ base: "14px", md: "16px" }}
+                              mr="18px"
+                              color="#393F59"
+                            >
+                              Occasional updates from the iBanera
+                            </Text>
                           </Box>
                           <Field name="switchField">
                             {({ field }: { field: any }) => (
@@ -541,16 +571,21 @@ const Setting: NextPage = () => {
                               />
                             )}
                           </Field>
-                          <ErrorMessage name="status" component="div" />
+                          {/* <ErrorMessage name="status" component="div" /> */}
                         </Flex>
                       </FormControl>
-                      <Button mt='30px' textTransform='uppercase' type='submit' variant='primary'>
+                      <Button
+                        mt="30px"
+                        textTransform="uppercase"
+                        type="submit"
+                        variant="primary"
+                      >
                         Save Setting
                       </Button>
                     </Form>
                   </Formik>
                 </Container>
-              </TabPanel> */}
+              </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
