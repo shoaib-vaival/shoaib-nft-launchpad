@@ -18,7 +18,7 @@ export const HorizentalButtonFilter = ({
   return (
     <>
        <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-        mt={{ base: "20px" }}>
+       >
       <HStack {...group} flexWrap="wrap" justifyContent='center'>
         {options &&
           options?.map((option: any, index: number) => {
