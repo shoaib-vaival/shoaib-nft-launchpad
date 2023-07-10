@@ -97,12 +97,15 @@ const CollectionStat: NextPage = () => {
                 }}
                 // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
               />
+              <Box justifyContent={'end'}>
               <HorizentalButtonFilter
                 options={timeFilterOptions?.options}
                 onChange={(value: string) => setDayFilters(value)}
                 type={timeFilterOptions?.type}
                 defaultValue={timeFilterOptions?.defaultValue}
               />
+              </Box>
+          
             </Flex>
             <TabPanel>
               <CollectionStatTable
