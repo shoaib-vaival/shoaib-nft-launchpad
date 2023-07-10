@@ -26,7 +26,7 @@ const CopyWalletAddress: React.FC<Props> = ({ value }) => {
                <InputField
                 size="md"
                 type="copy"
-                placeholder={`${value?.slice(0,5)}...${value?.slice(37,42)}`}
+                placeholder={value && `${value?.slice(0,5)}...${value?.slice(37,42)}`}
                 formControlProps={{
                   marginTop: "0px",
                   marginBottom: "0px",
