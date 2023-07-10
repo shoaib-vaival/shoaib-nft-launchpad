@@ -365,12 +365,11 @@ const Collection: NextPage = () => {
                 </Flex>
               </TabPanel>
               <TabPanel>
-                <Box>
-                  <Flex>
+                <Box pt='16px'>
+                  <Flex flexWrap='wrap'gap='24px' mb='24px'>
                     <Stat
-                      flexBasis={"33%"}
+                      flexBasis={{ base: "100%",md:'48%', xl: "32%" }}
                       flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}
                     >
                       <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="12px">Volume</StatLabel>
@@ -381,9 +380,8 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.volume} MATIC</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"33%"}
+                      flexBasis={{ base: "100%",md:'48%', xl: "32%" }}
                       flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}
                     >
                       <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="8px">Sales</StatLabel>
@@ -394,11 +392,9 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.sale}</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"33%"}
-                      flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}
-                    >
-                      <Flex justifyContent="space-between" alignItems="center">
+                      flexBasis={{ base: "100%",md:'48%', xl: "32%" }}
+                      flex={"0% 1 0%)"}>
+                      <Flex justifyContent="space-between" alignItems='center'>
                         <StatLabel mb="8px">Floor Price</StatLabel>
                         <StatHelpText color="#00F59B">
                           {/* <i className="icon-up"></i>+8% */}
@@ -408,11 +404,11 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.floor_price}</StatNumber>
                     </Stat>
                   </Flex>
-                  <Flex gap="24px">
+                  <Flex gap="24px" flexDirection={{ base: "column", xl: "row" }}>
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -448,7 +444,7 @@ const Collection: NextPage = () => {
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -474,11 +470,12 @@ const Collection: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <Flex gap="24px" pt="24px">
+                  <Flex gap="24px" pt="24px" flexDirection={{ base: "column", xl: "row" }}>
+
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -512,7 +509,7 @@ const Collection: NextPage = () => {
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -538,11 +535,11 @@ const Collection: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <Flex gap="24px" pt="24px">
+                  <Flex gap="24px" pt="24px" flexDirection={{ base: "column", xl: "row" }}>
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -695,7 +692,7 @@ const Collection: NextPage = () => {
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
