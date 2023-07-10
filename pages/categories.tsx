@@ -90,7 +90,7 @@ const Categories: NextPage = () => {
             <Image
               src={bannerCollection?.logoImageUrl}
               boxSize="100px"
-              objectFit="cover"
+              objectFit="cover"    
               mt="75px"
               border="1px solid white"
               borderRadius="16px"
