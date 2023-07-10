@@ -185,11 +185,16 @@ const NftDetail = ({ param }: any) => {
           };
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
+          console.log("🚀 ~ file: [nftID].tsx:188 ~ buy ~ receipt:", receipt);
           if (receipt.status == 1) {
             setLoader(false);
             showToaster("NFT bought successfully", "success");
             abiDecoder.addABI(marketContractAbi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+            console.log(
+              "🚀 ~ file: [nftID].tsx:193 ~ buy ~ decodedLogs:",
+              decodedLogs
+            );
             const data = {
               tokenId: Number(decodedLogs[0]?.events[0]?.value),
               signature: decodedLogs[0]?.events[1]?.value,
@@ -486,6 +491,7 @@ const NftDetail = ({ param }: any) => {
               ) : null}
 
               {data &&
+              account &&
               data.owner?.toLowerCase() === account?.toLowerCase() &&
               (data?.listings[0]?.listingStatus == "sold" ||
                 data?.listings[0]?.listingStatus == "canceled" ||
