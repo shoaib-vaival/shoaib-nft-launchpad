@@ -20,9 +20,11 @@ type sidebarFilterProps = {
     border?: boolean;
     hasFilters?: boolean;
     label?: string;
+    filterType?: string;
     filters?: filtersProps[];
   }[];
   onFilterChange: (selectedFilters: any) => void;
+  children?: any;
 };
 type filtersProps = {
   name: string;
@@ -33,6 +35,7 @@ type filtersProps = {
 export const SidebarFilter = ({
   filterGroups,
   onFilterChange,
+  children,
 }: sidebarFilterProps) => {
   const [selectedFilters, setSelectedFilters] = useState<any>({});
 
@@ -40,6 +43,7 @@ export const SidebarFilter = ({
     groupName: string,
     filterName: string,
     isChecked: boolean,
+    type: string,
     isSingle: boolean
   ) => {
     setSelectedFilters((prevFilters: any) => {
@@ -50,21 +54,52 @@ export const SidebarFilter = ({
             [groupName]: [filterName],
           };
         } else {
-          return {
-            ...prevFilters,
-            [groupName]: [...(prevFilters[groupName] || []), filterName],
-          };
+          if (type === "properties") {
+            return {
+              ...prevFilters,
+              [type]: {
+                ...prevFilters[type],
+                [groupName]: [
+                  ...((prevFilters[type] && prevFilters[type][groupName]) ||
+                    []),
+                  filterName,
+                ],
+              },
+            };
+          } else {
+            return {
+              ...prevFilters,
+              [groupName]: [...(prevFilters[groupName] || []), filterName],
+            };
+          }
+          return;
         }
       } else {
-        const updatedGroupFilters = (prevFilters[groupName] || []).filter(
-          (filter: any) => filter !== filterName
-        );
-        return {
-          ...prevFilters,
-          [groupName]: updatedGroupFilters.length
-            ? updatedGroupFilters
-            : undefined,
-        };
+        let updatedGroupFilters = [];
+        if (type === "properties") {
+          prevFilters[type][groupName] = prevFilters[type][groupName].filter(
+            (value: any) => value !== filterName
+          );
+        } else {
+          updatedGroupFilters = (prevFilters[groupName] || []).filter(
+            (filter: any) => filter !== filterName
+          );
+        }
+        const propFilterKeys = prevFilters[type]
+          ? Object.keys(prevFilters[type])
+          : [];
+        console.log(updatedGroupFilters, "updatedFilter", propFilterKeys);
+
+        if (!propFilterKeys.includes(groupName)) {
+          return {
+            ...prevFilters,
+            [groupName]: updatedGroupFilters.length
+              ? updatedGroupFilters
+              : undefined,
+          };
+        } else {
+          return { ...prevFilters };
+        }
       }
     });
   };
@@ -73,7 +108,11 @@ export const SidebarFilter = ({
     onFilterChange(selectedFilters);
   }, [selectedFilters]);
 
-  const renderFilterElement = (groupName: any, filter: any) => {
+  const renderFilterElement = (
+    groupName: any,
+    filter: any,
+    filterType: any
+  ) => {
     switch (filter.type) {
       case "checkbox":
         return (
@@ -84,6 +123,7 @@ export const SidebarFilter = ({
                 groupName,
                 filter.name,
                 event.target.checked,
+                filterType,
                 false
               )
             }
@@ -103,6 +143,7 @@ export const SidebarFilter = ({
                 (selectedFilters[groupName] || []).includes(filter.name)
                   ? false
                   : true,
+                "",
                 true
               )
             }
@@ -179,7 +220,11 @@ export const SidebarFilter = ({
                       <Stack spacing={2}>
                         {group?.filters &&
                           group?.filters?.map((filter) =>
-                            renderFilterElement(group.name, filter)
+                            renderFilterElement(
+                              group.name,
+                              filter,
+                              group.filterType
+                            )
                           )}
                       </Stack>
                     </AccordionPanel>
@@ -188,6 +233,7 @@ export const SidebarFilter = ({
               </>
             ))}
         </Accordion>
+        {children && children}
       </Box>
     </>
   );
