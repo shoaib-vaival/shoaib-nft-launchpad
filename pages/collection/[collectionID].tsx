@@ -44,6 +44,10 @@ import CustomLineChart from "../../src/components/charts/LineChart";
 import DotChart from "../../src/components/charts/DotChart";
 
 const Collection: NextPage = () => {
+  const [isFilterVisible, setIsFilterVisible] = useState(true);
+  const toggleFilterVisibility = () => {
+    setIsFilterVisible(!isFilterVisible);
+  };
   const router = useRouter();
   const [collectionID, setCollectionID] = useState<string | undefined>("");
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
@@ -135,22 +139,25 @@ const Collection: NextPage = () => {
             <TabPanels>
               <TabPanel p={0}>
                 <Flex pt="20px" gap='24px'>
-                  <CollectionSideFilter
-                    onChange={(filter: any) => {
-                      setFilters({
-                        ...filters,
-                        ...convertToQueryParam(filter),
-                      });
-                    }}
-                    collectionId={router?.query?.collectionID}
-                  />
+                  
+                {isFilterVisible && (
+        <CollectionSideFilter 
+          onChange={(filter: any) => {
+            setFilters({
+              ...filters,
+              ...convertToQueryParam(filter),
+            });
+          }}
+          collectionId={router?.query?.collectionID}
+        />
+      )}
                   <Box w="100%">
                     <Flex
                       justifyContent={"end"}
                       alignItems="center"
                       flexWrap="wrap"
                     >
-                      <Box order="1">
+                      <Box order="1" onClick={toggleFilterVisibility} >
                         <IconButton
                           variant="outline"
                           colorScheme="primary"

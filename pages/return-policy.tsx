@@ -15,11 +15,11 @@ const Return = () => {
               lg: "42px",
               xl: "56px",
             }}
-            mb={{ base: "10px", lg: "24px" }}
+            mb={{ base: "10px", lg: "48px" }}
           >
             Return Policy
           </Heading>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
             erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
@@ -35,7 +35,7 @@ const Return = () => {
             Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
             dolor sit amet.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
             molestie consequat, vel illum dolore eu feugiat nulla facilisis at
             vero eros et accumsan et iusto odio dignissim qui blandit praesent
@@ -44,7 +44,7 @@ const Return = () => {
             nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
             volutpat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
             suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis
             autem vel eum iriure dolor in hendrerit in vulputate velit esse
@@ -52,7 +52,7 @@ const Return = () => {
             vero eros et accumsan et iusto odio dignissim qui blandit praesent
             luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Nam liber tempor cum soluta nobis eleifend option congue nihil
             imperdiet doming id quod mazim placerat facer possim assum. Lorem
             ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
@@ -61,11 +61,11 @@ const Return = () => {
             ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
             consequat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
             molestie consequat, vel illum dolore eu feugiat nulla facilisis.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
             kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
             amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
@@ -81,7 +81,7 @@ const Return = () => {
             diam nonumy eirmod tempor invidunt ut labore et dolore magna
             aliquyam erat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
             ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
             eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
@@ -96,7 +96,7 @@ const Return = () => {
             accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
             no sea takimata sanctus.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
             erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
@@ -112,7 +112,7 @@ const Return = () => {
             Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
             dolor sit amet.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
             molestie consequat, vel illum dolore eu feugiat nulla facilisis at
             vero eros et accumsan et iusto odio dignissim qui blandit praesent
@@ -121,7 +121,7 @@ const Return = () => {
             nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
             volutpat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
             suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis
             autem vel eum iriure dolor in hendrerit in vulputate velit esse
@@ -129,7 +129,7 @@ const Return = () => {
             vero eros et accumsan et iusto odio dignissim qui blandit praesent
             luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Nam liber tempor cum soluta nobis eleifend option congue nihil
             imperdiet doming id quod mazim placerat facer possim assum. Lorem
             ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
@@ -138,11 +138,11 @@ const Return = () => {
             ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
             consequat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
             molestie consequat, vel illum dolore eu feugiat nulla facilisis. 
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
             kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
             amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
@@ -158,7 +158,7 @@ const Return = () => {
             diam nonumy eirmod tempor invidunt ut labore et dolore magna
             aliquyam erat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
             ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
             eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
@@ -173,7 +173,7 @@ const Return = () => {
             accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
             no sea takimata sanctus.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
             erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
@@ -189,7 +189,7 @@ const Return = () => {
             Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
             dolor sit amet.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
             molestie consequat, vel illum dolore eu feugiat nulla facilisis at
             vero eros et accumsan et iusto odio dignissim qui blandit praesent
@@ -199,7 +199,7 @@ const Return = () => {
             volutpat.
           </Text>
 
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
             suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis
             autem vel eum iriure dolor in hendrerit in vulputate velit esse
@@ -207,7 +207,7 @@ const Return = () => {
             vero eros et accumsan et iusto odio dignissim qui blandit praesent
             luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Nam liber tempor cum soluta nobis eleifend option congue nihil
             imperdiet doming id quod mazim placerat facer possim assum. Lorem
             ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
@@ -216,12 +216,12 @@ const Return = () => {
             ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
             consequat.
           </Text>
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
             molestie consequat, vel illum dolore eu feugiat nulla facilisis. 
           </Text>
 
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
             kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
             amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
@@ -238,7 +238,7 @@ const Return = () => {
             aliquyam erat. 
           </Text>
 
-           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }}>
+           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mt={4} >
             Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
             ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
             eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
