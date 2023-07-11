@@ -32,7 +32,11 @@ import { GridView } from "../../src/views/GridView";
 import { collectionType, filters, nftType } from "../../src/types";
 import { useDebounce } from "./../../src/hooks/useDebounce";
 import { SidebarFilter } from "../../src/components/SidebarFilter";
-import { convertToQueryParam, dayJs } from "../../src/utils";
+import {
+  convertToQueryParam,
+  dayJs,
+  convertPropertyObject,
+} from "../../src/utils";
 import { ActivitySideFilter } from "../../src/components/SidebarFilter/ActivitySideFilter";
 import { CollectionSideFilter } from "../../src/components/SidebarFilter/CollectionSideFilter";
 import { ActivityTable } from "../../src/components/Table/ActivityTable";
@@ -42,6 +46,8 @@ import { Stat, StatHelpText, StatLabel, StatNumber } from "@chakra-ui/stat";
 import BarChart from "../../src/components/charts/BarChart";
 import CustomLineChart from "../../src/components/charts/LineChart";
 import DotChart from "../../src/components/charts/DotChart";
+import { ListingTable } from "../../src/components/Table/ListingTable";
+import { TopOwnerTable } from "../../src/components/Table/TopOwnerTable";
 
 const Collection: NextPage = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(true);
@@ -51,6 +57,9 @@ const Collection: NextPage = () => {
   const router = useRouter();
   const [collectionID, setCollectionID] = useState<string | undefined>("");
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
+  const [propertyQuery, setPropertyQuery] = useState<{ property: any }>({
+    property: {},
+  });
   const [search, setSearch] = useState<string>();
   const [view, setView] = useState<string>("grid");
   const debounceValue = useDebounce(search, 1000);
@@ -62,6 +71,7 @@ const Collection: NextPage = () => {
     url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
     enabled: router.query.collectionID ? true : false,
   });
+
   const {
     data: collectionNfts,
     error,
@@ -73,13 +83,14 @@ const Collection: NextPage = () => {
     queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
     url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
     params: {
-      collectionId: `${
-        typeof Window !== "undefined" &&
+      collectionId: `${typeof Window !== "undefined" &&
         window.location?.pathname?.split("/")[2]
-      }`,
+        }`,
       ...filters,
+      ...propertyQuery?.property,
     },
     token: true,
+    enabled: propertyQuery?.property ? true : false,
   });
 
   const {
@@ -94,7 +105,16 @@ const Collection: NextPage = () => {
       ...filters,
     },
   });
-
+  const { data: analyticsListing } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_ANALYTICS_LISTING],
+    url: ApiUrl?.GET_ANALYTICS_LISTING,
+    showToast: false,
+  });
+  const { data: userListing } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_TOP_OWNERS],
+    url: ApiUrl?.GET_TOP_OWNERS,
+    showToast: false,
+  });
   const searchHandler = (e: any) => {
     setSearch(e.target.value);
   };
@@ -138,26 +158,28 @@ const Collection: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Flex pt="20px" gap='24px'>
-                  
-                {isFilterVisible && (
-        <CollectionSideFilter 
-          onChange={(filter: any) => {
-            setFilters({
-              ...filters,
-              ...convertToQueryParam(filter),
-            });
-          }}
-          collectionId={router?.query?.collectionID}
-        />
-      )}
+                <Flex pt="24px" gap="24px">
+                  <CollectionSideFilter
+                    onChange={(filter: any) => {
+                      setPropertyQuery(
+                        convertPropertyObject({
+                          property: filter?.properties,
+                        })
+                      );
+                      setFilters({
+                        ...filters,
+                        status: filter?.status && filter?.status,
+                      });
+                    }}
+                    collectionId={router?.query?.collectionID}
+                  />
                   <Box w="100%">
                     <Flex
                       justifyContent={"end"}
                       alignItems="center"
                       flexWrap="wrap"
                     >
-                      <Box order="1" onClick={toggleFilterVisibility} >
+                      <Box order="1" onClick={toggleFilterVisibility}>
                         <IconButton
                           variant="outline"
                           colorScheme="primary"
@@ -271,7 +293,7 @@ const Collection: NextPage = () => {
                 </Flex>
               </TabPanel>
               <TabPanel pt="0">
-                <Flex pt="20px" gap="24px">
+                <Flex pt="24px" gap="24px">
                   <ActivitySideFilter
                     onChange={(filter: any) => {
                       setFilters({
@@ -341,54 +363,51 @@ const Collection: NextPage = () => {
                   </Box>
                 </Flex>
               </TabPanel>
-              <TabPanel>
-                <Box>
-                  <Flex>
+              <TabPanel px={{base:'0', md:'initial'}}>
+                <Box pt='24px'>
+                  <Flex flexWrap='wrap' gap='24px' mb='24px'>
                     <Stat
-                      flexBasis={"33%"}
+                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
                       flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between" alignItems='center'>
+                      <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="12px">Volume</StatLabel>
-                        <StatHelpText color="#F00" display='flex'>
-                          <i className="icon-down"></i><Text ml='8px'>-45%</Text>
+                        <StatHelpText color="#F00">
+                          {/* <i className="icon-down"></i>-45% */}
                         </StatHelpText>
                       </Flex>
-                      <StatNumber>0 MATIC</StatNumber>
+                      <StatNumber>{collectionDetail?.volume} MATIC</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"33%"}
+                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
                       flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}
                     >
-                      <Flex justifyContent="space-between" alignItems='center'>
+                      <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="8px">Sales</StatLabel>
-                        <StatHelpText color="#F00" display='flex'>
-                          <i className="icon-down"></i><Text ml='8px'>-42%</Text>
+                        <StatHelpText color="#F00">
+                          {/* <i className="icon-down"></i>-42% */}
                         </StatHelpText>
                       </Flex>
-                      <StatNumber>1,679</StatNumber>
+                      <StatNumber>{collectionDetail?.sale}</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={"33%"}
-                      flex={"0% 1 0%)"}
-                      margin={"12px 12px 12px 0"}>
+                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
+                      flex={"0% 1 0%)"}>
                       <Flex justifyContent="space-between" alignItems='center'>
                         <StatLabel mb="8px">Floor Price</StatLabel>
-                        <StatHelpText color="#00F59B" display='flex'>
-                          <i className="icon-up"></i><Text ml='8px'>+8%</Text>
+                        <StatHelpText color="#00F59B">
+                          {/* <i className="icon-up"></i>+8% */}
                         </StatHelpText>
                       </Flex>
 
-                      <StatNumber>5.55</StatNumber>
+                      <StatNumber>{collectionDetail?.floor_price}</StatNumber>
                     </Stat>
                   </Flex>
-                  <Flex gap="24px">
+                  <Flex gap="24px" flexDirection={{ base: "column", xl: "row" }}>
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -424,7 +443,7 @@ const Collection: NextPage = () => {
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -450,247 +469,46 @@ const Collection: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <Flex gap="24px" pt="24px">
+                  <Flex gap="24px" pt="24px" flexDirection={{ base: "column", xl: "row" }}>
+
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
                       backdropFilter="blur(30px)"
                     >
                       <Box>
-                        <TableContainer>
-                          <Flex
-                            justifyContent={"space-between"}
-                            w="100%"
-                            alignItems="center"
-                            flexWrap="wrap"
-                          >
-                            <Text fontSize="20px" fontWeight="700">
-                              Listings
-                            </Text>
-                            <Box width="98px" order={{ base: "2", sm: "3" }}>
-                              <ReactSelect
-                                options={[
-                                  { key: "Sorty By", value: "Sort By" },
-                                ]}
-                                isMultiple={false}
-                                identifier="filter"
-                                getSelectedData={(value: string) =>
-                                  console.log(value)
-                                }
-                                placeholder="Price"
-                              />
-                            </Box>
-                          </Flex>
-                          <Table variant="simple">
-                            <Tbody>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                      <Text
-                                        color="rgba(57, 63, 89, 1)"
-                                        fontSize="14px"
-                                      >
-                                        Angeli Sunstorm
-                                      </Text>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td px={0}>
-                                  <VStack spacing="0.5" alignItems="flex-end">
-                                    <Text color="#393F59" fontSize="16px">
-                                      5.29 MATIC
-                                    </Text>
-                                    <Text color="#393F59" fontSize="14px">
-                                      +0.6 Floor
-                                    </Text>
-                                  </VStack>
-                                </Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                      <Text
-                                        color="rgba(57, 63, 89, 1)"
-                                        fontSize="14px"
-                                      >
-                                        Angeli Sunstorm
-                                      </Text>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td px={0}>
-                                  <VStack spacing="0.5" alignItems="flex-end">
-                                    <Text color="#393F59" fontSize="16px">
-                                      5.29 MATIC
-                                    </Text>
-                                    <Text color="#393F59" fontSize="14px">
-                                      +0.6 Floor
-                                    </Text>
-                                  </VStack>
-                                </Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                      <Text
-                                        color="rgba(57, 63, 89, 1)"
-                                        fontSize="14px"
-                                      >
-                                        Angeli Sunstorm
-                                      </Text>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td px={0}>
-                                  <VStack spacing="0.5" alignItems="flex-end">
-                                    <Text color="#393F59" fontSize="16px">
-                                      5.29 MATIC
-                                    </Text>
-                                    <Text color="#393F59" fontSize="14px">
-                                      +0.6 Floor
-                                    </Text>
-                                  </VStack>
-                                </Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                      <Text
-                                        color="rgba(57, 63, 89, 1)"
-                                        fontSize="14px"
-                                      >
-                                        Angeli Sunstorm
-                                      </Text>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td px={0}>
-                                  <VStack spacing="0.5" alignItems="flex-end">
-                                    <Text color="#393F59" fontSize="16px">
-                                      5.29 MATIC
-                                    </Text>
-                                    <Text color="#393F59" fontSize="14px">
-                                      +0.6 Floor
-                                    </Text>
-                                  </VStack>
-                                </Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                      <Text
-                                        color="rgba(57, 63, 89, 1)"
-                                        fontSize="14px"
-                                      >
-                                        Angeli Sunstorm
-                                      </Text>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td px={0}>
-                                  <VStack spacing="0.5" alignItems="flex-end">
-                                    <Text color="#393F59" fontSize="16px">
-                                      5.29 MATIC
-                                    </Text>
-                                    <Text color="#393F59" fontSize="14px">
-                                      +0.6 Floor
-                                    </Text>
-                                  </VStack>
-                                </Td>
-                              </Tr>
-                            </Tbody>
-                          </Table>
-                        </TableContainer>
+                        <Flex
+                          justifyContent={"space-between"}
+                          w="100%"
+                          alignItems="center"
+                          flexWrap="wrap"
+                        >
+                          <Text fontSize="20px" fontWeight="700">
+                            Listings
+                          </Text>
+                          <Box width="150px" order={{ base: "2", sm: "3" }}>
+                            <ReactSelect
+                              options={[{ key: "Sorty By", value: "Sort By" }]}
+                              isMultiple={false}
+                              identifier="filter"
+                              getSelectedData={(value: string) =>
+                                console.log(value)
+                              }
+                              placeholder="Sort By"
+                            />
+                          </Box>
+                        </Flex>
+                        <ListingTable data={analyticsListing} />
                       </Box>
                     </Box>
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -716,11 +534,11 @@ const Collection: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <Flex gap="24px" pt="24px">
+                  <Flex gap="24px" pt="24px" flexDirection={{ base: "column", xl: "row" }}>
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
@@ -873,166 +691,23 @@ const Collection: NextPage = () => {
                     <Box
                       p="24px"
                       borderRadius="16px"
-                      w={{ base: "100%", lg: "50%" }}
+                      w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
                       bg="rgba(255, 255, 255, 0.40)"
                       boxShadow="2px 2px 8px 0px rgba(13, 13, 13, 0.10)"
                       backdropFilter="blur(30px)"
                     >
-                      <Box>
-                        <TableContainer>
-                          <Flex alignItems='center'>
-                        <Text fontSize="24px" fontWeight="700">
-                        Owners
+                      <Flex
+                        justifyContent={"space-between"}
+                        w="100%"
+                        alignItems="center"
+                        flexWrap="wrap"
+                      >
+                        <Text fontSize="20px" fontWeight="700">
+                          Listings
                         </Text>
-                        <Text fontSize="14px" ml="12px" color="#15171A">
-                        Top 100
-                        </Text>
-                        </Flex>
-                          <Table variant="simple">
-                            <Thead>
-                              <Tr>
-                                <Th>NAME</Th>
-                                <Th>Wallet</Th>
-                                <Th>OWNED</Th>
-                                <Th>% OWNED</Th>
-                              </Tr>
-                            </Thead>
-                            <Tbody>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td>0xad09…d6cc</Td>
-                                <Td>109</Td>
-                                <Td>1.08%</Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td>0xad09…d6cc</Td>
-                                <Td>109</Td>
-                                <Td>1.08%</Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td>0xad09…d6cc</Td>
-                                <Td>109</Td>
-                                <Td>1.08%</Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td>0xad09…d6cc</Td>
-                                <Td>109</Td>
-                                <Td>1.08%</Td>
-                              </Tr>
-                              <Tr>
-                                <Td px={0}>
-                                  <Flex gap="2" alignItems="center" mr="48px">
-                                    <Image
-                                      src="/assets/images/cover-image1.png"
-                                      boxSize="100px"
-                                      objectFit="cover"
-                                      border="1px solid white"
-                                      borderRadius="16px"
-                                      w={{ base: "50px" }}
-                                      h={{ base: "50px" }}
-                                    />
-                                    <VStack
-                                      spacing="0.5"
-                                      alignItems="flex-start"
-                                    >
-                                      <Heading fontSize="18px">
-                                        Panthera Leo
-                                      </Heading>
-                                    </VStack>
-                                  </Flex>
-                                </Td>
-                                <Td>0xad09…d6cc</Td>
-                                <Td>109</Td>
-                                <Td>1.08%</Td>
-                              </Tr>
-                            </Tbody>
-                          </Table>
-                        </TableContainer>
-                      </Box>
+                      </Flex>
+                      <TopOwnerTable data={userListing} />
                     </Box>
                   </Flex>
                 </Box>

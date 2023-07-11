@@ -33,7 +33,7 @@ const ProfileDetail = ({
           alignItems={{ base: "baseline", md: "center" }}
           flexDirection={{ base: "column", sm: "row" }}
         >
-          <Flex alignItems="center">
+          <Flex alignItems="center"  mr='50px'>
             <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
               {data?.displayName || data?.name}
             </Heading>
@@ -197,23 +197,27 @@ const ProfileDetail = ({
               >
                 <Stat>
                   <StatLabel>Total Volume</StatLabel>
-                  <StatNumber fontSize='18px'>0 MATIC</StatNumber>
+                  <StatNumber fontSize="18px">{data?.volume} MATIC</StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Floor Price</StatLabel>
-                  <StatNumber fontSize='18px'>0 MATIC</StatNumber>
+                  <StatNumber fontSize="18px">
+                    {data?.floor_price} MATIC
+                  </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Items Listed</StatLabel>
-                  <StatNumber fontSize='18px'>0%</StatNumber>
+                  <StatNumber fontSize="18px">
+                    {data?.itemListedCount}%
+                  </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Owners</StatLabel>
-                  <StatNumber fontSize='18px'>0</StatNumber>
+                  <StatNumber fontSize="18px">{data?.owner}0</StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Unique Owners</StatLabel>
-                  <StatNumber fontSize='18px'>0%</StatNumber>
+                  <StatNumber fontSize="18px">{data?.uniqueOwner}%</StatNumber>
                 </Stat>
               </Grid>
             </Box>

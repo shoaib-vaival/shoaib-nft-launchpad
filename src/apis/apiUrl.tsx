@@ -26,7 +26,7 @@ export const ApiUrl = {
   GET_COLLECTION_BY_USER_ID: "collection/getCollectionsByWalletAddress",
   SAVE_SIGNATURE: "user/connect-wallet",
   GET_SIGNATURE: "user/get-user-walletAddress",
-  CREATE_NOTIFICATION: "user/send-notification",
+  CREATE_NOTIFICATION: "user/update-notification",
   LIST_FOR_SALE: "nft-listing/list-nft",
   CANCEL_LISTING: "nft-listing/cancel-listing",
   GET_USER_NFTS: "minting/get-user-nfts",
@@ -44,4 +44,7 @@ export const ApiUrl = {
   UPDATE_PENDING_TRANSACTIONS: "transactions/pending-transactions",
   GET_COLLECTION_PROPERTIES: "collection/get-collection-properties",
   GET_TOPTEN_COLLECTIONS: "minting/get-trending-collection-nfts",
+  GET_ANALYTICS_LISTING: "stats/stat-listing-nft",
+  GET_TOP_OWNERS: "stats/stat-top-owner",
+  GET_NOTIF_SETTINGS: "user/get-notification"
 };
