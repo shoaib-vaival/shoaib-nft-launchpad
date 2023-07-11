@@ -502,7 +502,7 @@ const CreateCollection = () => {
                             gap={{ base: "0", sm: "6" }}
                             alignItems={{
                               base: "flex-start",
-                              sm: "center",
+                              sm: "baseline",
                             }}
                             flexDirection={{
                               base: "column",
