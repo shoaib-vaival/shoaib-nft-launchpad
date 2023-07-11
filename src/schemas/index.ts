@@ -10,31 +10,31 @@ export const collectionSchema = Yup.object().shape({
     .max(1000, "Collection detail must not exceed 1000 characters"),
   category: Yup.string().required("Category is required"),
   logoImageUrl: Yup.string().required("Logo image is required"),
-  // creatorFee: Yup.array().of(
-  //   Yup.object().shape({
-  //     walletAddress: Yup.string()
-  //       .nullable()
-  //       .test(
-  //         "checksum-validation",
-  //         "Invalid wallet address",
-  //         function (value) {
-  //           if (value === null || value === "") {
-  //             return true; // Allow null or empty string
-  //           }
-  //           try {
-  //             const isValidChecksum = ethers.utils.isAddress(`${value}`);
-  //             return isValidChecksum;
-  //           } catch (error) {
-  //             return false;
-  //           }
-  //         }
-  //       ),
-  //     percentage: Yup.number().max(
-  //       10,
-  //       "Total percentage should be less than 10"
-  //     ),
-  //   })
-  // ),
+  creatorFee: Yup.array().of(
+    Yup.object().shape({
+      walletAddress: Yup.string()
+        .nullable()
+        .test(
+          "checksum-validation",
+          "Invalid wallet address",
+          function (value) {
+            if (value === null || value === "") {
+              return true; // Allow null or empty string
+            }
+            try {
+              const isValidChecksum = ethers.utils.isAddress(`${value}`);
+              return isValidChecksum;
+            } catch (error) {
+              return false;
+            }
+          }
+        ),
+      percentage: Yup.number().max(
+        10,
+        "Total Percentage should be less than 10"
+      ),
+    })
+  ),
 
   website_url: Yup.string().url("Website URL must be a valid URL"),
   etherscan: Yup.string().url("EtherScan URL must be a valid URL"),

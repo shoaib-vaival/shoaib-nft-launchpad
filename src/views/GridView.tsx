@@ -56,7 +56,9 @@ export const GridView = ({
               justifyContent="center"
               alignItems="center"
             >
-                        <Heading p='75px 0' fontSize='20px' color='#0d0d0d'>Record Not Found</Heading>
+              <Heading p="75px 0" fontSize="20px" color="#0d0d0d">
+                Record Not Found
+              </Heading>
             </Flex>
           ) : (
             data &&

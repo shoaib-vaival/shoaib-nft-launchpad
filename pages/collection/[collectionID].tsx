@@ -51,6 +51,7 @@ import { TopOwnerTable } from "../../src/components/Table/TopOwnerTable";
 
 const Collection: NextPage = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(true);
+  const [listingFilter, setListingFilter] = useState<string>("");
   const toggleFilterVisibility = () => {
     setIsFilterVisible(!isFilterVisible);
   };
@@ -63,6 +64,7 @@ const Collection: NextPage = () => {
   const [search, setSearch] = useState<string>();
   const [view, setView] = useState<string>("grid");
   const debounceValue = useDebounce(search, 1000);
+  const [isFilterChanged, setIsFilterChanged] = useState<boolean>(false);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
@@ -80,7 +82,10 @@ const Collection: NextPage = () => {
     hasNextPage,
     isLoading: isLoadingCollectionNfts,
   } = useInfiniteQuery<nftType[]>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
+    queryKey: [
+      QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID,
+      isFilterChanged || debounceValue,
+    ],
     url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
     params: {
       collectionId: `${typeof Window !== "undefined" &&
@@ -90,9 +95,8 @@ const Collection: NextPage = () => {
       ...propertyQuery?.property,
     },
     token: true,
-    enabled: propertyQuery?.property ? true : false,
   });
-
+  console.log(filters, propertyQuery);
   const {
     data: activities,
     fetchNextPage: fetchNextPageActivities,
@@ -105,15 +109,40 @@ const Collection: NextPage = () => {
       ...filters,
     },
   });
-  const { data: analyticsListing } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_ANALYTICS_LISTING],
-    url: ApiUrl?.GET_ANALYTICS_LISTING,
-    showToast: false,
-  });
+  const { data: analyticsListing, isLoading: isListingFilterLoading } =
+    useQuery<any>({
+      queryKey: [QUERY_KEYS.GET_ANALYTICS_LISTING, listingFilter],
+      url: ApiUrl?.GET_ANALYTICS_LISTING,
+      showToast: false,
+      params: {
+        collectionId: `${
+          typeof Window !== "undefined" &&
+          window.location?.pathname?.split("/")[2]
+        }`,
+        sort: listingFilter,
+      },
+    });
   const { data: userListing } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_TOP_OWNERS],
     url: ApiUrl?.GET_TOP_OWNERS,
     showToast: false,
+    params: {
+      collectionId: `${
+        typeof Window !== "undefined" &&
+        window.location?.pathname?.split("/")[2]
+      }`,
+    },
+  });
+  const { data: ownerDistribution } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_TOP_OWNER_DISTRIBUTION],
+    url: ApiUrl?.GET_TOP_OWNER_DISTRIBUTION,
+    showToast: false,
+    params: {
+      collectionId: `${
+        typeof Window !== "undefined" &&
+        window.location?.pathname?.split("/")[2]
+      }`,
+    },
   });
   const searchHandler = (e: any) => {
     setSearch(e.target.value);
@@ -161,6 +190,7 @@ const Collection: NextPage = () => {
                 <Flex pt="24px" gap="24px">
                   <CollectionSideFilter
                     onChange={(filter: any) => {
+                      console.log(filter, "filters............");
                       setPropertyQuery(
                         convertPropertyObject({
                           property: filter?.properties,
@@ -170,6 +200,7 @@ const Collection: NextPage = () => {
                         ...filters,
                         status: filter?.status && filter?.status,
                       });
+                      setIsFilterChanged(!isFilterChanged);
                     }}
                     collectionId={router?.query?.collectionID}
                   />
@@ -344,7 +375,10 @@ const Collection: NextPage = () => {
                         order={{ base: "2", sm: "3" }}
                       >
                         <ReactSelect
-                          options={[{ key: "Sorty By", value: "Sort By" }]}
+                          options={[
+                            { label: "Ascending ", value: "ASC" },
+                            { label: "Descending ", value: "DESC" },
+                          ]}
                           isMultiple={false}
                           identifier="filter"
                           getSelectedData={(value: string) =>
@@ -492,17 +526,27 @@ const Collection: NextPage = () => {
                           </Text>
                           <Box width="150px" order={{ base: "2", sm: "3" }}>
                             <ReactSelect
-                              options={[{ key: "Sorty By", value: "Sort By" }]}
+                              options={[
+                                { label: "Ascending", value: "ASC" },
+                                { label: "Descending", value: "DESC" },
+                              ]}
                               isMultiple={false}
                               identifier="filter"
-                              getSelectedData={(value: string) =>
-                                console.log(value)
-                              }
+                              getSelectedData={(selectedOption: any) => {
+                                setListingFilter(selectedOption?.value);
+                              }}
+                              defaultValue={{
+                                label: "Ascending",
+                                value: "ASC",
+                              }}
                               placeholder="Sort By"
                             />
                           </Box>
                         </Flex>
-                        <ListingTable data={analyticsListing} />
+                        <ListingTable
+                          data={analyticsListing}
+                          isLoading={isListingFilterLoading}
+                        />
                       </Box>
                     </Box>
                     <Box
@@ -549,144 +593,43 @@ const Collection: NextPage = () => {
                           Owner Distribution
                         </Text>
                         <Text fontSize="14px" ml="12px" color="#15171A">
-                          Floor
+                          {ownerDistribution && ownerDistribution?.totalNft}
                         </Text>
                       </Flex>
-                      <FormControl mb="33px">
-                        <Flex
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
-                          <FormLabel
-                            mb="8px!important"
-                            htmlFor="progress"
-                            fontWeight="400!important"
-                          >
-                            79%
-                          </FormLabel>
-                          <FormLabel
-                            mb="8px!important"
-                            fontWeight="400!important"
-                          >
-                            1 Item
-                          </FormLabel>
-                        </Flex>
-                        <Progress
-                          value={79}
-                          id="progress"
-                          borderRadius="4px"
-                          colorScheme="purple"
-                          h="16px"
-                        />
-                      </FormControl>
-                      <FormControl mb="33px">
-                        <Flex
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
-                          <FormLabel
-                            mb="8px!important"
-                            htmlFor="progress"
-                            fontWeight="400!important"
-                          >
-                            30%
-                          </FormLabel>
-                          <FormLabel
-                            mb="8px!important"
-                            fontWeight="400!important"
-                          >
-                            1 Item
-                          </FormLabel>
-                        </Flex>
-                        <Progress
-                          value={30}
-                          id="progress"
-                          borderRadius="4px"
-                          colorScheme="purple"
-                          h="16px"
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <Flex
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
-                          <FormLabel
-                            mb="8px!important"
-                            htmlFor="progress"
-                            fontWeight="400!important"
-                          >
-                            20%
-                          </FormLabel>
-                          <FormLabel
-                            mb="8px!important"
-                            fontWeight="400!important"
-                          >
-                            1 Item
-                          </FormLabel>
-                        </Flex>
-                        <Progress
-                          value={20}
-                          id="progress"
-                          borderRadius="4px"
-                          colorScheme="purple"
-                          h="16px"
-                        />
-                      </FormControl>
-                      <FormControl mb="33px">
-                        <Flex
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
-                          <FormLabel
-                            mb="8px!important"
-                            htmlFor="progress"
-                            fontWeight="400!important"
-                          >
-                            5%
-                          </FormLabel>
-                          <FormLabel
-                            mb="8px!important"
-                            fontWeight="400!important"
-                          >
-                            1 Item
-                          </FormLabel>
-                        </Flex>
-                        <Progress
-                          value={5}
-                          id="progress"
-                          borderRadius="4px"
-                          colorScheme="purple"
-                          h="16px"
-                        />
-                      </FormControl>
-                      <FormControl mb="33px">
-                        <Flex
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
-                          <FormLabel
-                            mb="8px!important"
-                            htmlFor="progress"
-                            fontWeight="400!important"
-                          >
-                            0.5%
-                          </FormLabel>
-                          <FormLabel
-                            mb="8px!important"
-                            fontWeight="400!important"
-                          >
-                            1 Item
-                          </FormLabel>
-                        </Flex>
-                        <Progress
-                          value={0.5}
-                          id="progress"
-                          borderRadius="4px"
-                          colorScheme="purple"
-                          h="16px"
-                        />
-                      </FormControl>
+                      {ownerDistribution &&
+                        ownerDistribution?.ownerDistribution?.map(
+                          (ownersDist: any, index: number) => {
+                            return (
+                              <FormControl mb="33px" key={index}>
+                                <Flex
+                                  alignItems="center"
+                                  justifyContent="space-between"
+                                >
+                                  <FormLabel
+                                    mb="8px!important"
+                                    htmlFor="progress"
+                                    fontWeight="400!important"
+                                  >
+                                    {`${ownersDist?.percentage}%`}
+                                  </FormLabel>
+                                  <FormLabel
+                                    mb="8px!important"
+                                    fontWeight="400!important"
+                                  >
+                                    {`${ownersDist?.items} Item`}
+                                  </FormLabel>
+                                </Flex>
+                                <Progress
+                                  value={ownersDist?.percentage}
+                                  id="progress"
+                                  borderRadius="4px"
+                                  colorScheme="purple"
+                                  h="16px"
+                                />
+                              </FormControl>
+                            );
+                          }
+                        )}
                     </Box>
                     <Box
                       p="24px"
@@ -704,7 +647,7 @@ const Collection: NextPage = () => {
                         flexWrap="wrap"
                       >
                         <Text fontSize="20px" fontWeight="700">
-                          Listings
+                          Owners
                         </Text>
                       </Flex>
                       <TopOwnerTable data={userListing} />
