@@ -571,10 +571,16 @@ const CreateCollection = () => {
                                   }
                                 }}
                               />
-                              <ErrorMessage
-                                name={`creatorFee.${[index]}.percentage`}
-                                component="div"
-                              />
+                              <Text
+                                marginTop={"0px!important"}
+                                fontWeight={"500"}
+                                color={"red.700"}
+                              >
+                                <ErrorMessage
+                                  name={`creatorFee.${[index]}.percentage`}
+                                  component="div"
+                                />
+                              </Text>
                             </Box>
 
                             <IconButton
