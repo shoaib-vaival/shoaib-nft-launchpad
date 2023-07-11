@@ -83,10 +83,9 @@ const Collection: NextPage = () => {
     queryKey: [QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID, filters || debounceValue],
     url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
     params: {
-      collectionId: `${
-        typeof Window !== "undefined" &&
+      collectionId: `${typeof Window !== "undefined" &&
         window.location?.pathname?.split("/")[2]
-      }`,
+        }`,
       ...filters,
       ...propertyQuery?.property,
     },
@@ -159,7 +158,7 @@ const Collection: NextPage = () => {
 
             <TabPanels>
               <TabPanel p={0}>
-                <Flex pt="20px" gap="24px">
+                <Flex pt="24px" gap="24px">
                   <CollectionSideFilter
                     onChange={(filter: any) => {
                       setPropertyQuery(
@@ -294,7 +293,7 @@ const Collection: NextPage = () => {
                 </Flex>
               </TabPanel>
               <TabPanel pt="0">
-                <Flex pt="20px" gap="24px">
+                <Flex pt="24px" gap="24px">
                   <ActivitySideFilter
                     onChange={(filter: any) => {
                       setFilters({
@@ -364,11 +363,11 @@ const Collection: NextPage = () => {
                   </Box>
                 </Flex>
               </TabPanel>
-              <TabPanel>
-                <Box pt='16px'>
-                  <Flex flexWrap='wrap'gap='24px' mb='24px'>
+              <TabPanel px={{base:'0', md:'initial'}}>
+                <Box pt='24px'>
+                  <Flex flexWrap='wrap' gap='24px' mb='24px'>
                     <Stat
-                      flexBasis={{ base: "100%",md:'48%', xl: "32%" }}
+                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
                       flex={"0% 1 0%)"}
                     >
                       <Flex justifyContent="space-between" alignItems="center">
@@ -380,7 +379,7 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.volume} MATIC</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={{ base: "100%",md:'48%', xl: "32%" }}
+                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
                       flex={"0% 1 0%)"}
                     >
                       <Flex justifyContent="space-between" alignItems="center">
@@ -392,7 +391,7 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.sale}</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={{ base: "100%",md:'48%', xl: "32%" }}
+                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
                       flex={"0% 1 0%)"}>
                       <Flex justifyContent="space-between" alignItems='center'>
                         <StatLabel mb="8px">Floor Price</StatLabel>

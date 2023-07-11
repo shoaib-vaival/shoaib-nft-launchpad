@@ -13,7 +13,7 @@ export const ListingTable = ({ data }: { data: any }) => {
     data?.map((nft: any, index: number) => {
       return {
         nft: (
-          <Flex alignItems="center" gap="24px" flex="85%">
+          <Flex alignItems="center" gap="24px" flex="85%" mr='70px'>
             <Image
               src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
               boxSize="100px"

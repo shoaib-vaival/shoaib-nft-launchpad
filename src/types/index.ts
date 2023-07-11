@@ -116,3 +116,10 @@ export type filters = {
   event?: string;
   properties?: string;
 };
+
+export type NotifSetting = {
+    id?: string;
+    title?: string;
+    description?: string;
+    status: boolean;
+  };
