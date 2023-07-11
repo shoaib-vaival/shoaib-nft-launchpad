@@ -524,6 +524,7 @@ const CreateCollection = () => {
                                   size="md"
                                   label="Wallet Address"
                                   type="text"
+                                  formControlProps={{ isRequired: true }}
                                   maxLength={50}
                                   placeholder="e.g: 0x1dff … 3845"
                                   name={`creatorFee.${[index]}.walletAddress`}
@@ -556,9 +557,19 @@ const CreateCollection = () => {
                                 size="md"
                                 label="Percentage"
                                 type="number"
+                                formControlProps={{ isRequired: true }}
                                 placeholder="0"
-                                maxLength={50}
+                                maxLength={2}
                                 name={`creatorFee.${[index]}.percentage`}
+                                onKeyPress={(event: any) => {
+                                  if (
+                                    event.key === "-" ||
+                                    event.key === "+" ||
+                                    event.key === "_"
+                                  ) {
+                                    event.preventDefault();
+                                  }
+                                }}
                               />
                               <ErrorMessage
                                 name={`creatorFee.${[index]}.percentage`}
