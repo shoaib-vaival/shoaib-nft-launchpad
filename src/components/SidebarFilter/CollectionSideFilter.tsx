@@ -21,76 +21,77 @@ export const CollectionSideFilter = ({ onChange, collectionId }: any) => {
         {
           name: "status",
           type: "radio",
-          options: ["all", "buyNow"],
+          options: ["", "buyNow"],
           label: ["All", "Buy Now"],
         },
       ],
     },
-    {
-      label: "Background",
-      name: "background",
-      hasFilters: true,
-      border: false,
-      showQuantity: true,
-      filterType: "properties",
-      filters: [
-        {
-          label: "Purple",
-          name: "purple",
-          type: "checkbox",
-        },
-        {
-          label: "Black",
-          name: "black",
-          type: "checkbox",
-        },
-      ],
-    },
-    {
-      label: "Clothes",
-      name: "clothes",
-      hasFilters: true,
-      border: false,
-      showQuantity: true,
-      filterType: "properties",
-      filters: [
-        {
-          label: "Purple",
-          name: "purple",
-          type: "checkbox",
-        },
-        {
-          label: "Black",
-          name: "black",
-          type: "checkbox",
-        },
-      ],
-    },
+    // {
+    //   label: "Background",
+    //   name: "background",
+    //   hasFilters: true,
+    //   border: false,
+    //   showQuantity: true,
+    //   filterType: "properties",
+    //   filters: [
+    //     {
+    //       label: "Purple",
+    //       name: "purple",
+    //       type: "checkbox",
+    //     },
+    //     {
+    //       label: "Black",
+    //       name: "black",
+    //       type: "checkbox",
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Clothes",
+    //   name: "clothes",
+    //   hasFilters: true,
+    //   border: false,
+    //   showQuantity: true,
+    //   filterType: "properties",
+    //   filters: [
+    //     {
+    //       label: "Purple",
+    //       name: "purple",
+    //       type: "checkbox",
+    //     },
+    //     {
+    //       label: "Black",
+    //       name: "black",
+    //       type: "checkbox",
+    //     },
+    //   ],
+    // },
   ];
-  // const propertyList =
-  //   properties &&
-  //   properties?.map((property: any, index: number) => {
-  //     const propertyValues = property.propertyValues.map(
-  //       (propertyValue: any, index: number) => {
-  //         return {
-  //           label: propertyValue?.value?.substring(0, 16) + "...",
-  //           name: propertyValue?.value,
-  //           type: "checkbox",
-  //         };
-  //       }
-  //     );
-  //     return {
-  //       label: property?.name,
-  //       name: property?.name?.toLowerCase(),
-  //       hasFilters: true,
-  //       border: false,
-  //       showQuantity: true,
-  //       filters: propertyValues,
-  //     };
-  //   });
+  const propertyList =
+    properties &&
+    properties?.map((property: any, index: number) => {
+      const propertyValues = property.propertyValues.map(
+        (propertyValue: any, index: number) => {
+          return {
+            label: propertyValue?.value?.substring(0, 16) + "...",
+            name: propertyValue?.value,
+            type: "checkbox",
+          };
+        }
+      );
+      return {
+        label: property?.name,
+        name: property?.name?.toLowerCase(),
+        hasFilters: true,
+        border: false,
+        showQuantity: true,
+        filterType: "properties",
+        filters: propertyValues,
+      };
+    });
   return (
     <SidebarFilter
-      filterGroups={filters}
+      filterGroups={propertyList ? filters.concat(propertyList) : filters}
       onFilterChange={(filters: any) => onChange(filters)}
     />
   );

@@ -46,5 +46,6 @@ export const ApiUrl = {
   GET_TOPTEN_COLLECTIONS: "minting/get-trending-collection-nfts",
   GET_ANALYTICS_LISTING: "stats/stat-listing-nft",
   GET_TOP_OWNERS: "stats/stat-top-owner",
+  GET_TOP_OWNER_DISTRIBUTION: "stats/owner-distribution",
   GET_NOTIF_SETTINGS: "user/get-notification"
 };

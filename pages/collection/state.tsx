@@ -49,6 +49,7 @@ const CollectionStat: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const tabFilters = ["top", "trending", "watchlist"];
   const [dayFilters, setDayFilters] = useState<string>("");
+  const [catFilter, setCatFilter] = useState<string>("");
   const { data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl?.GET_CATEGORIES,
@@ -87,46 +88,88 @@ const CollectionStat: NextPage = () => {
           </TabList>
 
           <TabPanels>
-            <Flex justifyContent="space-between" marginTop="16px">
-              <ReactSelect
-                options={filtredCat}
-                isMultiple={false}
-                identifier="cat"
-                placeholder="All categories"
-                getSelectedData={(value: any) => {
-                  console.log(value);
-                }}
-                // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
-              />
-              <Box justifyContent={'end'}>
-              <HorizentalButtonFilter
-                options={timeFilterOptions?.options}
-                onChange={(value: string) => setDayFilters(value)}
-                type={timeFilterOptions?.type}
-                defaultValue={timeFilterOptions?.defaultValue}
-              />
-              </Box>
-          
-            </Flex>
             <TabPanel>
+              <Flex justifyContent="space-between" marginTop="16px">
+                <ReactSelect
+                  options={filtredCat}
+                  isMultiple={false}
+                  identifier="cat"
+                  placeholder="All categories"
+                  getSelectedData={(value: any) => {
+                    setCatFilter(value);
+                  }}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                />
+                <Box justifyContent={"end"}>
+                  <HorizentalButtonFilter
+                    options={timeFilterOptions?.options}
+                    onChange={(value: string) => setDayFilters(value)}
+                    type={timeFilterOptions?.type}
+                    defaultValue={timeFilterOptions?.defaultValue}
+                  />
+                </Box>
+              </Flex>
               <CollectionStatTable
                 type="add"
                 tabFilter={tabFilters[tabIndex]}
                 dayFilter={dayFilters}
+                catFilter={catFilter}
               />
             </TabPanel>
             <TabPanel>
+              <Flex justifyContent="space-between" marginTop="16px">
+                <ReactSelect
+                  options={filtredCat}
+                  isMultiple={false}
+                  identifier="cat"
+                  placeholder="All categories"
+                  getSelectedData={(value: any) => {
+                    setCatFilter(value);
+                  }}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                />
+                <Box justifyContent={"end"}>
+                  <HorizentalButtonFilter
+                    options={timeFilterOptions?.options}
+                    onChange={(value: string) => setDayFilters(value)}
+                    type={timeFilterOptions?.type}
+                    defaultValue={timeFilterOptions?.defaultValue}
+                  />
+                </Box>
+              </Flex>
               <CollectionStatTable
                 type="add"
                 tabFilter={tabFilters[tabIndex]}
                 dayFilter={dayFilters}
+                catFilter={catFilter}
               />
             </TabPanel>
             <TabPanel>
+              <Flex justifyContent="space-between" marginTop="16px">
+                <ReactSelect
+                  options={filtredCat}
+                  isMultiple={false}
+                  identifier="cat"
+                  placeholder="All categories"
+                  getSelectedData={(value: any) => {
+                    setCatFilter(value);
+                  }}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                />
+                <Box justifyContent={"end"}>
+                  <HorizentalButtonFilter
+                    options={timeFilterOptions?.options}
+                    onChange={(value: string) => setDayFilters(value)}
+                    type={timeFilterOptions?.type}
+                    defaultValue={timeFilterOptions?.defaultValue}
+                  />
+                </Box>
+              </Flex>
               <CollectionStatTable
                 type="remove"
                 tabFilter={tabFilters[tabIndex]}
                 dayFilter={dayFilters}
+                catFilter={catFilter}
               />
             </TabPanel>
           </TabPanels>
