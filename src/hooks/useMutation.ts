@@ -89,7 +89,7 @@ export const useMutation = <T, K = T>({
     },
     {
       onSuccess: (newData) => {
-        if (newData?.data) {
+        if (newData?.data || newData?.status==200) {
           showSuccessToast &&
           showToaster(successMessage ? successMessage : newData?.data?.message, 'success')
 
