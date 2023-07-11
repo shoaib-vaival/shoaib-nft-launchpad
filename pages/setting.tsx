@@ -24,10 +24,12 @@ import { useMutation } from "../src/hooks/useMutation";
 import { useQuery } from "../src/hooks/useQuery";
 import { EditUploadFile } from "../src/components/common/EditUploadFile";
 import { UploadFileOnServer } from "../src/components/common/UploadFile/types";
-import { profileType } from "../src/types";
+import { profileType, NotifSetting } from "../src/types";
 import { settingSchema } from "../src/schemas";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
+import { Description } from "@ethersproject/properties";
+import { useQueryClient } from '@tanstack/react-query';
 
 type imagesType = {
   imageUrl: string;
@@ -38,25 +40,35 @@ const Setting: NextPage = () => {
   const [coverImage, setCoverImage] = useState<imagesType>();
   const [profileImage, setProfileImage] = useState<imagesType>();
   const { account } = useWeb3React<Web3Provider>();
+  const queryClient = useQueryClient();
 
   const { data: profile } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_PROFILE],
     url: ApiUrl.GET_PROFILE_BY_ID,
     token: true,
   });
-
+  
+  const { data: getNotifSetting } = useQuery<any>({
+    queryKey: [QUERY_KEYS.GET_NOTIF_SETTINGS],
+    url: ApiUrl.GET_NOTIF_SETTINGS,
+    token: true,
+  });
   const { mutate } = useMutation<profileType>({
     method: PATCH,
     url: ApiUrl.UPDATE_PROFILE,
     showSuccessToast: true,
     token: true,
   });
+
   const { mutate: save } = useMutation<any>({
-    method: POST,
-    url: ApiUrl.CREATE_NOTIFICATION,
+    method: PATCH,
+    url: `${ApiUrl.CREATE_NOTIFICATION}`,
     showSuccessToast: true,
     token: true,
+    successMessage: 'Status changed successfuly'
+
   });
+
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
     useMutation<UploadFileOnServer>({
       method: POST,
@@ -91,10 +103,6 @@ const Setting: NextPage = () => {
     twitter: profile?.twitter,
     instagram: profile?.instagram,
     discord: profile?.discord,
-  };
-
-  const initialSettings = {
-    status: false, // Initialize the switch field value
   };
 
   return (
@@ -317,7 +325,7 @@ const Setting: NextPage = () => {
                                   }}
                                   errorText={
                                     touched["websiteUrl"] &&
-                                    errors["websiteUrl"]
+                                      errors["websiteUrl"]
                                       ? errors["websiteUrl"]
                                       : undefined
                                   }
@@ -352,7 +360,7 @@ const Setting: NextPage = () => {
                                   }}
                                   errorText={
                                     touched["etherScanUrl"] &&
-                                    errors["etherScanUrl"]
+                                      errors["etherScanUrl"]
                                       ? errors["etherScanUrl"]
                                       : undefined
                                   }
@@ -534,57 +542,56 @@ const Setting: NextPage = () => {
                     </Box>
                   </Flex>
                   <Formik
-                    initialValues={initialSettings}
+                    initialValues={{test: ""}}
                     onSubmit={(values) => {
-                      save(values);
+                      console.log(values);
                     }}
                   >
+
                     <Form>
-                      <FormControl py={{ base: "0px", md: "16px" }}>
-                        <Flex
-                          alignItems="center"
-                          justifyContent="space-between"
-                          p="24px"
-                          borderRadius="6px"
-                          border="1px solid #6F6BF366"
-                          bg="#fff"
-                        >
-                          <Box>
-                            <FormLabel
-                              fontSize="20px"
-                              mb="12px"
-                              htmlFor="isRequired"
-                            >
-                              iBanera Newsletter
-                            </FormLabel>
-                            <Text
-                              fontSize={{ base: "14px", md: "16px" }}
-                              mr="18px"
-                              color="#393F59"
-                            >
-                              Occasional updates from the iBanera
-                            </Text>
-                          </Box>
-                          <Field name="switchField">
-                            {({ field }: { field: any }) => (
-                              <Switch
-                                id="status"
-                                isChecked={field.value}
-                                onChange={field.onChange}
-                              />
-                            )}
-                          </Field>
-                          {/* <ErrorMessage name="status" component="div" /> */}
-                        </Flex>
-                      </FormControl>
-                      <Button
-                        mt="30px"
-                        textTransform="uppercase"
-                        type="submit"
-                        variant="primary"
-                      >
-                        Save Setting
-                      </Button>
+                      <Box borderRadius="6px"
+                        border="1px solid #6F6BF366">
+                          
+                          {getNotifSetting && getNotifSetting?.map((items:any)=>(<><FormControl m='0'>
+                          <Flex
+                            alignItems="center"
+                            justifyContent="space-between"
+                            p="24px"
+                            borderBottom="1px solid #35353533"
+                            bg="#fff"
+                          >
+                            <Box>
+                              <FormLabel
+                                fontSize="20px"
+                                mb="12px"
+                                htmlFor="isRequired"
+                              >
+                                {items?.title}
+                              </FormLabel>
+                              <Text
+                                fontSize={{ base: "14px", md: "16px" }}
+                                mr="18px"
+                                color="#393F59"
+                              >
+                                {items?.description}
+                              </Text>
+                            </Box>
+                            <Field name="switchField">
+                              {({ field }: { field: any }) => (
+                                <Switch
+                                  id="status"
+
+                                  isChecked={items?.status}
+                                  onChange={()=>{
+                                    save({id: items?.id, status: items?.status == true ? false : true})
+                                    setTimeout(()=>{queryClient.invalidateQueries([QUERY_KEYS.GET_NOTIF_SETTINGS]);},1000)
+                                  }}
+                                />
+                              )}
+                            </Field>
+                          </Flex>
+                        </FormControl></>))}
+                      </Box>
                     </Form>
                   </Formik>
                 </Container>
