@@ -53,9 +53,6 @@ const Setting: NextPage = () => {
     url: ApiUrl.GET_NOTIF_SETTINGS,
     token: true,
   });
-
-console.log(getNotifSetting)
-
   const { mutate } = useMutation<profileType>({
     method: PATCH,
     url: ApiUrl.UPDATE_PROFILE,
