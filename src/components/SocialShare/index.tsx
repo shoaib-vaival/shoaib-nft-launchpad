@@ -19,19 +19,19 @@ const SocialShare = ({ url, title }: { url: string; title: string; }) => {
           icon={<i className='icon-share'></i>}>
         </MenuButton>
         <MenuList w='191px' minW='191px' p='8px'>
-        <Flex align='center' p='8px' color='#756C99'>
+        <Flex align='center' p='8px' color='#756C99' _hover={{color:'#6863F3'}}>
             <Box mr='16px' fontSize='20px'><i className='icon-facebook'></i></Box>
             <FacebookShareButton url={url} quote={title}>
               Facebook
             </FacebookShareButton>
           </Flex>
-          <Flex align='center' p='8px' color='#756C99'>
+          <Flex align='center' p='8px' color='#756C99' _hover={{color:'#6863F3'}}>
             <Box mr='10px' fontSize='16px'><i className='icon-twitter'></i></Box>
             <TwitterShareButton url={url} title={title}>
               Twitter
             </TwitterShareButton>
           </Flex>
-          <Flex align='center' p='8px' color='#756C99'>
+          <Flex align='center' p='8px' color='#756C99' _hover={{color:'#6863F3'}}>
             <Box mr='12px' fontSize='20px'><i className='icon-whatsapp'></i></Box>
             <WhatsappShareButton url={url} title={title}>
               Whatsapp

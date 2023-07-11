@@ -545,18 +545,7 @@ const NftDetail = ({ param }: any) => {
               </Heading>
 
               <Text>{data?.description}</Text>
-              <Button
-                marginTop="10px"
-                marginBottom="20px"
-                bg="transparent"
-                paddingLeft="0px"
-                _hover={{ bg: "transparent" ,color:'#6863F3' }}
-                fontWeight="600"
-                fontSize="14px"
-                color="#393F59"
-              >
-                READ MORE
-              </Button>
+            
             </Box>
           </Box>
         </Stack>

@@ -15,7 +15,7 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
     data?.map((owner: any, index: number) => {
       return {
         item: (
-          <Flex alignItems="center" gap="24px" flex="85%">
+          <Flex alignItems="center" gap="24px" flex="85%"  mr='70px'>
             <Image
               src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.ipfsImageUrl}`}
               boxSize="100px"
