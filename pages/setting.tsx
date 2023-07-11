@@ -48,7 +48,7 @@ const Setting: NextPage = () => {
     token: true,
   });
   
-  const { data: getNotifSetting } = useQuery<NotifSetting>({
+  const { data: getNotifSetting } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_NOTIF_SETTINGS],
     url: ApiUrl.GET_NOTIF_SETTINGS,
     token: true,
