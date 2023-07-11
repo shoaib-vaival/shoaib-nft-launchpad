@@ -29,7 +29,10 @@ export const collectionSchema = Yup.object().shape({
             }
           }
         ),
-      percentage: Yup.number().max(10, "Percentage should be less than 10"),
+      percentage: Yup.number().max(
+        10,
+        "Total Percentage should be less than 10"
+      ),
     })
   ),
 
