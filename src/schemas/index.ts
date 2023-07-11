@@ -17,7 +17,7 @@ export const collectionSchema = Yup.object().shape({
         .test(
           "checksum-validation",
           "Invalid wallet address",
-          function (value) {
+           (value) => {
             if (value === null || value === "") {
               return true; // Allow null or empty string
             }
