@@ -3,7 +3,13 @@ import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { currencySymbol } from "../../constants";
 
-export const ListingTable = ({ data }: { data: any }) => {
+export const ListingTable = ({
+  data,
+  isLoading,
+}: {
+  data: any;
+  isLoading?: boolean;
+}) => {
   const columns = [
     { key: "nft", title: "" },
     { key: "price", title: "", isNumeric: true },
@@ -29,16 +35,13 @@ export const ListingTable = ({ data }: { data: any }) => {
                   ? nft?.name?.substring(0, 16) + "..."
                   : nft?.name}
               </Heading>
-              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
-                Angeli Sunstorm
-              </Text>
             </VStack>
           </Flex>
         ),
         price: (
           <VStack spacing="0.5" alignItems="flex-end">
             <Text color="#393F59" fontSize="16px">
-              {nft?.price + `${currencySymbol}`}
+              {`${nft?.price} ${currencySymbol}`}
             </Text>
             <Text color="#393F59" fontSize="14px">
               {nft?.floor_price && nft?.floor_price}
@@ -48,6 +51,11 @@ export const ListingTable = ({ data }: { data: any }) => {
       };
     });
   return (
-    <GenericTable data={tableData} columns={columns} variant="borderLess" />
+    <GenericTable
+      data={tableData}
+      columns={columns}
+      isLoading={isLoading}
+      variant="borderLess"
+    />
   );
 };
