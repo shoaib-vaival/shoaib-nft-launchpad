@@ -112,6 +112,7 @@ const MyCollection: NextPage = (props) => {
                         w={{ xl: "25%", md: "50%", sm: "100%" }}
                         display="initial"
                         key={index}
+                        onClick={()=> router.push(`/collection/${nftCollection?.id}`)}
                       >
                         <CollectionCard
                           isEditAble={true}

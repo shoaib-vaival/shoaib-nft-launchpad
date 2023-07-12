@@ -11,31 +11,37 @@ export const Footer = () => {
 
           <Container maxW={{ sm: 'xl', md: '3xl', lg: '5xl', xl: '8xl' }}>
 
-            <Box pt={{ base: '40px', lg: '80px' }}  pb={{ base: '10px', md: '30px' }}>
-              <Stack flexDirection={{base:'column',lg:'row'}} justifyContent='space-between' flexWrap={{md:'wrap',lg:'nowrap'}}>
+            <Box pt={{ base: '40px', lg: '80px' }} pb={{ base: '10px', md: '30px' }}>
+              <Stack flexDirection={{ base: 'column', lg: 'row' }} justifyContent='space-between' flexWrap={{ md: 'wrap', lg: 'nowrap' }}>
                 <Box pb='8px' maxW='390px'>
                   <Image src='/assets/images/Logo.png' alt='logo' maxW='138' maxH='45px' />
 
                   <Text mt='24px' color='#756C99'>Empowering the future of web3 with transformative gaming, finance, and governance solutions</Text>
+                  <Text mt='24px' color='#756C99'>Ibanera LLC
+                    78 SW 7th St 7-118
+                    Miami, FL 33130</Text>
+                    <Box color='#6863F3'>
+                    <Link  href="mailto:support@ibanera.com">support@ibanera.com</Link>
+                    </Box>
                 </Box>
 
                 <Box pb='8px' maxW='390px'>
-                  <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >Marketplace</Heading>
-                  <Stack spacing={{base:'16px',lg:'24px'}} fontSize='16px' color='#756C99'>
-                  <Box _hover={{color:'#6863f3'}}> <Link href='#'>Categories</Link></Box>
-                  <Box _hover={{color:'#6863f3'}}> <Link href='#'>Collections</Link></Box>
+                  <Heading mb={{ base: '16px', lg: '32px' }} fontSize='16px' fontWeight='700' >Marketplace</Heading>
+                  <Stack spacing={{ base: '16px', lg: '24px' }} fontSize='16px' color='#756C99'>
+                    <Box _hover={{ color: '#6863f3' }}> <Link href='#'>Categories</Link></Box>
+                    <Box _hover={{ color: '#6863f3' }}> <Link href='#'>Collections</Link></Box>
                   </Stack>
                 </Box>
                 <Box pb='8px' maxW='390px'>
-                  <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >Stats</Heading>
-                  <Stack spacing={{base:'16px',lg:'24px'}} color='#756C99'>
-                  <Box _hover={{color:'#6863f3'}}><Link href='/collection/state'  color='#756C99'>Ranking</Link></Box>
-                  <Box _hover={{color:'#6863f3'}}><Link href='/activity'  color='#756C99'>Activity</Link></Box>
+                  <Heading mb={{ base: '16px', lg: '32px' }} fontSize='16px' fontWeight='700' >Stats</Heading>
+                  <Stack spacing={{ base: '16px', lg: '24px' }} color='#756C99'>
+                    <Box _hover={{ color: '#6863f3' }}><Link href='/collection/state' color='#756C99'>Ranking</Link></Box>
+                    <Box _hover={{ color: '#6863f3' }}><Link href='/activity' color='#756C99'>Activity</Link></Box>
                   </Stack>
                 </Box>
                 <Box pb='8px'>
-                  <Heading mb={{base:'16px',lg:'32px'}} fontSize='16px' fontWeight='700' >Follow Us</Heading>
-                  <HStack spacing={{base:'7px',sm:'15px',lg:'20px',xl:'40px'}}>
+                  <Heading mb={{ base: '16px', lg: '32px' }} fontSize='16px' fontWeight='700' >Follow Us</Heading>
+                  <HStack spacing={{ base: '7px', sm: '15px', lg: '20px', xl: '40px' }}>
                     <Box textAlign='center'>
                       <IconButton color=' #6863F3'
                         variant='transparent'
@@ -103,7 +109,7 @@ export const Footer = () => {
             </Box>
             <Divider orientation='horizontal' />
             <Box pb={{ base: '50px', md: '90px' }} pt={{ base: '10px', md: '30px' }}>
-              <Flex flexDirection={{base:'column',md:'row'}} justifyContent='space-between'>
+              <Flex flexDirection={{ base: 'column', md: 'row' }} justifyContent='space-between'>
                 <Text color='#756C99'>
                   © 2023 Monex Inc. All Rights Reserved. Powered by {' '}
                   <Link color='purple.500' href=''>

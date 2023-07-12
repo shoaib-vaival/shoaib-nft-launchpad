@@ -54,7 +54,10 @@ const NftPropertiesModal = ({
             initialValues={initialValues}
             validationSchema={propertiesSchema}
             enableReinitialize
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+              setProperties(values?.properties);
+              setNftName(nftName);
+              onClose();}}
           >
             {({ values }) => (
               <Form>
@@ -84,7 +87,7 @@ const NftPropertiesModal = ({
                                       placeholder="Enter property type"
                                       name={`properties.${[index]}.type`}
                                     />
-                                    <ErrorMessage className=""
+                                    <ErrorMessage className="ErrorMessage"
                                       name={`properties.${[index]}.type`}
                                       component="div"
                                     />
@@ -99,7 +102,7 @@ const NftPropertiesModal = ({
                                         placeholder="Enter property name"
                                         name={`properties.${[index]}.name`}
                                       />
-                                      <ErrorMessage
+                                      <ErrorMessage className='ErrorMessage'
                                         name={`properties.${[index]}.name`}
                                         component="div"
                                       />
@@ -117,7 +120,7 @@ const NftPropertiesModal = ({
                           )}
                           {values?.properties?.length < 12 && (
 
-                            <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link'
+                            <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link' mt='10px'
                               onClick={() => push({ type: '', name: '' })} >
                               <Box color='#6863F3' mr='8px'><i className="icon-plus"></i></Box>Add Property</Button>
 
@@ -129,16 +132,16 @@ const NftPropertiesModal = ({
 
                   <ModalFooter justifyContent="Center">
                     <Button
-                      // type="submit"
+                      type="submit"
                       variant="primary"
                       width="full"
                       colorScheme="blue"
                       mr={3}
-                      onClick={() => {
-                        setProperties(values?.properties);
-                        setNftName(nftName);
-                        onClose();
-                      }}
+                      // onClick={() => {
+                      //   setProperties(values?.properties);
+                      //   setNftName(nftName);
+                      //   onClose();
+                      // }}
                     >
                       Save
                     </Button>

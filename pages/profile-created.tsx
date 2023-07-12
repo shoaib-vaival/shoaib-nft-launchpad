@@ -45,6 +45,7 @@ import {
   StatNumber,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 const ProfilCreated: NextPage = () => {
   const [view, setView] = useState<string>("grid");
@@ -69,6 +70,8 @@ const ProfilCreated: NextPage = () => {
     }
   );
   const [isFilterChanged, setIsFilterChanged] = useState<boolean>(false);
+  const router = useRouter();
+
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
@@ -143,7 +146,7 @@ const ProfilCreated: NextPage = () => {
               showSocialIcons={true}
               coverPhoto={data?.profileCoverURL}
               profilePhoto={data?.profileUrl}
-              id={data?.id}
+              id={data?.id ? data?.id : ""}
             />
           )}
         </Box>
@@ -173,17 +176,24 @@ const ProfilCreated: NextPage = () => {
                       {userCollections?.map(
                         (collection: any, index: number) => {
                           return (
-                            <CollectionCard
-                              type="withBody"
-                              isEditAble={true}
+                            <Box
                               key={index}
-                              featureImage={collection?.bannerImageUrl}
-                              logoImage={collection?.logoImageUrl}
-                              isShowFeatureImage={true}
-                              isShowLogoImage={true}
-                              name={collection.name}
-                              nftCollectionId={collection?.id}
-                            />
+                              onClick={() =>
+                                router.push(`/collection/${collection?.id}`)
+                              }
+                            >
+                              <CollectionCard
+                                type="withBody"
+                                isEditAble={true}
+                                key={index}
+                                featureImage={collection?.bannerImageUrl}
+                                logoImage={collection?.logoImageUrl}
+                                isShowFeatureImage={true}
+                                isShowLogoImage={true}
+                                name={collection.name}
+                                nftCollectionId={collection?.id}
+                              />
+                            </Box>
                           );
                         }
                       )}

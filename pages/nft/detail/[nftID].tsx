@@ -135,6 +135,9 @@ const NftDetail = ({ param }: any) => {
     method: POST,
     url: ApiUrl.UPDATE_NFT_SALE_DATA,
     token: true,
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
+    },
   });
   const { mutate: updatePending } = useMutation<any>({
     method: POST,
@@ -146,6 +149,9 @@ const NftDetail = ({ param }: any) => {
     method: POST,
     url: ApiUrl?.CANCEL_LISTING,
     token: true,
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
+    },
   });
 
   const buy = async () => {
@@ -173,7 +179,7 @@ const NftDetail = ({ param }: any) => {
             "Transaction submitted successfuly. Wait for confirmation.",
             "success"
           );
-          setLoader(true);
+
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
@@ -202,12 +208,11 @@ const NftDetail = ({ param }: any) => {
               contractAddress: decodedLogs[0]?.events[4]?.value,
             };
             updateNFTSale(data);
-            queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
           }
         }
       } catch (error) {
+        setLoader(false);
         console.error("Buy Error", error);
-        showToaster(String(error), "error");
       }
     }
   };
@@ -221,7 +226,7 @@ const NftDetail = ({ param }: any) => {
             "Transaction submitted successfuly. Wait for confirmation.",
             "success"
           );
-          setLoader(true);
+
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
@@ -248,7 +253,6 @@ const NftDetail = ({ param }: any) => {
         }
       } catch (error) {
         setLoader(false);
-        showToaster(String(error), "error");
         console.error("Cancel Error", error);
       }
     }
@@ -499,10 +503,9 @@ const NftDetail = ({ param }: any) => {
                 <Button
                   onClick={onOpen}
                   variant="primary"
-                  textTransform='uppercase'
+                  textTransform="uppercase"
                   mt="16px"
                   p="20px 64px"
-                  isLoading={loader}
                 >
                   List For Sale
                 </Button>
@@ -513,11 +516,12 @@ const NftDetail = ({ param }: any) => {
                   isLoading={loader}
                   onClick={() => {
                     cancelListing();
+                    setLoader(true);
                   }}
                   variant="primary"
                   mt="16px"
                   p="20px 64px"
-                  textTransform='uppercase'
+                  textTransform="uppercase"
                 >
                   Cancel Listing
                 </Button>
@@ -527,10 +531,11 @@ const NftDetail = ({ param }: any) => {
                 <Button
                   onClick={() => {
                     buy();
+                    setLoader(true);
                   }}
                   variant="primary"
                   mt="16px"
-                  textTransform='uppercase'
+                  textTransform="uppercase"
                   p="20px 64px"
                   isLoading={loader}
                 >
@@ -545,7 +550,6 @@ const NftDetail = ({ param }: any) => {
               </Heading>
 
               <Text>{data?.description}</Text>
-            
             </Box>
           </Box>
         </Stack>
@@ -568,31 +572,56 @@ const NftDetail = ({ param }: any) => {
             >
               <Stat p="14px">
                 <StatLabel>Background</StatLabel>
-                <StatNumber fontSize="18px" fontWeight='700' display="flex" alignItems="center">
+                <StatNumber
+                  fontSize="18px"
+                  fontWeight="700"
+                  display="flex"
+                  alignItems="center"
+                >
                   Dark Orange
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Body</StatLabel>
-                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
+                <StatNumber
+                  fontSize="18px"
+                  fontWeight="700"
+                  display="flex"
+                  alignItems="center"
+                >
                   Shirt Orange
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Head</StatLabel>
-                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
+                <StatNumber
+                  fontSize="18px"
+                  fontWeight="700"
+                  display="flex"
+                  alignItems="center"
+                >
                   Glasses
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Face</StatLabel>
-                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
+                <StatNumber
+                  fontSize="18px"
+                  fontWeight="700"
+                  display="flex"
+                  alignItems="center"
+                >
                   Brown
                 </StatNumber>
               </Stat>
               <Stat p="14px">
                 <StatLabel>Hair</StatLabel>
-                <StatNumber fontSize="18px" fontWeight='700'  display="flex" alignItems="center">
+                <StatNumber
+                  fontSize="18px"
+                  fontWeight="700"
+                  display="flex"
+                  alignItems="center"
+                >
                   Puffballs
                 </StatNumber>
               </Stat>
@@ -608,7 +637,7 @@ const NftDetail = ({ param }: any) => {
             <Box fontSize="16px">
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Contract Address</Text>
-                <Text color="#6863F3" fontWeight='700' mb="auto">
+                <Text color="#6863F3" fontWeight="700" mb="auto">
                   {data?.minting_contract_address?.slice(0, 7) +
                     "..." +
                     data?.minting_contract_address?.slice(35, 42)}
@@ -616,31 +645,31 @@ const NftDetail = ({ param }: any) => {
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Token ID</Text>
-                <Text color="#6863F3" fontWeight='700' mb="auto">
+                <Text color="#6863F3" fontWeight="700" mb="auto">
                   {data?.tokenId}
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Token Standard</Text>
-                <Text color="#393F59" fontWeight='700' mb="auto">
+                <Text color="#393F59" fontWeight="700" mb="auto">
                   ERC 721
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Chain</Text>
-                <Text color="#393F59" fontWeight='700' mb="auto">
+                <Text color="#393F59" fontWeight="700" mb="auto">
                   {chainId}
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Metadata</Text>
-                <Text color="#393F59" fontWeight='700' mb="auto">
+                <Text color="#393F59" fontWeight="700" mb="auto">
                   Decentralized
                 </Text>
               </Flex>
               <Flex justifyContent="space-between" mb="8px">
                 <Text color="#756C99">Creator Earnings</Text>
-                <Text color="#393F59"  fontWeight='700'mb="auto">
+                <Text color="#393F59" fontWeight="700" mb="auto">
                   {totalCreatorFee} %
                 </Text>
               </Flex>
@@ -742,28 +771,27 @@ const NftDetail = ({ param }: any) => {
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
-                          {`${activity?.fromAddress?.slice(0, 7) +
-                          "..." +
-                          activity?.fromAddress?.slice(35, 42)
-                        } ${currencySymbol}`}
+                          {`${
+                            activity?.fromAddress?.slice(0, 7) +
+                            "..." +
+                            activity?.fromAddress?.slice(35, 42)
+                          } ${currencySymbol}`}
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
                           {activity?.fromAddress?.slice(0, 7) +
-                          "..." +
-                          activity?.fromAddress?.slice(35, 42)
-                        }
+                            "..." +
+                            activity?.fromAddress?.slice(35, 42)}
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
                           {activity?.fromAddress?.slice(0, 7) +
-                          "..." +
-                          activity?.fromAddress?.slice(35, 42)
-                        }
+                            "..." +
+                            activity?.fromAddress?.slice(35, 42)}
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
@@ -800,6 +828,7 @@ const NftDetail = ({ param }: any) => {
             {moreNftSByCollection &&
               moreNftSByCollection?.map((nft: any, index: number) => {
                 return (
+                  <Box key={index} onClick={()=>router.push(`/nft/detail/${nft?.id}`)}>
                   <CollectionCard
                     type="withBody"
                     featureImage={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
@@ -808,6 +837,7 @@ const NftDetail = ({ param }: any) => {
                     name={nft?.name}
                     key={index}
                   />
+                  </Box>
                 );
               })}
           </SlickSlider>
