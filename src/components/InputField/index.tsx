@@ -26,6 +26,7 @@ export type InputProps = ChakraUIInputProps & {
   errorText?: string;
   icon?: JSX.Element;
   ref?: string;
+  copyValue?: string;
 };
 
 const InputField = ({
@@ -44,14 +45,15 @@ const InputField = ({
   fontSize = "16px!important",
   ref,
   minLength,
+  copyValue,
   ...restProps
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>();
   const [showPassword, setShowPassword] = useState(false);
   const { onCopy, value, setValue, hasCopied } = useClipboard("");
-  // useEffect(() => {
-  //   onCopy;
-  // }, [value]);
+  useEffect(() => {
+    setValue(copyValue ? copyValue : "");
+  }, [copyValue]);
   return (
     <FormControl width={width} {...formControlProps}>
       {label && (
