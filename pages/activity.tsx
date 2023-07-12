@@ -10,6 +10,7 @@ import {
   InputGroup,
   Input,
   InputLeftElement,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -33,11 +34,26 @@ import { useEffect, useState } from "react";
 import { filters } from "../src/types";
 import { useDebounce } from "../src/hooks/useDebounce";
 import { ActivityTable } from "../src/components/Table/ActivityTable";
+import { DrawerFilter } from "../src/components/SidebarFilter/DrawerFilter";
 
 const Categories: NextPage = () => {
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
   const [search, setSearch] = useState<string>();
   const debounceValue = useDebounce(search, 1000);
+  const [isFilterChanged, setIsFilterChanged] = useState<boolean>(false);
+  const [toggleActivityFilter, setToggleActivityFilter] =
+    useState<boolean>(false);
+  const filterBreakPoint = useBreakpointValue(
+    {
+      base: true,
+      sm: true,
+      md: true,
+      lg: false,
+    },
+    {
+      fallback: "lg",
+    }
+  );
   const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery<any>(
     {
       queryKey: [QUERY_KEYS.GET_ACTIVITIES, filters || debounceValue],
@@ -57,7 +73,7 @@ const Categories: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pr={{ base: "0", md: "50px" }} pt='40px'>
+        <Box pr={{ base: "0", md: "50px" }} pt="40px">
           <Heading
             as="h1"
             fontSize={{
@@ -72,16 +88,39 @@ const Categories: NextPage = () => {
           </Heading>
         </Box>
         <Flex pt="20px" gap="24px">
-          <ActivitySideFilter
-            onChange={(filter: any) => {
-              // setFilters({
-              //   ...filters,
-              //   ...convertToQueryParam(filter),
-              // });
-              console.log(filter);
+          <DrawerFilter
+            isOpen={
+              filterBreakPoint
+                ? toggleActivityFilter && filterBreakPoint
+                : false
+            }
+            onClose={() => {
+              setToggleActivityFilter(false);
             }}
-            type=""
-          />
+          >
+            <ActivitySideFilter
+              onChange={(filter: any) => {
+                setFilters({
+                  ...filters,
+                  event: filters?.event,
+                });
+              }}
+            />
+          </DrawerFilter>
+          {toggleActivityFilter ? (
+            <ActivitySideFilter
+              onChange={(filter: any) => {
+                setFilters({
+                  ...filters,
+                  event: filter?.event,
+                  collections: filter?.collections,
+                });
+                setIsFilterChanged(!isFilterChanged);
+              }}
+            />
+          ) : (
+            ""
+          )}
           <Box w="100%">
             <Flex
               justifyContent={"end"}
@@ -95,6 +134,7 @@ const Categories: NextPage = () => {
                   colorScheme="primary"
                   aria-label="Send email"
                   icon={<i className="icon-funnel"></i>}
+                  onClick={() => setToggleActivityFilter(!toggleActivityFilter)}
                 />
               </Box>
               <Box

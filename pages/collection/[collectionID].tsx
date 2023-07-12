@@ -114,7 +114,6 @@ const Collection: NextPage = () => {
     },
     token: true,
   });
-  console.log(filters, propertyQuery);
   const {
     data: activities,
     fetchNextPage: fetchNextPageActivities,
@@ -188,6 +187,8 @@ const Collection: NextPage = () => {
             showSocialIcons={true}
             coverPhoto={collectionDetail?.bannerImageUrl}
             profilePhoto={collectionDetail?.logoImageUrl}
+            showReport={true}
+            showAddToWatchList={true}
           />
         </Box>
         <ProfileDetail
@@ -238,7 +239,6 @@ const Collection: NextPage = () => {
                   {toggleSideFilter ? (
                     <CollectionSideFilter
                       onChange={(filter: any) => {
-                        console.log(filter, "filters............");
                         setPropertyQuery(
                           convertPropertyObject({
                             property: filter?.properties,

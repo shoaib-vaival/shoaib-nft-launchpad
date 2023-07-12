@@ -30,12 +30,10 @@ import { useDebounce } from "../src/hooks/useDebounce";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, filters, nftType, profileType } from "../src/types";
-import { convertToQueryParam } from "../src/utils";
+import { convertPropertyObject, convertToQueryParam } from "../src/utils";
 import { GridView } from "../src/views/GridView";
 import ListView from "../src/views/ListView";
-import BarChart from "../src/components/charts/BarChart";
-import LineChart from "../src/components/charts/LineChart";
-import DotChart from "../src/components/charts/DotChart";
+import { DrawerFilter } from "./../src/components/SidebarFilter/DrawerFilter";
 import {
   FormControl,
   FormLabel,
@@ -45,6 +43,7 @@ import {
   StatHelpText,
   StatLabel,
   StatNumber,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 const ProfilCreated: NextPage = () => {
@@ -52,6 +51,24 @@ const ProfilCreated: NextPage = () => {
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
   const [search, setSearch] = useState<string>();
   const debounceValue = useDebounce(search, 500);
+  const [propertyQuery, setPropertyQuery] = useState<{ property: any }>({
+    property: {},
+  });
+  const [toggleSideFilter, setToggleSideFilter] = useState<boolean>(false);
+  const [toggleActivityFilter, setToggleActivityFilter] =
+    useState<boolean>(false);
+  const filterBreakPoint = useBreakpointValue(
+    {
+      base: true,
+      sm: true,
+      md: true,
+      lg: false,
+    },
+    {
+      fallback: "lg",
+    }
+  );
+  const [isFilterChanged, setIsFilterChanged] = useState<boolean>(false);
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
@@ -80,9 +97,9 @@ const ProfilCreated: NextPage = () => {
     hasNextPage,
     isLoading: isLoadingUserNfts,
   } = useInfiniteQuery<nftType[]>({
-    queryKey: [QUERY_KEYS.GET_USER_NFTS, filters],
+    queryKey: [QUERY_KEYS.GET_USER_NFTS, isFilterChanged],
     url: ApiUrl.GET_USER_NFTS,
-    params: { ...filters },
+    params: { ...filters, ...propertyQuery?.property },
     token: true,
   });
   const {
@@ -126,6 +143,7 @@ const ProfilCreated: NextPage = () => {
               showSocialIcons={true}
               coverPhoto={data?.profileCoverURL}
               profilePhoto={data?.profileUrl}
+              id={data?.id}
             />
           )}
         </Box>
@@ -180,14 +198,42 @@ const ProfilCreated: NextPage = () => {
                       : ""
                   }
                 >
-                  <UserCollectionSideFilter
-                    onChange={(filter: any) => {
-                      setFilters({
-                        ...filters,
-                        ...convertToQueryParam(filter),
-                      });
+                  <DrawerFilter
+                    isOpen={
+                      filterBreakPoint
+                        ? toggleSideFilter && filterBreakPoint
+                        : false
+                    }
+                    onClose={() => {
+                      setToggleSideFilter(false);
                     }}
-                  />
+                  >
+                    <UserCollectionSideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          status: filter?.status && filter?.status,
+                          collections: filter?.collections,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                    />
+                  </DrawerFilter>
+                  {toggleSideFilter ? (
+                    <UserCollectionSideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          status: filter?.status && filter?.status,
+                          collections: filter?.collections,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+
                   <Box w="100%">
                     <Flex
                       mx="12px"
@@ -201,6 +247,7 @@ const ProfilCreated: NextPage = () => {
                           colorScheme="primary"
                           aria-label="Send email"
                           icon={<i className="icon-funnel"></i>}
+                          onClick={() => setToggleSideFilter(!toggleSideFilter)}
                         />
                       </Box>
                       <Box
@@ -309,15 +356,39 @@ const ProfilCreated: NextPage = () => {
               </TabPanel>
               <TabPanel pt="0">
                 <Flex pt="20px" gap="4">
-                  <ActivitySideFilter
-                    onChange={(filter: any) => {
-                      setFilters({
-                        ...filters,
-                        ...convertToQueryParam(filter),
-                      });
+                  <DrawerFilter
+                    isOpen={
+                      filterBreakPoint
+                        ? toggleActivityFilter && filterBreakPoint
+                        : false
+                    }
+                    onClose={() => {
+                      setToggleActivityFilter(false);
                     }}
-                    type="user"
-                  />
+                  >
+                    <ActivitySideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          event: filters?.event,
+                        });
+                      }}
+                    />
+                  </DrawerFilter>
+                  {toggleActivityFilter ? (
+                    <ActivitySideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          event: filter?.event,
+                          collections: filter?.collections,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
                   <Box w="100%">
                     <Flex
                       justifyContent={"end"}
@@ -331,6 +402,9 @@ const ProfilCreated: NextPage = () => {
                           colorScheme="primary"
                           aria-label="Send"
                           icon={<i className="icon-funnel"></i>}
+                          onClick={() =>
+                            setToggleActivityFilter(!toggleActivityFilter)
+                          }
                         />
                       </Box>
                       <Box

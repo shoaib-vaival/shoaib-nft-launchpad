@@ -38,6 +38,7 @@ export const CollectionStatTable = ({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
     showSuccessToast: true,
+    successMessage: "Added to watchlist",
     token: true,
   });
   const { mutate: removeFromWatchlist } = useMutation<any>({
