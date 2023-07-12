@@ -158,7 +158,7 @@ const ProfilCreated: NextPage = () => {
                       {userCollections?.map(
                         (collection: any, index: number) => {
                           return (
-                            <Box onClick={()=>router.push(`/collection/${collection?.id}`)}>
+                            <Box key={index} onClick={()=>router.push(`/collection/${collection?.id}`)}>
                             <CollectionCard
                               type="withBody"
                               isEditAble={true}
