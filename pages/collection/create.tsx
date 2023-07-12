@@ -69,7 +69,7 @@ const CreateCollection = () => {
             "Transaction submitted successfuly. Wait for confirmation.",
             "success"
           );
-          setLoader(true);
+
           const ethProvider = new ethers.providers.Web3Provider(
             provider?.provider as any
           );
@@ -128,7 +128,7 @@ const CreateCollection = () => {
       token: true,
     });
 
-  const { mutate, isLoading } = useMutation<createCollectionTypes>({
+  const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
     url: getCollectionById?.id
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
@@ -226,6 +226,7 @@ const CreateCollection = () => {
         enableReinitialize
         onSubmit={(values) => {
           mutate(values);
+          setLoader(true);
         }}
       >
         {({ errors, touched, values }) => (
@@ -624,7 +625,7 @@ const CreateCollection = () => {
             </FormControl>
 
             <Button
-              isLoading={isLoading ? isLoading : loader}
+              isLoading={loader}
               type="submit"
               variant="primary"
               textTransform="uppercase"

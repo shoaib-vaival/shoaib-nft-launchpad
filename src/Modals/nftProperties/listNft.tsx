@@ -58,6 +58,7 @@ const ListNftModal = ({
   const queryClient = useQueryClient();
   const [transformedData, setTransformedData] = useState<any>();
   const [listingPercentage, setListingPercentage] = useState<any>();
+  const [loader, setLoader] = useState<any>(false);
   const [totalCreatorFee, setTotalCreatorFree] = useState<any>();
   const handlePriceChange = (event: any) => {
     const inputValue = event.target.value;
@@ -143,7 +144,7 @@ const ListNftModal = ({
     collaboratorAmount: transformedData?.collaboratorAmount,
     collectionId: nftData?.collectionId,
   };
-  const { mutate, isLoading } = useMutation<any>({
+  const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.LIST_FOR_SALE,
     token: true,
@@ -151,6 +152,7 @@ const ListNftModal = ({
     showSuccessToast: true,
     onSuccess: async (data) => {
       queryClient.invalidateQueries([QUERY_KEYS.GET_NFT_DETAIL]);
+      setLoader(false);
       onClose();
     },
   });
@@ -228,11 +230,14 @@ const ListNftModal = ({
     }
     const sign = await signMessage(params, provider, account, chainId).catch(
       (err) => {
-        console.log(err);
+        console.log("Sign Err", err);
       }
     );
+
     if (sign) {
       mutate({ ...params, signature: sign, nftId: nftData?.id });
+    } else {
+      setLoader(false);
     }
   };
 
@@ -256,6 +261,15 @@ const ListNftModal = ({
                   type="number"
                   min="0"
                   maxLength={18}
+                  onKeyPress={(event: any) => {
+                    if (
+                      event.key === "-" ||
+                      event.key === "+" ||
+                      event.key === "_"
+                    ) {
+                      event.preventDefault();
+                    }
+                  }}
                 />
                 <InputRightAddon fontSize="14px" color="#393F59" bg="#6F6BF34D">
                   MATIC
@@ -327,9 +341,12 @@ const ListNftModal = ({
                   mb="auto"
                 >
                   {price &&
-                    Number(price) -
-                      ((Number(price) * (listingPercentage / 10)) / 100 +
-                        (Number(price) * totalCreatorFee) / 100)}
+                    listingPercentage &&
+                    String(
+                      Number(price) -
+                        ((Number(price) * (listingPercentage / 10)) / 100 +
+                          (Number(price) * totalCreatorFee) / 100)
+                    )}
                 </Text>
               </Flex>
             </Box>
@@ -339,8 +356,10 @@ const ListNftModal = ({
             <Button
               variant="primary"
               w="100%"
+              isLoading={loader}
               onClick={() => {
                 approveNFT(nftData?.minting_contract_address);
+                setLoader(true);
               }}
             >
               List For Sale
