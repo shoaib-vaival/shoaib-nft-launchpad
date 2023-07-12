@@ -165,7 +165,7 @@ export const SidebarFilter = ({
     <>
       <Box
         border="1px solid rgba(111, 107, 243, 0.40)"
-        width="220px"
+        width={{ base: "", sm: "", md: "", lg: "220px" }}
         borderRadius="16px"
         background="rgba(255, 255, 255, 0.40)"
         flexShrink="0"

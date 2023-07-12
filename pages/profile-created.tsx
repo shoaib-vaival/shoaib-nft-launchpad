@@ -164,6 +164,7 @@ const ProfilCreated: NextPage = () => {
                               isShowFeatureImage={true}
                               isShowLogoImage={true}
                               name={collection.name}
+                              nftCollectionId={collection?.id}
                             />
                           );
                         }
