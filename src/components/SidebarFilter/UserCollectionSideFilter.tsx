@@ -26,20 +26,6 @@ export const UserCollectionSideFilter = ({ onChange }: any) => {
         },
       ],
     },
-    {
-      label: "Quantity",
-      name: "quantity",
-      hasFilters: true,
-      border: true,
-      filters: [
-        {
-          name: "quantity",
-          type: "radio",
-          options: ["all", "single", "bundle"],
-          label: ["All items", "Single Items", "Bundles"],
-        },
-      ],
-    },
 
     {
       label: "Collections",
