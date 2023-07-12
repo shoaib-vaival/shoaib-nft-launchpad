@@ -37,7 +37,6 @@ export const ActivitySideFilter = ({ onChange, type }: any) => {
       hasFilters: true,
       border: false,
       showQuantity: false,
-      filterType: "collection",
       filters:
         collections &&
         collections?.map((collection: any, index: number) => {

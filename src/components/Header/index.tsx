@@ -35,6 +35,7 @@ import { useEffect, useState } from "react";
 import { setCookie } from "typescript-cookie";
 import { bg } from "date-fns/locale";
 import { useQueryClient } from "@tanstack/react-query";
+import { showToaster } from "../Toaster";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -54,12 +55,21 @@ export const Header = () => {
     url: ApiUrl?.SAVE_SIGNATURE,
     showToast: false,
     showSuccessToast: false,
+    showErrorToast: false,
     onSuccess: (data: any) => {
       if (data?.data?.status == 220) {
         signature(data);
+      } else if (data?.data?.status == 230) {
+        showToaster("User is blocked", "warning");
+        if (provider?.connection.url == "metamask") {
+          disconnect("");
+        } else {
+          disconnectWalletConnect("");
+        }
+      } else {
+        setToLocalStorage("accessToken", data?.data?.access_token);
+        setCookie("accessToken", data?.data?.access_token);
       }
-      setToLocalStorage("accessToken", data?.data?.access_token);
-      setCookie("accessToken", data?.data?.access_token);
     },
   });
 

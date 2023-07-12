@@ -14,25 +14,20 @@ export const collectionSchema = Yup.object().shape({
     Yup.object().shape({
       walletAddress: Yup.string().trim()
         .nullable()
-        .test(
-          "checksum-validation",
-          "Invalid wallet address",
-           (value) => {
-            if (value === null || value === "") {
-              return true; // Allow null or empty string
-            }
-            try {
-              const isValidChecksum = ethers.utils.isAddress(`${value}`);
-              return isValidChecksum;
-            } catch (error) {
-              return false;
-            }
+        .test("checksum-validation", "Invalid wallet address", (value) => {
+          if (value === null || value === "") {
+            return true; // Allow null or empty string
           }
-        ),
-      percentage: Yup.number().max(
-        10,
-        "Total Percentage should be less than 10"
-      ),
+          try {
+            const isValidChecksum = ethers.utils.isAddress(`${value}`);
+            return isValidChecksum;
+          } catch (error) {
+            return false;
+          }
+        }),
+      percentage: Yup.number()
+        .max(10, "Max Limit 10")
+        .min(0.1, "Min limit 0.1%"),
     })
   ),
 
