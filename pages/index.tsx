@@ -175,7 +175,7 @@ const Home: NextPage = () => {
                     </Flex>
                   </TabPanel>
                   <TabPanel p="0">
-                    <Flex>
+                    <Flex gap='33px'>
                       <Box w="50%">
                         <TopTenTable
                           data={topTenData && topTenData?.slice(0, 5)}

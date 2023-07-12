@@ -828,6 +828,7 @@ const NftDetail = ({ param }: any) => {
             {moreNftSByCollection &&
               moreNftSByCollection?.map((nft: any, index: number) => {
                 return (
+                  <Box key={index} onClick={()=>router.push(`/nft/detail/${nft?.id}`)}>
                   <CollectionCard
                     type="withBody"
                     featureImage={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
@@ -836,6 +837,7 @@ const NftDetail = ({ param }: any) => {
                     name={nft?.name}
                     key={index}
                   />
+                  </Box>
                 );
               })}
           </SlickSlider>

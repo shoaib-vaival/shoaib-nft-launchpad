@@ -12,7 +12,7 @@ export const collectionSchema = Yup.object().shape({
   logoImageUrl: Yup.string().required("Logo image is required"),
   creatorFee: Yup.array().of(
     Yup.object().shape({
-      walletAddress: Yup.string()
+      walletAddress: Yup.string().trim()
         .nullable()
         .test("checksum-validation", "Invalid wallet address", (value) => {
           if (value === null || value === "") {
