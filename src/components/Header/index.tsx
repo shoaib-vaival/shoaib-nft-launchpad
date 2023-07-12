@@ -364,7 +364,7 @@ export const Header = () => {
                   />
                 )}
 
-                <MenuList w="191px" minW="191px" h="232px" p="16px 8px">
+                <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
                   <MenuItem>
                     <Link href="/profile-created">Profile</Link>
                   </MenuItem>
@@ -373,24 +373,6 @@ export const Header = () => {
                   </MenuItem>
                   <MenuItem>
                     <Link href="/setting">Settings</Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <FormControl
-                      m="0!important"
-                      w="100%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <FormLabel
-                        fontWeight="normal!important"
-                        htmlFor="dark-theme"
-                        m="0!important"
-                      >
-                        Dark Mode
-                      </FormLabel>
-                      <Switch m="0!important" id="dark-theme" />
-                    </FormControl>
                   </MenuItem>
 
                   <MenuItem
