@@ -10,6 +10,9 @@ export const Tabs:ComponentStyleConfig = {
                  paddingBottom:'15px',
                  paddingLeft:'12px',
              },
+             _hover:{
+                color:'#6863F3',
+             }
         },
          tablist: {
              borderBottom: '2x solid',

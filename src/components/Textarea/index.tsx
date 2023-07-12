@@ -7,7 +7,7 @@ import { Textarea, Button, FormControl, FormLabel, FormErrorMessage, Text, Texta
         <FormLabel htmlFor={field.name}>{label}</FormLabel>
         <Textarea h='160px' {...field} {...rest} placeholder={placeholder}  borderRadius='6px' border='1px solid #6F6BF366'/>
         {descp && <Text>{descp}</Text>}
-        <FormErrorMessage>{form.errors[field.name]}</FormErrorMessage>
+        {/* <FormErrorMessage>{form.errors[field.name]}</FormErrorMessage> */}
       </FormControl>
     );
   };

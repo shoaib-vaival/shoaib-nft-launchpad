@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { getFromLocalStorage } from "../utils";
-import { showToaster } from "../components/Toaster"
+import { showToaster } from "../components/Toaster";
 
 type UseMutationReturn<T, K> = {
   data?: K;
@@ -42,6 +42,7 @@ type UseMutationProps<T, K> = {
   onError?: (data: ApiResult<K>) => void;
   errorMessage?: string;
   isFileData?: boolean;
+  showErrorToast?: boolean;
 };
 
 export const useMutation = <T, K = T>({
@@ -56,6 +57,7 @@ export const useMutation = <T, K = T>({
   errorMessage,
   isFileData,
   showSuccessToast = true,
+  showErrorToast = true,
 }: UseMutationProps<T, K>): UseMutationReturn<T, K> => {
   const toast = useToast();
 
@@ -89,16 +91,23 @@ export const useMutation = <T, K = T>({
     },
     {
       onSuccess: (newData) => {
-        if (newData?.data || newData?.status==200) {
+        if (newData?.data || newData?.status == 200) {
           showSuccessToast &&
-          showToaster(successMessage ? successMessage : newData?.data?.message, 'success')
+            showToaster(
+              successMessage ? successMessage : newData?.data?.message,
+              "success"
+            );
 
           onSuccess && onSuccess(newData);
         }
         onError && onError(newData);
       },
       onError: (newData: any) => {
-        showToaster(errorMessage ? errorMessage : newData?.response?.data?.message, 'error')
+        showErrorToast &&
+          showToaster(
+            errorMessage ? errorMessage : newData?.response?.data?.message,
+            "error"
+          );
       },
     }
   );

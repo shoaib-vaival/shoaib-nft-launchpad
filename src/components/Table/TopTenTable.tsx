@@ -31,8 +31,8 @@ export const TopTenTable = ({ data }: { data: any }) => {
             </VStack>
           </Flex>
         ),
-        floorPrice: collection?.floor_price + `${currencySymbol}`,
-        volume: collection?.volume + `${currencySymbol}`,
+        floorPrice: collection?.floor_price +" "+ `${currencySymbol}`,
+        volume: collection?.volume  +" "+ `${currencySymbol}`,
         id: collection?.id
       };
     });

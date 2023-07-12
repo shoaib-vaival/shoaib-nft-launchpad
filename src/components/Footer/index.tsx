@@ -111,8 +111,10 @@ export const Footer = () => {
                   </Link>
                 </Text>
                 <HStack mt={{base:'20px',md:'0!important'}} spacing='24px' fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
+                <Box _hover={{color:'#6863f3'}}><Link href='/terms-conditions' color='#756C99'>Digital Asset Custody Terms & Conditions</Link></Box>
                 <Box _hover={{color:'#6863f3'}}><Link href='/privacy-policy' color='#756C99'>Privacy Policy</Link></Box>
                 <Box _hover={{color:'#6863f3'}}><Link href='/return-policy' color='#756C99'>Refund Policy</Link></Box>
+              
                 </HStack>
               </Flex>
             </Box>
