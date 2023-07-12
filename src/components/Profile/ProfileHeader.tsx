@@ -112,7 +112,7 @@ const ProfileHeader = ({
 
               <SocialShare
                 title="Check this link"
-                url={`https://ibanera-launchpad.bloxbytes.com`}
+                url={`https://ibanera-launchpad.bloxbytes.com/collection/${id}`}
               />
             </Box>
             {showReport && showReport ? (
