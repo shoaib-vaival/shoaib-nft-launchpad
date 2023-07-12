@@ -154,7 +154,7 @@ laws (e.g., local, state, federal and other laws) when using the Service.
 Without limiting the foregoing, by using the Service, you represent and
 warrant that: (a) you are not located in, ordinarily resident in, or organized
 under the laws of any jurisdiction that is subject to a comprehensive U.S.
-Government embargo ("Embargoed Jurisdiction"); (b) you are not subject
+Government embargo (`Embargoed Jurisdiction`); (b) you are not subject
 to any sanctions administered by an agency of the U.S. Government, any
 other government, or the United Nations (collectively, “Sanctions”); (c) you
 are not owned or controlled, directly or indirectly, by any person that is
@@ -474,7 +474,7 @@ Service.
           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mb={2} >
           Ibanera does not claim that submitting, posting, or displaying this content
 on or through the Service gives Ibanera any ownership of the content.
-We're not saying we own it. We're just saying we might use it and show it off
+We are not saying we own it. We are just saying we might use it and show it off
 a bit.
           </Text>
           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mb={2} >
@@ -492,7 +492,7 @@ content does not violate any laws.
           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mb={2} >
           Ibanera will take down works in response to Digital Millennium Copyright
 Act (“DMCA”) takedown notices and/or other intellectual property
-infringement claims and will terminate a user's access to the Service if the
+infringement claims and will terminate a users access to the Service if the
 user is determined to be a repeat infringer. If you believe that your content
 has been copied in a way that constitutes copyright or trademark
 infringement, or violates your publicity or other intellectual property rights,

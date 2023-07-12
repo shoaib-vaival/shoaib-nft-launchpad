@@ -189,6 +189,7 @@ const CreateNFT = () => {
           onSubmit={(values) => {
             mutate({
               ...values,
+              properties: JSON.stringify(properties),
               photo: nftFile,
               collectionId: collectionId,
               minting_contract_address: collectionAddress,
