@@ -469,7 +469,7 @@ const CreateCollection = () => {
                     size="md"
                     label="Discord"
                     type="text"
-                    placeholder="Discord ID"
+                    placeholder="https://"
                     name="Discord_id"
                     errorText={
                       touched["Discord_id"] && errors["Discord_id"]

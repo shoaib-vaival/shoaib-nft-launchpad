@@ -46,12 +46,15 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 const ProfilCreated: NextPage = () => {
   const [view, setView] = useState<string>("grid");
   const [filters, setFilters] = useState<filters>({ sort: "ASC", search: "" });
   const [search, setSearch] = useState<string>();
   const debounceValue = useDebounce(search, 500);
+  const router = useRouter();
+
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
@@ -155,6 +158,7 @@ const ProfilCreated: NextPage = () => {
                       {userCollections?.map(
                         (collection: any, index: number) => {
                           return (
+                            <Box onClick={()=>router.push(`/collection/${collection?.id}`)}>
                             <CollectionCard
                               type="withBody"
                               isEditAble={true}
@@ -165,6 +169,7 @@ const ProfilCreated: NextPage = () => {
                               isShowLogoImage={true}
                               name={collection.name}
                             />
+                            </Box>
                           );
                         }
                       )}
