@@ -146,7 +146,7 @@ const ProfilCreated: NextPage = () => {
               showSocialIcons={true}
               coverPhoto={data?.profileCoverURL}
               profilePhoto={data?.profileUrl}
-              id={data?.id ? data?.id : ""}
+              id={`${data?.id}`}
             />
           )}
         </Box>
