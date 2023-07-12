@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import InputField from "../InputField";
+import CopyWalletAddress from "../CopyWalletAddress";
 
 type profileDetailProps = {
   showStats: boolean;
@@ -26,6 +27,7 @@ const ProfileDetail = ({
   isCollection,
   description,
 }: profileDetailProps) => {
+  console.log("dataaaaaaaaaaaaaa", data?.walletAddress)
   return (
     <>
       <Container pl={{ base: "0", md: "54px" }} mt="24px" pr="0" pt="0">
@@ -47,29 +49,8 @@ const ProfileDetail = ({
           </Flex>
           <Box>
             {!isCollection ? (
-              <InputField
-                size="md"
-                type="copy"
-                placeholder="0X000000"
-                formControlProps={{
-                  marginTop: "0px",
-                  marginBottom: "0px",
-                }}
-                name="walletAddress"
-                formLabelProps={{
-                  fontWeight: "500!important",
-                }}
-                borderRadius="xl"
-                p="7px 8px"
-                _hover={{ bg: "transparent" }}
-                m={{ base: "10px 0", md: "initial" }}
-                fontSize="12px"
-                height="initial"
-                border="1px solid #6863F3"
-                color="#393F59"
-                maxLength={50}
-                h="100%"
-              />
+              
+            <CopyWalletAddress value={data?.walletAddress}/>
             ) : (
               ""
             )}

@@ -133,6 +133,7 @@ export const CollectionStatTable = ({
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
       isLoading={isLoading}
+      tableName="stateTable"
     />
   );
 };

@@ -310,13 +310,13 @@ const CreateCollection = () => {
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed."
                   />
-                  {touched["category"] && errors["category"] && (
+                  {touched["description"] && errors["description"] && (
                     <Text
                       marginTop={"8px!important"}
                       fontWeight={"500"}
                       color={"red.700"}
                     >
-                      {errors["category"] as React.ReactNode}
+                      {errors["description"] as React.ReactNode}
                     </Text>
                   )}
                 </FormControl>
@@ -332,7 +332,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -516,7 +516,6 @@ const CreateCollection = () => {
                               display="flex"
                               alignItems="baseline"
                               flexDirection="column"
-                              mb="16px"
                             >
                               <FormControl isRequired mb="0">
                                 <Field
@@ -582,20 +581,20 @@ const CreateCollection = () => {
                                 />
                               </Text>
                             </Box>
-
-                            <IconButton
-                              aria-label="close"
-                              bg="#6863F34D"
-                              mt={{ base: "0", sm: "35px" }}
-                              ml={{ base: "0", sm: "10px" }}
-                              mb={{ base: "10px", sm: "0" }}
-                              type="button"
-                              color="#6863F3"
-                              border="1px solid #6863F3"
-                              onClick={() => remove(index)}
-                              icon={<i className="icon-remove"></i>}
-                              visibility={index > 0 ? "visible" : "hidden"}
-                            />
+                            <Box>
+                              <IconButton
+                                aria-label="close"
+                                bg="#6863F34D"
+                                mb={{ base: "10px", sm: "-80px" }}
+                                ml={{ base: "0", sm: "10px" }}
+                                type="button"
+                                color="#6863F3"
+                                border="1px solid #6863F3"
+                                onClick={() => remove(index)}
+                                icon={<i className="icon-remove"></i>}
+                                visibility={index > 0 ? "visible" : "hidden"}
+                              />
+                            </Box>
                           </Flex>
                         </div>
                       ))}
@@ -629,6 +628,7 @@ const CreateCollection = () => {
               type="submit"
               variant="primary"
               textTransform="uppercase"
+              mt='20px'
             >
               Create Collection
             </Button>

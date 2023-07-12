@@ -64,7 +64,7 @@ export const GenericTable = ({
   const router = useRouter()
 
   const handleClick = (id:string) => {
-    if(tableName=='topTen'){
+    if(tableName=='topTen' || tableName == 'stateTable'){
     router.push(`/collection/${id}`)
     }
   }
