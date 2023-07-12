@@ -332,7 +332,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                  // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
                     <Text
@@ -628,7 +628,7 @@ const CreateCollection = () => {
               type="submit"
               variant="primary"
               textTransform="uppercase"
-              mt='20px'
+              mt="20px"
             >
               Create Collection
             </Button>
