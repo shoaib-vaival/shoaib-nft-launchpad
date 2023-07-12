@@ -181,6 +181,7 @@ const ProfilCreated: NextPage = () => {
                               onClick={() =>
                                 router.push(`/collection/${collection?.id}`)
                               }
+                              cursor="pointer"
                             >
                               <CollectionCard
                                 type="withBody"

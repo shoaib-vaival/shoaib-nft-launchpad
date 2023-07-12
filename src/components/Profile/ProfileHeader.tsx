@@ -58,6 +58,7 @@ const ProfileHeader = ({
           border="2px solid white"
           position="absolute"
           bottom="-35%"
+          loading="lazy"
           transform="translateY(-50%)"
           objectFit="cover"
         />

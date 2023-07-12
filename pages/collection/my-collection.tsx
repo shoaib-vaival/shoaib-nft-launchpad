@@ -111,6 +111,7 @@ const MyCollection: NextPage = (props) => {
                       <Box
                         w={{ xl: "25%", md: "50%", sm: "100%" }}
                         display="initial"
+                        cursor="pointer"
                         key={index}
                         onClick={()=> router.push(`/collection/${nftCollection?.id}`)}
                       >
