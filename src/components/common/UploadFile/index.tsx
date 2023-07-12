@@ -110,6 +110,7 @@ const FileUpload = ({
                 h="100%"
                 objectFit="cover"
                 borderRadius="16px"
+                loading="lazy"
               ></Image>
               <IconButton
                 onClick={() => {

@@ -18,6 +18,7 @@ const CopyWalletAddress: React.FC<Props> = ({ value }) => {
       input.setSelectionRange(0, input.value.length);
       document.execCommand("copy");
       document.body.removeChild(input);
+      input.contentEditable = 'false';
     } catch (error) {
       console.error("Failed to copy value to clipboard:", error);
     }

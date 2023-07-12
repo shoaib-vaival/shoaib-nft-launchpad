@@ -828,7 +828,7 @@ const NftDetail = ({ param }: any) => {
             {moreNftSByCollection &&
               moreNftSByCollection?.map((nft: any, index: number) => {
                 return (
-                  <Box key={index} onClick={()=>router.push(`/nft/detail/${nft?.id}`)}>
+                  <Box key={index} onClick={()=>router.push(`/nft/detail/${nft?.id}`)} cursor="pointer">
                   <CollectionCard
                     type="withBody"
                     featureImage={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
