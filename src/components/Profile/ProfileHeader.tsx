@@ -58,6 +58,7 @@ const ProfileHeader = ({
           border="2px solid white"
           position="absolute"
           bottom="-35%"
+          loading="lazy"
           transform="translateY(-50%)"
           objectFit="cover"
         />
@@ -111,7 +112,7 @@ const ProfileHeader = ({
 
               <SocialShare
                 title="Check this link"
-                url={`https://ibanera-launchpad.bloxbytes.com`}
+                url={`https://ibanera-launchpad.bloxbytes.com/collection/${id}`}
               />
             </Box>
             {showReport && showReport ? (

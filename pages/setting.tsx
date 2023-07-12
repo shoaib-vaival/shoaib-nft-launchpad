@@ -59,8 +59,6 @@ const Setting: NextPage = () => {
     showSuccessToast: true,
     token: true,
     successMessage: "Profile updated successfully",
-    showErrorToast: true,
-    errorMessage: "There is something wrong",
   });
 
   const { mutate: save } = useMutation<any>({
@@ -201,8 +199,12 @@ const Setting: NextPage = () => {
                       onSubmit={(values) => {
                         mutate({
                           ...values,
-                          profileUrl: profileImage?.imageUrl,
-                          profileCoverURL: coverImage?.imageUrl,
+                          profileUrl: profileImage?.imageUrl
+                            ? profileImage?.imageUrl
+                            : profile?.profileUrl,
+                          profileCoverURL: coverImage?.imageUrl
+                            ? coverImage?.imageUrl
+                            : profile?.profileCoverURL,
                         });
 
                         setTimeout(() => {

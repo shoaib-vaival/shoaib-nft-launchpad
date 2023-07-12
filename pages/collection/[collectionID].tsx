@@ -187,8 +187,9 @@ const Collection: NextPage = () => {
             showSocialIcons={true}
             coverPhoto={collectionDetail?.bannerImageUrl}
             profilePhoto={collectionDetail?.logoImageUrl}
-            showReport={true}
+            showReport={false}
             showAddToWatchList={true}
+            id={`${router?.query?.collectionID}`}
           />
         </Box>
         <ProfileDetail

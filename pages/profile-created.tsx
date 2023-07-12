@@ -169,11 +169,11 @@ const ProfilCreated: NextPage = () => {
             <TabPanels>
               <TabPanel p={0}>
                 <Box>
-                  {userCollections && userCollections?.length <= 0 ? (
+                  {data?.collections && data.collections?.length <= 0 ? (
                     ""
                   ) : (
                     <SlickSlider>
-                      {userCollections?.map(
+                      {data?.collections?.map(
                         (collection: any, index: number) => {
                           return (
                             <Box
@@ -181,6 +181,7 @@ const ProfilCreated: NextPage = () => {
                               onClick={() =>
                                 router.push(`/collection/${collection?.id}`)
                               }
+                              cursor="pointer"
                             >
                               <CollectionCard
                                 type="withBody"

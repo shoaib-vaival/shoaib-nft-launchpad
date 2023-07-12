@@ -105,7 +105,7 @@ export const useMutation = <T, K = T>({
       onError: (newData: any) => {
         showErrorToast &&
           showToaster(
-            errorMessage ? errorMessage : newData?.response?.data?.message,
+           `${errorMessage ? errorMessage : Array.isArray(newData?.response?.data?.message) ? newData?.response?.data?.message[0] : newData?.response?.data?.message}`,
             "error"
           );
       },
