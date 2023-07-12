@@ -89,7 +89,6 @@ const CreateNFT = () => {
               "Transaction submitted successfuly. Wait for confirmation.",
               "success"
             );
-            setLoader(true);
             const pendingParams = {
               hash: result?.hash,
               status: "pending",
@@ -129,7 +128,7 @@ const CreateNFT = () => {
     token: true,
   });
 
-  const { mutate, isLoading } = useMutation<any>({
+  const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.CREATE_NFT,
     isFileData: true,
@@ -194,6 +193,7 @@ const CreateNFT = () => {
               collectionId: collectionId,
               minting_contract_address: collectionAddress,
             });
+            setLoader(true);
           }}
         >
           {({ errors, touched, values }) => (
@@ -353,7 +353,7 @@ const CreateNFT = () => {
               </FormControl>
 
               <Button
-                isLoading={isLoading ? isLoading : loader}
+                isLoading={loader}
                 type="submit"
                 variant="primary"
                 textTransform="uppercase"

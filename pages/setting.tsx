@@ -484,6 +484,7 @@ const Setting: NextPage = () => {
                                   size="md"
                                   label="Wallet Address"
                                   type="copy"
+                                  readOnly
                                   placeholder="0X000000"
                                   formControlProps={{
                                     marginTop: "0px",

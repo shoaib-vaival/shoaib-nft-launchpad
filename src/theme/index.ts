@@ -40,6 +40,10 @@ export const theme = extendTheme({
         backgroundImage: 'url("/assets/images/bg.webp")',
         backgroundSize: "cover",
       },
+      '.ErrorMessage':{
+        color:'red.700',
+
+      },
       h1: {
         fontSize: "56px",
       },
