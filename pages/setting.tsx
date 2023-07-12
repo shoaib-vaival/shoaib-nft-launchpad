@@ -494,7 +494,7 @@ const Setting: NextPage = () => {
                                   size="md"
                                   label="Wallet Address"
                                   type="copy"
-                                  readOnly
+                                  isReadOnly={true}
                                   placeholder="0X000000"
                                   formControlProps={{
                                     marginTop: "0px",
@@ -508,6 +508,7 @@ const Setting: NextPage = () => {
                                   bg="rgba(104, 99, 243, 0.2)"
                                   color="#393F59"
                                   maxLength={50}
+                                  copyValue={profile?.walletAddress}
                                 />
                               </Stack>
                             </Flex>
