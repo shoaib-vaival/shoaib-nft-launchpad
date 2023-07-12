@@ -862,15 +862,15 @@ not apply to personal injury claims.
           </Heading>
        
            <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mb={3} >
-           Please refer to our  <Link href="/pages/privacy-policy.tsx" color="blue.500" textDecoration="underline">
+           Please refer to our  <Link href="/privacy-policy" color="blue.500" textDecoration="underline">
 Privacy Policy
       </Link> for information about how we collect, use,
 and share personal data about you. By submitting personal data through
-our Service, you agree to the terms of our  <Link href="/pages/privacy-policy.tsx" color="blue.500" textDecoration="underline">
+our Service, you agree to the terms of our  <Link href="/privacy-policy" color="blue.500" textDecoration="underline">
 Privacy Policy
       </Link> and you expressly
 consent to the collection, use, and disclosure of your personal data in
-accordance with the  <Link href="/pages/privacy-policy.tsx" color="blue.500" textDecoration="underline">
+accordance with the  <Link href="/privacy-policy" color="blue.500" textDecoration="underline">
 Privacy Policy.
       </Link>
           </Text>

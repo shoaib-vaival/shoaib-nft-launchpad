@@ -412,7 +412,7 @@ In case you consider that IBANERA’s processing of your Personal Data is proces
               11. Changes to the Privacy Policy
           </Heading>
           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mb={2} >
-          IBANERA regularly reviews this Privacy Policy and reserves the right to modify it at any time in accordance with applicable laws and regulations. Any changes and clarifications will take effect immediately upon their publication on the website: <Link href="www.ibanera.com" color="blue.500" textDecoration="underline">
+          IBANERA regularly reviews this Privacy Policy and reserves the right to modify it at any time in accordance with applicable laws and regulations. Any changes and clarifications will take effect immediately upon their publication on the website: <Link href="https://www.ibanera.com" color="blue.500" textDecoration="underline">
           www.ibanera.com
       </Link>{" "} Please review this Privacy Policy from time to time to stay updated on any changes.
           </Text>
@@ -431,7 +431,7 @@ In case you consider that IBANERA’s processing of your Personal Data is proces
              12. Cookies
           </Heading>
           <Text color="#393F59" fontSize={{ base: "14px", md: "16px" }} mb={2} >
-          If you access IBANERA information or services through the website, you should be aware that IBANERA uses different cookies.<Spacer />For more information on how to control cookies and browser settings or how to delete cookies, please read IBANERA Cookies Policy available on the website www.ibanera.com <Link href="www.ibanera.com" color="blue.500" textDecoration="underline">
+          If you access IBANERA information or services through the website, you should be aware that IBANERA uses different cookies.<Spacer />For more information on how to control cookies and browser settings or how to delete cookies, please read IBANERA Cookies Policy available on the website www.ibanera.com <Link href="https://www.ibanera.com" color="blue.500" textDecoration="underline">
           www.ibanera.com
       </Link>{" "}.
           </Text>
