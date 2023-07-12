@@ -164,7 +164,7 @@ export const Header = () => {
               <InputGroup
                 variant="custom"
                 colorScheme="purple"
-                w={{ base: "full", md: "full", lg: "200px", xl: "md" }}
+                w={{ base: "full", md: "full", lg: "200px", xl: "522px" }}
                 marginBottom={{ base: "3", md: "initial", xl: "initial" }}
               >
                 <Input placeholder="Search..." />
