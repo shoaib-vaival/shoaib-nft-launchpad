@@ -54,6 +54,7 @@ export const Header = () => {
     url: ApiUrl?.SAVE_SIGNATURE,
     showToast: false,
     showSuccessToast: false,
+    showErrorToast: false,
     onSuccess: (data: any) => {
       if (data?.data?.status == 220) {
         signature(data);
