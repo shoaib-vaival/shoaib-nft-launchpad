@@ -38,7 +38,6 @@ export const timeFilterOptions = {
 };
 
 export const categoriesFilterOptions = (categories:any) => {
-    console.log(categories[0].id.toString(), 'categories[0]')
   return {
     type: "",
     defaultValue: '690eba53-b643-40da-a4b2-3c177f22dfe5',

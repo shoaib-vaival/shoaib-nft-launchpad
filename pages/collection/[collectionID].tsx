@@ -48,10 +48,27 @@ import CustomLineChart from "../../src/components/charts/LineChart";
 import DotChart from "../../src/components/charts/DotChart";
 import { ListingTable } from "../../src/components/Table/ListingTable";
 import { TopOwnerTable } from "../../src/components/Table/TopOwnerTable";
+import { useBreakpointValue } from "@chakra-ui/react";
+import { DrawerFilter } from "../../src/components/SidebarFilter/DrawerFilter";
 
 const Collection: NextPage = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(true);
   const [listingFilter, setListingFilter] = useState<string>("");
+  const [toggleSideFilter, setToggleSideFilter] = useState<boolean>(false);
+  const [toggleActivityFilter, setToggleActivityFilter] =
+    useState<boolean>(false);
+  const filterBreakPoint = useBreakpointValue(
+    {
+      base: true,
+      sm: true,
+      md: true,
+      lg: false,
+    },
+    {
+      fallback: "lg",
+    }
+  );
+
   const toggleFilterVisibility = () => {
     setIsFilterVisible(!isFilterVisible);
   };
@@ -88,9 +105,10 @@ const Collection: NextPage = () => {
     ],
     url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
     params: {
-      collectionId: `${typeof Window !== "undefined" &&
+      collectionId: `${
+        typeof Window !== "undefined" &&
         window.location?.pathname?.split("/")[2]
-        }`,
+      }`,
       ...filters,
       ...propertyQuery?.property,
     },
@@ -103,7 +121,10 @@ const Collection: NextPage = () => {
     hasNextPage: hasNextPageActivities,
     isLoading: isLoadingActivities,
   } = useInfiniteQuery<any>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_ACTIVITIES, filters],
+    queryKey: [
+      QUERY_KEYS.GET_COLLECTION_ACTIVITIES,
+      filters || isFilterChanged,
+    ],
     url: ApiUrl.GET_COLLECTION_ACTIVITIES,
     params: {
       ...filters,
@@ -188,22 +209,52 @@ const Collection: NextPage = () => {
             <TabPanels>
               <TabPanel p={0}>
                 <Flex pt="24px" gap="24px">
-                  <CollectionSideFilter
-                    onChange={(filter: any) => {
-                      console.log(filter, "filters............");
-                      setPropertyQuery(
-                        convertPropertyObject({
-                          property: filter?.properties,
-                        })
-                      );
-                      setFilters({
-                        ...filters,
-                        status: filter?.status && filter?.status,
-                      });
-                      setIsFilterChanged(!isFilterChanged);
+                  <DrawerFilter
+                    isOpen={
+                      filterBreakPoint
+                        ? toggleSideFilter && filterBreakPoint
+                        : false
+                    }
+                    onClose={() => {
+                      setToggleSideFilter(false);
                     }}
-                    collectionId={router?.query?.collectionID}
-                  />
+                  >
+                    <CollectionSideFilter
+                      onChange={(filter: any) => {
+                        setPropertyQuery(
+                          convertPropertyObject({
+                            property: filter?.properties,
+                          })
+                        );
+                        setFilters({
+                          ...filters,
+                          status: filter?.status && filter?.status,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                      collectionId={router?.query?.collectionID}
+                    />
+                  </DrawerFilter>
+                  {toggleSideFilter ? (
+                    <CollectionSideFilter
+                      onChange={(filter: any) => {
+                        console.log(filter, "filters............");
+                        setPropertyQuery(
+                          convertPropertyObject({
+                            property: filter?.properties,
+                          })
+                        );
+                        setFilters({
+                          ...filters,
+                          status: filter?.status && filter?.status,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                      collectionId={router?.query?.collectionID}
+                    />
+                  ) : (
+                    ""
+                  )}
                   <Box w="100%">
                     <Flex
                       justifyContent={"end"}
@@ -216,6 +267,7 @@ const Collection: NextPage = () => {
                           colorScheme="primary"
                           aria-label="Send email"
                           icon={<i className="icon-funnel"></i>}
+                          onClick={() => setToggleSideFilter(!toggleSideFilter)}
                         />
                       </Box>
 
@@ -325,14 +377,39 @@ const Collection: NextPage = () => {
               </TabPanel>
               <TabPanel pt="0">
                 <Flex pt="24px" gap="24px">
-                  <ActivitySideFilter
-                    onChange={(filter: any) => {
-                      setFilters({
-                        ...filters,
-                        ...convertToQueryParam(filter),
-                      });
+                  <DrawerFilter
+                    isOpen={
+                      filterBreakPoint
+                        ? toggleActivityFilter && filterBreakPoint
+                        : false
+                    }
+                    onClose={() => {
+                      setToggleActivityFilter(false);
                     }}
-                  />
+                  >
+                    <ActivitySideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          event: filters?.event,
+                        });
+                      }}
+                    />
+                  </DrawerFilter>
+                  {toggleActivityFilter ? (
+                    <ActivitySideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          event: filter?.event,
+                          collections: filter?.collections,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
                   <Box w="100%">
                     <Flex
                       justifyContent={"end"}
@@ -345,6 +422,9 @@ const Collection: NextPage = () => {
                           colorScheme="primary"
                           aria-label="Send email"
                           icon={<i className="icon-funnel"></i>}
+                          onClick={() =>
+                            setToggleActivityFilter(!toggleActivityFilter)
+                          }
                         />
                       </Box>
                       <Box
@@ -397,11 +477,11 @@ const Collection: NextPage = () => {
                   </Box>
                 </Flex>
               </TabPanel>
-              <TabPanel px={{base:'0', md:'initial'}}>
-                <Box pt='24px'>
-                  <Flex flexWrap='wrap' gap='24px' mb='24px'>
+              <TabPanel px={{ base: "0", md: "initial" }}>
+                <Box pt="24px">
+                  <Flex flexWrap="wrap" gap="24px" mb="24px">
                     <Stat
-                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
+                      flexBasis={{ base: "100%", md: "48%", xl: "32%" }}
                       flex={"0% 1 0%)"}
                     >
                       <Flex justifyContent="space-between" alignItems="center">
@@ -413,7 +493,7 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.volume} MATIC</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
+                      flexBasis={{ base: "100%", md: "48%", xl: "32%" }}
                       flex={"0% 1 0%)"}
                     >
                       <Flex justifyContent="space-between" alignItems="center">
@@ -425,9 +505,10 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.sale}</StatNumber>
                     </Stat>
                     <Stat
-                      flexBasis={{ base: "100%", md: '48%', xl: "32%" }}
-                      flex={"0% 1 0%)"}>
-                      <Flex justifyContent="space-between" alignItems='center'>
+                      flexBasis={{ base: "100%", md: "48%", xl: "32%" }}
+                      flex={"0% 1 0%)"}
+                    >
+                      <Flex justifyContent="space-between" alignItems="center">
                         <StatLabel mb="8px">Floor Price</StatLabel>
                         <StatHelpText color="#00F59B">
                           {/* <i className="icon-up"></i>+8% */}
@@ -437,7 +518,10 @@ const Collection: NextPage = () => {
                       <StatNumber>{collectionDetail?.floor_price}</StatNumber>
                     </Stat>
                   </Flex>
-                  <Flex gap="24px" flexDirection={{ base: "column", xl: "row" }}>
+                  <Flex
+                    gap="24px"
+                    flexDirection={{ base: "column", xl: "row" }}
+                  >
                     <Box
                       p="24px"
                       borderRadius="16px"
@@ -503,8 +587,11 @@ const Collection: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <Flex gap="24px" pt="24px" flexDirection={{ base: "column", xl: "row" }}>
-
+                  <Flex
+                    gap="24px"
+                    pt="24px"
+                    flexDirection={{ base: "column", xl: "row" }}
+                  >
                     <Box
                       p="24px"
                       borderRadius="16px"
@@ -578,7 +665,11 @@ const Collection: NextPage = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <Flex gap="24px" pt="24px" flexDirection={{ base: "column", xl: "row" }}>
+                  <Flex
+                    gap="24px"
+                    pt="24px"
+                    flexDirection={{ base: "column", xl: "row" }}
+                  >
                     <Box
                       p="24px"
                       borderRadius="16px"
