@@ -758,7 +758,7 @@ const NftDetail = ({ param }: any) => {
                       <Tr key={index}>
                         <Td p={{ base: "12px", md: "17px 25px" }}>
                           <Box color="#6863F3">
-                            {activity?.activityType === "transfer" && (
+                            {activity?.activityType === "buy" && (
                               <i className="icon-transfer"></i>
                             )}
                             {activity?.activityType === "list" && (
@@ -773,10 +773,9 @@ const NftDetail = ({ param }: any) => {
                               List
                             </Text>
                           )}
-                          {activity?.activityType.toLowerCase() ===
-                            "transfer" && (
+                          {activity?.activityType.toLowerCase() === "buy" && (
                             <Text fontWeight="700" flex="15%">
-                              Transfer
+                              Buy
                             </Text>
                           )}
                           {activity?.activityType.toLowerCase() === "mint" && (
@@ -858,7 +857,7 @@ const NftDetail = ({ param }: any) => {
                       isShowLogoImage={false}
                       name={nft?.name}
                       key={index}
-                      identifier='nft'
+                      identifier="nft"
                     />
                   </Box>
                 );
