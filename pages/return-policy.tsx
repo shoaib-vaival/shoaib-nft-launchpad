@@ -18,7 +18,7 @@ const Return = () => {
             }}
             mb={{ base: "10px", lg: "48px" }}
           >
-            Return Policy
+          Terms Of Service
           </Heading>
           <Box>
           <Heading color="#000"
