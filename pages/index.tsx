@@ -224,7 +224,7 @@ const Home: NextPage = () => {
                 Browse by Categories
               </Heading>
               <Button
-                p={{ base: "15px", md: "20px 32px" }}
+                p={{ base: "22px", md: "20px 32px" }}
                 as={Link}
                 href="/categories"
                 variant="primary"

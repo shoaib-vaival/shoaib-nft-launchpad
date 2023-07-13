@@ -17,7 +17,7 @@ const Terms = () => {
             }}
             mb={{ base: "10px", lg: "48px" }}
           >
-           Digital Asset Custody Terms & Conditions
+           Digital Asset Custody 
           </Heading>
           </Box>
    <Box  mt={{ base: "20px", lg: "38px" }}>

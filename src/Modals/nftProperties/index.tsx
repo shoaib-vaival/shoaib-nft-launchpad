@@ -47,7 +47,7 @@ const NftPropertiesModal = ({
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxW={"700px"}>
+        <ModalContent mx={{base:'20px', md:'0'}} maxW={"700px"}>
           <ModalHeader>Add Properties</ModalHeader>
           <ModalCloseButton />
           <Formik
@@ -68,8 +68,8 @@ const NftPropertiesModal = ({
                       can be filtered in your collections sidebar.
                     </Text>
                     <Flex mt='16px'>
-                      <Text mb='0' w='42%' fontWeight='700'>Type</Text>
-                      <Text w='42%' alignItems='baseline' fontWeight='700'>Name</Text>
+                    
+                     
                     </Flex>
                     <FieldArray name="properties">
                       {({ push, remove }: {push: any; remove:any}) => (
@@ -79,6 +79,7 @@ const NftPropertiesModal = ({
                               <div key={index}>
                                 <Flex alignItems='baseline' flexDirection={{ base: 'column', sm: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
                                   <div>
+                                  <Text mb='0' w='42%' fontWeight='700'>Type</Text>
                                     <Field
                                       as={InputField}
                                       size="md"
@@ -94,6 +95,7 @@ const NftPropertiesModal = ({
                                   </div>
                                   <div>
                                     <Flex flexDirection='column' alignItems={'baseline'} ml={{ base: '0', sm: '10px' }}>
+                                    <Text w='42%' alignItems='baseline' fontWeight='700'>Name</Text>
                                       <Field
                                         as={InputField}
                                         size="md"
