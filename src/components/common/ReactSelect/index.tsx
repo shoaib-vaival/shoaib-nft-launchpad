@@ -3,9 +3,9 @@ import {
   ReactSelectTypes as customTypes,
   ReactSelectPropsTypes,
 } from "./types";
-import { components } from "react-select";
+import Select, { components } from "react-select";
 import { FormLabel, Flex } from "@chakra-ui/react";
-import Select from 'react-select'
+// import CreatableSelect from "react-select/creatable";
 
 const MultiValueRemove = (props: any) => {
   return (
@@ -35,10 +35,19 @@ ReactSelectPropsTypes) => {
   const handleChangeCategory = (cat: any) => {
     getSelectedData(cat, identifier);
     setValue(cat);
-    if(identifier == "cat" || identifier == "tag"){
-    setCollection(collection)
-    setNftName(nftName);
-    setNftDesc(nftDesc);
+    if (identifier == "cat") {
+      setCollection({ ...collection, category: cat?.value });
+      setNftName(nftName);
+      setNftDesc(nftDesc);
+    }
+    if (identifier == "tag") {
+      setNftName(nftName);
+      setNftDesc(nftDesc);
+      setCollection({
+        ...collection,
+        tags:
+          cat?.length > 0 ? cat?.map((category: any) => category?.value) : [],
+      });
     }
   };
 
