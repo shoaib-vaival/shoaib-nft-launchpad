@@ -40,7 +40,7 @@ const NftPropertiesModal = ({
 }) => {
 
   const initialValues = {
-    properties: properties?.length > 0 ? properties : [{ type: "", name: "" }],
+    properties: properties?.length > 0 ? properties : [{ value: "", name: "" }],
   };
 
   return (
@@ -84,11 +84,11 @@ const NftPropertiesModal = ({
                                       size="md"
                                       type="text"
                                       maxLength={50}
-                                      placeholder="Enter property type"
-                                      name={`properties.${[index]}.type`}
+                                      placeholder="Enter property value"
+                                      name={`properties.${[index]}.value`}
                                     />
                                     <ErrorMessage className="ErrorMessage"
-                                      name={`properties.${[index]}.type`}
+                                      name={`properties.${[index]}.value`}
                                       component="div"
                                     />
                                   </div>
@@ -121,7 +121,7 @@ const NftPropertiesModal = ({
                           {values?.properties?.length < 12 && (
 
                             <Button color='#6863F3' fontSize='14px' fontWeight='bold' bg='transparent' p='0' type='button' textDecoration='none' variant='link' mt='10px'
-                              onClick={() => push({ type: '', name: '' })} >
+                              onClick={() => push({ value: '', name: '' })} >
                               <Box color='#6863F3' mr='8px'><i className="icon-plus"></i></Box>Add Property</Button>
 
                           )}
@@ -137,11 +137,6 @@ const NftPropertiesModal = ({
                       width="full"
                       colorScheme="blue"
                       mr={3}
-                      // onClick={() => {
-                      //   setProperties(values?.properties);
-                      //   setNftName(nftName);
-                      //   onClose();
-                      // }}
                     >
                       Save
                     </Button>
