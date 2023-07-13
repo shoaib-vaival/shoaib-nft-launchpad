@@ -245,6 +245,20 @@ export const Header = () => {
                   bg="white"
                   w="90%"
                   ref={searchBoxRef}
+                  maxH="400px"
+                  overflowY="scroll"
+                  css={{
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      width: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "gray",
+                      borderRadius: "24px",
+                    },
+                  }}
                 >
                   {collectionSearch && collectionSearch?.length > 0 ? (
                     collectionSearch?.map((collection: any, index: number) => {
