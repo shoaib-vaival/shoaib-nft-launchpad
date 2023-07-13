@@ -599,6 +599,15 @@ const CreateCollection = () => {
                           </Flex>
                         </div>
                       ))}
+                    {values?.creatorFee
+                      ?.map((item: any) => item?.percentage)
+                      ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
+                      10 && (
+                      <Text color={"red.600"}>
+                        Percentage must be less than 10
+                      </Text>
+                    )}
+
                     {values?.creatorFee && values?.creatorFee?.length < 5 && (
                       <Button
                         color="#6863F3"
@@ -625,6 +634,12 @@ const CreateCollection = () => {
             </FormControl>
 
             <Button
+              isDisabled={
+                values?.creatorFee
+                  ?.map((item: any) => item?.percentage)
+                  ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
+                  10 && true
+              }
               isLoading={loader}
               type="submit"
               variant="primary"

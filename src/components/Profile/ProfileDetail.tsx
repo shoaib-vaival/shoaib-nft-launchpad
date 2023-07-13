@@ -11,7 +11,10 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import InputField from "../InputField";
+import { useWeb3React } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
 import CopyWalletAddress from "../CopyWalletAddress";
+import dayjs from "dayjs";
 
 type profileDetailProps = {
   showStats: boolean;
@@ -27,7 +30,8 @@ const ProfileDetail = ({
   isCollection,
   description,
 }: profileDetailProps) => {
-  console.log("dataaaaaaaaaaaaaa", data?.walletAddress)
+  const { chainId } = useWeb3React<Web3Provider>();
+  console.log("dataaaaaaaaaaaaaa", data);
   return (
     <>
       <Container pl={{ base: "0", md: "54px" }} mt="24px" pr="0" pt="0">
@@ -35,7 +39,7 @@ const ProfileDetail = ({
           alignItems={{ base: "baseline", md: "center" }}
           flexDirection={{ base: "column", sm: "row" }}
         >
-          <Flex alignItems="center"  mr='50px'>
+          <Flex alignItems="center" mr="50px">
             <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
               {data?.displayName || data?.name}
             </Heading>
@@ -49,8 +53,7 @@ const ProfileDetail = ({
           </Flex>
           <Box>
             {!isCollection ? (
-              
-            <CopyWalletAddress value={data?.walletAddress}/>
+              <CopyWalletAddress value={data?.walletAddress} />
             ) : (
               ""
             )}
@@ -105,7 +108,7 @@ const ProfileDetail = ({
                     >
                       <Text>Chain:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
-                        {data?.chain}{" "}
+                        {chainId}
                       </Text>
                     </Box>
                   </>
@@ -121,11 +124,10 @@ const ProfileDetail = ({
                     >
                       <Text>Joined:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
-                        {" "}
-                        Dec 2021
+                        {dayjs(data?.insertedDate).format("MMMM YYYY")}
                       </Text>
                     </Box>
-                    <Box
+                    {/* <Box
                       display="flex"
                       alignItems="center"
                       fontSize="14px"
@@ -138,7 +140,7 @@ const ProfileDetail = ({
                         {" "}
                         Dec 2021
                       </Text>
-                    </Box>
+                    </Box> */}
                     <Box
                       display="flex"
                       alignItems="center"
@@ -149,8 +151,7 @@ const ProfileDetail = ({
                     >
                       <Text>Chain:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
-                        {" "}
-                        Dec 2021
+                        {chainId}
                       </Text>
                     </Box>
                   </>
