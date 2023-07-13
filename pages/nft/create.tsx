@@ -329,8 +329,8 @@ const CreateNFT = () => {
                               flex={"0% 1 0%)"}
                               margin={"12px 12px 12px 0"}
                             >
-                              <StatLabel>{items?.type}</StatLabel>
-                              <StatNumber>{items?.name}</StatNumber>
+                              <StatLabel>{items?.name}</StatLabel>
+                              <StatNumber>{items?.value}</StatNumber>
                             </Stat>
                           </>
                         ))}

@@ -54,8 +54,8 @@ export const nftSchema = Yup.object().shape({
 export const propertiesSchema = Yup.object().shape({
   properties: Yup.array().of(
     Yup.object().shape({
-      type: Yup.string().required("Type field is required"),
       name: Yup.string().required("Name field is required"),
+      value: Yup.string().required("value field is required"),
     })
   ),
 });
