@@ -53,6 +53,7 @@ const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [totalCreatorFee, setTotalCreatorFree] = useState<any>();
+  const [search, setSearch] = useState<string>();
   const {
     isOpen: isReportModalOpen,
     onOpen: onReportModalOpen,
@@ -96,8 +97,11 @@ const NftDetail = ({ param }: any) => {
   });
 
   const { data: activities, isLoading: isLoadingActivities } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_NFT_ACTIVITIES],
+    queryKey: [QUERY_KEYS.GET_NFT_ACTIVITIES, search],
     url: `${ApiUrl.GET_NFT_ACTIVITIES}/${param?.nftID}`,
+    params: {
+      search: search,
+    },
   });
   console.log(
     "🚀 ~ file: [nftID].tsx:103 ~ NftDetail ~ activities:",
@@ -414,7 +418,7 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontSize="14px" mr="24px">
-                    <i className="icon-document-eye"></i> 666 Views
+                    <i className="icon-document-eye"></i> {data?.views} Views
                   </Text>
                 </Flex>
               </Stack>
@@ -696,7 +700,11 @@ const NftDetail = ({ param }: any) => {
             <InputLeftElement pointerEvents="none">
               <i className="icon-funnel"></i>
             </InputLeftElement>
-            <Input type="tel" placeholder="Filter" />
+            <Input
+              type="text"
+              placeholder="Filter"
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </InputGroup>
         </Flex>
         <Box>
@@ -769,12 +777,13 @@ const NftDetail = ({ param }: any) => {
                               List
                             </Text>
                           )}
-                          {activity?.activityType === "transfer" && (
+                          {activity?.activityType.toLowerCase() ===
+                            "transfer" && (
                             <Text fontWeight="700" flex="15%">
                               Transfer
                             </Text>
                           )}
-                          {activity?.activityType === "mint" && (
+                          {activity?.activityType.toLowerCase() === "mint" && (
                             <Text fontWeight="700" flex="15%">
                               Mint
                             </Text>

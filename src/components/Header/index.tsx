@@ -19,8 +19,11 @@ import {
   Switch,
   FormControl,
   FormLabel,
+  VStack,
+  Heading,
+  Link,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import link from "next/link";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
 import { useWeb3React } from "@web3-react/core";
@@ -36,10 +39,12 @@ import { setCookie } from "typescript-cookie";
 import { bg } from "date-fns/locale";
 import { useQueryClient } from "@tanstack/react-query";
 import { showToaster } from "../Toaster";
+import { boolean } from "yup";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
-
+  const [search, setSearch] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
@@ -108,6 +113,14 @@ export const Header = () => {
       invalidateQuery();
     }
   }, [currentAccount]);
+  const handleSearch = (value: string) => {
+    if (value.length > 0) {
+      setIsSearching(true);
+    } else {
+      setIsSearching(false);
+    }
+    setSearch(value);
+  };
 
   const signature = async (savedSign: any) => {
     signMessage(provider).then((signature) => {
@@ -170,6 +183,7 @@ export const Header = () => {
               pl={{ base: "0", lg: "10px", xl: "30px" }}
               pr={{ base: "0", lg: "15px", xl: "30px" }}
               pt={{ base: "5px" }}
+              position="relative"
             >
               <InputGroup
                 variant="custom"
@@ -177,11 +191,90 @@ export const Header = () => {
                 w={{ base: "full", md: "full", lg: "200px", xl: "522px" }}
                 marginBottom={{ base: "3", md: "initial", xl: "initial" }}
               >
-                <Input placeholder="Search..." />
+                <Input
+                  placeholder="Search..."
+                  onChange={(e) => handleSearch(e.target.value)}
+                />
                 <InputLeftElement>
                   <img src="/assets/images/search.svg" />
                 </InputLeftElement>
               </InputGroup>
+              {isSearching ? (
+                <Box
+                  position="absolute"
+                  top="50px"
+                  boxShadow="2px 2px 8px 0px #0D0D0D1A"
+                  background="rgba(255, 255, 255, 0.4)"
+                  border="1px solid rgba(111, 107, 243, 0.4)"
+                  backdropFilter="blur(30px)"
+                  borderRadius="16px"
+                  padding="16px"
+                  bg="white"
+                  w="90%"
+                >
+                  <Flex alignItems="center" gap="2" flex="85%">
+                    <Image
+                      src="/assets/images/nft2.png"
+                      boxSize="100px"
+                      objectFit="cover"
+                      border="1px solid white"
+                      borderRadius="16px"
+                      w={{ base: "50px", md: "56px" }}
+                      h={{ base: "50px", md: "56px" }}
+                    />
+                    <VStack spacing="0.5">
+                      <Heading fontSize="18px">Peaky Bliner</Heading>
+                    </VStack>
+                  </Flex>
+                  <Flex alignItems="center" gap="2" flex="85%">
+                    <Image
+                      src="/assets/images/nft2.png"
+                      boxSize="100px"
+                      objectFit="cover"
+                      border="1px solid white"
+                      borderRadius="16px"
+                      w={{ base: "50px", md: "56px" }}
+                      h={{ base: "50px", md: "56px" }}
+                    />
+                    <VStack spacing="0.5">
+                      <Heading fontSize="18px">Peaky Bliner</Heading>
+                    </VStack>
+                  </Flex>
+                  <Flex alignItems="center" gap="2" flex="85%">
+                    <Image
+                      src="/assets/images/nft2.png"
+                      boxSize="100px"
+                      objectFit="cover"
+                      border="1px solid white"
+                      borderRadius="16px"
+                      w={{ base: "50px", md: "56px" }}
+                      h={{ base: "50px", md: "56px" }}
+                    />
+                    <VStack spacing="0.5">
+                      <Heading fontSize="18px">Peaky Bliner</Heading>
+                    </VStack>
+                  </Flex>
+                  <Flex alignItems="center" gap="2" flex="85%">
+                    <Image
+                      src="/assets/images/nft2.png"
+                      boxSize="100px"
+                      objectFit="cover"
+                      border="1px solid white"
+                      borderRadius="16px"
+                      w={{ base: "50px", md: "56px" }}
+                      h={{ base: "50px", md: "56px" }}
+                    />
+                    <VStack spacing="0.5">
+                      <Heading fontSize="18px">Peaky Bliner</Heading>
+                    </VStack>
+                  </Flex>
+                  <Link as={link} href="/categories">
+                    Explorer
+                  </Link>
+                </Box>
+              ) : (
+                ""
+              )}
             </Box>
             <Box
               order={{ base: "4", sm: "4", md: "5", lg: "3" }}

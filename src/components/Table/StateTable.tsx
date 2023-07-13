@@ -37,14 +37,14 @@ export const CollectionStatTable = ({
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
-    showSuccessToast: true,
-    successMessage: "Added to watchlist",
     token: true,
+    successMessage: "Added to watchlist",
   });
   const { mutate: removeFromWatchlist } = useMutation<any>({
     method: POST,
     url: ApiUrl.REMOVE_FROM_WATCHLIST,
     showSuccessToast: true,
+    successMessage: "Removed from watchlist",
     token: true,
   });
   const columns = [
@@ -63,7 +63,7 @@ export const CollectionStatTable = ({
               {
                 type: "button",
                 label: "add to watchlist",
-                icon: <i className="icon-eye"></i>,
+                icon: <i className="icon-watch"></i>,
                 onClick: (id: number) => mutate({ collectionId: id }),
               },
             ]

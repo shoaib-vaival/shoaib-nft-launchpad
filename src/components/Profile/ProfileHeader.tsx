@@ -36,8 +36,8 @@ const ProfileHeader = ({
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
-    showSuccessToast: true,
     token: true,
+    successMessage: "Added to watchlist",
   });
   return (
     <>
