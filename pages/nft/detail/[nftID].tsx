@@ -862,6 +862,7 @@ const NftDetail = ({ param }: any) => {
                       isShowLogoImage={false}
                       name={nft?.name}
                       key={index}
+                      identifier='nft'
                     />
                   </Box>
                 );

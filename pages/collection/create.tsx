@@ -422,7 +422,7 @@ const CreateCollection = () => {
                     size="md"
                     label="Telegram"
                     type="text"
-                    placeholder="Telegram ID"
+                    placeholder="https://"
                     name="telegram"
                     errorText={
                       touched["telegram"] && errors["telegram"]
