@@ -217,7 +217,7 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      <Heading mb="45px" as="h1">
+     <Heading mb={{base: '18px', md:'45px'}} as="h1">
         Create Collection
       </Heading>
       <Formik
@@ -586,7 +586,7 @@ const CreateCollection = () => {
                                 />
                               </Text>
                             </Box>
-                            <Box>
+                            <Box ml={3}>
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
