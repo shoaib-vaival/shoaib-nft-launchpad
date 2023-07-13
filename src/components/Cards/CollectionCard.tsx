@@ -47,9 +47,9 @@ const CollectionCard = ({
   if (type === "withBody") {
     return (
       <div>
-        <Container py="12px" px={{ base: "0", sm: "12px" }} key={key}>
+        <Container py="12px" px={{ base: "0", sm: "12px" }} key={key} >
           <Box>
-            <Card
+            <Card 
               maxH={{ base: "359px", xl: "459px" }}
               overflow="hidden"
               justifyContent="center"
