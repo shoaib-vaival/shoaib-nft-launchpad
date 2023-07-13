@@ -103,10 +103,6 @@ const NftDetail = ({ param }: any) => {
       search: search,
     },
   });
-  console.log(
-    "🚀 ~ file: [nftID].tsx:103 ~ NftDetail ~ activities:",
-    activities
-  );
 
   const contractInst = useContract();
   interface BuyItemParams {
