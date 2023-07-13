@@ -1,6 +1,6 @@
 export type PropertyTypes = {
     name: string;
-    type: string;
+    value: string;
   };
 export type categoriesType = {
     id:string,
