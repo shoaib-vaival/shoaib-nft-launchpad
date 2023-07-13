@@ -711,7 +711,7 @@ const NftDetail = ({ param }: any) => {
               <Thead>
                 <Tr>
                   <Th>Event</Th>
-                  <Th textAlign="right">Price</Th>
+                  {/* <Th textAlign="right">Price</Th> */}
                   <Th textAlign="right">From</Th>
                   <Th textAlign="right">To</Th>
                   <Th textAlign="right">Time</Th>
@@ -761,7 +761,7 @@ const NftDetail = ({ param }: any) => {
                               <i className="icon-list"></i>
                             )}
                             {activity?.activityType === "mint" && (
-                              <i className="icon-list"></i>
+                              <i className="icon-transfer"></i>
                             )}
                           </Box>
                           {activity?.activityType === "list" && (
@@ -780,14 +780,14 @@ const NftDetail = ({ param }: any) => {
                             </Text>
                           )}
                         </Td>
-                        <Td
+                        {/* <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
                           {`${
                             activity?.price ? activity?.price : 0
                           } ${currencySymbol}`}
-                        </Td>
+                        </Td> */}
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
