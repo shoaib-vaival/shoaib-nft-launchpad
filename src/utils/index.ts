@@ -74,3 +74,10 @@ export  const convertPropertyObject=(obj: any): any=> {
 
   return { property: convertedObj };
 }
+
+export const addEllipsis=(str:string) => {
+  if (str.length > 20) {
+    return str.slice(0, 20) + "...";
+  }
+  return str;
+}

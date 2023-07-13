@@ -48,6 +48,7 @@ import SocialShare from "../../../src/components/SocialShare";
 import { useRouter } from "next/router";
 import { showToaster } from "../../../src/components/Toaster";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDebounce } from "../../../src/hooks/useDebounce";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
@@ -63,6 +64,7 @@ const NftDetail = ({ param }: any) => {
   const queryClient = useQueryClient();
   const [nftData, setNftData] = useState<any>({});
   const [loader, setLoader] = useState<any>(false);
+  const debounceValue = useDebounce(search, 500);
   const router = useRouter();
   const currentUrl = router.asPath;
 
@@ -97,10 +99,10 @@ const NftDetail = ({ param }: any) => {
   });
 
   const { data: activities, isLoading: isLoadingActivities } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_NFT_ACTIVITIES, search],
+    queryKey: [QUERY_KEYS.GET_NFT_ACTIVITIES, debounceValue],
     url: `${ApiUrl.GET_NFT_ACTIVITIES}/${param?.nftID}`,
     params: {
-      search: search,
+      search: debounceValue,
     },
   });
 

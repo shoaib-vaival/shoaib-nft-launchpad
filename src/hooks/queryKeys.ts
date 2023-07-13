@@ -34,5 +34,6 @@ export const QUERY_KEYS = {
   GET_ANALYTICS_LISTING:'stat-listing-nft',
   GET_TOP_OWNERS:'stat-top-owner',
   GET_TOP_OWNER_DISTRIBUTION:'owner-distribution',
-  GET_NOTIF_SETTINGS: 'get-notif-settings'
+  GET_NOTIF_SETTINGS: 'get-notif-settings',
+  GET_SEARCH_COLLECTIONS:'get-search-collections'
 };
