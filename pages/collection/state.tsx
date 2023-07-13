@@ -88,7 +88,7 @@ const CollectionStat: NextPage = () => {
 
           <TabPanels>
             <TabPanel>
-              <Flex justifyContent="space-between" marginTop="16px">
+              <Flex justifyContent="space-between" marginTop="16px"  flexDirection={{base:'column', sm:'row'}}>
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
@@ -99,7 +99,7 @@ const CollectionStat: NextPage = () => {
                   }}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
-                <Box justifyContent={"end"}>
+                <Box justifyContent={"end"} mt={{base:'15px', sm:'0px' }}>
                   <HorizentalButtonFilter
                     options={timeFilterOptions?.options}
                     onChange={(value: string) => setDayFilters(value)}
@@ -116,7 +116,7 @@ const CollectionStat: NextPage = () => {
               />
             </TabPanel>
             <TabPanel>
-              <Flex justifyContent="space-between" marginTop="16px">
+              <Flex justifyContent="space-between" marginTop="16px"  flexDirection={{base:'column', sm:'row'}}>
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
@@ -127,7 +127,7 @@ const CollectionStat: NextPage = () => {
                   }}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
-                <Box justifyContent={"end"}>
+                <Box justifyContent={"end"} mt={{base:'15px', sm:'0px' }}>
                   <HorizentalButtonFilter
                     options={timeFilterOptions?.options}
                     onChange={(value: string) => setDayFilters(value)}
@@ -144,7 +144,7 @@ const CollectionStat: NextPage = () => {
               />
             </TabPanel>
             <TabPanel>
-              <Flex justifyContent="space-between" marginTop="16px">
+              <Flex justifyContent="space-between" marginTop="16px"  flexDirection={{base:'column', sm:'row'}}>
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
@@ -155,7 +155,7 @@ const CollectionStat: NextPage = () => {
                   }}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
-                <Box justifyContent={"end"}>
+                <Box justifyContent={"end"} mt={{base:'15px', sm:'0px' }}>
                   <HorizentalButtonFilter
                     options={timeFilterOptions?.options}
                     onChange={(value: string) => setDayFilters(value)}

@@ -128,7 +128,7 @@ const Home: NextPage = () => {
               maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
               mt={{ base: "40px", lg: "80px" }}
             >
-              <Tabs onChange={(index) => setTabIndex(index)}>
+              <Tabs onChange={(index) => setTabIndex(index)} >
                 <TabList pl="0" alignItems="center" flexWrap="wrap" >
                   <Tab fontSize={{base:'20px',md:'24px'}} fontWeight='700'>Trending</Tab>
                   <Tab fontSize={{base:'20px',md:'24px'}} fontWeight='700'>Top</Tab>
@@ -139,7 +139,7 @@ const Home: NextPage = () => {
                     pb="8px"
                     flexWrap="wrap"
                     gap="8px"
-                    mt={{ base: "12px", md: "0" }}
+                    mt={{ base: "28px", md: "0" }}
                   >
                     <HorizentalButtonFilter
                       options={timeFilterOptions?.options}
@@ -215,7 +215,7 @@ const Home: NextPage = () => {
             <Flex
               justifyContent="space-between"
               alignItems="center"
-              mb="30px"
+              mb={{base:'10px', sm:'30px'}}
               px={{ base: "0", md: "12px" }}
             >
               <Heading
@@ -234,7 +234,7 @@ const Home: NextPage = () => {
                 View All
               </Button>
             </Flex>
-            <FilterTabs
+            <FilterTabs 
               tabsList={categories}
               getTabIndex={(index) => console.log(index)}
             />
