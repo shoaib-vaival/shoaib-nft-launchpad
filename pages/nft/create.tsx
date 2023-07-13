@@ -307,6 +307,7 @@ const CreateNFT = () => {
                     <Box>
                       <IconButton
                         color=" #756C99"
+                        mt={{ base: "8px", sm: "0" }}
                         mb={{ base: "8px", sm: "0" }}
                         ml={{ base: "5px", sm: "0" }}
                         variant="outline"
