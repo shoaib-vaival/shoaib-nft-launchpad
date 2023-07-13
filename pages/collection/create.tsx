@@ -217,7 +217,7 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-      <Heading mb="45px" as="h1">
+     <Heading mb={{base: '18px', md:'45px'}} as="h1">
         Create Collection
       </Heading>
       <Formik
@@ -333,6 +333,8 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
+                    collection={collection}
+                    setCollection={setCollection}
                     // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
@@ -356,6 +358,8 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
+                  collection={collection}
+                  setCollection={setCollection}
                 />
               </Stack>
 
@@ -418,7 +422,7 @@ const CreateCollection = () => {
                     size="md"
                     label="Telegram"
                     type="text"
-                    placeholder="Telegram ID"
+                    placeholder="https://"
                     name="telegram"
                     errorText={
                       touched["telegram"] && errors["telegram"]
@@ -582,7 +586,7 @@ const CreateCollection = () => {
                                 />
                               </Text>
                             </Box>
-                            <Box>
+                            <Box ml={3}>
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
@@ -599,6 +603,15 @@ const CreateCollection = () => {
                           </Flex>
                         </div>
                       ))}
+                    {values?.creatorFee
+                      ?.map((item: any) => item?.percentage)
+                      ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
+                      10 && (
+                      <Text color={"red.600"}>
+                        Percentage must be less than 10
+                      </Text>
+                    )}
+
                     {values?.creatorFee && values?.creatorFee?.length < 5 && (
                       <Button
                         color="#6863F3"
@@ -625,13 +638,19 @@ const CreateCollection = () => {
             </FormControl>
 
             <Button
+              isDisabled={
+                values?.creatorFee
+                  ?.map((item: any) => item?.percentage)
+                  ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
+                  10 && true
+              }
               isLoading={loader}
               type="submit"
               variant="primary"
               textTransform="uppercase"
               mt="20px"
             >
-              Create Collection
+              {router?.query?.id ? "Update Colection" : "Create Collection"}
             </Button>
           </Form>
         )}

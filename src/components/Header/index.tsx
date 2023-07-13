@@ -22,6 +22,8 @@ import {
   VStack,
   Heading,
   Link,
+  Text,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import link from "next/link";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -33,18 +35,32 @@ import { POST } from "../../hooks/consts";
 import { ApiUrl } from "../../apis/apiUrl";
 import { useMutation } from "../../hooks/useMutation";
 import { useQuery } from "../../hooks/useQuery";
-import { getFromLocalStorage, setToLocalStorage } from "../../utils";
-import { useEffect, useState } from "react";
+import {
+  addEllipsis,
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "../../utils";
+import { useEffect, useRef, useState } from "react";
 import { setCookie } from "typescript-cookie";
 import { bg } from "date-fns/locale";
 import { useQueryClient } from "@tanstack/react-query";
 import { showToaster } from "../Toaster";
 import { boolean } from "yup";
+import { useDebounce } from "../../hooks/useDebounce";
+import { useRouter } from "next/router";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
+  const debounceValue = useDebounce(search, 1000);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const searchBoxRef = useRef(null);
+  const router = useRouter();
+
+  useOutsideClick({
+    ref: searchBoxRef,
+    handler: () => setIsSearching(false),
+  });
   const {
     isOpen: isConnectionModalOpen,
     onOpen: onConnectionModalOpen,
@@ -82,6 +98,13 @@ export const Header = () => {
     queryClient.invalidateQueries([QUERY_KEYS.GET_SIGN]);
   };
 
+  const { data: collectionSearch } = useQuery<any>({
+    queryKey: [QUERY_KEYS?.GET_SEARCH_COLLECTIONS, debounceValue],
+    url: ApiUrl?.GET_SEARCH_COLLECTIONS,
+    params: {
+      search: debounceValue,
+    },
+  });
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
 
   // Function to handle account change
@@ -122,6 +145,13 @@ export const Header = () => {
     setSearch(value);
   };
 
+  const handleSearchFocus = () => {
+    if (search !== "") {
+      setIsSearching(true);
+    } else {
+      setIsSearching(false);
+    }
+  };
   const signature = async (savedSign: any) => {
     signMessage(provider).then((signature) => {
       if (signature.length == 0) {
@@ -149,7 +179,6 @@ export const Header = () => {
     },
     enabled: account ? true : false,
   });
-
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
@@ -193,13 +222,17 @@ export const Header = () => {
               >
                 <Input
                   placeholder="Search..."
-                  onChange={(e) => handleSearch(e.target.value)}
+                  onChange={(e) => {
+                    setIsSearching(true);
+                    setSearch(e.target.value);
+                  }}
+                  onClick={() => setIsSearching(true)}
                 />
                 <InputLeftElement>
                   <img src="/assets/images/search.svg" />
                 </InputLeftElement>
               </InputGroup>
-              {isSearching ? (
+              {search && isSearching ? (
                 <Box
                   position="absolute"
                   top="50px"
@@ -211,63 +244,44 @@ export const Header = () => {
                   padding="16px"
                   bg="white"
                   w="90%"
+                  ref={searchBoxRef}
                 >
-                  <Flex alignItems="center" gap="2" flex="85%">
-                    <Image
-                      src="/assets/images/nft2.png"
-                      boxSize="100px"
-                      objectFit="cover"
-                      border="1px solid white"
-                      borderRadius="16px"
-                      w={{ base: "50px", md: "56px" }}
-                      h={{ base: "50px", md: "56px" }}
-                    />
-                    <VStack spacing="0.5">
-                      <Heading fontSize="18px">Peaky Bliner</Heading>
-                    </VStack>
-                  </Flex>
-                  <Flex alignItems="center" gap="2" flex="85%">
-                    <Image
-                      src="/assets/images/nft2.png"
-                      boxSize="100px"
-                      objectFit="cover"
-                      border="1px solid white"
-                      borderRadius="16px"
-                      w={{ base: "50px", md: "56px" }}
-                      h={{ base: "50px", md: "56px" }}
-                    />
-                    <VStack spacing="0.5">
-                      <Heading fontSize="18px">Peaky Bliner</Heading>
-                    </VStack>
-                  </Flex>
-                  <Flex alignItems="center" gap="2" flex="85%">
-                    <Image
-                      src="/assets/images/nft2.png"
-                      boxSize="100px"
-                      objectFit="cover"
-                      border="1px solid white"
-                      borderRadius="16px"
-                      w={{ base: "50px", md: "56px" }}
-                      h={{ base: "50px", md: "56px" }}
-                    />
-                    <VStack spacing="0.5">
-                      <Heading fontSize="18px">Peaky Bliner</Heading>
-                    </VStack>
-                  </Flex>
-                  <Flex alignItems="center" gap="2" flex="85%">
-                    <Image
-                      src="/assets/images/nft2.png"
-                      boxSize="100px"
-                      objectFit="cover"
-                      border="1px solid white"
-                      borderRadius="16px"
-                      w={{ base: "50px", md: "56px" }}
-                      h={{ base: "50px", md: "56px" }}
-                    />
-                    <VStack spacing="0.5">
-                      <Heading fontSize="18px">Peaky Bliner</Heading>
-                    </VStack>
-                  </Flex>
+                  {collectionSearch && collectionSearch?.length > 0 ? (
+                    collectionSearch?.map((collection: any, index: number) => {
+                      return (
+                        <Box
+                          onClick={() => {
+                            setIsSearching(false);
+                            router.push(`/collection/${collection?.id}`);
+                          }}
+                          key={index}
+                        >
+                          <Flex alignItems="center" gap="2" pb="8px" flex="85%">
+                            <Image
+                              src={collection?.logoImageUrl}
+                              boxSize="100px"
+                              objectFit="cover"
+                              border="1px solid white"
+                              borderRadius="16px"
+                              w={{ base: "50px", md: "56px" }}
+                              h={{ base: "50px", md: "56px" }}
+                            />
+                            <VStack spacing="0.5" alignItems="start">
+                              <Heading fontSize="18px">
+                                {addEllipsis(collection?.name)}
+                              </Heading>
+                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
+                                Items {collection?.nftCount}
+                              </Text>
+                            </VStack>
+                          </Flex>
+                        </Box>
+                      );
+                    })
+                  ) : (
+                    <Text textAlign="center">Record not found</Text>
+                  )}
+
                   <Link as={link} href="/categories">
                     Explorer
                   </Link>
@@ -469,13 +483,19 @@ export const Header = () => {
 
                 <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
                   <MenuItem>
-                    <Link href="/profile-created">Profile</Link>
+                    <Link as={link} href="/profile-created">
+                      Profile
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link href="/collection/my-collection">My Collection</Link>
+                    <Link as={link} href="/collection/my-collection">
+                      My Collection
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link href="/setting">Settings</Link>
+                    <Link as={link} href="/setting">
+                      Settings
+                    </Link>
                   </MenuItem>
 
                   <MenuItem

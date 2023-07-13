@@ -107,7 +107,7 @@ const Categories: NextPage = () => {
               }}
             />
           </DrawerFilter>
-          {toggleActivityFilter ? (
+          {toggleActivityFilter && !filterBreakPoint ? (
             <ActivitySideFilter
               onChange={(filter: any) => {
                 setFilters({
@@ -161,7 +161,10 @@ const Categories: NextPage = () => {
               </Box>
               <Box width="150px" ml="8px" order={{ base: "2", sm: "3" }}>
                 <ReactSelect
-                  options={[{ key: "Sorty By", value: "Sort By" }]}
+                  options={[
+                    { label: "Ascending ", value: "ASC" },
+                    { label: "Descending ", value: "DESC" },
+                  ]}
                   isMultiple={false}
                   identifier="filter"
                   getSelectedData={(selectedOption: any) =>

@@ -51,6 +51,15 @@ export const ActivityTable = ({
             </Text>
           </Flex>
         );
+      case "mint":
+        return (
+          <Flex gap="2">
+            <i className="icon-cart" style={{ color: "#6863F3" }}></i>
+            <Text fontWeight="700" flex="15%">
+              Mint
+            </Text>
+          </Flex>
+        );
     }
   };
   const tableData =

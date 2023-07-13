@@ -86,7 +86,7 @@ const Collection: NextPage = () => {
     setView(viewMode);
   };
   const { data: collectionDetail } = useQuery<collectionType>({
-    queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL],
+    queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL, router.query.collectionID],
     url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
     enabled: router.query.collectionID ? true : false,
   });
@@ -102,6 +102,10 @@ const Collection: NextPage = () => {
     queryKey: [
       QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID,
       isFilterChanged || debounceValue,
+      `${
+        typeof Window !== "undefined" &&
+        window.location?.pathname?.split("/")[2]
+      }`,
     ],
     url: `${ApiUrl.GET_COLLECTION_NFTS_BY_ID}`,
     params: {
@@ -201,7 +205,12 @@ const Collection: NextPage = () => {
       </Container>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box>
-          <Tabs>
+          <Tabs
+            onChange={(index) => {
+              setFilters({ sort: "ASC" });
+              setSearch("");
+            }}
+          >
             <TabList pl="0">
               <Tab>Items</Tab>
               <Tab>Activity</Tab>
@@ -237,7 +246,7 @@ const Collection: NextPage = () => {
                       collectionId={router?.query?.collectionID}
                     />
                   </DrawerFilter>
-                  {toggleSideFilter ? (
+                  {toggleSideFilter && !filterBreakPoint ? (
                     <CollectionSideFilter
                       onChange={(filter: any) => {
                         setPropertyQuery(
@@ -258,7 +267,7 @@ const Collection: NextPage = () => {
                   )}
                   <Box w="100%">
                     <Flex
-                      justifyContent={"end"}
+                      justifyContent={"start"}
                       alignItems="center"
                       flexWrap="wrap"
                     >
@@ -397,7 +406,7 @@ const Collection: NextPage = () => {
                       }}
                     />
                   </DrawerFilter>
-                  {toggleActivityFilter ? (
+                  {toggleActivityFilter && !filterBreakPoint ? (
                     <ActivitySideFilter
                       onChange={(filter: any) => {
                         setFilters({
@@ -444,7 +453,11 @@ const Collection: NextPage = () => {
                             xl: "initial",
                           }}
                         >
-                          <Input placeholder="Search..." />
+                          <Input
+                            placeholder="Search..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                          />
                           <InputLeftElement>
                             <img src="/assets/images/search.svg" />
                           </InputLeftElement>
@@ -462,8 +475,11 @@ const Collection: NextPage = () => {
                           ]}
                           isMultiple={false}
                           identifier="filter"
-                          getSelectedData={(value: string) =>
-                            console.log(value)
+                          getSelectedData={(selectedOption: any) =>
+                            setFilters({
+                              ...filters,
+                              sort: selectedOption?.value,
+                            })
                           }
                           placeholder="Sort By"
                         />
@@ -524,7 +540,7 @@ const Collection: NextPage = () => {
                     flexDirection={{ base: "column", xl: "row" }}
                   >
                     <Box
-                      p="24px"
+                      p={{base:'12px', md:'24px'}}
                       borderRadius="16px"
                       w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"

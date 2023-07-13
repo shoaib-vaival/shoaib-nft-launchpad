@@ -15,4 +15,5 @@ export type collectionCardProps = {
   key?: number;
   nftCollectionId?: number;
   isEditable?:boolean;
+  identifier?:string;
 };

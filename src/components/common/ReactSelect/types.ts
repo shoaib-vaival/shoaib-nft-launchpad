@@ -17,6 +17,8 @@ export type ReactSelectPropsTypes = {
   setNftName?: any;
   setNftDesc?: any;
   defaultValue?: any;
+  collection?: any;
+  setCollection?: any;
 };
 
 export type ReactSelectCatMap = {

@@ -571,6 +571,7 @@ const Setting: NextPage = () => {
                                   p="24px"
                                   borderBottom="1px solid #35353533"
                                   bg="#fff"
+                                  margin={'1px'}
                                 >
                                   <Box>
                                     <FormLabel

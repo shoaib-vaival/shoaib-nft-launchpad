@@ -230,7 +230,7 @@ const ProfilCreated: NextPage = () => {
                       }}
                     />
                   </DrawerFilter>
-                  {toggleSideFilter ? (
+                  {toggleSideFilter && !filterBreakPoint ? (
                     <UserCollectionSideFilter
                       onChange={(filter: any) => {
                         setFilters({
@@ -280,7 +280,7 @@ const ProfilCreated: NextPage = () => {
                           <Input
                             placeholder="Search..."
                             onChange={(e) => searchHandler(e)}
-                            value={filters?.search}
+                            value={search}
                           />
                           <InputLeftElement>
                             <img src="/assets/images/search.svg" />
@@ -386,7 +386,7 @@ const ProfilCreated: NextPage = () => {
                       }}
                     />
                   </DrawerFilter>
-                  {toggleActivityFilter ? (
+                  {toggleActivityFilter && !filterBreakPoint ? (
                     <ActivitySideFilter
                       onChange={(filter: any) => {
                         setFilters({
@@ -434,7 +434,11 @@ const ProfilCreated: NextPage = () => {
                             xl: "initial",
                           }}
                         >
-                          <Input placeholder="Search..." />
+                          <Input
+                            placeholder="Search..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                          />
                           <InputLeftElement>
                             <img src="/assets/images/search.svg" />
                           </InputLeftElement>
@@ -446,11 +450,17 @@ const ProfilCreated: NextPage = () => {
                         order={{ base: "2", sm: "3" }}
                       >
                         <ReactSelect
-                          options={[{ key: "Sorty By", value: "Sort By" }]}
+                          options={[
+                            { label: "Ascending ", value: "ASC" },
+                            { label: "Descending ", value: "DESC" },
+                          ]}
                           isMultiple={false}
                           identifier="filter"
-                          getSelectedData={(value: string) =>
-                            console.log(value)
+                          getSelectedData={(selectedOption: any) =>
+                            setFilters({
+                              ...filters,
+                              sort: selectedOption?.value,
+                            })
                           }
                           placeholder="Sort By"
                         />

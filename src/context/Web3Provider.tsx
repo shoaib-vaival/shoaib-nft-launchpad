@@ -113,7 +113,7 @@ export const Web3ContextProvider = ({
       setToLocalStorage("isWalletConnected", true);
     } catch (error) {
       addChainMetamask(80001);
-      console.log(error);
+      console.log("Connection Error", error);
     }
   };
   const disconnect = () => {

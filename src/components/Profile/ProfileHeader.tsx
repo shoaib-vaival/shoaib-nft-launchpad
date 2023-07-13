@@ -36,8 +36,8 @@ const ProfileHeader = ({
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
+    showSuccessToast: true,
     token: true,
-    successMessage: "Added to watchlist",
   });
   return (
     <>
@@ -74,7 +74,7 @@ const ProfileHeader = ({
               return (
                 <IconButton
                   color=" #756C99"
-                  ml={{ base: "5px", sm: "8px" }}
+                  marginRight={"5px"}
                   mb={{ base: "8px", sm: "0" }}
                   key={index}
                   as="a"
@@ -99,6 +99,7 @@ const ProfileHeader = ({
                   as={Button}
                   color=" #756C99"
                   mb={{ base: "8px", sm: "0" }}
+                  ml={{ base: "0", sm: "4px" }}
                   variant="outline"
                   colorScheme="#6863F3"
                   aria-label="Send"
