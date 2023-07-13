@@ -81,7 +81,7 @@ const ProfileDetail = ({
                       <Text>By:</Text>
                       <Text fontWeight="bold" color="#6F6BF3" ml="5px">
                         {" "}
-                        {data?.name}
+                        {data?.user?.name}
                       </Text>
                     </Box>
                     <Box
@@ -95,7 +95,13 @@ const ProfileDetail = ({
                       <Text>Creator Fee:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
                         {" "}
-                        {data?.creatorFee[0].percentage}
+                        {data?.creatorFee
+                          ?.map((item: any) => item?.percentage)
+                          ?.reduce(
+                            (partialSum: any, a: any) => partialSum + a,
+                            0
+                          )}
+                        {/* {data?.creatorFee[0].percentage} */}
                       </Text>
                     </Box>
                     <Box
@@ -108,7 +114,7 @@ const ProfileDetail = ({
                     >
                       <Text>Chain:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
-                        {chainId}
+                        MATIC
                       </Text>
                     </Box>
                   </>
@@ -151,7 +157,7 @@ const ProfileDetail = ({
                     >
                       <Text>Chain:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
-                        {chainId}
+                        MATIC
                       </Text>
                     </Box>
                   </>
