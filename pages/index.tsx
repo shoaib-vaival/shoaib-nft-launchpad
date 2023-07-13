@@ -161,6 +161,7 @@ const Home: NextPage = () => {
 
                 <TabPanels>
                   <TabPanel p="0" pb='25px' borderBottom='1px solid #35353533'>
+                    <Box display={{base:'none',md:'block'}}>
                     <Flex gap='33px'>
                       <Box w="50%">
                         <TopTenTable
@@ -173,8 +174,16 @@ const Home: NextPage = () => {
                         />
                       </Box>
                     </Flex>
+                    </Box>
+                    <Box w="100%" display={{base:'block',md:'none'}}>
+                        <TopTenTable
+                          data={topTenData && topTenData?.slice(0, 10)}
+                        />
+                      </Box>
                   </TabPanel>
                   <TabPanel p="0">
+                  <Box display={{base:'none',md:'block'}}>
+
                     <Flex gap='33px'>
                       <Box w="50%">
                         <TopTenTable
@@ -187,6 +196,13 @@ const Home: NextPage = () => {
                         />
                       </Box>
                     </Flex>
+                    </Box>
+                    
+                    <Box w="100%" display={{base:'block',md:'none'}}>
+                        <TopTenTable
+                          data={topTenData && topTenData?.slice(0, 10)}
+                        />
+                      </Box>
                   </TabPanel>
                 </TabPanels>
               </Tabs>
