@@ -177,15 +177,20 @@ const ListNftModal = ({
           );
           console.log("Approval status:", isApproved);
           if (!isApproved) {
-            const getApproval = await contractInstance.setApprovalForAll(
-              process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
-              true
-            );
-            console.log(
-              "🚀 ~ file: listNft.tsx:149 ~ approveNFT ~ getApproval:",
-              getApproval
-            );
-            handleListing();
+            const getApproval = await contractInstance
+              .setApprovalForAll(
+                process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
+                true
+              )
+              .then((res: any) => {
+                if (res) handleListing();
+              })
+              .catch((err: Error) => {
+                if (err) {
+                  setLoader(false);
+                  return;
+                }
+              });
           } else {
             handleListing();
           }

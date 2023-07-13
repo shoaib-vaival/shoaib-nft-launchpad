@@ -227,7 +227,13 @@ const CreateNFT = () => {
                       maxFileSize={11e6}
                     />
                     {touched["photo"] && errors["photo"] && (
-                      <Text>{errors["photo"] as React.ReactNode}</Text>
+                      <Text
+                        marginTop={"0px!important"}
+                        fontWeight={"500"}
+                        color={"red.700"}
+                      >
+                        {errors["photo"] as React.ReactNode}
+                      </Text>
                     )}
                   </FormControl>
                   <FormLabel
@@ -307,6 +313,7 @@ const CreateNFT = () => {
                     <Box>
                       <IconButton
                         color=" #756C99"
+                        mt={{ base: "8px", sm: "0" }}
                         mb={{ base: "8px", sm: "0" }}
                         ml={{ base: "5px", sm: "0" }}
                         variant="outline"
@@ -329,8 +336,8 @@ const CreateNFT = () => {
                               flex={"0% 1 0%)"}
                               margin={"12px 12px 12px 0"}
                             >
-                              <StatLabel>{items?.type}</StatLabel>
-                              <StatNumber>{items?.name}</StatNumber>
+                              <StatLabel>{items?.name}</StatLabel>
+                              <StatNumber>{items?.value}</StatNumber>
                             </Stat>
                           </>
                         ))}

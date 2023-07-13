@@ -20,6 +20,7 @@ export const Tabs:ComponentStyleConfig = {
              paddingLeft:'12px',
              
             },
-    }
+    },
+
 }
 

@@ -267,7 +267,7 @@ const Collection: NextPage = () => {
                   )}
                   <Box w="100%">
                     <Flex
-                      justifyContent={"end"}
+                      justifyContent={"start"}
                       alignItems="center"
                       flexWrap="wrap"
                     >
@@ -540,7 +540,7 @@ const Collection: NextPage = () => {
                     flexDirection={{ base: "column", xl: "row" }}
                   >
                     <Box
-                      p="24px"
+                      p={{base:'12px', md:'24px'}}
                       borderRadius="16px"
                       w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"

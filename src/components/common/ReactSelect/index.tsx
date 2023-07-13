@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import CreatableSelect from "react-select/creatable";
 import {
   ReactSelectTypes as customTypes,
   ReactSelectPropsTypes,
 } from "./types";
 import { components } from "react-select";
 import { FormLabel, Flex } from "@chakra-ui/react";
+import Select from 'react-select'
 
 const MultiValueRemove = (props: any) => {
   return (
@@ -26,6 +26,8 @@ const ReactSelect = ({
   setNftName,
   nftDesc,
   setNftDesc,
+  collection,
+  setCollection,
 }: // defaultValue,
 ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(null);
@@ -33,8 +35,11 @@ ReactSelectPropsTypes) => {
   const handleChangeCategory = (cat: any) => {
     getSelectedData(cat, identifier);
     setValue(cat);
-    nftName && setNftName(nftName);
-    nftDesc && setNftDesc(nftDesc);
+    if(identifier == "cat" || identifier == "tag"){
+    setCollection(collection)
+    setNftName(nftName);
+    setNftDesc(nftDesc);
+    }
   };
 
   // useEffect(() => {
@@ -48,7 +53,7 @@ ReactSelectPropsTypes) => {
           <FormLabel>{label}</FormLabel>
         </Flex>
       )}
-      <CreatableSelect
+      <Select
         isClearable
         isMulti={isMultiple}
         onChange={(newValue) => handleChangeCategory(newValue)}

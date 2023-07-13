@@ -162,7 +162,6 @@ const NftDetail = ({ param }: any) => {
 
   const buy = async () => {
     if (contractInst) {
-      console.log("🚀 ~ file: [nftID].tsx:122 ~ buy ~ valueInWei:", params);
       const valueInWei = convertToWei(params?.price);
 
       try {
@@ -197,16 +196,12 @@ const NftDetail = ({ param }: any) => {
           };
           updatePending(pendingParams);
           const receipt = await ethProvider.waitForTransaction(result.hash);
-          console.log("🚀 ~ file: [nftID].tsx:188 ~ buy ~ receipt:", receipt);
           if (receipt.status == 1) {
             setLoader(false);
             showToaster("NFT bought successfully", "success");
             abiDecoder.addABI(marketContractAbi);
             const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-            console.log(
-              "🚀 ~ file: [nftID].tsx:193 ~ buy ~ decodedLogs:",
-              decodedLogs
-            );
+
             const data = {
               tokenId: Number(decodedLogs[0]?.events[0]?.value),
               signature: decodedLogs[0]?.events[1]?.value,
@@ -426,7 +421,8 @@ const NftDetail = ({ param }: any) => {
                 </Flex>
               </Stack>
             </Box>
-            {data?.listings[0]?.listingStatus == "listed" ? (
+            {data?.listings[0]?.listingStatus == "listed" &&
+            data?.listings[0]?.duration > Math.floor(Date.now() / 1000) ? (
               <>
                 <Box
                   paddingBottom={{ base: "20px", sm: "28px" }}
@@ -474,7 +470,8 @@ const NftDetail = ({ param }: any) => {
             />
 
             <Box>
-              {data?.listings[0]?.listingStatus == "listed" ? (
+              {data?.listings[0]?.listingStatus == "listed" &&
+              data?.listings[0]?.duration > Math.floor(Date.now() / 1000) ? (
                 <>
                   <Text fontSize="16px" color="#393F59" pt="24px" pb="16px">
                     Current Price
@@ -505,6 +502,7 @@ const NftDetail = ({ param }: any) => {
               data.owner?.toLowerCase() === account?.toLowerCase() &&
               (data?.listings[0]?.listingStatus == "sold" ||
                 data?.listings[0]?.listingStatus == "canceled" ||
+                data?.listings[0]?.duration < Math.floor(Date.now() / 1000) ||
                 data?.listings.length == 0) ? (
                 <Button
                   onClick={onOpen}
@@ -517,7 +515,8 @@ const NftDetail = ({ param }: any) => {
                 </Button>
               ) : data &&
                 data.owner === account?.toLowerCase() &&
-                data?.listings[0]?.listingStatus == "listed" ? (
+                data?.listings[0]?.listingStatus == "listed" &&
+                data?.listings[0]?.duration > Math.floor(Date.now() / 1000) ? (
                 <Button
                   isLoading={loader}
                   onClick={() => {
@@ -533,7 +532,9 @@ const NftDetail = ({ param }: any) => {
                 </Button>
               ) : (data?.owner != account?.toLowerCase() &&
                   data?.listings[0]?.listingStatus == "sold") ||
-                data?.listings[0]?.listingStatus == "canceled" ? null : (
+                data?.listings[0]?.listingStatus == "canceled" ||
+                data?.listings[0]?.duration <
+                  Math.floor(Date.now() / 1000) ? null : (
                 <Button
                   onClick={() => {
                     buy();
@@ -716,7 +717,7 @@ const NftDetail = ({ param }: any) => {
               <Thead>
                 <Tr>
                   <Th>Event</Th>
-                  <Th textAlign="right">Price</Th>
+                  {/* <Th textAlign="right">Price</Th> */}
                   <Th textAlign="right">From</Th>
                   <Th textAlign="right">To</Th>
                   <Th textAlign="right">Time</Th>
@@ -759,12 +760,17 @@ const NftDetail = ({ param }: any) => {
                       <Tr key={index}>
                         <Td p={{ base: "12px", md: "17px 25px" }}>
                           <Box color="#6863F3">
-                            {activity?.activityType?.toLowerCase() ===
-                              "transfer" && <i className="icon-transfer"></i>}
-                            {activity?.activityType.toLowerCase() ===
-                              "list" && <i className="icon-list"></i>}
+                            {activity?.activityType === "transfer" && (
+                              <i className="icon-transfer"></i>
+                            )}
+                            {activity?.activityType === "list" && (
+                              <i className="icon-list"></i>
+                            )}
+                            {activity?.activityType === "mint" && (
+                              <i className="icon-transfer"></i>
+                            )}
                           </Box>
-                          {activity?.activityType.toLowerCase() === "list" && (
+                          {activity?.activityType === "list" && (
                             <Text fontWeight="700" flex="15%">
                               List
                             </Text>
@@ -781,12 +787,14 @@ const NftDetail = ({ param }: any) => {
                             </Text>
                           )}
                         </Td>
-                        <Td
+                        {/* <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
-                          {`${activity?.nft?.price} ${currencySymbol}`}
-                        </Td>
+                          {`${
+                            activity?.price ? activity?.price : 0
+                          } ${currencySymbol}`}
+                        </Td> */}
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
@@ -799,9 +807,11 @@ const NftDetail = ({ param }: any) => {
                           p={{ base: "12px", md: "17px 25px" }}
                           textAlign="right"
                         >
-                          {activity?.toAddress?.slice(0, 7) +
-                            "..." +
-                            activity?.toAddress?.slice(35, 42)}
+                          {activity?.toAddress == "Marketplace"
+                            ? "Marketplace"
+                            : activity?.toAddress?.slice(0, 7) +
+                              "..." +
+                              activity?.toAddress?.slice(35, 42)}
                         </Td>
                         <Td
                           p={{ base: "12px", md: "17px 25px" }}
@@ -850,6 +860,7 @@ const NftDetail = ({ param }: any) => {
                       isShowLogoImage={false}
                       name={nft?.name}
                       key={index}
+                      identifier='nft'
                     />
                   </Box>
                 );

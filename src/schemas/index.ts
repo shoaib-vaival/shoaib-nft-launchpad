@@ -4,6 +4,7 @@ import * as Yup from "yup";
 export const collectionSchema = Yup.object().shape({
   name: Yup.string()
     .required("Collection name is required")
+    .matches(/[a-zA-Z]/, "Collection name must contain at least one letter")
     .max(50, "Collection name must not exceed 50 characters"),
   description: Yup.string()
     .nullable()
@@ -12,22 +13,17 @@ export const collectionSchema = Yup.object().shape({
   logoImageUrl: Yup.string().required("Logo image is required"),
   creatorFee: Yup.array().of(
     Yup.object().shape({
-      walletAddress: Yup.string().trim()
-        .nullable()
+      walletAddress: Yup.string()
         .test("checksum-validation", "Invalid wallet address", (value) => {
-          if (value === null || value === "") {
-            return true; // Allow null or empty string
-          }
           try {
             const isValidChecksum = ethers.utils.isAddress(`${value}`);
             return isValidChecksum;
           } catch (error) {
             return false;
           }
-        }),
-      percentage: Yup.number()
-        .max(10, "Max Limit 10")
-        .min(0.1, "Min limit 0.1%"),
+        })
+        .required("Wallet Address is required"),
+      percentage: Yup.number(),
     })
   ),
 
@@ -43,7 +39,7 @@ export const nftSchema = Yup.object().shape({
   photo: Yup.string().required("NFT image is required"),
   name: Yup.string()
     .required("NFT name is required")
-    .nullable()
+    .matches(/[a-zA-Z]/, "NFT name must contain at least one letter")
     .max(50, "NFT name must not exceed 50 characters"),
   description: Yup.string()
     .nullable()
@@ -54,8 +50,12 @@ export const nftSchema = Yup.object().shape({
 export const propertiesSchema = Yup.object().shape({
   properties: Yup.array().of(
     Yup.object().shape({
-      type: Yup.string().required("Type field is required"),
-      name: Yup.string().required("Name field is required"),
+      name: Yup.string()
+        .required("Name field is required")
+        .matches(/[a-zA-Z]/, "Name field must not be empty"),
+      value: Yup.string()
+        .required("Type field is required")
+        .matches(/\S+/, "Type field must not be empty"),
     })
   ),
 });
