@@ -333,6 +333,8 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
+                    collection={collection}
+                    setCollection={setCollection}
                     // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
                   {touched["category"] && errors["category"] && (
@@ -356,6 +358,8 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
+                  collection={collection}
+                  setCollection={setCollection}
                 />
               </Stack>
 
@@ -631,7 +635,7 @@ const CreateCollection = () => {
               textTransform="uppercase"
               mt="20px"
             >
-              Create Collection
+              {router?.query?.id ? "Update Colection" : "Create Collection"}
             </Button>
           </Form>
         )}
