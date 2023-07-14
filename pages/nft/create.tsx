@@ -310,7 +310,7 @@ const CreateNFT = () => {
                         Textual traits that show up as rectangles
                       </Text>
                     </Box>
-                    <Box>
+                    <Box  mt={{ base: "25px", md: "0" }}>
                       <IconButton
                         color=" #756C99"
                         mt={{ base: "8px", sm: "0" }}
