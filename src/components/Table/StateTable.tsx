@@ -33,6 +33,7 @@ export const CollectionStatTable = ({
       day: dayFilter,
       catid: catFilter,
     },
+    token: tabFilter === "watchlist" ? true : false,
   });
   const { mutate } = useMutation<any>({
     method: POST,

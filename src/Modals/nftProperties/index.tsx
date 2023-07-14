@@ -57,6 +57,7 @@ const NftPropertiesModal = ({
             onSubmit={(values) => {
               setProperties(values?.properties);
               setNftName(nftName);
+              setNftDesc(nftDesc);
               onClose();}}
           >
             {({ values }) => (

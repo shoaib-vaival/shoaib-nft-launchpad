@@ -580,7 +580,7 @@ const NftDetail = ({ param }: any) => {
               {data?.collection?.collectionProperties?.map(
                 (property: any, index: number) => {
                   return (
-                    <Stat p="14px">
+                    <Stat p="14px" key={index}>
                       <StatLabel>{property?.name}</StatLabel>
                       <StatNumber
                         fontSize="18px"
