@@ -63,7 +63,22 @@ const NftPropertiesModal = ({
             {({ values }) => (
               <Form>
                 <FormControl>
-                  <ModalBody pb={6}>
+                  <ModalBody pb={6}  css={{
+                  "&::-webkit-scrollbar": {
+                    width: "4px",
+                  
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    width: "6px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "gray",
+                    borderRadius: "24px",
+                  },
+                }}
+                 
+                  maxH="400px"
+                  overflowY="scroll">
                     <Text color="#393F59" fontSize="16px" mt="16px">
                       Properties show up underneath your item, are clickable and
                       can be filtered in your collections sidebar.
