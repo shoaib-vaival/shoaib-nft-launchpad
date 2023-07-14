@@ -62,7 +62,7 @@ export const propertiesSchema = Yup.object().shape({
 
 export const settingSchema = Yup.object().shape({
   email: Yup.string().email(),
-  websiteUrl: Yup.string().url("Website Url must be a valid URL"),
+  websiteUrl: Yup.string().nullable().url("Website Url must be a valid URL"),
   etherScanUrl: Yup.string().url("EtherScan Url must be a valid URL"),
   twitter: Yup.string().url("Twitter Url must be a valid URL"),
   instagram: Yup.string().url("Instagram Url must be a valid URL"),

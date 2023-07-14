@@ -101,7 +101,7 @@ const Collection: NextPage = () => {
   } = useInfiniteQuery<nftType[]>({
     queryKey: [
       QUERY_KEYS.GET_COLLECTION_NFTS_BY_ID,
-      isFilterChanged || debounceValue,
+      filters || isFilterChanged || debounceValue,
       `${
         typeof Window !== "undefined" &&
         window.location?.pathname?.split("/")[2]
@@ -540,7 +540,7 @@ const Collection: NextPage = () => {
                     flexDirection={{ base: "column", xl: "row" }}
                   >
                     <Box
-                      p={{base:'12px', md:'24px'}}
+                      p={{ base: "12px", md: "24px" }}
                       borderRadius="16px"
                       w={{ base: "100%", xl: "50%" }}
                       border="1px solid rgba(111, 107, 243, 0.40)"
