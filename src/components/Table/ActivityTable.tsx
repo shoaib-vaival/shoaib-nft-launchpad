@@ -67,7 +67,7 @@ export const ActivityTable = ({
     data?.map((activity: any, index: number) => {
       return {
         status: getActivityStatus(activity?.activityType?.toLowerCase()),
-        itme: (
+        item: (
           <Flex alignItems="center" gap="2" flex="85%">
             <Image
               src={activity?.logoImageUrl}

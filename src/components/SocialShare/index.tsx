@@ -10,7 +10,7 @@ const SocialShare = ({ url, title }: { url: string; title: string; }) => {
         <MenuButton
           as={IconButton}
           color='#756C99'
-          ml={{ base: '5px', sm: '8px' }} mb={{ base: '8px', sm: '0' }}
+          ml={{ base: '0px', sm: '8px' }} mb={{ base: '8px', sm: '0' }}
           variant='outline'
           aria-label='Send'
           fontSize='20px'

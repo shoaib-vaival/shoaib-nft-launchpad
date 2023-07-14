@@ -20,10 +20,10 @@ const CustomLineChart = ({
   collectionId: string | undefined;
 }) => {
   const { data } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_LINE_CHART],
+    queryKey: [QUERY_KEYS.GET_LINE_CHART, collectionId],
     url: ApiUrl.GET_LINE_CHART,
     params: {
-      collectionId: "22323d12-8d05-4d51-94ec-98097e6f2b88",
+      collectionId: collectionId,
       interval: "week",
     },
     enabled: collectionId ? true : false,
