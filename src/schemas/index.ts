@@ -9,8 +9,8 @@ export const collectionSchema = Yup.object().shape({
   description: Yup.string()
     .nullable()
     .max(1000, "Collection detail must not exceed 1000 characters"),
-  category: Yup.string().required("Category is required"),
-  logoImageUrl: Yup.string().required("Logo image is required"),
+  // category: Yup.string().required("Category is required"),
+  // logoImageUrl: Yup.string().required("Logo image is required"),
   creatorFee: Yup.array().of(
     Yup.object().shape({
       walletAddress: Yup.string()

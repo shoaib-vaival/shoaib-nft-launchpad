@@ -35,8 +35,8 @@ ReactSelectPropsTypes) => {
     setValue(cat);
     getSelectedData(cat, identifier);
     setValue(cat);
-    nftName && setNftName(nftName);
-    nftDesc && setNftDesc(nftDesc);
+      nftName && setNftName(nftName);
+      nftDesc && setNftDesc(nftDesc);
   };
 
   // useEffect(() => {
