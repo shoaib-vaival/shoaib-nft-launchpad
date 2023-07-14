@@ -245,6 +245,12 @@ const Setting: NextPage = () => {
                                     marginBottom: "0px",
                                     fontWeight: "500!important",
                                   }}
+                                  errorText={
+                                    touched["displayName"] &&
+                                    errors["displayName"]
+                                      ? errors["displayName"]
+                                      : undefined
+                                  }
                                   maxLength={50}
                                 />
                               </Box>
@@ -264,6 +270,11 @@ const Setting: NextPage = () => {
                                     marginTop: "0px",
                                     marginBottom: "0px",
                                   }}
+                                  errorText={
+                                    touched["userName"] && errors["userName"]
+                                      ? errors["userName"]
+                                      : undefined
+                                  }
                                   name="userName"
                                   maxLength={50}
                                 />
@@ -572,7 +583,7 @@ const Setting: NextPage = () => {
                                   p="24px"
                                   borderBottom="1px solid #35353533"
                                   bg="#fff"
-                                  margin={'1px'}
+                                  margin={"1px"}
                                 >
                                   <Box>
                                     <FormLabel

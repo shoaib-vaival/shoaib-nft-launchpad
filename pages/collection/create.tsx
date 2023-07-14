@@ -46,11 +46,28 @@ const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
   const [nftName, setNftName] = useState<string>("");
   const [nftDesc, setNftDesc] = useState<string>("");
-  const [loader, setLoader] = useState<any>(false);
+  const [catID, setCatId] = useState<any>("");
+  const [tagArr, setTagArr] = useState<any>("");
+  const [loader, setLoader] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+  const [images, setImages] = useState<any>({
+    logoImageUrl: "",
+    featureImageUrl: "",
+    bannerImageUrl: "",
+  });
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
   abiDecoder.addABI(marketContractAbi);
+
+  const { data: getCollectionById, isLoading: getCollectionByIdLoading } =
+    useQuery<collectionByIdTypes>({
+      queryKey: [QUERY_KEYS.GET_COLLECTION],
+      url: `${ApiUrl?.GET_COLLECTION}/${router?.query?.id}`,
+      showToast: false,
+      enabled: router?.query?.id ? true : false,
+      token: true,
+    });
 
   const { mutate: updatePending } = useMutation<any>({
     method: POST,
@@ -119,21 +136,15 @@ const CreateCollection = () => {
     showToast: false,
   });
 
-  const { data: getCollectionById, isLoading: getCollectionByIdLoading } =
-    useQuery<collectionByIdTypes>({
-      queryKey: [QUERY_KEYS.GET_COLLECTION],
-      url: `${ApiUrl?.GET_COLLECTION}/${router?.query?.id}`,
-      showToast: false,
-      enabled: router?.query?.id ? true : false,
-      token: true,
-    });
-
   const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
     url: getCollectionById?.id
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
       : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
+    onError: (data) => {
+      setLoader(false);
+    },
     token: true,
     onSuccess: async (data) => {
       if (account) await deployy(data?.data?.name);
@@ -162,12 +173,12 @@ const CreateCollection = () => {
 
   const getImgUrl = (imgUrlProp: ImgUrlFunParam) => {
     if (imgUrlProp?.imgFor === "logo") {
-      setCollection({ ...collection, logoImageUrl: imgUrlProp?.url });
+      setImages({ ...images, logoImageUrl: imgUrlProp?.url });
     } else if (imgUrlProp?.imgFor === "featured") {
-      setCollection({ ...collection, featureImageUrl: imgUrlProp?.url });
+      setImages({ ...images, featureImageUrl: imgUrlProp?.url });
     }
     if (imgUrlProp?.imgFor === "banner") {
-      setCollection({ ...collection, bannerImageUrl: imgUrlProp?.url });
+      setImages({ ...images, bannerImageUrl: imgUrlProp?.url });
     }
   };
 
@@ -176,15 +187,14 @@ const CreateCollection = () => {
     identifier: string
   ) => {
     if (identifier == "cat") {
-      setCollection({ ...collection, category: selectedValue?.value });
+      setCatId(selectedValue?.value);
+      setShowError(false);
     } else {
-      setCollection({
-        ...collection,
-        tags:
-          selectedValue?.length > 0
-            ? selectedValue?.map((category) => category?.value)
-            : [],
-      });
+      setTagArr(
+        selectedValue?.length > 0
+          ? selectedValue?.map((category) => category?.value)
+          : []
+      );
     }
   };
 
@@ -217,7 +227,7 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-     <Heading mb={{base: '18px', md:'45px'}} as="h1">
+      <Heading mb={{ base: "18px", md: "45px" }} as="h1">
         Create Collection
       </Heading>
       <Formik
@@ -225,7 +235,11 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          mutate(values);
+          if (!catID || !images?.logoImageUrl) {
+            setShowError(true);
+          } else {
+            mutate({ ...values, category: catID, tag: tagArr, ...images });
+          }
           setLoader(true);
         }}
       >
@@ -251,14 +265,14 @@ const CreateCollection = () => {
                       onlyIcon={true}
                       editAbleUrl={getCollectionById?.logoImageUrl}
                     />
-                    {touched["logoImageUrl"] && errors["logoImageUrl"] && (
+                    {!images?.logoImageUrl && showError && (
                       <Text
                         marginTop={"10px!important"}
                         marginLeft={"5px!important"}
                         fontWeight={"500"}
                         color={"red.700"}
                       >
-                        {errors["logoImageUrl"] as React.ReactNode}
+                        Logo image is required
                       </Text>
                     )}
                   </Box>
@@ -333,17 +347,15 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    collection={collection}
-                    setCollection={setCollection}
                     // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
-                  {touched["category"] && errors["category"] && (
+                  {showError && (
                     <Text
                       marginTop={"0px!important"}
                       fontWeight={"500"}
                       color={"red.700"}
                     >
-                      {errors["category"] as React.ReactNode}
+                      Category is required
                     </Text>
                   )}
                 </FormControl>
@@ -358,8 +370,6 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                  collection={collection}
-                  setCollection={setCollection}
                 />
               </Stack>
 

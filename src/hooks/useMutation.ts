@@ -103,9 +103,16 @@ export const useMutation = <T, K = T>({
         onError && onError(newData);
       },
       onError: (newData: any) => {
+        onError && onError(newData);
         showErrorToast &&
           showToaster(
-           `${errorMessage ? errorMessage : Array.isArray(newData?.response?.data?.message) ? newData?.response?.data?.message[0] : newData?.response?.data?.message}`,
+            `${
+              errorMessage
+                ? errorMessage
+                : Array.isArray(newData?.response?.data?.message)
+                ? newData?.response?.data?.message[0]
+                : newData?.response?.data?.message
+            }`,
             "error"
           );
       },
