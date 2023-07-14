@@ -26,8 +26,6 @@ const ReactSelect = ({
   setNftName,
   nftDesc,
   setNftDesc,
-  collection,
-  setCollection,
 }: // defaultValue,
 ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(null);
@@ -35,20 +33,10 @@ ReactSelectPropsTypes) => {
   const handleChangeCategory = (cat: any) => {
     getSelectedData(cat, identifier);
     setValue(cat);
-    if (identifier == "cat") {
-      setCollection({ ...collection, category: cat?.value });
-      setNftName(nftName);
-      setNftDesc(nftDesc);
-    }
-    if (identifier == "tag") {
-      setNftName(nftName);
-      setNftDesc(nftDesc);
-      setCollection({
-        ...collection,
-        tags:
-          cat?.length > 0 ? cat?.map((category: any) => category?.value) : [],
-      });
-    }
+    getSelectedData(cat, identifier);
+    setValue(cat);
+      nftName && setNftName(nftName);
+      nftDesc && setNftDesc(nftDesc);
   };
 
   // useEffect(() => {
