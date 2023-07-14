@@ -23,7 +23,7 @@ export const collectionSchema = Yup.object().shape({
           }
         })
         .required("Wallet Address is required"),
-      percentage: Yup.number(),
+      percentage: Yup.number().nullable(),
     })
   ),
 
@@ -61,11 +61,15 @@ export const propertiesSchema = Yup.object().shape({
 });
 
 export const settingSchema = Yup.object().shape({
-  email: Yup.string().email(),
-  websiteUrl: Yup.string().url("Website Url must be a valid URL"),
-  etherScanUrl: Yup.string().url("EtherScan Url must be a valid URL"),
-  twitter: Yup.string().url("Twitter Url must be a valid URL"),
-  instagram: Yup.string().url("Instagram Url must be a valid URL"),
-  telegram: Yup.string().url("Telegram Url must be a valid URL"),
-  discord: Yup.string().url("Discord Url must be a valid URL"),
+  email: Yup.string().email().required("Email is required"),
+  userName: Yup.string().required("Username is required"),
+  displayName: Yup.string().required("Display Name is required"),
+  websiteUrl: Yup.string().nullable().url("Website Url must be a valid URL"),
+  etherScanUrl: Yup.string()
+    .nullable()
+    .url("EtherScan Url must be a valid URL"),
+  twitter: Yup.string().nullable().url("Twitter Url must be a valid URL"),
+  instagram: Yup.string().nullable().url("Instagram Url must be a valid URL"),
+  telegram: Yup.string().nullable().url("Telegram Url must be a valid URL"),
+  discord: Yup.string().nullable().url("Discord Url must be a valid URL"),
 });

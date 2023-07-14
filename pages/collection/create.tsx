@@ -134,6 +134,9 @@ const CreateCollection = () => {
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
       : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
+    onError: (data) => {
+      setLoader(false);
+    },
     token: true,
     onSuccess: async (data) => {
       if (account) await deployy(data?.data?.name);
@@ -217,7 +220,7 @@ const CreateCollection = () => {
       px={{ base: "17px", sm: "34px", xl: "17px" }}
       pt="30px"
     >
-     <Heading mb={{base: '18px', md:'45px'}} as="h1">
+      <Heading mb={{ base: "18px", md: "45px" }} as="h1">
         Create Collection
       </Heading>
       <Formik
