@@ -49,14 +49,17 @@ const CreateCollection = () => {
   const [catID, setCatId] = useState<any>("");
   const [tagArr, setTagArr] = useState<any>("");
   const [loader, setLoader] = useState<boolean>(false);
-  const [showError, setShowError] = useState<boolean>(false)
-  const [images, setImages] = useState<any>({logoImageUrl: "", featureImageUrl: "", bannerImageUrl: ""})
+  const [showError, setShowError] = useState<boolean>(false);
+  const [images, setImages] = useState<any>({
+    logoImageUrl: "",
+    featureImageUrl: "",
+    bannerImageUrl: "",
+  });
   const router = useRouter();
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
   abiDecoder.addABI(marketContractAbi);
 
-  
   const { data: getCollectionById, isLoading: getCollectionByIdLoading } =
     useQuery<collectionByIdTypes>({
       queryKey: [QUERY_KEYS.GET_COLLECTION],
@@ -65,7 +68,7 @@ const CreateCollection = () => {
       enabled: router?.query?.id ? true : false,
       token: true,
     });
-    
+
   const { mutate: updatePending } = useMutation<any>({
     method: POST,
     url: ApiUrl.UPDATE_PENDING_TRANSACTIONS,
@@ -133,7 +136,7 @@ const CreateCollection = () => {
     showToast: false,
   });
 
-  const { mutate, isLoading } = useMutation<createCollectionTypes>({
+  const { mutate } = useMutation<createCollectionTypes>({
     method: POST,
     url: getCollectionById?.id
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
@@ -184,12 +187,14 @@ const CreateCollection = () => {
     identifier: string
   ) => {
     if (identifier == "cat") {
-      setCatId(selectedValue?.value)
-      setShowError(false)
+      setCatId(selectedValue?.value);
+      setShowError(false);
     } else {
-      setTagArr(selectedValue?.length > 0
-        ? selectedValue?.map((category) => category?.value)
-        : [])
+      setTagArr(
+        selectedValue?.length > 0
+          ? selectedValue?.map((category) => category?.value)
+          : []
+      );
     }
   };
 
@@ -230,12 +235,12 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          if(!catID || !images?.logoImageUrl){
-            setShowError(true)
+          if (!catID || !images?.logoImageUrl) {
+            setShowError(true);
+          } else {
+            mutate({ ...values, category: catID, tag: tagArr, ...images });
           }
-          else{
-            mutate({...values, category: catID, tag: tagArr, ...images});
-          }
+          setLoader(true);
         }}
       >
         {({ errors, touched, values }) => (
@@ -260,7 +265,7 @@ const CreateCollection = () => {
                       onlyIcon={true}
                       editAbleUrl={getCollectionById?.logoImageUrl}
                     />
-                    {(!images?.logoImageUrl && showError) && (
+                    {!images?.logoImageUrl && showError && (
                       <Text
                         marginTop={"10px!important"}
                         marginLeft={"5px!important"}
@@ -344,7 +349,7 @@ const CreateCollection = () => {
                     setNftDesc={setNftDesc}
                     // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                   />
-                  {(showError) && (
+                  {showError && (
                     <Text
                       marginTop={"0px!important"}
                       fontWeight={"500"}
@@ -649,7 +654,7 @@ const CreateCollection = () => {
                   ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
                   10 && true
               }
-              isLoading={isLoading || loader}
+              isLoading={loader}
               type="submit"
               variant="primary"
               textTransform="uppercase"
