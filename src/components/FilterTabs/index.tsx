@@ -31,6 +31,7 @@ export const FilterTabs = ({tabsList, getTabIndex}:FilterTabs) => {
     const spanStyle = {
         fontSize: "7px",
         marginLeft:'8px',
+        verticalAlign: "middle"
       };
     return(
         <>
