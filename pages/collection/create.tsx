@@ -225,7 +225,7 @@ const CreateCollection = () => {
     <Container
       maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
       px={{ base: "17px", sm: "34px", xl: "17px" }}
-      pt="30px"
+      pt={{ base: "10px", xl: "30px" }}
     >
       <Heading mb={{ base: "18px", md: "45px" }} as="h1">
         Create Collection
@@ -300,7 +300,7 @@ const CreateCollection = () => {
                 <FormLabel fontSize="24px!important" fontWeight="700">
                   Details
                 </FormLabel>
-                <FormControl>
+                <FormControl  mt={{base:'0', md:'auto'}}>
                   <Field
                     readOnly={router?.query?.id ? true : false}
                     as={InputField}
