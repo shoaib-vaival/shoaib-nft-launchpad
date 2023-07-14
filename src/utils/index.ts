@@ -76,8 +76,10 @@ export  const convertPropertyObject=(obj: any): any=> {
 }
 
 export const addEllipsis=(str:string) => {
-  if (str.length > 20) {
-    return str.slice(0, 20) + "...";
+  if(str){
+    if (str.length > 20) {
+      return str.slice(0, 20) + "...";
+    }
   }
   return str;
 }
