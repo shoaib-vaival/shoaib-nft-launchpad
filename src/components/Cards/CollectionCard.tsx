@@ -123,7 +123,7 @@ const CollectionCard = ({
                   }
                   pb="24px"
                 >
-                  <Heading size="20px" fontWeight="700" color="#0D0D0D">
+                  <Heading fontSize="20px" fontWeight="700" color="#0D0D0D">
                     {name}
                   </Heading>
                   <SimpleGrid columns={[2, null, 2]} spacing="40px">

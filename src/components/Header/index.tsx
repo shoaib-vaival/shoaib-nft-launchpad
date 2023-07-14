@@ -233,32 +233,37 @@ export const Header = () => {
                 </InputLeftElement>
               </InputGroup>
               {search && isSearching ? (
-                <Box
-                  position="absolute"
-                  top="50px"
-                  boxShadow="2px 2px 8px 0px #0D0D0D1A"
-                  background="rgba(255, 255, 255, 0.4)"
-                  border="1px solid rgba(111, 107, 243, 0.4)"
-                  backdropFilter="blur(30px)"
-                  borderRadius="16px"
-                  padding="16px"
-                  bg="white"
-                  w="90%"
-                  ref={searchBoxRef}
+                <Box   position="absolute"
+                top="50px"
+                boxShadow="2px 2px 8px 0px #0D0D0D1A"
+                background="rgba(255, 255, 255, 0.4)"
+                border="1px solid rgba(111, 107, 243, 0.4)"
+                backdropFilter="blur(30px)"
+                borderRadius="16px"
+                padding="16px"
+                pe={'0'}
+                bg="white"
+                zIndex={'9'}
+                w={{base:'100%',lg:'90%'}}
+                ref={searchBoxRef}
+               >
+   <Box css={{
+                  "&::-webkit-scrollbar": {
+                    width: "4px",
+                  
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    width: "6px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "gray",
+                    borderRadius: "24px",
+                  },
+                }}
+                 
                   maxH="400px"
                   overflowY="scroll"
-                  css={{
-                    "&::-webkit-scrollbar": {
-                      width: "4px",
-                    },
-                    "&::-webkit-scrollbar-track": {
-                      width: "6px",
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      background: "gray",
-                      borderRadius: "24px",
-                    },
-                  }}
+                 
                 >
                   {collectionSearch && collectionSearch?.length > 0 ? (
                     collectionSearch?.map((collection: any, index: number) => {
@@ -300,6 +305,8 @@ export const Header = () => {
                     Explorer
                   </Link>
                 </Box>
+                </Box>
+             
               ) : (
                 ""
               )}

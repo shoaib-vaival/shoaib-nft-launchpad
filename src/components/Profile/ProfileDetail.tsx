@@ -39,7 +39,7 @@ const ProfileDetail = ({
           alignItems={{ base: "baseline", md: "center" }}
           flexDirection={{ base: "column", sm: "row" }}
         >
-          <Flex alignItems="center" mr="50px">
+          <Flex alignItems="center" mr={{ base: "0", lg: "50px" }}>
             <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
               {data?.displayName || data?.name}
             </Heading>
