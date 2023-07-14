@@ -177,7 +177,7 @@ const CreateNFT = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
         px={{ base: "17px", sm: "34px", xl: "17px" }}
       >
-        <Heading as="h1" mb="45px" pt={"30px"}>
+        <Heading as="h1"  mb={{ base: "20px", xl: "45px" }} pt={"30px"}>
           Create New Item
         </Heading>
 
@@ -185,7 +185,7 @@ const CreateNFT = () => {
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
-          onSubmit={(values) => {
+          onSubmit={(values) => {  
             mutate({
               ...values,
               properties: JSON.stringify(properties),
@@ -198,13 +198,13 @@ const CreateNFT = () => {
         >
           {({ errors, touched, values }) => (
             <Form>
-              <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
+              <FormLabel  m="0" display="flex" fontSize="16px" color="#393F59">
                 <Text mr="8px" color="#E53E3E">
                   *
                 </Text>
                 Required fields
               </FormLabel>
-              <FormControl>
+              <FormControl mt={{base:'0px', sm:'auto'}}>
                 <NftPropertiesModal
                   isOpen={isOpen}
                   onOpen={onOpen}
