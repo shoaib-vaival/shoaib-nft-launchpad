@@ -1,7 +1,7 @@
 import { Image } from "@chakra-ui/image";
 import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
 import { GenericTable } from ".";
-import { dayJs } from "../../utils";
+import { addEllipsis, dayJs } from "../../utils";
 
 export type tableType = {
   data: any;
@@ -60,6 +60,15 @@ export const ActivityTable = ({
             </Text>
           </Flex>
         );
+      case "buy":
+        return (
+          <Flex gap="2">
+            <i className="icon-cart" style={{ color: "#6863F3" }}></i>
+            <Text fontWeight="700" flex="15%">
+              Buy
+            </Text>
+          </Flex>
+        );
     }
   };
   const tableData =
@@ -70,7 +79,7 @@ export const ActivityTable = ({
         item: (
           <Flex alignItems="center" gap="2" flex="85%">
             <Image
-              src={activity?.logoImageUrl}
+              src={`${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${activity?.nft?.ipfsImageUrl}`}
               boxSize="100px"
               objectFit="cover"
               border="1px solid white"
@@ -80,10 +89,10 @@ export const ActivityTable = ({
             />
             <VStack spacing="0.5">
               <Heading fontSize="18px">
-                {activity && activity?.name?.subString(0, 16) + "..."}
+                {activity && addEllipsis(activity?.nft?.name)}
               </Heading>
               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
-                Angeli Sunstorm
+                {activity && activity?.collection?.name}
               </Text>
             </VStack>
           </Flex>
