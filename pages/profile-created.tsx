@@ -100,7 +100,7 @@ const ProfilCreated: NextPage = () => {
     hasNextPage,
     isLoading: isLoadingUserNfts,
   } = useInfiniteQuery<nftType[]>({
-    queryKey: [QUERY_KEYS.GET_USER_NFTS, isFilterChanged],
+    queryKey: [QUERY_KEYS.GET_USER_NFTS, filters || isFilterChanged],
     url: ApiUrl.GET_USER_NFTS,
     params: { ...filters, ...propertyQuery?.property },
     token: true,
