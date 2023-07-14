@@ -7,8 +7,7 @@ export const Tabs:ComponentStyleConfig = {
             fontWeight:700,
         _selected:{
                  color:'#6863F3',
-                 paddingBottom:'15px',
-                 paddingLeft:'12px',
+                
              },
              _hover:{
                 color:'#6863F3',
