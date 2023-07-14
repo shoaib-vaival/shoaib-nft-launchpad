@@ -10,6 +10,7 @@ import {
   Textarea,
   Checkbox,
   Image,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { Field, Form, Formik } from "formik";
@@ -98,7 +99,7 @@ const Setting: NextPage = () => {
     email: profile?.email,
     websiteUrl: profile?.websiteUrl,
     etherScanUrl: profile?.etherScanUrl,
-    walletAddress: profile?.walletAddress,
+    walletAddress: `${profile?.walletAddress?.slice(0,17)}...${profile?.walletAddress?.slice(28,42)}`,
     telegram: profile?.telegram,
     twitter: profile?.twitter,
     instagram: profile?.instagram,

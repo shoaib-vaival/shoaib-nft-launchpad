@@ -720,8 +720,8 @@ const NftDetail = ({ param }: any) => {
                   activities?.map((activity: any, index: number) => {
                     return (
                       <Tr key={index}>
-                        <Td p={{ base: "12px", md: "17px 25px" }}>
-                          <Box color="#6863F3">
+                        <Td p={{ base: "12px", md: "17px 25px" }}  display='flex' alignItems='center'>
+                          <Box color="#6863F3" mr='8px'>
                             {activity?.activityType === "buy" && (
                               <i className="icon-transfer"></i>
                             )}
