@@ -88,18 +88,22 @@ const CollectionStat: NextPage = () => {
 
           <TabPanels>
             <TabPanel>
-              <Flex justifyContent="space-between" marginTop="16px"  flexDirection={{base:'column', sm:'row'}}>
+              <Flex
+                justifyContent="space-between"
+                marginTop="16px"
+                flexDirection={{ base: "column", sm: "row" }}
+              >
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
                   identifier="cat"
                   placeholder="All categories"
-                  getSelectedData={(value: any) => {
-                    setCatFilter(value);
+                  getSelectedData={(selectedOption: any) => {
+                    setCatFilter(selectedOption?.value);
                   }}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
-                <Box justifyContent={"end"} mt={{base:'15px', sm:'0px' }}>
+                <Box justifyContent={"end"} mt={{ base: "15px", sm: "0px" }}>
                   <HorizentalButtonFilter
                     options={timeFilterOptions?.options}
                     onChange={(value: string) => setDayFilters(value)}
@@ -116,18 +120,22 @@ const CollectionStat: NextPage = () => {
               />
             </TabPanel>
             <TabPanel>
-              <Flex justifyContent="space-between" marginTop="16px"  flexDirection={{base:'column', sm:'row'}}>
+              <Flex
+                justifyContent="space-between"
+                marginTop="16px"
+                flexDirection={{ base: "column", sm: "row" }}
+              >
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
                   identifier="cat"
                   placeholder="All categories"
-                  getSelectedData={(value: any) => {
-                    setCatFilter(value);
+                  getSelectedData={(selectedOption: any) => {
+                    setCatFilter(selectedOption?.value);
                   }}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
-                <Box justifyContent={"end"} mt={{base:'15px', sm:'0px' }}>
+                <Box justifyContent={"end"} mt={{ base: "15px", sm: "0px" }}>
                   <HorizentalButtonFilter
                     options={timeFilterOptions?.options}
                     onChange={(value: string) => setDayFilters(value)}
@@ -144,18 +152,22 @@ const CollectionStat: NextPage = () => {
               />
             </TabPanel>
             <TabPanel>
-              <Flex justifyContent="space-between" marginTop="16px"  flexDirection={{base:'column', sm:'row'}}>
+              <Flex
+                justifyContent="space-between"
+                marginTop="16px"
+                flexDirection={{ base: "column", sm: "row" }}
+              >
                 <ReactSelect
                   options={filtredCat}
                   isMultiple={false}
                   identifier="cat"
                   placeholder="All categories"
-                  getSelectedData={(value: any) => {
-                    setCatFilter(value);
+                  getSelectedData={(selectedOption: any) => {
+                    setCatFilter(selectedOption?.value);
                   }}
                   // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
                 />
-                <Box justifyContent={"end"} mt={{base:'15px', sm:'0px' }}>
+                <Box justifyContent={"end"} mt={{ base: "15px", sm: "0px" }}>
                   <HorizentalButtonFilter
                     options={timeFilterOptions?.options}
                     onChange={(value: string) => setDayFilters(value)}

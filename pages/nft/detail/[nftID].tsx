@@ -577,61 +577,23 @@ const NftDetail = ({ param }: any) => {
               }}
               gap="3"
             >
-              <Stat p="14px">
-                <StatLabel>Background</StatLabel>
-                <StatNumber
-                  fontSize="18px"
-                  fontWeight="700"
-                  display="flex"
-                  alignItems="center"
-                >
-                  Dark Orange
-                </StatNumber>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Body</StatLabel>
-                <StatNumber
-                  fontSize="18px"
-                  fontWeight="700"
-                  display="flex"
-                  alignItems="center"
-                >
-                  Shirt Orange
-                </StatNumber>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Head</StatLabel>
-                <StatNumber
-                  fontSize="18px"
-                  fontWeight="700"
-                  display="flex"
-                  alignItems="center"
-                >
-                  Glasses
-                </StatNumber>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Face</StatLabel>
-                <StatNumber
-                  fontSize="18px"
-                  fontWeight="700"
-                  display="flex"
-                  alignItems="center"
-                >
-                  Brown
-                </StatNumber>
-              </Stat>
-              <Stat p="14px">
-                <StatLabel>Hair</StatLabel>
-                <StatNumber
-                  fontSize="18px"
-                  fontWeight="700"
-                  display="flex"
-                  alignItems="center"
-                >
-                  Puffballs
-                </StatNumber>
-              </Stat>
+              {data?.collection?.collectionProperties?.map(
+                (property: any, index: number) => {
+                  return (
+                    <Stat p="14px">
+                      <StatLabel>{property?.name}</StatLabel>
+                      <StatNumber
+                        fontSize="18px"
+                        fontWeight="700"
+                        display="flex"
+                        alignItems="center"
+                      >
+                        {property?.propertyValues[0]?.value}
+                      </StatNumber>
+                    </Stat>
+                  );
+                }
+              )}
             </Grid>
           </Box>
           <Box
@@ -758,8 +720,8 @@ const NftDetail = ({ param }: any) => {
                   activities?.map((activity: any, index: number) => {
                     return (
                       <Tr key={index}>
-                        <Td p={{ base: "12px", md: "17px 25px" }}>
-                          <Box color="#6863F3">
+                        <Td p={{ base: "12px", md: "17px 25px" }}  display='flex' alignItems='center'>
+                          <Box color="#6863F3" mr='8px'>
                             {activity?.activityType === "buy" && (
                               <i className="icon-transfer"></i>
                             )}

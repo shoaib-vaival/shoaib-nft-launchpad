@@ -25,7 +25,7 @@ import {
   Text,
   useOutsideClick,
 } from "@chakra-ui/react";
-import link from "next/link";
+import NextLink from "next/link";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
 import { useWeb3React } from "@web3-react/core";
@@ -196,7 +196,7 @@ export const Header = () => {
               pb="8px"
               order={{ base: "1", sm: "1" }}
               marginRight={{ base: "auto", md: "initial" }}
-              as={Link}
+              as={NextLink}
               href="/"
             >
               <Image
@@ -301,7 +301,7 @@ export const Header = () => {
                     <Text textAlign="center">Record not found</Text>
                   )}
 
-                  <Link as={link} href="/categories">
+                  <Link as={NextLink} href="/categories">
                     Explorer
                   </Link>
                 </Box>
@@ -343,10 +343,14 @@ export const Header = () => {
                 p={{ base: "10px", lg: "0" }}
               >
                 <Box _hover={{ color: "#6863f3" }}>
-                  <Link href="/">Home</Link>
+                  <Link as={NextLink} href="/">
+                    Home
+                  </Link>
                 </Box>
                 <Box _hover={{ color: "#6863f3" }}>
-                  <Link href="/categories">Explore</Link>
+                  <Link as={NextLink} href="/categories">
+                    Explore
+                  </Link>
                 </Box>
 
                 <Menu>
@@ -376,7 +380,7 @@ export const Header = () => {
                     p=" 8px 16px"
                   >
                     <MenuItem
-                      as="a"
+                      as={NextLink}
                       p="8px"
                       href="/collection/state"
                       _hover={{ color: "#6863f3" }}
@@ -384,7 +388,7 @@ export const Header = () => {
                       Ranking
                     </MenuItem>
                     <MenuItem
-                      as="a"
+                      as={NextLink}
                       p="8px"
                       href="/activity"
                       _hover={{ color: "#6863f3" }}
@@ -428,10 +432,14 @@ export const Header = () => {
                 )}
                 <MenuList w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
-                    <Link href="/nft/create">Create NFT</Link>
+                    <Link as={NextLink} href="/nft/create">
+                      Create NFT
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link href="/collection/create">Create Collection</Link>
+                    <Link as={NextLink} href="/collection/create">
+                      Create Collection
+                    </Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -504,17 +512,17 @@ export const Header = () => {
 
                 <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
                   <MenuItem>
-                    <Link as={link} href="/profile-created">
+                    <Link as={NextLink} href="/profile-created">
                       Profile
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link as={link} href="/collection/my-collection">
+                    <Link as={NextLink} href="/collection/my-collection">
                       My Collection
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link as={link} href="/setting">
+                    <Link as={NextLink} href="/setting">
                       Settings
                     </Link>
                   </MenuItem>

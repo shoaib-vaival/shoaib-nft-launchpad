@@ -16,10 +16,10 @@ import { ApiUrl } from "../../../apis/apiUrl";
 
 const DotChart = ({ collectionId }: { collectionId: string | undefined }) => {
   const { data } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_DOT_CHART],
+    queryKey: [QUERY_KEYS.GET_DOT_CHART, collectionId],
     url: ApiUrl.GET_SALE_CHART,
     params: {
-      collectionId: "22323d12-8d05-4d51-94ec-98097e6f2b88",
+      collectionId: collectionId,
       interval: "month",
     },
     enabled: collectionId ? true : false,

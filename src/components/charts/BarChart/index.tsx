@@ -62,10 +62,10 @@ import dayjs from "dayjs";
 
 const BarChart = ({ collectionId }: { collectionId: string | undefined }) => {
   const { data } = useQuery<any>({
-    queryKey: [QUERY_KEYS.GET_BAR_CHART],
+    queryKey: [QUERY_KEYS.GET_BAR_CHART, collectionId],
     url: ApiUrl.GET_BAR_CHART,
     params: {
-      collectionId: "22323d12-8d05-4d51-94ec-98097e6f2b88",
+      collectionId: collectionId,
       interval: "month",
     },
     enabled: collectionId ? true : false,

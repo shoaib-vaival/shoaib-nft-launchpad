@@ -56,7 +56,10 @@ const Categories: NextPage = () => {
   );
   const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery<any>(
     {
-      queryKey: [QUERY_KEYS.GET_ACTIVITIES, filters || debounceValue],
+      queryKey: [
+        QUERY_KEYS.GET_ACTIVITIES,
+        filters || isFilterChanged || debounceValue,
+      ],
       url: ApiUrl.GET_ACTIVITIES,
       params: {
         ...filters,
