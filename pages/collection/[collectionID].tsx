@@ -175,12 +175,30 @@ const Collection: NextPage = () => {
     setFilters({ ...filters, search: debounceValue });
   }, [debounceValue]);
   const socialIcons = [
-    { icon: "icon-internet", url: collectionDetail?.website_url },
-    { icon: "icon-telegram", url: collectionDetail?.telegram },
-    { icon: "icon-froggy", url: collectionDetail?.website_url },
-    { icon: "icon-instagram", url: collectionDetail?.instagram },
-    { icon: "icon-twitter", url: collectionDetail?.twitter },
-    { icon: "icon-groupbar", url: collectionDetail?.email },
+    {
+      icon: "icon-internet",
+      url: collectionDetail?.website_url ? collectionDetail?.website_url : "",
+    },
+    {
+      icon: "icon-telegram",
+      url: collectionDetail?.telegram ? collectionDetail?.telegram : "",
+    },
+    {
+      icon: "icon-froggy",
+      url: collectionDetail?.Discord_id ? collectionDetail?.Discord_id : "",
+    },
+    {
+      icon: "icon-instagram",
+      url: collectionDetail?.instagram ? collectionDetail?.instagram : "",
+    },
+    {
+      icon: "icon-twitter",
+      url: collectionDetail?.twitter ? collectionDetail?.twitter : "",
+    },
+    {
+      icon: "icon-groupbar",
+      url: collectionDetail?.email ? collectionDetail?.email : "",
+    },
   ];
   return (
     <>

@@ -119,12 +119,15 @@ const ProfilCreated: NextPage = () => {
     token: true,
   });
   const socialIcons = [
-    { icon: "icon-internet", url: data?.websiteUrl },
-    { icon: "icon-telegram", url: data?.telegram },
-    { icon: "icon-froggy", url: data?.discord },
-    { icon: "icon-instagram", url: data?.instagram },
-    { icon: "icon-twitter", url: data?.twitter },
-    { icon: "icon-groupbar", url: data?.etherScanUrl },
+    { icon: "icon-internet", url: data?.websiteUrl ? data?.websiteUrl : "" },
+    { icon: "icon-telegram", url: data?.telegram ? data?.telegram : "" },
+    { icon: "icon-froggy", url: data?.discord ? data?.discord : "" },
+    { icon: "icon-instagram", url: data?.instagram ? data?.instagram : "" },
+    { icon: "icon-twitter", url: data?.twitter ? data?.twitter : "" },
+    {
+      icon: "icon-groupbar",
+      url: data?.etherScanUrl ? data?.etherScanUrl : "",
+    },
   ];
 
   return (
