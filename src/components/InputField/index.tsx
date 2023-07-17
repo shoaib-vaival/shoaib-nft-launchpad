@@ -27,6 +27,7 @@ export type InputProps = ChakraUIInputProps & {
   icon?: JSX.Element;
   ref?: string;
   copyValue?: string;
+  ispercent?:boolean;
 };
 
 const InputField = ({
@@ -46,6 +47,7 @@ const InputField = ({
   ref,
   minLength,
   copyValue,
+  ispercent,
   ...restProps
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>();
@@ -116,6 +118,16 @@ const InputField = ({
               <i className="icon-copy"></i>
             </InputRightElement>
           </Tooltip>
+        )}
+         {ispercent  && (
+      
+            <InputRightElement
+              color="#6863F3"
+              cursor="pointer"
+              h="100%"
+            >
+             <Text color='#393F59'>%</Text> 
+            </InputRightElement>
         )}
         {type === "password" && (
           <InputRightElement>

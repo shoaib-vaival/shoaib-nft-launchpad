@@ -24,7 +24,7 @@ const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>ITEM</Th>
+              <Th pl='30px'>ITEM</Th>
               <Th>LAST Transfer</Th>
               <Th>OWNER</Th>
               <Th>TIME</Th>

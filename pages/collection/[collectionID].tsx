@@ -286,9 +286,10 @@ const Collection: NextPage = () => {
                   )}
                   <Box w="100%">
                     <Flex
-                      justifyContent={"start"}
+                      justifyContent={"end"}
                       alignItems="center"
                       flexWrap="wrap"
+                      px={{base:'0px',md:'12px'}}
                     >
                       <Box order="1" onClick={toggleFilterVisibility}>
                         <IconButton

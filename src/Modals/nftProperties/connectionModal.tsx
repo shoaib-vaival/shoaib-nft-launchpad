@@ -32,7 +32,7 @@ const ConnectionModal = ({ isOpen, onClose }: any) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent maxW="600px">
           <ModalHeader>Connect Wallet</ModalHeader>
