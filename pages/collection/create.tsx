@@ -68,9 +68,14 @@ const CreateCollection = () => {
       enabled: router?.query?.id ? true : false,
       token: true,
       onSuccess: (data) => {
-        setCatId(data?.category?.id)
-        setImages({...images, logoImageUrl: data?.logoImageUrl, featureImageUrl: data?.featureImageUrl, bannerImageUrl: data?.bannerImageUrl})
-       }
+        setCatId(data?.category?.id);
+        setImages({
+          ...images,
+          logoImageUrl: data?.logoImageUrl,
+          featureImageUrl: data?.featureImageUrl,
+          bannerImageUrl: data?.bannerImageUrl,
+        });
+      },
     });
 
   const { mutate: updatePending } = useMutation<any>({
@@ -146,15 +151,16 @@ const CreateCollection = () => {
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
       : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
-    onError: () => {
-      setLoader(false);
+    onError: (data) => {
+      if (data?.status !== 200) {
+        setLoader(false);
+      }
     },
     token: true,
     onSuccess: async (data) => {
-      if (account && !router?.query?.id){
-      await deployy(data?.data?.name);
-      }
-      else if(router?.query?.id){
+      if (account && !router?.query?.id) {
+        await deployy(data?.data?.name);
+      } else if (router?.query?.id) {
         showToaster("Collection Updated Successfully.", "success");
         setLoader(false);
       }
@@ -233,8 +239,8 @@ const CreateCollection = () => {
   };
 
   const defaultValue = [
-    { value: 'option1', label: 'Option 1' }, // Replace with your default option(s)
-    { value: 'option2', label: 'Option 2' },
+    { value: "option1", label: "Option 1" }, // Replace with your default option(s)
+    { value: "option2", label: "Option 2" },
   ];
 
   return (
@@ -316,7 +322,7 @@ const CreateCollection = () => {
                 <FormLabel fontSize="24px!important" fontWeight="700">
                   Details
                 </FormLabel>
-                <FormControl  mt={{base:'0', md:'auto'}}>
+                <FormControl mt={{ base: "0", md: "auto" }}>
                   <Field
                     readOnly={router?.query?.id ? true : false}
                     as={InputField}
@@ -363,7 +369,10 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    defaultValue={router?.query?.id && {label: getCollectionById?.category?.name, value: getCollectionById?.category?.id}}
+                    defaultValue={{
+                      label: getCollectionById?.category?.name,
+                      value: getCollectionById?.category?.id,
+                    }}
                   />
                   {showError && (
                     <Text

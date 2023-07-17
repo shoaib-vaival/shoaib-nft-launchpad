@@ -28,6 +28,7 @@ export type ApiResult<K> = {
   errors?: Array<string>;
   status?: number;
   Message?: string;
+  message?: string;
 };
 
 type UseMutationProps<T, K> = {
