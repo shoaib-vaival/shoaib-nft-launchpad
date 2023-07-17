@@ -48,7 +48,7 @@ const CollectionCard = ({
   if (type === "withBody") {
     return (
       <div>
-        <Container py="12px" px={{ base: "0", sm: "12px" }} key={key} >
+        <Container py="12px" px={{ base: "0", sm: "12px" }} key={key}>
           <Box>
             <Card
               maxH={{ base: "359px", xl: "459px" }}
@@ -127,17 +127,18 @@ const CollectionCard = ({
                     {name}
                   </Heading>
                   <SimpleGrid columns={[2, null, 2]} spacing="40px">
-                    {
-                      ( identifier !=='nft') ?
-                        <Box>
-                          <Text fontSize="14px" color="#756C99" mb="8px">
-                            Volume
-                          </Text>
-                          <Text fontSize="20px" fontWeight="500" color="#393F59">
-                            {volume ? volume : "--"} Matic
-                          </Text>
-                        </Box> : ""
-                    }
+                    {identifier !== "nft" ? (
+                      <Box>
+                        <Text fontSize="14px" color="#756C99" mb="8px">
+                          Volume
+                        </Text>
+                        <Text fontSize="20px" fontWeight="500" color="#393F59">
+                          {volume ? volume : "--"} Matic
+                        </Text>
+                      </Box>
+                    ) : (
+                      ""
+                    )}
                     <Box>
                       <Text fontSize="14px" color="#756C99" mb="8px">
                         Floor Price
@@ -155,9 +156,9 @@ const CollectionCard = ({
                 transform={
                   isVisible && isEditAble
                     ? {
-                      base: "translate(0px, -48px)",
-                      md: "translate(0px, -50px)",
-                    }
+                        base: "translate(0px, -48px)",
+                        md: "translate(0px, -50px)",
+                      }
                     : "translate(0px, 0px)"
                 }
               >
@@ -168,11 +169,12 @@ const CollectionCard = ({
                     variant="primary"
                     colorScheme="blue"
                     w="100%"
-                    onClick={() =>
+                    onClick={(e) => {
+                      e.stopPropagation();
                       router.push(
                         `${pagePaths?.COLLECTION}?id=${nftCollectionId}`
-                      )
-                    }
+                      );
+                    }}
                   >
                     Edit Collection
                   </Button>

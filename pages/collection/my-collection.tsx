@@ -96,7 +96,7 @@ const MyCollection: NextPage = (props) => {
                   xl: "wrap",
                 }}
               >
-                {isLoading && data === undefined ? (
+                {isLoading && (
                   <Flex
                     width="100%"
                     height="100%"
@@ -104,6 +104,18 @@ const MyCollection: NextPage = (props) => {
                     alignItems="center"
                   >
                     <Loader />
+                  </Flex>
+                )}
+                {data && data?.length <= 0 ? (
+                  <Flex
+                    width="100%"
+                    height="100%"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Heading p="75px 0" fontSize="20px" color="#0d0d0d">
+                      Record Not Found
+                    </Heading>
                   </Flex>
                 ) : (
                   data?.map((nftCollection: any, index: number) => {
@@ -113,7 +125,9 @@ const MyCollection: NextPage = (props) => {
                         display="initial"
                         cursor="pointer"
                         key={index}
-                        onClick={()=> router.push(`/collection/${nftCollection?.id}`)}
+                        onClick={() =>
+                          router.push(`/collection/${nftCollection?.id}`)
+                        }
                       >
                         <CollectionCard
                           isEditAble={true}

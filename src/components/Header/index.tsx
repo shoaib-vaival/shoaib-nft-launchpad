@@ -233,80 +233,89 @@ export const Header = () => {
                 </InputLeftElement>
               </InputGroup>
               {search && isSearching ? (
-                <Box   position="absolute"
-                top="50px"
-                boxShadow="2px 2px 8px 0px #0D0D0D1A"
-                background="rgba(255, 255, 255, 0.4)"
-                border="1px solid rgba(111, 107, 243, 0.4)"
-                backdropFilter="blur(30px)"
-                borderRadius="16px"
-                padding="16px"
-                pe={'0'}
-                bg="white"
-                zIndex={'9'}
-                w={{base:'100%',lg:'90%'}}
-                ref={searchBoxRef}
-               >
-   <Box css={{
-                  "&::-webkit-scrollbar": {
-                    width: "4px",
-                  
-                  },
-                  "&::-webkit-scrollbar-track": {
-                    width: "6px",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    background: "gray",
-                    borderRadius: "24px",
-                  },
-                }}
-                 
-                  maxH="400px"
-                  overflowY="scroll"
-                 
+                <Box
+                  position="absolute"
+                  top="50px"
+                  boxShadow="2px 2px 8px 0px #0D0D0D1A"
+                  background="rgba(255, 255, 255, 0.4)"
+                  border="1px solid rgba(111, 107, 243, 0.4)"
+                  backdropFilter="blur(30px)"
+                  borderRadius="16px"
+                  padding="16px"
+                  pe={"0"}
+                  bg="white"
+                  zIndex={"9"}
+                  w={{ base: "100%", lg: "90%" }}
+                  ref={searchBoxRef}
                 >
-                  {collectionSearch && collectionSearch?.length > 0 ? (
-                    collectionSearch?.map((collection: any, index: number) => {
-                      return (
-                        <Box
-                          onClick={() => {
-                            setIsSearching(false);
-                            router.push(`/collection/${collection?.id}`);
-                          }}
-                          key={index}
-                        >
-                          <Flex alignItems="center" gap="2" pb="8px" flex="85%">
-                            <Image
-                              src={collection?.logoImageUrl}
-                              boxSize="100px"
-                              objectFit="cover"
-                              border="1px solid white"
-                              borderRadius="16px"
-                              w={{ base: "50px", md: "56px" }}
-                              h={{ base: "50px", md: "56px" }}
-                            />
-                            <VStack spacing="0.5" alignItems="start">
-                              <Heading fontSize="18px">
-                                {addEllipsis(collection?.name)}
-                              </Heading>
-                              <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
-                                Items {collection?.nftCount}
-                              </Text>
-                            </VStack>
-                          </Flex>
-                        </Box>
-                      );
-                    })
-                  ) : (
-                    <Text textAlign="center">Record not found</Text>
-                  )}
+                  <Box
+                    css={{
+                      "&::-webkit-scrollbar": {
+                        width: "4px",
+                      },
+                      "&::-webkit-scrollbar-track": {
+                        width: "6px",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "gray",
+                        borderRadius: "24px",
+                      },
+                    }}
+                    maxH="400px"
+                    overflowY="scroll"
+                  >
+                    {collectionSearch && collectionSearch?.length > 0 ? (
+                      collectionSearch?.map(
+                        (collection: any, index: number) => {
+                          return (
+                            <Box
+                              onClick={() => {
+                                setIsSearching(false);
+                                router.push(`/collection/${collection?.id}`);
+                              }}
+                              cursor="pointer"
+                              key={index}
+                            >
+                              <Flex
+                                alignItems="center"
+                                gap="2"
+                                pb="8px"
+                                flex="85%"
+                              >
+                                <Image
+                                  src={collection?.logoImageUrl}
+                                  boxSize="100px"
+                                  objectFit="cover"
+                                  border="1px solid white"
+                                  borderRadius="16px"
+                                  w={{ base: "50px", md: "56px" }}
+                                  h={{ base: "50px", md: "56px" }}
+                                />
+                                <VStack spacing="0.5" alignItems="start">
+                                  <Heading fontSize="18px">
+                                    {addEllipsis(collection?.name)}
+                                  </Heading>
+                                  <Text
+                                    color="rgba(57, 63, 89, 1)"
+                                    fontSize="14px"
+                                  >
+                                    Items {collection?.nftCount}
+                                  </Text>
+                                </VStack>
+                              </Flex>
+                            </Box>
+                          );
+                        }
+                      )
+                    ) : (
+                      <Text textAlign="center">Record not found</Text>
+                    )}
 
-                  <Link as={NextLink} href="/categories">
-                    Explorer
-                  </Link>
+                    <Link as={NextLink} href="/categories">
+                      Explorer
+                    </Link>
+                  </Box>
                 </Box>
-                </Box>
-             
               ) : (
                 ""
               )}

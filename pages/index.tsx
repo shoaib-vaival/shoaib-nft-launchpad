@@ -44,7 +44,7 @@ import { TopTenTable } from "../src/components/Table/TopTenTable";
 const Home: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const filters = ["trending", "top"];
-  const [day, setDay] = useState<string>("");
+  const [day, setDay] = useState<string>("30");
   const { data, isLoading } = useQuery<dashboardApiType>({
     queryKey: [QUERY_KEYS.GET_DASHBOARD_COLLECTIONS],
     url: ApiUrl.GET_DASHBOARD_COLLECTION,
@@ -128,10 +128,14 @@ const Home: NextPage = () => {
               maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
               mt={{ base: "40px", lg: "80px" }}
             >
-              <Tabs onChange={(index) => setTabIndex(index)} >
-                <TabList pl="0" alignItems="center" flexWrap="wrap" >
-                  <Tab fontSize={{base:'20px',md:'24px'}} fontWeight='700'>Trending</Tab>
-                  <Tab fontSize={{base:'20px',md:'24px'}} fontWeight='700'>Top</Tab>
+              <Tabs onChange={(index) => setTabIndex(index)}>
+                <TabList pl="0" alignItems="center" flexWrap="wrap">
+                  <Tab fontSize={{ base: "20px", md: "24px" }} fontWeight="700">
+                    Trending
+                  </Tab>
+                  <Tab fontSize={{ base: "20px", md: "24px" }} fontWeight="700">
+                    Top
+                  </Tab>
 
                   <Flex
                     alignItems="center"
@@ -152,7 +156,7 @@ const Home: NextPage = () => {
                       as={Link}
                       href="/categories"
                       variant="primary"
-                      textTransform='uppercase'
+                      textTransform="uppercase"
                     >
                       View All
                     </Button>
@@ -160,49 +164,48 @@ const Home: NextPage = () => {
                 </TabList>
 
                 <TabPanels>
-                  <TabPanel p="0" pb='25px' borderBottom='1px solid #35353533'>
-                    <Box display={{base:'none',md:'block'}}>
-                    <Flex gap='33px'>
-                      <Box w="50%">
-                        <TopTenTable
-                          data={topTenData && topTenData?.slice(0, 5)}
-                        />
-                      </Box>
-                      <Box w="50%">
-                        <TopTenTable
-                          data={topTenData && topTenData?.slice(5, 10)}
-                        />
-                      </Box>
-                    </Flex>
+                  <TabPanel p="0" pb="25px" borderBottom="1px solid #35353533">
+                    <Box display={{ base: "none", md: "block" }}>
+                      <Flex gap="33px">
+                        <Box w="50%">
+                          <TopTenTable
+                            data={topTenData && topTenData?.slice(0, 5)}
+                          />
+                        </Box>
+                        <Box w="50%">
+                          <TopTenTable
+                            data={topTenData && topTenData?.slice(5, 10)}
+                          />
+                        </Box>
+                      </Flex>
                     </Box>
-                    <Box w="100%" display={{base:'block',md:'none'}}>
-                        <TopTenTable
-                          data={topTenData && topTenData?.slice(0, 10)}
-                        />
-                      </Box>
+                    <Box w="100%" display={{ base: "block", md: "none" }}>
+                      <TopTenTable
+                        data={topTenData && topTenData?.slice(0, 10)}
+                      />
+                    </Box>
                   </TabPanel>
                   <TabPanel p="0">
-                  <Box display={{base:'none',md:'block'}}>
-
-                    <Flex gap='33px'>
-                      <Box w="50%">
-                        <TopTenTable
-                          data={topTenData && topTenData?.slice(0, 5)}
-                        />
-                      </Box>
-                      <Box w="50%">
-                        <TopTenTable
-                          data={topTenData && topTenData?.slice(5, 10)}
-                        />
-                      </Box>
-                    </Flex>
+                    <Box display={{ base: "none", md: "block" }}>
+                      <Flex gap="33px">
+                        <Box w="50%">
+                          <TopTenTable
+                            data={topTenData && topTenData?.slice(0, 5)}
+                          />
+                        </Box>
+                        <Box w="50%">
+                          <TopTenTable
+                            data={topTenData && topTenData?.slice(5, 10)}
+                          />
+                        </Box>
+                      </Flex>
                     </Box>
-                    
-                    <Box w="100%" display={{base:'block',md:'none'}}>
-                        <TopTenTable
-                          data={topTenData && topTenData?.slice(0, 10)}
-                        />
-                      </Box>
+
+                    <Box w="100%" display={{ base: "block", md: "none" }}>
+                      <TopTenTable
+                        data={topTenData && topTenData?.slice(0, 10)}
+                      />
+                    </Box>
                   </TabPanel>
                 </TabPanels>
               </Tabs>
@@ -215,7 +218,7 @@ const Home: NextPage = () => {
             <Flex
               justifyContent="space-between"
               alignItems="center"
-              mb={{base:'10px', sm:'30px'}}
+              mb={{ base: "10px", sm: "30px" }}
               px={{ base: "0", md: "12px" }}
             >
               <Heading
@@ -228,13 +231,12 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
-
+                textTransform="uppercase"
               >
                 View All
               </Button>
             </Flex>
-            <FilterTabs 
+            <FilterTabs
               tabsList={categories}
               getTabIndex={(index) => console.log(index)}
             />
@@ -257,8 +259,7 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
-
+                textTransform="uppercase"
               >
                 View All
               </Button>
@@ -297,11 +298,9 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
-
+                textTransform="uppercase"
               >
                 View All
-                
               </Button>
             </Flex>
             <SlickSlider>

@@ -117,7 +117,7 @@ export const GenericTable = ({
             )}
             {data && (!isLoading && data?.length) <= 0 && (
               <Tr>
-                <Td colSpan={5}>
+                <Td colSpan={columns?.length}>
                   <Flex
                     width="100%"
                     height="100%"
