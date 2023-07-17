@@ -152,8 +152,8 @@ const Setting: NextPage = () => {
                 >
                   <Box h={{ base: "250px", md: "358px" }}>
                     <EditUploadFile
-                      image={
-                        profile?.profileCoverURL ? profile?.profileCoverURL : ""
+                      image={ 
+                        profile?.profileCoverURL && profile?.profileCoverURL
                       }
                       id="coverPhoto"
                       objectFit={profile?.profileUrl?"cover":"contain"}
