@@ -1,14 +1,38 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { currencySymbol } from "../../constants";
 
-export const TopTenTable = ({ data }: { data: any }) => {
+export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) => {
+  const fakeData = [1,2,3,4]
   const columns = [
     { key: "collection", title: "Collection" },
     { key: "floorPrice", title: "Floor Price", isNumeric: true },
     { key: "volume", title: "Volume", isNumeric: true },
   ];
+
+  const skeletonData = fakeData?.map((counter: number, _index: number) => {
+      return {
+        collection: (
+        <Flex position="relative" alignItems="center" gap="24px">
+          <Box w="96px" h="96px" borderRadius="16px" backgroundColor="gray.200" />
+          <Heading fontSize="18px" color="gray.200" bg="gray.200" borderRadius="md"></Heading>
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            background="linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)"
+            animation="shimmer 1s infinite"
+          />
+        </Flex>
+      ),
+      floorPrice: <Text w="50%" fontSize="16px" color="gray.200" bg="gray.200" rounded="md" ml="auto">loading</Text>,
+      volume: <Text w="50%" fontSize="16px" color="gray.200" bg="gray.200" rounded="md" ml="auto">loading</Text>,
+      id: counter
+  }})
+
   const tableData =
     data &&
     data?.map((collection: any, index: number) => {
@@ -37,6 +61,6 @@ export const TopTenTable = ({ data }: { data: any }) => {
       };
     });
   return (
-    <GenericTable data={tableData} columns={columns} variant="borderLess" tableName="topTen" />
+    <GenericTable data={isLoading ? skeletonData : tableData} columns={columns} variant="borderLess" tableName="topTen" />
   );
 };

@@ -31,6 +31,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { Description } from "@ethersproject/properties";
 import { useQueryClient } from "@tanstack/react-query";
+import { Loader } from "../src/components/Loader";
 
 type imagesType = {
   imageUrl: string;
@@ -54,7 +55,7 @@ const Setting: NextPage = () => {
     url: ApiUrl.GET_NOTIF_SETTINGS,
     token: true,
   });
-  const { mutate } = useMutation<profileType>({
+  const { mutate, isLoading: isSaving } = useMutation<profileType>({
     method: PATCH,
     url: ApiUrl.UPDATE_PROFILE,
     showSuccessToast: true,
@@ -99,7 +100,10 @@ const Setting: NextPage = () => {
     email: profile?.email,
     websiteUrl: profile?.websiteUrl,
     etherScanUrl: profile?.etherScanUrl,
-    walletAddress: `${profile?.walletAddress?.slice(0,17)}...${profile?.walletAddress?.slice(28,42)}`,
+    walletAddress: `${profile?.walletAddress?.slice(
+      0,
+      17
+    )}...${profile?.walletAddress?.slice(28, 42)}`,
     telegram: profile?.telegram,
     twitter: profile?.twitter,
     instagram: profile?.instagram,
@@ -531,6 +535,11 @@ const Setting: NextPage = () => {
                             type="submit"
                             variant="primary"
                           >
+                            {isSaving && (
+                              <Box width="50px">
+                                <Loader />
+                              </Box>
+                            )}
                             Save Settings
                           </Button>
                         </Form>

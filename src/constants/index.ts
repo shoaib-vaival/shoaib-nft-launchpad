@@ -29,11 +29,11 @@ export const pagePaths = {
 export const currencySymbol = "MATIC";
 export const timeFilterOptions = {
   type: "small",
-  defaultValue: "1",
+  defaultValue: "30",
   options: [
     { name: "1", label: "1d" },
     { name: "7", label: "7d" },
-    { name: "13", label: "30d" },
+    { name: "30", label: "30d" },
   ],
 };
 

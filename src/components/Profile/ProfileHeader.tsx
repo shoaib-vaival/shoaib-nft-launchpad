@@ -15,6 +15,7 @@ import { ApiUrl } from "../../apis/apiUrl";
 import { POST } from "../../hooks/consts";
 import { useMutation } from "../../hooks/useMutation";
 import SocialShare from "../SocialShare";
+import CollectionInfoHeaderSkeleton from '../Seketons/infoHeader/Collection'
 
 const ProfileHeader = ({
   socialIcons,
@@ -23,6 +24,7 @@ const ProfileHeader = ({
   profilePhoto,
   showAddToWatchList,
   showReport,
+  isLoading,
   id,
 }: {
   socialIcons?: { icon?: string; url?: string }[];
@@ -31,6 +33,7 @@ const ProfileHeader = ({
   profilePhoto?: string;
   showAddToWatchList?: boolean;
   showReport?: boolean;
+  isLoading?: boolean;
   id?: string;
 }) => {
   const { mutate } = useMutation<any>({
@@ -41,28 +44,32 @@ const ProfileHeader = ({
   });
   return (
     <>
-      <Container
-        pl={{ base: "24px", md: "54px" }}
-        zIndex="-1"
-        variant="colorful"
-        position="relative"
-        bgSize="cover"
-        bgImage={coverPhoto}
-        h={{ base: "220px", md: "400px" }}
-      >
-        <Image
-          src={profilePhoto}
-          w={{ base: "100px", md: "200px" }}
-          h={{ base: "100px", md: "200px" }}
-          borderRadius="16px"
-          border="2px solid white"
-          position="absolute"
-          bottom="-35%"
-          loading="lazy"
-          transform="translateY(-50%)"
-          objectFit="cover"
-        />
-      </Container>
+      {!isLoading ?  (
+        <CollectionInfoHeaderSkeleton />
+      ) : (
+        <Container
+          pl={{ base: "24px", md: "54px" }}
+          zIndex="-1"
+          variant="colorful"
+          position="relative"
+          bgSize="cover"
+          bgImage={coverPhoto}
+          h={{ base: "220px", md: "400px" }}
+        >
+          <Image
+            src={profilePhoto}
+            w={{ base: "100px", md: "200px" }}
+            h={{ base: "100px", md: "200px" }}
+            borderRadius="16px"
+            border="2px solid white"
+            position="absolute"
+            bottom="-35%"
+            loading="lazy"
+            transform="translateY(-50%)"
+            objectFit="cover"
+          />
+        </Container>
+      )}
       <Container maxW="8xl" mt={{ base: "50px", md: "8px" }} px="0">
         {showSocialIcons && (
           <Flex
