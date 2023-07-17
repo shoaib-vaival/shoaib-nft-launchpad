@@ -43,16 +43,10 @@ ReactSelectPropsTypes) => {
   };
 
   useEffect(() => {
-<<<<<<< Updated upstream
-    setValue(defaultValue);
-  }, [defaultValue]);
-=======
     isSelected && setValue(defaultValue);
   }, [defaultValue]);
 
-  // useEffect(()=>{},[])
->>>>>>> Stashed changes
-
+  
   return (
     <>
       {label && (
