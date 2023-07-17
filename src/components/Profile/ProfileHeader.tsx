@@ -78,22 +78,26 @@ const ProfileHeader = ({
             wrap="wrap"
           >
             {socialIcons?.map((icon, index) => {
-              return (
-                <IconButton
-                  color=" #756C99"
-                  marginRight={"5px"}
-                  mb={{ base: "8px", sm: "0" }}
-                  key={index}
-                  as="a"
-                  target="_blank"
-                  href={icon.url}
-                  variant="outline"
-                  colorScheme="#6863F3"
-                  aria-label="Send"
-                  fontSize="20px"
-                  icon={<i className={icon.icon}></i>}
-                />
-              );
+              if (icon?.url !== "") {
+                return (
+                  <IconButton
+                    color=" #756C99"
+                    marginRight={"5px"}
+                    mb={{ base: "8px", sm: "0" }}
+                    key={index}
+                    as="a"
+                    target="_blank"
+                    href={icon.url}
+                    variant="outline"
+                    colorScheme="#6863F3"
+                    aria-label="Send"
+                    fontSize="20px"
+                    icon={<i className={icon.icon}></i>}
+                  />
+                );
+              } else {
+                return <></>;
+              }
             })}
 
             <Box
