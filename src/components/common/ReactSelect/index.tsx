@@ -29,9 +29,11 @@ const ReactSelect = ({
   defaultValue,
 }:
 ReactSelectPropsTypes) => {
-  const [value, setValue] = useState<customTypes | null | undefined>(null);
+  const [value, setValue] = useState<customTypes | null | undefined>(() => defaultValue || null);
+  const [isSelected, setIsselected] = useState<boolean>(true)
 
   const handleChangeCategory = (cat: any) => {
+    setIsselected(false)
     getSelectedData(cat, identifier);
     setValue(cat);
     getSelectedData(cat, identifier);
@@ -41,8 +43,15 @@ ReactSelectPropsTypes) => {
   };
 
   useEffect(() => {
+<<<<<<< Updated upstream
     setValue(defaultValue);
   }, [defaultValue]);
+=======
+    isSelected && setValue(defaultValue);
+  }, [defaultValue]);
+
+  // useEffect(()=>{},[])
+>>>>>>> Stashed changes
 
   return (
     <>
@@ -58,7 +67,6 @@ ReactSelectPropsTypes) => {
         options={options}
         value={value}
         placeholder={placeholder}
-        // defaultValue={defaultValue}
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,

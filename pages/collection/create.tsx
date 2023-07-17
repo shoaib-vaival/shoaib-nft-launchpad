@@ -232,6 +232,11 @@ const CreateCollection = () => {
     collectionId: getCollectionById?.id || undefined,
   };
 
+  const defaultValue = [
+    { value: 'option1', label: 'Option 1' }, // Replace with your default option(s)
+    { value: 'option2', label: 'Option 2' },
+  ];
+
   return (
     <Container
       maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
@@ -358,7 +363,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    defaultValue={{label: getCollectionById?.category?.name, value: getCollectionById?.category?.id}}
+                    defaultValue={router?.query?.id && {label: getCollectionById?.category?.name, value: getCollectionById?.category?.id}}
                   />
                   {showError && (
                     <Text
@@ -381,7 +386,7 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
-                  defaultValue={filtredTags}
+                  defaultValue={router?.query?.id && filtredTagsById}
                 />
               </Stack>
 
