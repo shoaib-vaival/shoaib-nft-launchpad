@@ -1,5 +1,6 @@
 import {
   Container,
+  HStack,
   Image,
   Text,
   Flex,
@@ -9,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { ApiUrl } from "../src/apis/apiUrl";
+import ExploreInfoHeaderSkeleton from '../src/components/Seketons/infoHeader/Explore'
 import CollectionCard from "../src/components/Cards/CollectionCard";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useQuery } from "../src/hooks/useQuery";
@@ -48,7 +50,7 @@ const Categories: NextPage = () => {
       catid: catFilter,
     },
   });
-  const { data: categories } = useQuery<categoriesAndTagsTypes>({
+  const { isLoading, data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl?.GET_CATEGORIES,
     showToast: false,
@@ -66,12 +68,33 @@ const Categories: NextPage = () => {
     <>
       <Flex justifyContent="center" >
         <Box  mt={{ base: "20px" }}>
+          {isLoading ? (
+          <HStack position="relative" flexWrap="wrap" justifyContent='center'>
+          {[...Array(4)]?.map((counter, _index) => (
+            <Box color="gray.200" bg="gray.200" borderRadius="md" py="12px" px="20px">
+              <Text fontSize="14px" fontWeight="600" color="gray.200" bg="gray.200" rounded="md">
+                Loading...
+              </Text>
+            </Box>
+          ))}
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            background="linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)"
+            animation="shimmer 1s infinite"
+          />
+          </HStack>
+          ) : (
         <HorizentalButtonFilter
           options={categoriesOptions?.options}
           onChange={(value: string) => setCatFilter(value)}
           type={categoriesOptions?.type}
           defaultValue={"defaultValue"}
         />
+        )}
         </Box>
        
       </Flex>
@@ -80,7 +103,10 @@ const Categories: NextPage = () => {
         mt={{ base: "60px" }}
       >
         <Box>
-          <Container
+          {isLoading ? (
+            <ExploreInfoHeaderSkeleton />
+          ): (
+            <Container
             p={{ base: "24px", sm: "24px 40px", md: "48px" }}
             variant="colorful"
             position="relative"
@@ -164,6 +190,7 @@ const Categories: NextPage = () => {
               </Box>
             </Flex>
           </Container>
+          )}
         </Box>
       </Container>
 
@@ -180,7 +207,6 @@ const Categories: NextPage = () => {
             Featured Collections
           </Heading>
         </Flex>
-        {
           <GridView
             isLoading={isLoadingAllCollections}
             data={allCollections}
@@ -188,7 +214,6 @@ const Categories: NextPage = () => {
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
           />
-        }
       </Container>
     </>
   );

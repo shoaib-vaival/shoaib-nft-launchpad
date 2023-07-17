@@ -85,7 +85,7 @@ const Collection: NextPage = () => {
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
-  const { data: collectionDetail } = useQuery<collectionType>({
+  const { isLoading: isHeaderLoading, data: collectionDetail } = useQuery<collectionType>({
     queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL, router.query.collectionID],
     url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
     enabled: router.query.collectionID ? true : false,
@@ -192,6 +192,7 @@ const Collection: NextPage = () => {
             coverPhoto={collectionDetail?.bannerImageUrl}
             profilePhoto={collectionDetail?.logoImageUrl}
             showReport={false}
+            isLoading={isHeaderLoading}
             showAddToWatchList={true}
             id={`${router?.query?.collectionID}`}
           />
