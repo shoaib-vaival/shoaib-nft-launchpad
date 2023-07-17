@@ -70,8 +70,8 @@ const Categories: NextPage = () => {
         <Box  mt={{ base: "20px" }}>
           {isLoading ? (
           <HStack position="relative" flexWrap="wrap" justifyContent='center'>
-          {[...Array(4)]?.map((counter, _index) => (
-            <Box color="gray.200" bg="gray.200" borderRadius="md" py="12px" px="20px">
+          {[...Array(4)]?.map((counter, index) => (
+            <Box key={index} color="gray.200" bg="gray.200" borderRadius="md" py="12px" px="20px">
               <Text fontSize="14px" fontWeight="600" color="gray.200" bg="gray.200" rounded="md">
                 Loading...
               </Text>
