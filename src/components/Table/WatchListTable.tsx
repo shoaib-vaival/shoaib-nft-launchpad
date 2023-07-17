@@ -11,9 +11,11 @@ import { useInfiniteQuery } from "../../hooks/useInfiniteQuery";
 import { useMutation } from "../../hooks/useMutation";
 
 export const CollectionWatchListTable = ({
+  refresh,
   dayFilter,
   catFilter,
 }: {
+  refresh: boolean;
   dayFilter: string;
   catFilter: string;
 }) => {
@@ -24,7 +26,7 @@ export const CollectionWatchListTable = ({
     hasNextPage,
     isLoading,
   } = useInfiniteQuery<any>({
-    queryKey: [QUERY_KEYS.GET_WATCHLIST, dayFilter, catFilter],
+    queryKey: [QUERY_KEYS.GET_WATCHLIST, dayFilter, catFilter, refresh],
     url: ApiUrl.GET_WATCHLIST,
     params: {
       day: dayFilter,

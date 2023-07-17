@@ -178,6 +178,7 @@ const CollectionStat: NextPage = () => {
                 </Box>
               </Flex>
               <CollectionWatchListTable
+                refresh={tabFilters[tabIndex] === "watchlist" ? true : false}
                 dayFilter={dayFilters}
                 catFilter={catFilter}
               />
