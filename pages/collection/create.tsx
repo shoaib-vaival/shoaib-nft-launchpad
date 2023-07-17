@@ -67,10 +67,11 @@ const CreateCollection = () => {
       showToast: false,
       enabled: router?.query?.id ? true : false,
       token: true,
-      onSuccess: (data) => setCatId(data?.category?.id) 
+      onSuccess: (data) => {
+        setCatId(data?.category?.id)
+        setImages({...images, logoImageUrl: data?.logoImageUrl, featureImageUrl: data?.featureImageUrl, bannerImageUrl: data?.bannerImageUrl})
+       }
     });
-
-    console.log("catiddddddddddddddd", catID)
 
   const { mutate: updatePending } = useMutation<any>({
     method: POST,
@@ -145,12 +146,18 @@ const CreateCollection = () => {
       ? `${ApiUrl?.CREATE_COLLECTION}/${getCollectionById?.id}`
       : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
-    onError: (data) => {
+    onError: () => {
       setLoader(false);
     },
     token: true,
     onSuccess: async (data) => {
-      if (account) await deployy(data?.data?.name);
+      if (account && !router?.query?.id){
+      await deployy(data?.data?.name);
+      }
+      else if(router?.query?.id){
+        showToaster("Collection Updated Successfully.", "success");
+        setLoader(false);
+      }
     },
   });
 
@@ -167,6 +174,7 @@ const CreateCollection = () => {
       label: cat?.name,
       value: cat?.id,
     }));
+
   const filtredTagsById =
     getCollectionById?.tags &&
     getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
@@ -238,7 +246,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          if (!catID || !images?.logoImageUrl || !getCollectionById?.category?.id) {
+          if (!catID || !images?.logoImageUrl) {
             setShowError(true);
           } else {
             mutate({ ...values, category: catID, tag: tagArr, ...images });
@@ -350,7 +358,7 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    defaultValue={{label: getCollectionById?.category?.name, value: getCollectionById?.category?.id}}
                   />
                   {showError && (
                     <Text
@@ -373,6 +381,7 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
+                  defaultValue={filtredTags}
                 />
               </Stack>
 

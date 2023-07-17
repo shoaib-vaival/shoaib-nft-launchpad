@@ -26,7 +26,8 @@ const ReactSelect = ({
   setNftName,
   nftDesc,
   setNftDesc,
-}: // defaultValue,
+  defaultValue,
+}:
 ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(null);
 
@@ -39,9 +40,9 @@ ReactSelectPropsTypes) => {
       nftDesc && setNftDesc(nftDesc);
   };
 
-  // useEffect(() => {
-  //   setValue(defaultValue);
-  // }, [defaultValue]);
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   return (
     <>
