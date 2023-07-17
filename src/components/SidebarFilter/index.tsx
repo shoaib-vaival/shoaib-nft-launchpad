@@ -217,6 +217,7 @@ export const SidebarFilter = ({
                         >
                           {group?.label}
                         </Box>
+                        
                         {group && group?.showQuantity ? (
                           <span style={{ fontWeight: "normal" }}>
                             {group?.filters && group?.filters?.length}
@@ -228,6 +229,25 @@ export const SidebarFilter = ({
                       </AccordionButton>
                     </h2>
                     <AccordionPanel>
+                    <Box css={{
+                            "&::-webkit-scrollbar": {
+                              width: "4px",
+                            
+                            },
+                            "&::-webkit-scrollbar-track": {
+                              width: "6px",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                              background: "gray",
+                              borderRadius: "24px",
+                            },
+                          }}
+                           
+                            maxH="300px"
+                            overflowY="scroll"
+                            overflowX="hidden"
+                           
+                          >
                       <Stack spacing={2}>
                         {group?.filters &&
                           group?.filters?.map((filter) =>
@@ -238,6 +258,7 @@ export const SidebarFilter = ({
                             )
                           )}
                       </Stack>
+                      </Box>
                     </AccordionPanel>
                   </AccordionItem>
                 )}

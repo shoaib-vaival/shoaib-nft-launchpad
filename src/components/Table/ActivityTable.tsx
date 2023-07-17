@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack,Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { addEllipsis, dayJs } from "../../utils";
 
@@ -71,6 +71,7 @@ export const ActivityTable = ({
         );
     }
   };
+  
   const tableData =
     data &&
     data?.map((activity: any, index: number) => {
@@ -109,6 +110,8 @@ export const ActivityTable = ({
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
       isLoading={isLoading}
+      ActivityTab={true}
+      
     />
   );
 };

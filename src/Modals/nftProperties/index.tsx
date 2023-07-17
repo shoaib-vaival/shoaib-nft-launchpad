@@ -45,7 +45,7 @@ const NftPropertiesModal = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent mx={{base:'20px', md:'0'}} maxW={"700px"}>
           <ModalHeader>Add Properties</ModalHeader>
@@ -78,7 +78,7 @@ const NftPropertiesModal = ({
                           {values?.properties?.map(
                             (field: any, index: number) => (
                               <div key={index}>
-                                <Flex alignItems='center' flexDirection={{ base: 'column', sm: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
+                                <Flex alignItems={{base:'flex-start',md:'self-start'}} flexDirection={{ base: 'column', sm: 'row' }} justifyContent={{ md: 'initial', xl: 'flex-start' }}>
                                   <div>
                                   <Text mb='0' w='42%' fontWeight='700'>Type</Text>
                                     <Field
@@ -113,7 +113,7 @@ const NftPropertiesModal = ({
                                   </div>
                                   {index > 0 && (
                                     <>
-                                      <IconButton aria-label='close' bg='#6863F34D' mb={{ base: '10px', sm: '0' }} mt={{ base: '10px', sm: '24px' }} ml={{ base: '0', sm: '10px' }} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
+                                      <IconButton aria-label='close' bg='#6863F34D' mb={{ base: '10px', sm: '0' }} mt={{ base: '10px', sm: '39px' }} ml={{ base: '0', sm: '10px' }} type='button' color='#6863F3' border='1px solid #6863F3' onClick={() => remove(index)} icon={<i className='icon-remove'></i>} />
                                     </>
 
                                   )}

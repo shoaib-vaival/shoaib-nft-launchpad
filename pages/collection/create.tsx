@@ -571,6 +571,7 @@ const CreateCollection = () => {
                                 size="md"
                                 label="Percentage"
                                 type="number"
+                                ispercent={true}
                                 formControlProps={{ isRequired: true }}
                                 placeholder="0"
                                 maxLength={2}
