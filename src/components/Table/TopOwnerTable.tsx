@@ -1,8 +1,9 @@
 import { Image } from "@chakra-ui/image";
 import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
 import { GenericTable } from ".";
-
+import fallbackImage from "../../../public/assets/images/fall-back-img.svg";
 export const TopOwnerTable = ({ data }: { data: any }) => {
+
   console.log(data, "dada");
   const columns = [
     { key: "item", title: "ITEM" },
@@ -10,6 +11,7 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
     { key: "owned", title: "OWNED", isNumeric: true },
     { key: "percentageOwned", title: "% OWNED", isNumeric: true },
   ];
+
   const tableData =
     data &&
     data?.map((owner: any, index: number) => {
@@ -17,13 +19,14 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
         item: (
           <Flex alignItems="center" gap="24px" flex="85%"  mr='70px'>
             <Image
-              src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.user?.profileUrl}`}
+              src={owner?.userofi?.prleUrl ? `${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.userofi?.prleUrl}` : `/assets/images/fall-back-img.svg` }
               boxSize="100px"
               objectFit="cover"
               border="1px solid white"
               borderRadius="16px"
               w={{ base: "50px", md: "56px" }}
               h={{ base: "50px", md: "56px" }}
+              
             />
             <VStack spacing="0.5">
               <Heading fontSize="18px">

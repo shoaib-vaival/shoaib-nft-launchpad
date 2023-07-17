@@ -67,10 +67,16 @@ const CreateCollection = () => {
       showToast: false,
       enabled: router?.query?.id ? true : false,
       token: true,
-      onSuccess: (data) => setCatId(data?.category?.id) 
+      onSuccess: (data) => {
+        setCatId(data?.category?.id);
+        setImages({
+          ...images,
+          logoImageUrl: data?.logoImageUrl,
+          featureImageUrl: data?.featureImageUrl,
+          bannerImageUrl: data?.bannerImageUrl,
+        });
+      },
     });
-
-    console.log("catiddddddddddddddd", catID)
 
   const { mutate: updatePending } = useMutation<any>({
     method: POST,
@@ -146,11 +152,18 @@ const CreateCollection = () => {
       : ApiUrl?.CREATE_COLLECTION,
     showSuccessToast: true,
     onError: (data) => {
-      setLoader(false);
+      if (data?.status !== 200) {
+        setLoader(false);
+      }
     },
     token: true,
     onSuccess: async (data) => {
-      if (account) await deployy(data?.data?.name);
+      if (account && !router?.query?.id) {
+        await deployy(data?.data?.name);
+      } else if (router?.query?.id) {
+        showToaster("Collection Updated Successfully.", "success");
+        setLoader(false);
+      }
     },
   });
 
@@ -167,6 +180,7 @@ const CreateCollection = () => {
       label: cat?.name,
       value: cat?.id,
     }));
+
   const filtredTagsById =
     getCollectionById?.tags &&
     getCollectionById?.tags?.map((tag: categoriesAndTagsTypes) => ({
@@ -224,6 +238,11 @@ const CreateCollection = () => {
     collectionId: getCollectionById?.id || undefined,
   };
 
+  const defaultValue = [
+    { value: "option1", label: "Option 1" }, // Replace with your default option(s)
+    { value: "option2", label: "Option 2" },
+  ];
+
   return (
     <Container
       maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
@@ -238,12 +257,12 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          if (!catID || !images?.logoImageUrl || !getCollectionById?.category?.id) {
+          if (!catID || !images?.logoImageUrl) {
             setShowError(true);
           } else {
             mutate({ ...values, category: catID, tag: tagArr, ...images });
+            setLoader(true);
           }
-          setLoader(true);
         }}
       >
         {({ errors, touched, values }) => (
@@ -303,7 +322,7 @@ const CreateCollection = () => {
                 <FormLabel fontSize="24px!important" fontWeight="700">
                   Details
                 </FormLabel>
-                <FormControl  mt={{base:'0', md:'auto'}}>
+                <FormControl mt={{ base: "0", md: "auto" }}>
                   <Field
                     readOnly={router?.query?.id ? true : false}
                     as={InputField}
@@ -350,7 +369,10 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    // defaultValue={{label: getCollectionById?.category?.name, value: 123}}
+                    defaultValue={{
+                      label: getCollectionById?.category?.name,
+                      value: getCollectionById?.category?.id,
+                    }}
                   />
                   {showError && (
                     <Text
@@ -373,6 +395,7 @@ const CreateCollection = () => {
                   setNftName={setNftName}
                   nftDesc={values?.description}
                   setNftDesc={setNftDesc}
+                  defaultValue={router?.query?.id && filtredTagsById}
                 />
               </Stack>
 
@@ -574,6 +597,7 @@ const CreateCollection = () => {
                                 size="md"
                                 label="Percentage"
                                 type="number"
+                                ispercent={true}
                                 formControlProps={{ isRequired: true }}
                                 placeholder="0"
                                 maxLength={2}

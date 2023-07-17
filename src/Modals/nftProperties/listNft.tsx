@@ -248,7 +248,7 @@ const ListNftModal = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent maxW="708px">
           <ModalHeader>List For Sale</ModalHeader>

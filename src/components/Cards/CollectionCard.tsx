@@ -225,7 +225,7 @@ const CollectionCard = ({
                 px={{ base: "16px", md: "32px" }}
                 w="100%"
               >
-                <Heading size="20px" fontWeight="700" color="white">
+                <Heading fontSize="20px" fontWeight="700" color="white">
                   {name}
                 </Heading>
               </Box>

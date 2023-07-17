@@ -67,7 +67,7 @@ const Categories: NextPage = () => {
   return (
     <>
       <Flex justifyContent="center" >
-        <Box  mt={{ base: "20px" }}>
+        <Box  mt={{ base: "20px" }} px={{base:'12px', md:'0'}}>
           {isLoading ? (
           <HStack position="relative" flexWrap="wrap" justifyContent='center'>
           {[...Array(4)]?.map((counter, index) => (

@@ -51,9 +51,10 @@ export const EditUploadFile = ({
         boxShadow="2px 2px 8px rgba(13, 13, 13, 0.1)"
         backdrop-filter="blur(30px)"
         borderRadius="16px"
+        objectFit='cover'
       >
         <Box overflow="hidden" borderRadius="16px" h="100%">
-          <Image src={preview ? preview : image} w="100%" objectFit="cover" />
+          <Image src={preview ? preview : image} w="100%" h='100%' objectFit="cover" />
         </Box>
         <FormControl
           display={isVisible ? "block" : "none"}

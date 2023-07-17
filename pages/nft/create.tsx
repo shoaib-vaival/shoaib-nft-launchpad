@@ -134,14 +134,17 @@ const CreateNFT = () => {
     isFileData: true,
     token: true,
     showSuccessToast: true,
+    showErrorToast: true,
+    onError: (data) => {
+      if (data?.status !== 200) {
+        setLoader(false);
+        showToaster(`${data?.message}`, "error");
+      }
+    },
     onSuccess: async (data) => {
-      console.log("🚀 ~ file: create.tsx:127 ~ onSuccess: ~ data:", data);
+      console.log("🚀 ~ file: create.tsx:146 ~ onSuccess: ~ data:", data);
       const ipfsJsonUrl = data?.data?.ipfsJsonUrl;
       const prefixedUrl = "ipfs://" + ipfsJsonUrl;
-      console.log(
-        "🚀 ~ file: create.tsx:130 ~ onSuccess: ~ prefixedUrl:",
-        prefixedUrl
-      );
       await minting(prefixedUrl, collectionAddress);
     },
   });
@@ -177,7 +180,7 @@ const CreateNFT = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
         px={{ base: "17px", sm: "34px", xl: "17px" }}
       >
-        <Heading as="h1"  mb={{ base: "20px", xl: "45px" }} pt={"30px"}>
+        <Heading as="h1" mb={{ base: "20px", xl: "45px" }} pt={"30px"}>
           Create New Item
         </Heading>
 
@@ -185,7 +188,7 @@ const CreateNFT = () => {
           initialValues={initialValues}
           validationSchema={nftSchema}
           enableReinitialize
-          onSubmit={(values) => {  
+          onSubmit={(values) => {
             mutate({
               ...values,
               properties: JSON.stringify(properties),
@@ -198,13 +201,13 @@ const CreateNFT = () => {
         >
           {({ errors, touched, values }) => (
             <Form>
-              <FormLabel  m="0" display="flex" fontSize="16px" color="#393F59">
+              <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
                 <Text mr="8px" color="#E53E3E">
                   *
                 </Text>
                 Required fields
               </FormLabel>
-              <FormControl mt={{base:'0px', sm:'auto'}}>
+              <FormControl mt={{ base: "0px", sm: "auto" }}>
                 <NftPropertiesModal
                   isOpen={isOpen}
                   onOpen={onOpen}
@@ -310,7 +313,7 @@ const CreateNFT = () => {
                         Textual traits that show up as rectangles
                       </Text>
                     </Box>
-                    <Box  mt={{ base: "25px", md: "0" }}>
+                    <Box mt={{ base: "25px", md: "0" }}>
                       <IconButton
                         color=" #756C99"
                         mt={{ base: "8px", sm: "0" }}

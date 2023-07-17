@@ -1,5 +1,6 @@
-import { Stack, Box, Container, Image, Text, Heading, IconButton, HStack, Divider, Flex } from '@chakra-ui/react'
-import Link from 'next/link';
+import { Stack, Box, Container, Image, Text, Heading, IconButton, HStack, Divider, Flex,Link } from '@chakra-ui/react'
+import NextLink from "next/link";
+
 
 
 export const Footer = () => {
@@ -112,14 +113,14 @@ export const Footer = () => {
               <Flex flexDirection={{ base: 'column', md: 'row' }} justifyContent='space-between'>
                 <Text color='#756C99'>
                   © 2023 Monex Inc. All Rights Reserved. Powered by {' '}
-                  <Link color='purple.500' href=''>
+                  <Link as={NextLink} color='#6863F3' href='/' >
                     Ibanera
                   </Link>
                 </Text>
                 <HStack mt={{base:'20px',md:'0!important'}} spacing='24px' fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
-                <Box _hover={{color:'#6863f3'}}><Link href='/terms-conditions' color='#756C99'>Digital Asset Custody</Link></Box>
-                <Box _hover={{color:'#6863f3'}}><Link href='/privacy-policy' color='#756C99'>Privacy Policy</Link></Box>
-                <Box _hover={{color:'#6863f3'}}><Link href='/return-policy' color='#756C99'>Terms Of Service</Link></Box>
+                <Box _hover={{color:'#6863f3'}}><Link as={NextLink} href='/terms-conditions' color='#756C99'>Digital Asset Custody</Link></Box>
+                <Box _hover={{color:'#6863f3'}}><Link as={NextLink} href='/privacy-policy' color='#756C99'>Privacy Policy</Link></Box>
+                <Box _hover={{color:'#6863f3'}}><Link as={NextLink} href='/return-policy' color='#756C99'>Terms Of Service</Link></Box>
               
                 </HStack>
               </Flex>

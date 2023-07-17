@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack,Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { addEllipsis, dayJs } from "../../utils";
 
@@ -71,6 +71,7 @@ export const ActivityTable = ({
         );
     }
   };
+  
   const tableData =
     data &&
     data?.map((activity: any, index: number) => {
@@ -78,9 +79,10 @@ export const ActivityTable = ({
         status: getActivityStatus(activity?.activityType?.toLowerCase()),
         item: (
           <Flex alignItems="center" gap="2" flex="85%">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${activity?.nft?.ipfsImageUrl}`}
+            <Image 
+              src={activity?.nft?.ipfsImageUrl ?  `${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${activity?.nft?.ipfsImageUrl}`  : `/assets/images/fall-back-img.svg`}
               boxSize="100px"
+              flex={'none'}
               objectFit="cover"
               border="1px solid white"
               borderRadius="16px"
@@ -88,7 +90,11 @@ export const ActivityTable = ({
               h={{ base: "50px", md: "96px" }}
             />
             <VStack spacing="0.5">
-              <Heading fontSize="18px">
+              <Heading fontSize="18px"  whiteSpace="nowrap"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          maxWidth={{base:'64px', md:'200px'}}
+          mr={{base:'28px', md:'auto'}}>
                 {activity && addEllipsis(activity?.nft?.name)}
               </Heading>
               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
@@ -109,6 +115,8 @@ export const ActivityTable = ({
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
       isLoading={isLoading}
+      ActivityTab={true}
+      
     />
   );
 };
