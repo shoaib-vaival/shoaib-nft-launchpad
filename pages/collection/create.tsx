@@ -67,7 +67,10 @@ const CreateCollection = () => {
       showToast: false,
       enabled: router?.query?.id ? true : false,
       token: true,
+      onSuccess: (data) => setCatId(data?.category?.id) 
     });
+
+    console.log("catiddddddddddddddd", catID)
 
   const { mutate: updatePending } = useMutation<any>({
     method: POST,
@@ -235,7 +238,7 @@ const CreateCollection = () => {
         validationSchema={collectionSchema}
         enableReinitialize
         onSubmit={(values) => {
-          if (!catID || !images?.logoImageUrl) {
+          if (!catID || !images?.logoImageUrl || !getCollectionById?.category?.id) {
             setShowError(true);
           } else {
             mutate({ ...values, category: catID, tag: tagArr, ...images });

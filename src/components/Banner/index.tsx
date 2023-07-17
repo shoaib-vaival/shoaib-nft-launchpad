@@ -30,6 +30,7 @@ export const Banner = () => {
   const out = () => {
     setIsVisible(false);
   };
+  
   return (
     <Container
       variant="colorful"
