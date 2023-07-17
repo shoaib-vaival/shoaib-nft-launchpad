@@ -46,7 +46,6 @@ ReactSelectPropsTypes) => {
     isSelected && setValue(defaultValue);
   }, [defaultValue]);
 
-  
   return (
     <>
       {label && (

@@ -81,7 +81,7 @@ const ProfileDetail = ({
                       <Text>By:</Text>
                       <Text fontWeight="bold" color="#6F6BF3" ml="5px">
                         {" "}
-                        {data?.user?.displayName}
+                        {data?.user?.displayName || '--'}
                       </Text>
                     </Box>
                     <Box
