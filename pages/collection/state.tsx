@@ -44,11 +44,12 @@ import { useState } from "react";
 import { HorizentalButtonFilter } from "../../src/components/HorizentalButtonFilters";
 import { categoriesAndTagsTypes } from "../../src/types/collection";
 import { useQuery } from "../../src/hooks/useQuery";
+import { CollectionWatchListTable } from "../../src/components/Table/WatchListTable";
 
 const CollectionStat: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const tabFilters = ["top", "trending", "watchlist"];
-  const [dayFilters, setDayFilters] = useState<string>("");
+  const [dayFilters, setDayFilters] = useState<string>("30");
   const [catFilter, setCatFilter] = useState<string>("");
   const { data: categories } = useQuery<categoriesAndTagsTypes>({
     queryKey: [QUERY_KEYS.GET_CAT],
@@ -176,9 +177,7 @@ const CollectionStat: NextPage = () => {
                   />
                 </Box>
               </Flex>
-              <CollectionStatTable
-                type="remove"
-                tabFilter={tabFilters[tabIndex]}
+              <CollectionWatchListTable
                 dayFilter={dayFilters}
                 catFilter={catFilter}
               />

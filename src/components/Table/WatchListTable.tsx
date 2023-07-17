@@ -1,6 +1,7 @@
 import { Image } from "@chakra-ui/image";
 import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
 import { isNumeric } from "@chakra-ui/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { GenericTable } from ".";
 import { ApiUrl } from "../../apis/apiUrl";
 import { currencySymbol } from "../../constants";
@@ -9,36 +10,27 @@ import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { useInfiniteQuery } from "../../hooks/useInfiniteQuery";
 import { useMutation } from "../../hooks/useMutation";
 
-export const CollectionStatTable = ({
-  type,
-  tabFilter,
+export const CollectionWatchListTable = ({
   dayFilter,
   catFilter,
 }: {
-  type: string;
-  tabFilter: string;
   dayFilter: string;
   catFilter: string;
 }) => {
+  const queryClient = useQueryClient();
   const {
-    data: collectionStats,
+    data: collectionStatsWatchList,
     fetchNextPage,
     hasNextPage,
     isLoading,
   } = useInfiniteQuery<any>({
-    queryKey: [QUERY_KEYS.GET_STATS, tabFilter, dayFilter, catFilter],
-    url: ApiUrl.GET_STATS,
+    queryKey: [QUERY_KEYS.GET_WATCHLIST, dayFilter, catFilter],
+    url: ApiUrl.GET_WATCHLIST,
     params: {
-      type: tabFilter !== "watchlist" ? tabFilter : "",
       day: dayFilter,
       catid: catFilter,
     },
-  });
-  const { mutate } = useMutation<any>({
-    method: POST,
-    url: ApiUrl.ADD_TO_WATCHLIST,
     token: true,
-    successMessage: "Added to watchlist",
   });
   const { mutate: removeFromWatchlist } = useMutation<any>({
     method: POST,
@@ -46,6 +38,9 @@ export const CollectionStatTable = ({
     showSuccessToast: true,
     successMessage: "Removed from watchlist",
     token: true,
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEYS.GET_WATCHLIST]);
+    },
   });
   const columns = [
     { key: "collection", title: "Collection" },
@@ -57,31 +52,22 @@ export const CollectionStatTable = ({
     {
       key: "state_action",
       title: "",
-      actions:
-        type === "add"
-          ? [
-              {
-                type: "button",
-                label: "add to watchlist",
-                icon: <i className="icon-watch"></i>,
-                onClick: (id: number) => mutate({ collectionId: id }),
-              },
-            ]
-          : [
-              {
-                type: "menu",
-                label: "remove to watchlist",
-                icon: <i className="icon-menu"></i>,
-                options: [{ label: "Remove From Watchlist", value: 1 }],
-                onSelect: (id: number) =>
-                  removeFromWatchlist({ collectionId: id }),
-              },
-            ],
+      actions: [
+        {
+          type: "menu",
+          label: "remove to watchlist",
+          icon: <i className="icon-menu"></i>,
+          options: [{ label: "Remove From Watchlist", value: 1 }],
+          onSelect: (id: number) => {
+            removeFromWatchlist({ collectionId: id });
+          },
+        },
+      ],
     },
   ];
   const data =
-    collectionStats &&
-    collectionStats?.map((collectionStat: any, index: number) => {
+    collectionStatsWatchList &&
+    collectionStatsWatchList?.map((collectionStat: any, index: number) => {
       return {
         id: collectionStat?.id,
         collection: (

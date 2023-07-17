@@ -23,10 +23,10 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-// skeletons 
-import TabsSkeleton from '../src/components/Seketons/Tabs'
-import CardCollectionSkeleton from '../src/components/Seketons/Collection'
-import CardWOBodyCollectionSkeleton from '../src/components/Seketons/Collection/WithOutBody'
+// skeletons
+import TabsSkeleton from "../src/components/Seketons/Tabs";
+import CardCollectionSkeleton from "../src/components/Seketons/Collection";
+import CardWOBodyCollectionSkeleton from "../src/components/Seketons/Collection/WithOutBody";
 
 import { SlickSlider } from "../src/components/ReactSlick";
 import { Banner } from "../src/components/Banner";
@@ -49,17 +49,21 @@ import { TopTenTable } from "../src/components/Table/TopTenTable";
 const Home: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const filters = ["trending", "top"];
-  const [day, setDay] = useState<string>("");
+  const [day, setDay] = useState<string>("30");
   const { data, isLoading } = useQuery<dashboardApiType>({
     queryKey: [QUERY_KEYS.GET_DASHBOARD_COLLECTIONS],
     url: ApiUrl.GET_DASHBOARD_COLLECTION,
     showToast: false,
   });
-  const { data: categories, isLoading: isLoadingBrowsByCat } = useQuery<categoriesType[]>({
+  const { data: categories, isLoading: isLoadingBrowsByCat } = useQuery<
+    categoriesType[]
+  >({
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl.GET_CATEGORIES,
   });
-  const { data: topTenData, isLoading: isTopTenLoading } = useQuery<categoriesType[]>({
+  const { data: topTenData, isLoading: isTopTenLoading } = useQuery<
+    categoriesType[]
+  >({
     queryKey: [QUERY_KEYS.GET_TOPTEN_COLLECTIONS, filters[tabIndex], day],
     url: ApiUrl.GET_TOPTEN_COLLECTIONS,
     params: {
@@ -122,10 +126,14 @@ const Home: NextPage = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         mt={{ base: "40px", lg: "80px" }}
       >
-        <Tabs onChange={(index) => setTabIndex(index)} >
-          <TabList pl="0" alignItems="center" flexWrap="wrap" >
-            <Tab fontSize={{ base: '20px', md: '24px' }} fontWeight='700'>Trending</Tab>
-            <Tab fontSize={{ base: '20px', md: '24px' }} fontWeight='700'>Top</Tab>
+        <Tabs onChange={(index) => setTabIndex(index)}>
+          <TabList pl="0" alignItems="center" flexWrap="wrap">
+            <Tab fontSize={{ base: "20px", md: "24px" }} fontWeight="700">
+              Trending
+            </Tab>
+            <Tab fontSize={{ base: "20px", md: "24px" }} fontWeight="700">
+              Top
+            </Tab>
 
             <Flex
               alignItems="center"
@@ -146,7 +154,7 @@ const Home: NextPage = () => {
                 as={Link}
                 href="/categories"
                 variant="primary"
-                textTransform='uppercase'
+                textTransform="uppercase"
               >
                 View All
               </Button>
@@ -154,9 +162,9 @@ const Home: NextPage = () => {
           </TabList>
 
           <TabPanels>
-            <TabPanel p="0" pb='25px' borderBottom='1px solid #35353533'>
-              <Box display={{ base: 'none', md: 'block' }}>
-                <Flex gap='33px'>
+            <TabPanel p="0" pb="25px" borderBottom="1px solid #35353533">
+              <Box display={{ base: "none", md: "block" }}>
+                <Flex gap="33px">
                   <Box w="50%">
                     <TopTenTable
                       isLoading={isTopTenLoading}
@@ -171,7 +179,7 @@ const Home: NextPage = () => {
                   </Box>
                 </Flex>
               </Box>
-              <Box w="100%" display={{ base: 'block', md: 'none' }}>
+              <Box w="100%" display={{ base: "block", md: "none" }}>
                 <TopTenTable
                   isLoading={isTopTenLoading}
                   data={topTenData && topTenData?.slice(0, 10)}
@@ -179,9 +187,8 @@ const Home: NextPage = () => {
               </Box>
             </TabPanel>
             <TabPanel p="0">
-              <Box display={{ base: 'none', md: 'block' }}>
-
-                <Flex gap='33px'>
+              <Box display={{ base: "none", md: "block" }}>
+                <Flex gap="33px">
                   <Box w="50%">
                     <TopTenTable
                       isLoading={isTopTenLoading}
@@ -197,7 +204,7 @@ const Home: NextPage = () => {
                 </Flex>
               </Box>
 
-              <Box w="100%" display={{ base: 'block', md: 'none' }}>
+              <Box w="100%" display={{ base: "block", md: "none" }}>
                 <TopTenTable
                   isLoading={isTopTenLoading}
                   data={topTenData && topTenData?.slice(0, 10)}
@@ -214,7 +221,7 @@ const Home: NextPage = () => {
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          mb={{ base: '10px', sm: '30px' }}
+          mb={{ base: "10px", sm: "30px" }}
           px={{ base: "0", md: "12px" }}
         >
           <Heading
@@ -227,8 +234,7 @@ const Home: NextPage = () => {
             as={Link}
             href="/categories"
             variant="primary"
-            textTransform='uppercase'
-
+            textTransform="uppercase"
           >
             View All
           </Button>
@@ -263,8 +269,7 @@ const Home: NextPage = () => {
             as={Link}
             href="/categories"
             variant="primary"
-            textTransform='uppercase'
-
+            textTransform="uppercase"
           >
             View All
           </Button>
@@ -307,8 +312,7 @@ const Home: NextPage = () => {
             as={Link}
             href="/categories"
             variant="primary"
-            textTransform='uppercase'
-
+            textTransform="uppercase"
           >
             View All
           </Button>
@@ -317,21 +321,19 @@ const Home: NextPage = () => {
           <CardCollectionSkeleton />
         ) : (
           <SlickSlider>
-            {data?.trendingInArt?.map(
-              (item: collectionType, index: number) => {
-                return (
-                  <Link href={`collection/${item?.id}`} key={index}>
-                    <CollectionCard
-                      type="withBody"
-                      featureImage={item.logoImageUrl}
-                      isShowFeatureImage={true}
-                      isShowLogoImage={false}
-                      name={item.name}
-                    />
-                  </Link>
-                );
-              }
-            )}
+            {data?.trendingInArt?.map((item: collectionType, index: number) => {
+              return (
+                <Link href={`collection/${item?.id}`} key={index}>
+                  <CollectionCard
+                    type="withBody"
+                    featureImage={item.logoImageUrl}
+                    isShowFeatureImage={true}
+                    isShowLogoImage={false}
+                    name={item.name}
+                  />
+                </Link>
+              );
+            })}
           </SlickSlider>
         )}
       </Container>
@@ -339,7 +341,12 @@ const Home: NextPage = () => {
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         mt={{ base: "40px", lg: "80px" }}
       >
-        <Heading fontSize={{ base: '24px', md: '36px', xl: '48px' }} px={{ base: "0", md: "12px" }}>Recent Collections</Heading>
+        <Heading
+          fontSize={{ base: "24px", md: "36px", xl: "48px" }}
+          px={{ base: "0", md: "12px" }}
+        >
+          Recent Collections
+        </Heading>
         {isLoading && data === undefined ? (
           <CardCollectionSkeleton />
         ) : (

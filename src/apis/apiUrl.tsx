@@ -49,4 +49,5 @@ export const ApiUrl = {
   GET_TOP_OWNER_DISTRIBUTION: "stats/owner-distribution",
   GET_NOTIF_SETTINGS: "user/get-notification",
   GET_SEARCH_COLLECTIONS: "collection/collection-search-result",
+  GET_WATCHLIST: "stats/get-watchlist-collection",
 };
