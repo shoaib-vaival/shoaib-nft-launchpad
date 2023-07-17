@@ -261,8 +261,8 @@ const CreateCollection = () => {
             setShowError(true);
           } else {
             mutate({ ...values, category: catID, tag: tagArr, ...images });
+            setLoader(true);
           }
-          setLoader(true);
         }}
       >
         {({ errors, touched, values }) => (
