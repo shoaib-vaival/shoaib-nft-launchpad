@@ -40,9 +40,9 @@ ReactSelectPropsTypes) => {
       nftDesc && setNftDesc(nftDesc);
   };
 
-  useEffect(() => {
-    setValue(defaultValue);
-  }, [defaultValue]);
+  // useEffect(() => {
+  //   setValue(defaultValue);
+  // }, [defaultValue]);
 
   return (
     <>
