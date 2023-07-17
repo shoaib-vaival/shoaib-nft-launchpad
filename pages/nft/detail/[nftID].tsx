@@ -658,11 +658,11 @@ const NftDetail = ({ param }: any) => {
           </Heading>
           <InputGroup variant="custom" w="286px">
             <InputLeftElement pointerEvents="none">
-              <i className="icon-funnel"></i>
+              <i className="icon-search"></i>
             </InputLeftElement>
             <Input
               type="text"
-              placeholder="Filter"
+              placeholder="Search..."
               onChange={(e) => setSearch(e.target.value)}
             />
           </InputGroup>
@@ -802,7 +802,7 @@ const NftDetail = ({ param }: any) => {
               href="/categories"
               variant="primary"
             >
-              View All
+             VIEW ALL
             </Button>
           </Flex>
           <SlickSlider>
