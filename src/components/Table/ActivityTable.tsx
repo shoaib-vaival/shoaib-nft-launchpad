@@ -80,12 +80,13 @@ export const ActivityTable = ({
         item: (
           <Flex alignItems="center" gap="2" flex="85%">
             <Image 
-              src={activity?.nft?.ipfsImageUrl ?  `${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${activity?.nft?.ipfsImageUrl}`  : `/assets/images/fall-back-img.svg`}
+              src= {activity?.nft?.ipfsImageUrl ?  `${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${activity?.nft?.ipfsImageUrl}`  :  `/assets/images/fall-back-img.svg`}
               boxSize="100px"
               flex={'none'}
-              objectFit="cover"
+              objectFit={activity?.nft?.ipfsImageUrl ? 'cover' : 'contain'}
               border="1px solid white"
               borderRadius="16px"
+              
               w={{ base: "50px", md: "96px" }}
               h={{ base: "50px", md: "96px" }}
             />

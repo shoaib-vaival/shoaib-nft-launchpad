@@ -21,7 +21,7 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
             <Image
               src={owner?.userofi?.prleUrl ? `${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.userofi?.prleUrl}` : `/assets/images/fall-back-img.svg` }
               boxSize="100px"
-              objectFit="cover"
+              objectFit={owner?.userofi?.prleUrl ?  'cover' : 'contain'}
               border="1px solid white"
               borderRadius="16px"
               w={{ base: "50px", md: "56px" }}

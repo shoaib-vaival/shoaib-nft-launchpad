@@ -44,7 +44,7 @@ const ProfileHeader = ({
   });
   return (
     <>
-      {!isLoading ?  (
+      {isLoading ?  (
         <CollectionInfoHeaderSkeleton />
       ) : (
         <Container
