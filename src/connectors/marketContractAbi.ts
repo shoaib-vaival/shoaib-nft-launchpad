@@ -243,60 +243,6 @@ export const marketContractAbi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "erc721",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "duration",
-        type: "uint256",
-      },
-      {
-        internalType: "address[]",
-        name: "collaboratorAddress",
-        type: "address[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "collaboratorAmount",
-        type: "uint256[]",
-      },
-      {
-        internalType: "string",
-        name: "collectionId",
-        type: "string",
-      },
-    ],
-    name: "gethashStruct",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "bytes",
         name: "",
         type: "bytes",
@@ -370,35 +316,6 @@ export const marketContractAbi = [
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes",
-        name: "signature",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes32",
-        name: "hashStruct",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "domain",
-        type: "bytes32",
-      },
-    ],
-    name: "verifySignature",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "pure",
     type: "function",
   },
 ];
