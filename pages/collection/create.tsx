@@ -644,7 +644,7 @@ const CreateCollection = () => {
                       ?.map((item: any) => item?.percentage)
                       ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
                       10 && (
-                      <Text color={"red.600"}>
+                      <Text color={"red.700"}>
                         Percentage must be less than 10
                       </Text>
                     )}

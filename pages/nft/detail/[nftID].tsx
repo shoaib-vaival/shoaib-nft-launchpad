@@ -337,7 +337,7 @@ const NftDetail = ({ param }: any) => {
         >
           <Box
             w={{ base: "100%", lg: "50%" }}
-            maxH={{ base: "initial", md: "500px", lg: "100%" }}
+            maxH={{ base: "initial", md: "500px", lg: "600px" }}
             borderRadius="16px"
           >
             <Image

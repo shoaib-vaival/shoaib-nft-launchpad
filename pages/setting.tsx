@@ -156,7 +156,7 @@ const Setting: NextPage = () => {
                         profile?.profileCoverURL && profile?.profileCoverURL
                       }
                       id="coverPhoto"
-                      objectFit={profile?.profileUrl?"cover":"contain"}
+                      objectFit={"cover"}
                       onChange={(e) =>
                         uploadFileOnServerFunc({
                           photo: e.target.files[0],
