@@ -356,11 +356,9 @@ export const Header = () => {
                     Home
                   </Link>
                 </Box>
-                <Box _hover={{ color: "#6863f3" }}>
-                  <Link as={NextLink} href="/categories">
+                  <Link as={NextLink} href="/categories"  _hover={{ color: "#6863f3" }}>
                     Explore
                   </Link>
-                </Box>
 
                 <Menu>
                   <MenuButton
@@ -440,15 +438,11 @@ export const Header = () => {
                   </MenuButton>
                 )}
                 <MenuList w="191px" minW="191px" p="16px 8px">
-                  <MenuItem>
-                    <Link as={NextLink} href="/nft/create">
+                  <MenuItem as={NextLink} href="/nft/create">
                       Create NFT
-                    </Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link as={NextLink} href="/collection/create">
+                  <MenuItem as={NextLink} href="/collection/create">
                       Create Collection
-                    </Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -520,20 +514,14 @@ export const Header = () => {
                 )}
 
                 <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
-                  <MenuItem>
-                    <Link as={NextLink} href="/profile-created">
+                  <MenuItem  as={NextLink} href="/profile-created">
                       Profile
-                    </Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link as={NextLink} href="/collection/my-collection">
+                  <MenuItem as={NextLink} href="/collection/my-collection">
                       My Collection
-                    </Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link as={NextLink} href="/setting">
+                  <MenuItem  as={NextLink} href="/setting">
                       Settings
-                    </Link>
                   </MenuItem>
 
                   <MenuItem

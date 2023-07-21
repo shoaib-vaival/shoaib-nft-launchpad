@@ -61,18 +61,9 @@ export const Web3ContextProvider = ({
 
   useEffect(() => {
     if (isWalletConnected === "true") {
-      try {
-        metaMask.connectEagerly();
-      } catch (error) {
-        walletConnect.connectEagerly();
-      }
+      metaMask.connectEagerly();
+      walletConnect.connectEagerly();
     }
-
-    // if (provider?.connection.url == "metamask") {
-    //   metaMask.activate();
-    // } else {
-    //   walletConnect.activate();
-    // }
   }, []);
 
   const changeChain = async () => {
@@ -102,7 +93,6 @@ export const Web3ContextProvider = ({
   const disconnectWalletConnect = () => {
     walletConnect?.deactivate();
     setToLocalStorage("isWalletConnected", false);
-    localStorage.removeItem("walletconnect");
     localStorage.removeItem("accessToken");
     removeCookie("accessToken");
   };

@@ -7,7 +7,7 @@ import { metaMaskHooks, metaMask } from "./../connectors/metaMask";
 import { Web3ContextProvider } from "../context/Web3Provider";
 import { theme } from "../theme";
 import { ChakraProvider } from "@chakra-ui/provider";
-import { WalletConnect } from "@web3-react/walletconnect";
+import { WalletConnect } from "@web3-react/walletconnect-v2";
 import { walletConnect, walletConnecthooks } from "../connectors/walletConnect";
 import { Web3Provider } from "@ethersproject/providers";
 import { ethers } from "ethers";
