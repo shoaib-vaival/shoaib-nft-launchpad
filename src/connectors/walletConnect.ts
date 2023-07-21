@@ -25,11 +25,6 @@ export const [walletConnect, walletConnecthooks] =
         actions,
         defaultChainId: 80001,
         options: {
-          rpcMap: {
-            [80001]:
-              "https://polygon-mumbai.g.alchemy.com/v2/PX1XSmZcVYruPtpF_BoYDX-92sIdhk0T}",
-          },
-          // projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
           projectId: "610d37cebcee58b655d731c1c8425709",
           chains: [80001],
           optionalChains,
