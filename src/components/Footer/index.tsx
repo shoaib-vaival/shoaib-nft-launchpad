@@ -117,7 +117,7 @@ export const Footer = () => {
                     Ibanera
                   </Link>
                 </Text>
-                <HStack mt={{ base: '20px', lg: '0!important' }} spacing='24px' fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
+                <HStack flexWrap='wrap' mt={{ base: '20px', lg: '0!important' }} spacing={{ base: '12px', lg: '24px' }} fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
                   <Box _hover={{ color: '#6863f3' }}><Link as={NextLink} href='/terms-conditions' color='#756C99'>Digital Asset Custody</Link></Box>
                   <Box _hover={{ color: '#6863f3' }}><Link as={NextLink} href='/privacy-policy' color='#756C99'>Privacy Policy</Link></Box>
                   <Box _hover={{ color: '#6863f3' }}><Link as={NextLink} href='/return-policy' color='#756C99'>Terms Of Service</Link></Box>
@@ -134,7 +134,7 @@ export const Footer = () => {
                     fontSize='24px'
                     textAlign='center'
                     display='initial'
-                    icon={<Image src='/assets/images/visa.svg' alt='mastercard' />}
+                    icon={<Image src='/assets/images/visa-logo.svg' alt='mastercard' />}
                   />
                   <IconButton color=' #6863F3'
                     variant='transparent'
@@ -142,7 +142,7 @@ export const Footer = () => {
                     fontSize='24px'
                     textAlign='center'
                     display='initial'
-                    icon={<Image src='/assets/images/master.svg' alt='mastercard' />}
+                    icon={<Image src='/assets/images/mastercard-logo.svg' alt='mastercard' />}
                   />
                 </Flex>
               </Flex>
