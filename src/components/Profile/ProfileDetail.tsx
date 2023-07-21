@@ -81,7 +81,7 @@ const ProfileDetail = ({
                       <Text>By:</Text>
                       <Text fontWeight="bold" color="#6F6BF3" ml="5px">
                         {" "}
-                        {data?.user?.displayName || '--'}
+                        {data?.user?.displayName || "--"}
                       </Text>
                     </Box>
                     <Box
@@ -133,7 +133,7 @@ const ProfileDetail = ({
                         {dayjs(data?.insertedDate).format("MMMM YYYY")}
                       </Text>
                     </Box>
-                    {/* <Box
+                    <Box
                       display="flex"
                       alignItems="center"
                       fontSize="14px"
@@ -141,12 +141,11 @@ const ProfileDetail = ({
                       pt={{ base: "10px", md: "20px" }}
                       pb={{ base: "5px", md: "24px" }}
                     >
-                      <Text>Creator Fee:</Text>
+                      <Text>Created:</Text>
                       <Text fontWeight="bold" color="#090C3D" ml="5px">
-                        {" "}
-                        Dec 2021
+                        {dayjs(data?.insertedDate).format("MMMM YYYY")}
                       </Text>
-                    </Box> */}
+                    </Box>
                     <Box
                       display="flex"
                       alignItems="center"

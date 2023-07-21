@@ -4,13 +4,15 @@ import {
   ReactSelectPropsTypes,
 } from "./types";
 import Select, { components } from "react-select";
-import { FormLabel, Flex } from "@chakra-ui/react";
+import { FormLabel, Flex, Text } from "@chakra-ui/react";
 // import CreatableSelect from "react-select/creatable";
 
 const MultiValueRemove = (props: any) => {
   return (
     <components.MultiValueRemove {...props}>
-      <p>X</p>
+      <Text fontSize="10px">
+        <i className="icon-close"></i>
+      </Text>
     </components.MultiValueRemove>
   );
 };
@@ -27,19 +29,20 @@ const ReactSelect = ({
   nftDesc,
   setNftDesc,
   defaultValue,
-}:
-ReactSelectPropsTypes) => {
-  const [value, setValue] = useState<customTypes | null | undefined>(() => defaultValue || null);
-  const [isSelected, setIsselected] = useState<boolean>(true)
+}: ReactSelectPropsTypes) => {
+  const [value, setValue] = useState<customTypes | null | undefined>(
+    () => defaultValue || null
+  );
+  const [isSelected, setIsselected] = useState<boolean>(true);
 
   const handleChangeCategory = (cat: any) => {
-    setIsselected(false)
+    setIsselected(false);
     getSelectedData(cat, identifier);
     setValue(cat);
     getSelectedData(cat, identifier);
     setValue(cat);
-      nftName && setNftName(nftName);
-      nftDesc && setNftDesc(nftDesc);
+    nftName && setNftName(nftName);
+    nftDesc && setNftDesc(nftDesc);
   };
 
   useEffect(() => {
@@ -61,6 +64,14 @@ ReactSelectPropsTypes) => {
         value={value}
         placeholder={placeholder}
         styles={{
+          indicatorsContainer: (baseStyles, state) => ({
+            ...baseStyles,
+            cursor: "pointer",
+          }),
+          option: (baseStyles, state) => ({
+            ...baseStyles,
+            cursor: "pointer",
+          }),
           control: (baseStyles, state) => ({
             ...baseStyles,
             borderColor: state.isFocused ? "#6863F3" : "#6f6bf366",
@@ -77,11 +88,16 @@ ReactSelectPropsTypes) => {
             border: "1px solid #6f6bf366",
             height: "40px",
             alignItems: "center",
+            paddingRight: "11px",
+            paddingLeft: "11px",
+            paddingTop: "9px",
+            paddingBottom: "9px",
           }),
           multiValueLabel: (styles, { data }) => ({
             ...styles,
             fontSize: "12px",
             color: "#393F59",
+            paddingRight: "8px",
           }),
           multiValueRemove: (styles, { data }) => ({
             ...styles,

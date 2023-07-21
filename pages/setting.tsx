@@ -31,6 +31,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { Description } from "@ethersproject/properties";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 type imagesType = {
   imageUrl: string;
@@ -42,6 +43,7 @@ const Setting: NextPage = () => {
   const [profileImage, setProfileImage] = useState<imagesType>();
   const { account } = useWeb3React<Web3Provider>();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { data: profile } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_PROFILE],
@@ -60,6 +62,9 @@ const Setting: NextPage = () => {
     showSuccessToast: true,
     token: true,
     successMessage: "Profile updated successfully",
+    onSuccess: () => {
+      router.push("/profile-created");
+    },
   });
 
   const { mutate: save } = useMutation<any>({
@@ -99,7 +104,10 @@ const Setting: NextPage = () => {
     email: profile?.email,
     websiteUrl: profile?.websiteUrl,
     etherScanUrl: profile?.etherScanUrl,
-    walletAddress: `${profile?.walletAddress?.slice(0,17)}...${profile?.walletAddress?.slice(28,42)}`,
+    walletAddress: `${profile?.walletAddress?.slice(
+      0,
+      17
+    )}...${profile?.walletAddress?.slice(28, 42)}`,
     telegram: profile?.telegram,
     twitter: profile?.twitter,
     instagram: profile?.instagram,
@@ -152,11 +160,11 @@ const Setting: NextPage = () => {
                 >
                   <Box h={{ base: "250px", md: "358px" }}>
                     <EditUploadFile
-                      image={ 
+                      image={
                         profile?.profileCoverURL && profile?.profileCoverURL
                       }
                       id="coverPhoto"
-                      objectFit={profile?.profileUrl?"cover":"contain"}
+                      objectFit={"cover"}
                       onChange={(e) =>
                         uploadFileOnServerFunc({
                           photo: e.target.files[0],
@@ -177,9 +185,13 @@ const Setting: NextPage = () => {
                     transform="translateY(-50%)"
                   >
                     <EditUploadFile
-                      image={profile?.profileUrl ? profile?.profileUrl : "/assets/images/avatar.jpg"}
+                      image={
+                        profile?.profileUrl
+                          ? profile?.profileUrl
+                          : "/assets/images/avatar.jpg"
+                      }
                       id="profilePhoto"
-                      objectFit={profile?.profileUrl?"cover":"contain"}
+                      objectFit={"cover"}
                       onChange={(e) =>
                         uploadFileOnServerFunc({
                           photo: e.target.files[0],
