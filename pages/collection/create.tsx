@@ -225,7 +225,7 @@ const CreateCollection = () => {
     name: getCollectionById?.name || nftName || "",
     description: getCollectionById?.description || nftDesc || "",
     category: getCollectionById?.category?.id || collection?.category,
-    tag: collection?.tags,
+    tags: collection?.tags,
     website_url: getCollectionById?.website_url || "",
     etherscan: getCollectionById?.etherscan || "",
     telegram: getCollectionById?.telegram || "",
@@ -260,7 +260,7 @@ const CreateCollection = () => {
           if (!catID || !images?.logoImageUrl) {
             setShowError(true);
           } else {
-            mutate({ ...values, category: catID, tag: tagArr, ...images });
+            mutate({ ...values, category: catID, tags: tagArr, ...images });
             setLoader(true);
           }
         }}
