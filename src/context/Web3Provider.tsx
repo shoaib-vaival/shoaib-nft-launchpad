@@ -62,7 +62,7 @@ export const Web3ContextProvider = ({
   useEffect(() => {
     if (isWalletConnected === "true") {
       metaMask.connectEagerly();
-      walletConnect.connectEagerly();
+      // walletConnect.connectEagerly();
     }
   }, []);
 
