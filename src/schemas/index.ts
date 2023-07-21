@@ -61,9 +61,9 @@ export const propertiesSchema = Yup.object().shape({
 });
 
 export const settingSchema = Yup.object().shape({
-  email: Yup.string().email().required("Email is required"),
-  userName: Yup.string().required("Username is required"),
-  displayName: Yup.string().required("Display Name is required"),
+  email: Yup.string().email("The email you entered is invalid").required("Email is required"),
+  userName: Yup.string().matches(/^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/, 'Username must have at least one charachter').required("Username is required"),
+  displayName: Yup.string().matches(/^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/, 'Username must have at least one charachter').required("Display Name is required"),
   websiteUrl: Yup.string().nullable().url("Website Url must be a valid URL"),
   etherScanUrl: Yup.string()
     .nullable()
