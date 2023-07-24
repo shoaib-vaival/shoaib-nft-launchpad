@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FileUpload,
   ReactSelect,
@@ -41,13 +41,14 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useContract } from "../../src/connectors/marketProvider";
 import { marketContractAbi } from "../../src/connectors/marketContractAbi";
 import { showToaster } from "../../src/components/Toaster";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateCollection = () => {
   const [collection, setCollection] = useState<collectionStateTypes>();
   const [nftName, setNftName] = useState<string>("");
   const [nftDesc, setNftDesc] = useState<string>("");
   const [catID, setCatId] = useState<any>("");
-  const [tagArr, setTagArr] = useState<any>("");
+  const [tagArr, setTagArr] = useState<any>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [images, setImages] = useState<any>({
@@ -59,6 +60,7 @@ const CreateCollection = () => {
   const contractInst = useContract();
   const { account, provider } = useWeb3React<Web3Provider>();
   abiDecoder.addABI(marketContractAbi);
+  const queryClient = useQueryClient();
 
   const { data: getCollectionById, isLoading: getCollectionByIdLoading } =
     useQuery<collectionByIdTypes>({
@@ -75,6 +77,8 @@ const CreateCollection = () => {
           featureImageUrl: data?.featureImageUrl,
           bannerImageUrl: data?.bannerImageUrl,
         });
+        data?.tags?.length > 0 &&
+          setTagArr(data?.tags?.map((items: any) => items?.id));
       },
     });
 
@@ -161,6 +165,7 @@ const CreateCollection = () => {
       if (account && !router?.query?.id) {
         await deployy(data?.data?.name);
       } else if (router?.query?.id) {
+        router.push(`/collection/${router?.query?.id}`);
         showToaster("Collection Updated Successfully.", "success");
         setLoader(false);
       }
@@ -214,6 +219,20 @@ const CreateCollection = () => {
       );
     }
   };
+  useEffect(() => {
+    if (router?.query?.id === undefined) {
+      console.log("here", getCollectionById);
+      setCollection({});
+      setNftName("");
+      setNftDesc("");
+      setCatId("");
+      setTagArr([]);
+      setLoader(false);
+      setShowError(false);
+      setImages({});
+      queryClient.resetQueries([QUERY_KEYS.GET_COLLECTION]);
+    }
+  }, [router?.query?.id]);
 
   const initialValues = {
     logoImageUrl:
@@ -237,11 +256,6 @@ const CreateCollection = () => {
       : getCollectionById?.creatorFee,
     collectionId: getCollectionById?.id || undefined,
   };
-
-  const defaultValue = [
-    { value: "option1", label: "Option 1" }, // Replace with your default option(s)
-    { value: "option2", label: "Option 2" },
-  ];
 
   return (
     <Container

@@ -4,7 +4,7 @@ import { Loader } from "../components/Loader";
 import Link from "next/link";
 import CollectionCard from "../components/Cards/CollectionCard";
 import { collectionType, nftType } from "../types";
-import CardCollectionSkeleton from '../components/Seketons/Collection'
+import CardCollectionSkeleton from "../components/Seketons/Collection";
 
 type dataType = collectionType & nftType;
 type nftGridViewPropType = {
@@ -21,21 +21,16 @@ export const GridView = ({
   type,
   isLoading,
 }: nftGridViewPropType) => {
-  console.log(data, "isLoading");
   return (
     <>
       <InfiniteScroll
         dataLength={data ? data?.length : 0}
         next={() => fetchNextPage()}
         hasMore={!!hasNextPage}
-        loader={
-          <CardCollectionSkeleton />
-        }
+        loader={<CardCollectionSkeleton />}
       >
         <Flex flexWrap="wrap" rowGap="16px" pt="24px">
-          {isLoading && (
-            <CardCollectionSkeleton />
-          )}
+          {isLoading && <CardCollectionSkeleton />}
           {data && data?.length <= 0 ? (
             <Flex
               width="100%"

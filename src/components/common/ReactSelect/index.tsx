@@ -47,6 +47,7 @@ const ReactSelect = ({
 
   useEffect(() => {
     isSelected && setValue(defaultValue);
+    // identifier == "tag" && getSelectedData("tag", identifier);
   }, [defaultValue]);
 
   return (

@@ -48,15 +48,15 @@ const FileUpload = ({
     });
 
   const setInitialPreview = () => {
-    setPreview(editAbleUrl)
-    setShowImgPreview(true)
-  }
+    setPreview(editAbleUrl);
+    setShowImgPreview(true);
+  };
 
   useEffect(() => {
     if (editAbleUrl) {
-      setInitialPreview()
+      setInitialPreview();
     }
-  }, [editAbleUrl])
+  }, [editAbleUrl]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -67,7 +67,10 @@ const FileUpload = ({
   const handleFileChange = async (acceptedFiles: any) => {
     const selectedFile = acceptedFiles?.[0];
 
-    const isValidatedFile = await validateFile(selectedFile, maxFileSize && maxFileSize);
+    const isValidatedFile = await validateFile(
+      selectedFile,
+      maxFileSize && maxFileSize
+    );
     if (isValidatedFile !== "ok") {
       setFileError(isValidatedFile);
     } else if (imgFor !== "nft") {
@@ -91,19 +94,36 @@ const FileUpload = ({
       );
     }
   };
-
+  useEffect(() => {
+    console.log("editAbleUrl", editAbleUrl);
+    if (editAbleUrl === undefined) {
+      setPreview([]);
+      setShowImgPreview(false);
+      imgUrl({
+        imgFor,
+        url: "",
+      });
+    }
+  }, [editAbleUrl]);
   return (
     <>
       <Box color="#756C99">
-        
-        {label && <FormLabel color='#0D0D0D' fontSize='24px!important' fontWeight='700' marginBottom="16px">{label}</FormLabel>}
+        {label && (
+          <FormLabel
+            color="#0D0D0D"
+            fontSize="24px!important"
+            fontWeight="700"
+            marginBottom="16px"
+          >
+            {label}
+          </FormLabel>
+        )}
         {detail && (
           <FormHelperText marginBottom="16px">{detail}</FormHelperText>
         )}
         {preview && showImgPreview ? (
           <>
-            <Box position="relative" w={width}
-                h={height}>
+            <Box position="relative" w={width} h={height}>
               <Image
                 src={preview[0]?.preview || editAbleUrl}
                 w="100%"
@@ -114,12 +134,12 @@ const FileUpload = ({
               ></Image>
               <IconButton
                 onClick={() => {
-                  setPreview([])
-                  setShowImgPreview(false)
+                  setPreview([]);
+                  setShowImgPreview(false);
                   imgUrl({
                     imgFor,
                     url: "",
-                  })
+                  });
                 }}
                 aria-label="close"
                 position="absolute"
@@ -148,11 +168,11 @@ const FileUpload = ({
                 borderRadius="16px"
                 cursor="pointer"
               >
-                 {imgUploadLoading && (
-          <Box position="relative">
-            <Loader/>
-          </Box>
-        )}
+                {imgUploadLoading && (
+                  <Box position="relative">
+                    <Loader />
+                  </Box>
+                )}
                 <input {...getInputProps()} />
 
                 {isDragActive ? (

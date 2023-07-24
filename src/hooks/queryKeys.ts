@@ -36,5 +36,6 @@ export const QUERY_KEYS = {
   GET_TOP_OWNER_DISTRIBUTION:'owner-distribution',
   GET_NOTIF_SETTINGS: 'get-notif-settings',
   GET_SEARCH_COLLECTIONS:'get-search-collections',
-  GET_WATCHLIST:'stats/get-watchlist-collection'
+  GET_WATCHLIST:'stats/get-watchlist-collection',
+  GET_COLLECTED_NFT:'get-collected-nfts'
 };
