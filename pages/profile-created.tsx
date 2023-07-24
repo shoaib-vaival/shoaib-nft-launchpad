@@ -106,6 +106,17 @@ const ProfilCreated: NextPage = () => {
     token: true,
   });
   const {
+    data: collectedNfts,
+    fetchNextPage: fetchNextCollectedPage,
+    hasNextPage: hasNextCollectedPage,
+    isLoading: isLoadingCollectedNfts,
+  } = useInfiniteQuery<nftType[]>({
+    queryKey: [QUERY_KEYS.GET_COLLECTED_NFT, filters || isFilterChanged],
+    url: ApiUrl.GET_COLLECTED_NFT,
+    params: { ...filters, ...propertyQuery?.property },
+    token: true,
+  });
+  const {
     data: activities,
     fetchNextPage: fetchNextPageActivities,
     hasNextPage: hasNextPageActivities,
@@ -165,11 +176,178 @@ const ProfilCreated: NextPage = () => {
         <Box>
           <Tabs>
             <TabList ml="12px" pl="0">
+              <Tab>Collected</Tab>
               <Tab>Created</Tab>
               <Tab>Activity</Tab>
             </TabList>
 
             <TabPanels>
+              <TabPanel p={0}>
+                <Flex
+                  pt="20px"
+                  borderTop={
+                    collectedNfts?.length
+                      ? "1px solid rgba(53, 53, 53, 0.2)"
+                      : ""
+                  }
+                >
+                  <DrawerFilter
+                    isOpen={
+                      filterBreakPoint
+                        ? toggleSideFilter && filterBreakPoint
+                        : false
+                    }
+                    onClose={() => {
+                      setToggleSideFilter(false);
+                    }}
+                  >
+                    <UserCollectionSideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          status: filter?.status && filter?.status,
+                          collections: filter?.collections,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                    />
+                  </DrawerFilter>
+                  {toggleSideFilter && !filterBreakPoint ? (
+                    <UserCollectionSideFilter
+                      onChange={(filter: any) => {
+                        setFilters({
+                          ...filters,
+                          status: filter?.status && filter?.status,
+                          collections: filter?.collections,
+                        });
+                        setIsFilterChanged(!isFilterChanged);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+
+                  <Box w="100%">
+                    <Flex
+                      mx="12px"
+                      justifyContent={"end"}
+                      alignItems="center"
+                      flexWrap="wrap"
+                    >
+                      <Box order="1">
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-funnel"></i>}
+                          onClick={() => setToggleSideFilter(!toggleSideFilter)}
+                        />
+                      </Box>
+                      <Box
+                        order={{ base: "4", sm: "2" }}
+                        w={{ base: "100%", sm: "auto" }}
+                        pl={{ base: "0", sm: "8px" }}
+                        pt={{ base: "15px", md: "0", xl: "0" }}
+                      >
+                        <InputGroup
+                          variant="custom"
+                          colorScheme="purple"
+                          w={{ base: "full", sm: "200px", md: "sm" }}
+                          marginBottom={{
+                            base: "3",
+                            md: "initial",
+                            xl: "initial",
+                          }}
+                        >
+                          <Input
+                            placeholder="Search..."
+                            onChange={(e) => searchHandler(e)}
+                            value={search}
+                          />
+                          <InputLeftElement>
+                            <img src="/assets/images/search.svg" />
+                          </InputLeftElement>
+                        </InputGroup>
+                      </Box>
+                      <Box
+                        width={{ base: "119px", sm: "150px" }}
+                        ml="8px"
+                        order={{ base: "2", sm: "3" }}
+                      >
+                        <ReactSelect
+                          options={[
+                            { label: "Ascending ", value: "ASC" },
+                            { label: "Descending ", value: "DESC" },
+                          ]}
+                          placeholder="Sort By"
+                          isMultiple={false}
+                          identifier="filter"
+                          getSelectedData={(selectedOption: any) =>
+                            setFilters({
+                              ...filters,
+                              sort: selectedOption?.value,
+                            })
+                          }
+                        />
+                      </Box>
+                      <ButtonGroup
+                        order={{ base: "3", sm: "3" }}
+                        size="md"
+                        isAttached
+                        variant="outline"
+                        ml="8px"
+                      >
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-list"></i>}
+                          onClick={() => changeViewMode("list")}
+                          bg={view === "list" ? "rgba(111, 107, 243, 0.3)" : ""}
+                          color={
+                            view === "list"
+                              ? "rgba(111, 107, 243, 0.3)"
+                              : "#756C99"
+                          }
+                        />
+                        <IconButton
+                          variant="outline"
+                          colorScheme="primary"
+                          aria-label="Send email"
+                          icon={<i className="icon-grid"></i>}
+                          onClick={() => changeViewMode("grid")}
+                          bg={view === "grid" ? "rgba(111, 107, 243, 0.3)" : ""}
+                          color={
+                            view === "grid"
+                              ? "rgba(111, 107, 243, 0.3)"
+                              : "#756C99"
+                          }
+                        />
+                      </ButtonGroup>
+                      <Box></Box>
+                      <Box></Box>
+                    </Flex>
+                    {view === "grid" ? (
+                      <GridView
+                        data={collectedNfts}
+                        fetchNextPage={fetchNextCollectedPage}
+                        hasNextPage={hasNextCollectedPage}
+                        type="nft"
+                        isLoading={isLoadingCollectedNfts}
+                      />
+                    ) : (
+                      userNfts !== undefined && (
+                        <ListView
+                          data={collectedNfts}
+                          fetchNextPage={fetchNextCollectedPage}
+                          hasNextPage={hasNextCollectedPage}
+                        />
+                      )
+                    )}
+                  </Box>
+                </Flex>
+              </TabPanel>
+
               <TabPanel p={0}>
                 <Box>
                   {data?.collections && data.collections?.length <= 0 ? (
@@ -368,6 +546,7 @@ const ProfilCreated: NextPage = () => {
                   </Box>
                 </Flex>
               </TabPanel>
+
               <TabPanel pt="0">
                 <Flex pt="20px" gap="4">
                   <DrawerFilter

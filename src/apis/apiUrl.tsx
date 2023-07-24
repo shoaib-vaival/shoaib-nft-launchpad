@@ -50,4 +50,5 @@ export const ApiUrl = {
   GET_NOTIF_SETTINGS: "user/get-notification",
   GET_SEARCH_COLLECTIONS: "collection/collection-search-result",
   GET_WATCHLIST: "stats/get-watchlist-collection",
+  GET_COLLECTED_NFT: "minting/get-user-collected-nfts",
 };
