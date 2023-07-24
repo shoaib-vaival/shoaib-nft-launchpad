@@ -337,7 +337,8 @@ const NftDetail = ({ param }: any) => {
         >
           <Box
             w={{ base: "100%", lg: "50%" }}
-            maxH={{ base: "initial", md: "500px", lg: "100%" }}
+            maxH={{ base: "initial", md: "500px", lg: "600px" }}
+            minH={{ base: "initial", md: "500px", lg: "400px" }}
             borderRadius="16px"
           >
             <Image
@@ -386,7 +387,7 @@ const NftDetail = ({ param }: any) => {
                         ></MenuButton>
                         <MenuList w="191px" minW="191px" p="8px">
                           <MenuItem>
-                            <Box color="#393F59" onClick={onReportModalOpen}>
+                            <Box width='100%' color="#393F59" onClick={onReportModalOpen}>
                               Report
                             </Box>
                           </MenuItem>

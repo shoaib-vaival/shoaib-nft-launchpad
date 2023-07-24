@@ -98,9 +98,7 @@ const CollectionCard = ({
                     >
                       <Image
                         src={
-                          logoImage
-                            ? logoImage
-                            : "/assets/images/RectangleCardImg.png"
+                          logoImage? logoImage : "/assets/images/RectangleCardImg.png"
                         }
                         alt="Green double couch with wooden legs"
                         w="100%"
@@ -117,9 +115,7 @@ const CollectionCard = ({
                   px={{ base: "24px", sm: "16px", lg: "24px" }}
                   transition=".2s"
                   transform={
-                    isVisible && isEditAble
-                      ? "translate(0px, -20px)"
-                      : "translate(0px, 0px)"
+                    isVisible && isEditAble? "translate(0px, -20px)": "translate(0px, 0px)"
                   }
                   pb="24px"
                 >
