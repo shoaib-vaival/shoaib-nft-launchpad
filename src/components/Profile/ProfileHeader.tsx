@@ -80,12 +80,13 @@ const ProfileHeader = ({
             {socialIcons?.map((icon, index) => {
               if (icon?.url !== "") {
                 return (
-                  <Box borderLeft={{ base: "none", sm: "1px solid #A6A6A6" }}>
+                  <Box borderRight={{ base: "none", sm: "1px solid #A6A6A6" }}
+                  key={index}
+                  paddingRight={{ base: "0", sm: "2" }}>
                   <IconButton
                     color=" #756C99"
                     marginRight={"5px"}
                     mb={{ base: "8px", sm: "0" }}
-                    key={index}
                     as="a"
                     target="_blank"
                     href={icon.url}
@@ -104,7 +105,6 @@ const ProfileHeader = ({
             })}
 
             <Box
-              paddingLeft={{ base: "0", sm: "2" }}
               ml={{ base: "0", sm: "2" }}
             >
               {showAddToWatchList && showAddToWatchList ? (
