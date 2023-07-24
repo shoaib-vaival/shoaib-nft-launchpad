@@ -80,6 +80,7 @@ const ProfileHeader = ({
             {socialIcons?.map((icon, index) => {
               if (icon?.url !== "") {
                 return (
+                  <Box borderLeft={{ base: "none", sm: "1px solid #A6A6A6" }}>
                   <IconButton
                     color=" #756C99"
                     marginRight={"5px"}
@@ -94,6 +95,8 @@ const ProfileHeader = ({
                     fontSize="20px"
                     icon={<i className={icon.icon}></i>}
                   />
+                  </Box>
+                  
                 );
               } else {
                 return <></>;
@@ -101,7 +104,6 @@ const ProfileHeader = ({
             })}
 
             <Box
-              borderLeft={{ base: "none", sm: "1px solid #A6A6A6" }}
               paddingLeft={{ base: "0", sm: "2" }}
               ml={{ base: "0", sm: "2" }}
             >

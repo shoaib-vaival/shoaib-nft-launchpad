@@ -57,6 +57,7 @@ export const Header = () => {
   const searchBoxRef = useRef(null);
   const router = useRouter();
 
+
   useOutsideClick({
     ref: searchBoxRef,
     handler: () => setIsSearching(false),
@@ -179,6 +180,7 @@ export const Header = () => {
     },
     enabled: account ? true : false,
   });
+
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
@@ -217,7 +219,7 @@ export const Header = () => {
               <InputGroup
                 variant="custom"
                 colorScheme="purple"
-                w={{ base: "full", md: "full", lg: "200px", xl: "522px" }}
+                w={{ base: "full", md: "full", lg: "200px", xl: "422px" }}
                 marginBottom={{ base: "3", md: "initial", xl: "initial" }}
               >
                 <Input
@@ -326,15 +328,15 @@ export const Header = () => {
                 base: toggleMenu ? "visible" : "hidden",
                 lg: "initial",
               }}
-              h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
-              display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
-              transform={toggleMenu ? "translateY(5px)" : "translateY(0px)"}
+              transform={{base: toggleMenu ? "translateY(5px)" : "translateY(-15px)" ,lg:'initial'}}
+               h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
+              // display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
               w={{ base: "100%", lg: "inherit" }}
               bg={{ base: "#ffdafe75", lg: "transparent" }}
               mt={{ base: "5px", lg: "initial" }}
               borderTopLeftRadius={{ base: "16px", lg: "0" }}
               borderTopRightRadius={{ base: "16px", lg: "0" }}
-              transition=".5s cubic-bezier(0.64, 0.46, 0.47, 0.87)"
+              transition={toggleMenu ? ".8s" : '0s'}
               position="relative"
               zIndex="1"
             >
@@ -351,14 +353,12 @@ export const Header = () => {
                 spacing={{ base: "8px", lg: "11px", xl: "24px" }}
                 p={{ base: "10px", lg: "0" }}
               >
-                <Box _hover={{ color: "#6863f3" }}>
-                  <Link as={NextLink} href="/">
+                  <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
                     Home
                   </Link>
-                </Box>
-                  <Link as={NextLink} href="/categories"  _hover={{ color: "#6863f3" }}>
-                    Explore
-                  </Link>
+                <Link as={NextLink} href="/categories" _hover={{ color: "#6863f3" }}>
+                  Explore
+                </Link>
 
                 <Menu>
                   <MenuButton
@@ -439,10 +439,10 @@ export const Header = () => {
                 )}
                 <MenuList w="191px" minW="191px" p="16px 8px">
                   <MenuItem as={NextLink} href="/nft/create">
-                      Create NFT
+                    Create NFT
                   </MenuItem>
                   <MenuItem as={NextLink} href="/collection/create">
-                      Create Collection
+                    Create Collection
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -514,14 +514,14 @@ export const Header = () => {
                 )}
 
                 <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
-                  <MenuItem  as={NextLink} href="/profile-created">
-                      Profile
+                  <MenuItem as={NextLink} href="/profile-created">
+                    Profile
                   </MenuItem>
                   <MenuItem as={NextLink} href="/collection/my-collection">
-                      My Collection
+                    My Collection
                   </MenuItem>
-                  <MenuItem  as={NextLink} href="/setting">
-                      Settings
+                  <MenuItem as={NextLink} href="/setting">
+                    Settings
                   </MenuItem>
 
                   <MenuItem
