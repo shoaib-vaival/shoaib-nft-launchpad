@@ -48,6 +48,7 @@ const ProfileHeader = ({
         <CollectionInfoHeaderSkeleton />
       ) : (
         <Container
+        pt='40px'
           pl={{ base: "24px", md: "54px" }}
           zIndex="-1"
           variant="colorful"
@@ -80,15 +81,13 @@ const ProfileHeader = ({
             {socialIcons?.map((icon, index) => {
               if (icon?.url !== "") {
                 return (
-                  <Box borderRight={{ base: "none", sm: "1px solid #A6A6A6" }}
-                  key={index}
-                  paddingRight={{ base: "0", sm: "2" }}>
                   <IconButton
                     color=" #756C99"
                     marginRight={"5px"}
                     mb={{ base: "8px", sm: "0" }}
                     as="a"
                     target="_blank"
+                    key={index}
                     href={icon.url}
                     variant="outline"
                     colorScheme="#6863F3"
@@ -96,7 +95,6 @@ const ProfileHeader = ({
                     fontSize="20px"
                     icon={<i className={icon.icon}></i>}
                   />
-                  </Box>
                   
                 );
               } else {
@@ -106,6 +104,8 @@ const ProfileHeader = ({
 
             <Box
               ml={{ base: "0", sm: "2" }}
+              paddingLeft={{ base: "0", sm: "2" }}
+              borderLeft={{ base: "none", sm: "1px solid #A6A6A6" }}
             >
               {showAddToWatchList && showAddToWatchList ? (
                 <IconButton
@@ -145,7 +145,7 @@ const ProfileHeader = ({
                 <MenuList w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
                     {" "}
-                    <Box color="#0D0D0D">Report</Box>
+                    <Box w='100%' color="#0D0D0D">Report</Box>
                   </MenuItem>
                 </MenuList>
               </Menu>

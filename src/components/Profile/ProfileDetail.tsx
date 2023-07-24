@@ -31,7 +31,6 @@ const ProfileDetail = ({
   description,
 }: profileDetailProps) => {
   const { chainId } = useWeb3React<Web3Provider>();
-  console.log("dataaaaaaaaaaaaaa", data);
   return (
     <>
       <Container pl={{ base: "0", md: "75px" }} mt="24px" pr="0" pt="0">
