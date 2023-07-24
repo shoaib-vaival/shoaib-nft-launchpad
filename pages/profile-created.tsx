@@ -381,6 +381,7 @@ const ProfilCreated: NextPage = () => {
                     }}
                   >
                     <ActivitySideFilter
+                      type="user"
                       onChange={(filter: any) => {
                         setFilters({
                           ...filters,
@@ -391,6 +392,7 @@ const ProfilCreated: NextPage = () => {
                   </DrawerFilter>
                   {toggleActivityFilter && !filterBreakPoint ? (
                     <ActivitySideFilter
+                      type="user"
                       onChange={(filter: any) => {
                         setFilters({
                           ...filters,

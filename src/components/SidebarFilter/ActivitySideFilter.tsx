@@ -25,9 +25,10 @@ export const ActivitySideFilter = ({ onChange, type }: any) => {
       hasFilters: true,
       border: true,
       filters: [
-        { label: "Sales", name: "sale", type: "checkbox" },
-        { label: "Listing", name: "listing", type: "checkbox" },
+        { label: "Sales", name: "buy", type: "checkbox" },
+        { label: "Listing", name: "list", type: "checkbox" },
         { label: "Transfer", name: "transfer", type: "checkbox" },
+        { label: "Mint", name: "mint", type: "checkbox" },
       ],
     },
 
