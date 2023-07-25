@@ -4,7 +4,6 @@ import { GenericTable } from ".";
 import fallbackImage from "../../../public/assets/images/fall-back-img.svg";
 export const TopOwnerTable = ({ data }: { data: any }) => {
 
-  console.log(data, "dada");
   const columns = [
     { key: "item", title: "ITEM" },
     { key: "wallet", title: "WALLET", isNumeric: true },

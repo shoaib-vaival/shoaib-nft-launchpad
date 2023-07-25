@@ -158,7 +158,11 @@ const CreateNFT = () => {
     }));
 
   const getImgUrl = (imgUrl: ImgUrlFunParam) => {
-    setNftFile(imgUrl);
+    if ("url" in imgUrl) {
+      setNftFile("");
+    } else {
+      setNftFile(imgUrl);
+    }
   };
 
   const getSelectedData = (selectedValue: any, identifier: string) => {

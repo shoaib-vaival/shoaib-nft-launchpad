@@ -52,10 +52,10 @@ export const propertiesSchema = Yup.object().shape({
     Yup.object().shape({
       name: Yup.string()
         .required("Name field is required")
-        .matches(/[a-zA-Z]/, "Name field must not be empty"),
+        .matches(/[a-zA-Z]/, "Name field must be alphabatic"),
       value: Yup.string()
         .required("Type field is required")
-        .matches(/\S+/, "Type field must not be empty"),
+        .matches(/[a-zA-Z]/, "Type field must be alphabatic"),
     })
   ),
 });

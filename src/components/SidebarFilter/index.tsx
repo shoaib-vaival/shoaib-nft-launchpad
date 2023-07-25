@@ -248,7 +248,7 @@ export const SidebarFilter = ({
                             overflowX="hidden"
                            
                           >
-                      <Stack spacing={2}>
+                      <Stack spacing={2} ml='5px'>
                         {group?.filters &&
                           group?.filters?.map((filter) =>
                             renderFilterElement(

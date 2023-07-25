@@ -10,10 +10,11 @@ import {
   Tr,
   Box,
 } from "@chakra-ui/react";
-import { nftType } from "../types";
+import { collectionType, nftType } from "../types";
 
+type dataType = collectionType & nftType;
 type nftListProp = {
-  data: nftType[] | [];
+  data: dataType[] | undefined;
   fetchNextPage: () => void;
   hasNextPage: boolean;
 };
@@ -24,7 +25,7 @@ const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th pl='30px'>ITEM</Th>
+              <Th pl="30px">ITEM</Th>
               <Th>LAST Transfer</Th>
               <Th>OWNER</Th>
               <Th>TIME</Th>
