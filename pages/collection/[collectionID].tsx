@@ -203,7 +203,7 @@ const Collection: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box px="0" pt='40px'>
+        <Box px="0" >
           <ProfileHeader
             socialIcons={socialIcons}
             showSocialIcons={true}

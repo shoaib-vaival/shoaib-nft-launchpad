@@ -102,7 +102,7 @@ const ReactSelect = ({
           }),
           multiValueRemove: (styles, { data }) => ({
             ...styles,
-            color: "#756C99",
+            color: "#393F59",
             ":hover": {
               backgroundColor: "transparent",
             },
