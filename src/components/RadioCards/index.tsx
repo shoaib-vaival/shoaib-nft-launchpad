@@ -28,6 +28,8 @@ const RadioCard = (props: any) => {
           bg: "#6863F3",
           color: "white",
           borderColor: "#6863F3",
+          transform: 'translateY(-3px) scale(1.01) translateZ(0px)',
+          transition:'all .3s ease',
         }}
         px={props.type == "small" ? "16px" : 5}
         py={props.type == "small" ? "9px" : 3}
