@@ -63,7 +63,7 @@ export const Banner = () => {
               mt={{ md: "0px", xl: "50px" }}
               color="#6863F3"
               fontWeight="600"
-              p={{ base: "18px 26px", md: "32px" }}
+              p={{ base: "18px 26px", md: "26px", lg: "32px" }}
               textTransform="uppercase"
               fontSize="16px"
               _hover={{

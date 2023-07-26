@@ -38,15 +38,15 @@ export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) =
     data?.map((collection: any, index: number) => {
       return {
         collection: (
-          <Flex alignItems="center" gap="24px" flex="85%">
+          <Flex alignItems="center" gap="24px" mr={{base:"70px",md:"50px",lg:'0'}}>
             <Image
               src={collection?.logoImageUrl}
               boxSize="100px"
               objectFit="cover"
               border="1px solid white"
               borderRadius="16px"
-              w={{ base: "50px", md: "96px" }}
-              h={{ base: "50px", md: "96px" }}
+              w={{ base: "50px", lg: "96px" }}
+              h={{ base: "50px", lg: "96px" }}
             />
             <VStack spacing="0.5">
               <Heading fontSize="18px">

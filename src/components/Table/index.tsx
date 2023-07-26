@@ -19,6 +19,7 @@ import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../Loader";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 interface Action {
   type: string;
@@ -65,11 +66,13 @@ export const GenericTable = ({
 }: GenericTableProps) => {
   const router = useRouter();
 
-  const handleClick = (e: any, id: string) => {
+  const handleClick = (e: any, id: string) => { 
     if (tableName === "topTen" || tableName === "stateTable") {
       router.push(`/collection/${id}`);
     }
   };
+
+  const [selectedRow, setSelectedRow] = useState(null);
 
   return (
     <InfiniteScroll
@@ -95,7 +98,7 @@ export const GenericTable = ({
                 <Th
                   textTransform="uppercase"
                   key={column?.key}
-                  style={{ textAlign: (index == 0 || (ActivityTab && index == 1)) ? "initial" : "right",paddingLeft:'17px' }}
+                  style={{ textAlign: (index == 0 || (ActivityTab && index == 1)) ? "initial" : "right", paddingLeft: '17px' }}
                 >
                   {column?.title}
                 </Th>
@@ -134,11 +137,16 @@ export const GenericTable = ({
               </Tr>
             )}
             {data &&
-              data?.map((item: any) => (
+              data?.map((item: any, index: any) => (
                 <Tr
+                  _hover={{ background: 'gray.100' }}
+                  bg={selectedRow === index ? 'gray.200' : 'transparent'}
+                 borderRadius='16px'
                   key={item?.id}
-                  cursor={tableName === "topTen" || tableName === "stateTable"?"pointer":"default"}
-                  onClick={(e) => handleClick(e, item?.id)}
+                  cursor={tableName === "topTen" || tableName === "stateTable" ? "pointer" : "default"}
+                  onClick={(e) => {
+                    setSelectedRow(index);
+                     handleClick(e, item?.id)}}
                 >
                   {columns?.map((column, index: number) => (
                     <Td

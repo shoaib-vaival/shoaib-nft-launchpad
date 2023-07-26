@@ -203,7 +203,7 @@ const Collection: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box px="0" pt='40px'>
+        <Box px="0" >
           <ProfileHeader
             socialIcons={socialIcons}
             showSocialIcons={true}
@@ -319,6 +319,8 @@ const Collection: NextPage = () => {
                         >
                           <Input
                             placeholder="Search by Collections…"
+                            _focus={{border:'1px solid #6863F3'}}
+                            _hover={{ background: '#6863f305' }}
                             onChange={(e) => searchHandler(e)}
                             value={search}
                           />
@@ -475,6 +477,8 @@ const Collection: NextPage = () => {
                         >
                           <Input
                             placeholder="Search..."
+                            _hover={{ background: '#6863f312' }}
+                            _focus={{border:'1px solid #6863F3'}}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                           />

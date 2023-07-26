@@ -74,7 +74,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <Box position="relative" pt="40px">
+      <Box position="relative">
         <Box
           bgImage="/assets/images/bg-lines.png"
           position="absolute"
