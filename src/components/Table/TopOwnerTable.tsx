@@ -16,15 +16,15 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
     data?.map((owner: any, index: number) => {
       return {
         item: (
-          <Flex alignItems="center" gap="24px" flex="85%"  mr='70px'>
+          <Flex alignItems="center" gap="24px" flex="85%"  mr={{base:"70px",md:"50px",lg:'0'}}>
             <Image
               src={owner?.userofi?.prleUrl ? `${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.userofi?.prleUrl}` : `/assets/images/fall-back-img.svg` }
               boxSize="100px"
               objectFit={owner?.userofi?.prleUrl ?  'cover' : 'contain'}
               border="1px solid white"
               borderRadius="16px"
-              w={{ base: "50px", md: "56px" }}
-              h={{ base: "50px", md: "56px" }}
+              w={{ base: "50px", lg: "56px" }}
+              h={{ base: "50px", lg: "56px" }}
               
             />
             <VStack spacing="0.5">

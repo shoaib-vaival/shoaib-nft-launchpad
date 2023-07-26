@@ -376,7 +376,7 @@ const NftDetail = ({ param }: any) => {
                         <MenuButton
                           as={IconButton}
                           color="#756C99"
-                          ml={{ base: "5px", sm: "8px" }}
+                          ml={{ base: "5px", sm: "0px" }}
                           mb={{ base: "8px", sm: "0" }}
                           variant="outline"
                           aria-label="Send"

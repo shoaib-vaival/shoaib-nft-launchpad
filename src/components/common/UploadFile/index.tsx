@@ -130,7 +130,6 @@ const FileUpload = ({
                 h="100%"
                 objectFit="cover"
                 borderRadius="16px"
-                loading="lazy"
               ></Image>
               <IconButton
                 onClick={() => {
@@ -167,6 +166,8 @@ const FileUpload = ({
                 backdrop-filter="blur(30px)"
                 borderRadius="16px"
                 cursor="pointer"
+                _hover={{border:'1px solid #6863F3'}}                
+
               >
                 {imgUploadLoading && (
                   <Box position="relative">

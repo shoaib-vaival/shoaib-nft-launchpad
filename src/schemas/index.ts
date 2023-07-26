@@ -36,7 +36,7 @@ export const collectionSchema = Yup.object().shape({
         }).required("Wallet Address is required"),
       percentage: Yup.number().nullable(),
     })
-  ).test('unique-wallet-addresses', 'Wallet addresses must be unique in the array', function (value) {
+  ).test('unique-wallet-addresses', 'Wallet addresses must be unique in the array',  (value:any)=> {
     return hasUniqueWalletAddresses(value);
   }),
 

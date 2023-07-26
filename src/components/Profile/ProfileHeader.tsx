@@ -44,32 +44,32 @@ const ProfileHeader = ({
   });
   return (
     <>
-      {isLoading ?  (
+      {isLoading ? (
         <CollectionInfoHeaderSkeleton />
       ) : (
-        <Container
-        pt='40px'
-          pl={{ base: "24px", md: "54px" }}
-          zIndex="-1"
-          variant="colorful"
-          position="relative"
-          bgSize="cover"
-          bgImage={coverPhoto}
-          h={{ base: "220px", md: "400px" }}
-        >
-          <Image
-            src={profilePhoto}
-            w={{ base: "100px", md: "200px" }}
-            h={{ base: "100px", md: "200px" }}
-            borderRadius="16px"
-            border="2px solid white"
-            position="absolute"
-            bottom="-35%"
-            loading="lazy"
-            transform="translateY(-50%)"
-            objectFit="cover"
-          />
-        </Container>
+          <Container
+            pt='40px'
+            pl={{ base: "24px", md: "54px" }}
+            zIndex="-1"
+            variant="colorful"
+            position="relative"
+            bgSize="cover"
+            bgImage={coverPhoto}
+            h={{ base: "220px", md: "400px" }}
+          >
+            <Image
+              src={profilePhoto}
+              w={{ base: "100px", md: "200px" }}
+              h={{ base: "100px", md: "200px" }}
+              borderRadius="16px"
+              border="2px solid white"
+              position="absolute"
+              bottom="-35%"
+              loading="lazy"
+              transform="translateY(-50%)"
+              objectFit="cover"
+            />
+          </Container>
       )}
       <Container maxW="8xl" mt={{ base: "50px", md: "8px" }} px="0">
         {showSocialIcons && (
@@ -83,6 +83,7 @@ const ProfileHeader = ({
                 return (
                   <IconButton
                     color=" #756C99"
+                    borderColor=" #c4c3f9"
                     marginRight={"5px"}
                     mb={{ base: "8px", sm: "0" }}
                     as="a"
@@ -95,7 +96,7 @@ const ProfileHeader = ({
                     fontSize="20px"
                     icon={<i className={icon.icon}></i>}
                   />
-                  
+
                 );
               } else {
                 return <></>;
@@ -105,16 +106,18 @@ const ProfileHeader = ({
             <Box
               ml={{ base: "0", sm: "2" }}
               paddingLeft={{ base: "0", sm: "2" }}
-              borderLeft={{ base: "none", sm: "1px solid #A6A6A6" }}
+              borderLeft={{ base: "none", sm: "1px solid #a6a6a691" }}
             >
               {showAddToWatchList && showAddToWatchList ? (
                 <IconButton
                   as={Button}
                   color=" #756C99"
                   mb={{ base: "8px", sm: "0" }}
-                  ml={{ base: "0px", sm: "4px" }}
+                  ml={{ base: "5px", sm: "4px" }}
+                  mr={{ base: "5px", sm: "0px" }}
                   variant="outline"
                   colorScheme="#6863F3"
+                  borderColor=" #c4c3f9"
                   aria-label="Send"
                   fontSize="20px"
                   icon={<i className="icon-watch"></i>}

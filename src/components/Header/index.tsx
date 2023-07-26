@@ -184,7 +184,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box py="30px">
+        <Box pt="30px" pb={{base:'20px',md:'40px'}}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -224,6 +224,8 @@ export const Header = () => {
               >
                 <Input
                   placeholder="Search..."
+                  _hover={{ background: '#6863f305' }}
+                  _focus={{border:'1px solid #6863F3',background: '#6863f305' }}
                   onChange={(e) => {
                     setIsSearching(true);
                     setSearch(e.target.value);
@@ -313,8 +315,8 @@ export const Header = () => {
                       <Text textAlign="center">Record not found</Text>
                     )}
 
-                    <Link as={NextLink} href="/categories">
-                      Explorer
+                    <Link as={NextLink} _hover={{color:'#6863F3'}} href="/categories">
+                      Explore
                     </Link>
                   </Box>
                 </Box>
