@@ -15,7 +15,8 @@ import { ApiUrl } from "../../apis/apiUrl";
 import { POST } from "../../hooks/consts";
 import { useMutation } from "../../hooks/useMutation";
 import SocialShare from "../SocialShare";
-import CollectionInfoHeaderSkeleton from '../Seketons/infoHeader/Collection'
+import CollectionInfoHeaderSkeleton from "../Seketons/infoHeader/Collection";
+import NextImage from "next/image";
 
 const ProfileHeader = ({
   socialIcons,
@@ -40,24 +41,60 @@ const ProfileHeader = ({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
     showSuccessToast: true,
+    successMessage: "Added to watchlist",
     token: true,
   });
   return (
     <>
-      {isLoading ?  (
+      {isLoading ? (
         <CollectionInfoHeaderSkeleton />
       ) : (
         <Container
-        pt='40px'
-          pl={{ base: "24px", md: "54px" }}
+          p="0px"
           zIndex="-1"
           variant="colorful"
           position="relative"
           bgSize="cover"
-          bgImage={coverPhoto}
           h={{ base: "220px", md: "400px" }}
         >
-          <Image
+          <Box
+            w={{ base: "100%", md: "100%" }}
+            h={{ base: "100%", md: "100%" }}
+            position="relative"
+            pt="40px"
+            pl={{ base: "24px", md: "54px" }}
+          >
+            <NextImage
+              src={coverPhoto ? coverPhoto : ""}
+              alt="Profile Photo"
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center center"
+              style={{
+                borderRadius: "16px",
+              }}
+            />
+            <Box
+              w={{ base: "100px", md: "200px" }}
+              h={{ base: "100px", md: "200px" }}
+              position="absolute"
+              bottom="-35%"
+              transform="translateY(-50%)"
+            >
+              <NextImage
+                src={profilePhoto ? profilePhoto : ""}
+                alt="Profile Photo"
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center center"
+                style={{
+                  borderRadius: "16px",
+                  border: "2px solid white",
+                }}
+              />
+            </Box>
+          </Box>
+          {/* <Image
             src={profilePhoto}
             w={{ base: "100px", md: "200px" }}
             h={{ base: "100px", md: "200px" }}
@@ -68,7 +105,7 @@ const ProfileHeader = ({
             loading="lazy"
             transform="translateY(-50%)"
             objectFit="cover"
-          />
+          /> */}
         </Container>
       )}
       <Container maxW="8xl" mt={{ base: "50px", md: "8px" }} px="0">
@@ -95,7 +132,6 @@ const ProfileHeader = ({
                     fontSize="20px"
                     icon={<i className={icon.icon}></i>}
                   />
-                  
                 );
               } else {
                 return <></>;
@@ -145,7 +181,9 @@ const ProfileHeader = ({
                 <MenuList w="191px" minW="191px" p="16px 8px">
                   <MenuItem>
                     {" "}
-                    <Box w='100%' color="#0D0D0D">Report</Box>
+                    <Box w="100%" color="#0D0D0D">
+                      Report
+                    </Box>
                   </MenuItem>
                 </MenuList>
               </Menu>

@@ -1,7 +1,8 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack,Box } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { addEllipsis, dayJs } from "../../utils";
+import NextImage from "next/image";
 
 export type tableType = {
   data: any;
@@ -71,7 +72,7 @@ export const ActivityTable = ({
         );
     }
   };
-  
+
   const tableData =
     data &&
     data?.map((activity: any, index: number) => {
@@ -79,23 +80,38 @@ export const ActivityTable = ({
         status: getActivityStatus(activity?.activityType?.toLowerCase()),
         item: (
           <Flex alignItems="center" gap="2" flex="85%">
-            <Image 
-              src= {activity?.nft?.ipfsImageUrl ?  `${process.env.NEXT_PUBLIC_IPFS_BASE_URL}/${activity?.nft?.ipfsImageUrl}`  :  `/assets/images/fall-back-img.svg`}
-              boxSize="100px"
-              flex={'none'}
-              objectFit={activity?.nft?.ipfsImageUrl ? 'cover' : 'contain'}
-              border="1px solid white"
-              borderRadius="16px"
-              
+            <Box
               w={{ base: "50px", md: "96px" }}
               h={{ base: "50px", md: "96px" }}
-            />
+              boxSize="100px"
+              flex={"none"}
+              position="relative"
+            >
+              <NextImage
+                src={
+                  activity?.nft?.ipfsImageUrl
+                    ? `${process.env.NEXT_PUBLIC_IMG_BASE_URL}${activity?.nft?.ipfsImageUrl}`
+                    : `/assets/images/fall-back-img.svg`
+                }
+                alt="activity page image"
+                layout="fill"
+                loading="lazy"
+                style={{
+                  border: "1px solid white",
+                  borderRadius: "16px",
+                }}
+                objectFit={activity?.nft?.ipfsImageUrl ? "cover" : "contain"}
+              />
+            </Box>
             <VStack spacing="0.5">
-              <Heading fontSize="18px"  whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          maxWidth={{base:'64px', md:'200px'}}
-          mr={{base:'28px', md:'auto'}}>
+              <Heading
+                fontSize="18px"
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                maxWidth={{ base: "64px", md: "200px" }}
+                mr={{ base: "28px", md: "auto" }}
+              >
                 {activity && addEllipsis(activity?.nft?.name)}
               </Heading>
               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
@@ -117,7 +133,6 @@ export const ActivityTable = ({
       hasNextPage={hasNextPage}
       isLoading={isLoading}
       ActivityTab={true}
-      
     />
   );
 };

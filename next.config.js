@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'standalone',
-}
+  output: "standalone",
+  images: {
+    domains: [
+      "ibanera-launchpad-users.s3.amazonaws.com",
+      "ibanera-nft.mypinata.cloud",
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

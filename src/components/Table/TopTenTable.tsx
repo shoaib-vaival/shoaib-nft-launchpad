@@ -2,9 +2,16 @@ import { Image } from "@chakra-ui/image";
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { currencySymbol } from "../../constants";
+import NextImage from "next/image";
 
-export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) => {
-  const fakeData = [1,2,3,4]
+export const TopTenTable = ({
+  isLoading,
+  data,
+}: {
+  isLoading: any;
+  data: any;
+}) => {
+  const fakeData = [1, 2, 3, 4];
   const columns = [
     { key: "collection", title: "Collection" },
     { key: "floorPrice", title: "Floor Price", isNumeric: true },
@@ -12,11 +19,21 @@ export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) =
   ];
 
   const skeletonData = fakeData?.map((counter: number, _index: number) => {
-      return {
-        collection: (
+    return {
+      collection: (
         <Flex position="relative" alignItems="center" gap="24px">
-          <Box w="96px" h="96px" borderRadius="16px" backgroundColor="gray.200" />
-          <Heading fontSize="18px" color="gray.200" bg="gray.200" borderRadius="md"></Heading>
+          <Box
+            w="96px"
+            h="96px"
+            borderRadius="16px"
+            backgroundColor="gray.200"
+          />
+          <Heading
+            fontSize="18px"
+            color="gray.200"
+            bg="gray.200"
+            borderRadius="md"
+          ></Heading>
           <Box
             position="absolute"
             top="0"
@@ -28,10 +45,33 @@ export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) =
           />
         </Flex>
       ),
-      floorPrice: <Text w="50%" fontSize="16px" color="gray.200" bg="gray.200" rounded="md" ml="auto">loading</Text>,
-      volume: <Text w="50%" fontSize="16px" color="gray.200" bg="gray.200" rounded="md" ml="auto">loading</Text>,
-      id: counter
-  }})
+      floorPrice: (
+        <Text
+          w="50%"
+          fontSize="16px"
+          color="gray.200"
+          bg="gray.200"
+          rounded="md"
+          ml="auto"
+        >
+          loading
+        </Text>
+      ),
+      volume: (
+        <Text
+          w="50%"
+          fontSize="16px"
+          color="gray.200"
+          bg="gray.200"
+          rounded="md"
+          ml="auto"
+        >
+          loading
+        </Text>
+      ),
+      id: counter,
+    };
+  });
 
   const tableData =
     data &&
@@ -39,15 +79,30 @@ export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) =
       return {
         collection: (
           <Flex alignItems="center" gap="24px" flex="85%">
-            <Image
+            <Box
+              w={{ base: "50px", md: "96px" }}
+              h={{ base: "50px", md: "96px" }}
+              position="relative"
+            >
+              <NextImage
+                src={collection?.logoImageUrl}
+                alt="Picture of the author"
+                objectFit="cover"
+                layout="fill"
+                loading="lazy"
+                style={{
+                  borderRadius: "16px",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+            {/* <Image
               src={collection?.logoImageUrl}
               boxSize="100px"
               objectFit="cover"
               border="1px solid white"
               borderRadius="16px"
-              w={{ base: "50px", md: "96px" }}
-              h={{ base: "50px", md: "96px" }}
-            />
+            /> */}
             <VStack spacing="0.5">
               <Heading fontSize="18px">
                 {collection?.name && collection?.name?.substring(0, 16) + "..."}
@@ -55,12 +110,17 @@ export const TopTenTable = ({ isLoading, data }: { isLoading:any, data: any }) =
             </VStack>
           </Flex>
         ),
-        floorPrice: collection?.floor_price +" "+ `${currencySymbol}`,
-        volume: collection?.volume  +" "+ `${currencySymbol}`,
-        id: collection?.id
+        floorPrice: collection?.floor_price + " " + `${currencySymbol}`,
+        volume: collection?.volume + " " + `${currencySymbol}`,
+        id: collection?.id,
       };
     });
   return (
-    <GenericTable data={isLoading ? skeletonData : tableData} columns={columns} variant="borderLess" tableName="topTen" />
+    <GenericTable
+      data={isLoading ? skeletonData : tableData}
+      columns={columns}
+      variant="borderLess"
+      tableName="topTen"
+    />
   );
 };

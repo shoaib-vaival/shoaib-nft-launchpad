@@ -658,10 +658,21 @@ const CreateCollection = () => {
                       ?.map((item: any) => item?.percentage)
                       ?.reduce((partialSum: any, a: any) => partialSum + a, 0) >
                       10 && (
-                      <Text color={"red.700"} fontWeight={'500'} >
+                      <Text color={"red.700"} fontWeight={"500"}>
                         Percentage must be less than 10
                       </Text>
                     )}
+                    <FormControl>
+                      <Text
+                        marginTop={"0px!important"}
+                        fontWeight={"500"}
+                        color={"red.700"}
+                      >
+                        {typeof errors["creatorFee"] === "string" && (
+                          <ErrorMessage name={"creatorFee"} component="div" />
+                        )}
+                      </Text>
+                    </FormControl>
 
                     {values?.creatorFee && values?.creatorFee?.length < 5 && (
                       <Button

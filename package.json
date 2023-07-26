@@ -54,6 +54,7 @@
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.8.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-query": "^3.39.3",
     "react-select": "^5.7.3",
     "react-share": "^4.4.1",

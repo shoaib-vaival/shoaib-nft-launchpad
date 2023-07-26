@@ -67,7 +67,7 @@ const Setting: NextPage = () => {
     },
   });
 
-  const { mutate: save } = useMutation<any>({
+  const { mutate: save, isLoading } = useMutation<any>({
     method: PATCH,
     url: `${ApiUrl.CREATE_NOTIFICATION}`,
     showSuccessToast: true,
@@ -618,6 +618,7 @@ const Setting: NextPage = () => {
                                   <Field name="switchField">
                                     {({ field }: { field: any }) => (
                                       <Switch
+                                        isDisabled={isLoading}
                                         id="status"
                                         isChecked={items?.status}
                                         onChange={() => {

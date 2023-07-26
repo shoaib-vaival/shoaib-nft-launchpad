@@ -1,7 +1,8 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { currencySymbol } from "../../constants";
+import NextImage from "next/image";
 
 export const ListingTable = ({
   data,
@@ -19,16 +20,25 @@ export const ListingTable = ({
     data?.map((nft: any, index: number) => {
       return {
         nft: (
-          <Flex alignItems="center" gap="24px" flex="85%" mr='70px'>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
+          <Flex alignItems="center" gap="24px" flex="85%" mr="70px">
+            <Box
               boxSize="100px"
-              objectFit="cover"
-              border="1px solid white"
-              borderRadius="16px"
               w={{ base: "50px", md: "56px" }}
               h={{ base: "50px", md: "56px" }}
-            />
+              position="relative"
+            >
+              <NextImage
+                src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
+                objectFit="cover"
+                layout="fill"
+                loading="lazy"
+                alt="listing images"
+                style={{
+                  border: "1px solid white",
+                  borderRadius: "16px",
+                }}
+              />
+            </Box>
             <VStack spacing="0.5" alignItems="flex-start">
               <Heading fontSize="18px">
                 {nft?.name && nft?.name.length > 16
