@@ -358,6 +358,7 @@ const CreateCollection = () => {
                   <Field
                     name="description"
                     component={ChakraTextarea}
+                    
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed."
                   />

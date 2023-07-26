@@ -195,7 +195,9 @@ const myCollection: NextPage = () => {
                   w={{ base: "full", sm: "md", xl: "sm" }}
                   marginBottom={{ base: "3", md: "initial", xl: "initial" }}
                 >
-                  <Input placeholder="Search..." />
+                  <Input placeholder="Search..."
+                    _focus={{ border: '1px solid #6863F3' }} _hover={{ background: '#6863f305' }} />
+
                   <InputLeftElement>
                     <img src="/assets/images/search.svg" />
                   </InputLeftElement>

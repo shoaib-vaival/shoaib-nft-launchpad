@@ -588,14 +588,14 @@ const Setting: NextPage = () => {
                     <Form>
                       <Box borderRadius="6px" border="1px solid #6F6BF366">
                         {getNotifSetting &&
-                          getNotifSetting?.map((items: any) => (
+                          getNotifSetting?.map((items: any, index:any) => (
                             <>
                               <FormControl m="0">
                                 <Flex
                                   alignItems="center"
                                   justifyContent="space-between"
                                   p="24px"
-                                  borderBottom="1px solid #35353533"
+                                  borderBottom={index === getNotifSetting.length-1?"":"1px solid #35353533"}
                                   bg="#fff"
                                   margin={"1px"}
                                 >

@@ -98,7 +98,7 @@ const CollectionStat: NextPage = () => {
                   options={filtredCat}
                   isMultiple={false}
                   identifier="cat"
-                  placeholder="All categories"
+                  placeholder="All Categories"
                   getSelectedData={(selectedOption: any) => {
                     setCatFilter(selectedOption?.value);
                   }}
@@ -130,7 +130,7 @@ const CollectionStat: NextPage = () => {
                   options={filtredCat}
                   isMultiple={false}
                   identifier="cat"
-                  placeholder="All categories"
+                  placeholder="All Categories"
                   getSelectedData={(selectedOption: any) => {
                     setCatFilter(selectedOption?.value);
                   }}
@@ -162,7 +162,7 @@ const CollectionStat: NextPage = () => {
                   options={filtredCat}
                   isMultiple={false}
                   identifier="cat"
-                  placeholder="All categories"
+                  placeholder="All Categories"
                   getSelectedData={(selectedOption: any) => {
                     setCatFilter(selectedOption?.value);
                   }}

@@ -16,8 +16,9 @@ export const Table:ComponentStyleConfig = {
                 border:'none',
                 fontSize:'16px',
                 color:'rgba(57, 63, 89, 1)',
-                padding:'8px 12px'
+                padding:'8px 12px',
             }
+            
         },
         bordered:{
             th:{

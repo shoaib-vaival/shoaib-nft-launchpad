@@ -68,6 +68,7 @@ const ReactSelect = ({
           indicatorsContainer: (baseStyles, state) => ({
             ...baseStyles,
             cursor: "pointer",
+            ":focus":{border:'1px solid #6863F3'}
           }),
           option: (baseStyles, state) => ({
             ...baseStyles,
@@ -80,6 +81,9 @@ const ReactSelect = ({
             boxShadow: "none",
             width: "100%",
             borderRadius: "6px",
+            ":hover":{border:'1px solid #6863F3'},
+            cursor: "text",
+
           }),
           indicatorSeparator: () => ({}),
           multiValue: (styles, { data }) => ({
@@ -93,6 +97,8 @@ const ReactSelect = ({
             paddingLeft: "11px",
             paddingTop: "9px",
             paddingBottom: "9px",
+            
+
           }),
           multiValueLabel: (styles, { data }) => ({
             ...styles,
@@ -102,7 +108,7 @@ const ReactSelect = ({
           }),
           multiValueRemove: (styles, { data }) => ({
             ...styles,
-            color: "#756C99",
+            color: "#393F59",
             ":hover": {
               backgroundColor: "transparent",
             },
