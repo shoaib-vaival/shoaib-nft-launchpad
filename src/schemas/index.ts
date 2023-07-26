@@ -1,6 +1,18 @@
 import { ethers } from "ethers";
 import { yupToFormErrors } from "formik";
 import * as Yup from "yup";
+
+const hasUniqueWalletAddresses = (arr:any) => {
+  const walletAddresses = new Set();
+  for (const item of arr) {
+    const walletAddress = item.walletAddress;
+    if (walletAddresses.has(walletAddress)) {
+      return false;
+    }
+    walletAddresses.add(walletAddress);
+  }
+  return true;
+};
 export const collectionSchema = Yup.object().shape({
   name: Yup.string()
     .required("Collection name is required")
@@ -21,11 +33,12 @@ export const collectionSchema = Yup.object().shape({
           } catch (error) {
             return false;
           }
-        })
-        .required("Wallet Address is required"),
+        }).required("Wallet Address is required"),
       percentage: Yup.number().nullable(),
     })
-  ),
+  ).test('unique-wallet-addresses', 'Wallet addresses must be unique in the array', function (value) {
+    return hasUniqueWalletAddresses(value);
+  }),
 
   website_url: Yup.string().url("Website URL must be a valid URL"),
   etherscan: Yup.string().url("EtherScan URL must be a valid URL"),

@@ -123,8 +123,18 @@ export const CollectionStatTable = ({
           <Text>{`${collectionStat?.floor_price} ${currencySymbol}`}</Text>
         ),
         Sales: <Text>{collectionStat?.sale}</Text>,
-        uniqueOwner: <Text>{`${collectionStat?.uniqueOwner}`}</Text>,
-        itemlisted: <Text>{`${collectionStat?.itemListedCount}`}</Text>,
+        uniqueOwner: (
+          <VStack>
+            <Text>{`${collectionStat?.uniqueOwner}`}</Text>
+            <Text>{`${collectionStat?.totalOwners}`}</Text>
+          </VStack>
+        ),
+        itemlisted: (
+          <VStack>
+            <Text>{`${collectionStat?.itemListedCount}`}</Text>
+            <Text>{`${collectionStat?.itemListed} of ${collectionStat?.totalListed}`}</Text>
+          </VStack>
+        ),
       };
     });
   return (
