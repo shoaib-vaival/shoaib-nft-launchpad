@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { isNumeric } from "@chakra-ui/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { GenericTable } from ".";
@@ -9,6 +9,7 @@ import { POST } from "../../hooks/consts";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { useInfiniteQuery } from "../../hooks/useInfiniteQuery";
 import { useMutation } from "../../hooks/useMutation";
+import NextImage from "next/image";
 
 export const CollectionWatchListTable = ({
   refresh,
@@ -74,15 +75,21 @@ export const CollectionWatchListTable = ({
         id: collectionStat?.id,
         collection: (
           <Flex gap="2" alignItems="center" mr="48px">
-            <Image
-              src={collectionStat?.logoImageUrl}
-              boxSize="100px"
-              objectFit="cover"
-              border="1px solid white"
-              borderRadius="16px"
+            <Box
               w={{ base: "50px", md: "64px" }}
               h={{ base: "50px", md: "64px" }}
-            />
+              boxSize="100px"
+              position="relative"
+            >
+              <NextImage
+                src={collectionStat?.logoImageUrl}
+                objectFit="cover"
+                alt="watchlist images"
+                loading="lazy"
+                layout="fill"
+                style={{ border: "1px solid white", borderRadius: "16px" }}
+              />
+            </Box>
             <VStack spacing="0.5">
               <Heading fontSize="18px">
                 {collectionStat?.name &&

@@ -1,9 +1,9 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import fallbackImage from "../../../public/assets/images/fall-back-img.svg";
+import NextImage from "next/image";
 export const TopOwnerTable = ({ data }: { data: any }) => {
-
   const columns = [
     { key: "item", title: "ITEM" },
     { key: "wallet", title: "WALLET", isNumeric: true },
@@ -16,17 +16,29 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
     data?.map((owner: any, index: number) => {
       return {
         item: (
-          <Flex alignItems="center" gap="24px" flex="85%"  mr={{base:"70px",md:"50px",lg:'0'}}>
-            <Image
-              src={owner?.userofi?.prleUrl ? `${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.userofi?.prleUrl}` : `/assets/images/fall-back-img.svg` }
+          <Flex alignItems="center" gap="24px" flex="85%" mr="70px">
+            <Box
+              w={{ base: "50px", md: "56px" }}
+              h={{ base: "50px", md: "56px" }}
               boxSize="100px"
-              objectFit={owner?.userofi?.prleUrl ?  'cover' : 'contain'}
-              border="1px solid white"
-              borderRadius="16px"
-              w={{ base: "50px", lg: "56px" }}
-              h={{ base: "50px", lg: "56px" }}
-              
-            />
+              position="relative"
+            >
+              <NextImage
+                src={
+                  owner?.userofi?.prleUrl
+                    ? `${process.env.NEXT_PUBLIC_IMG_BASE_URL}${owner?.userofi?.prleUrl}`
+                    : `/assets/images/fall-back-img.svg`
+                }
+                objectFit={owner?.userofi?.prleUrl ? "cover" : "contain"}
+                alt="top owner images"
+                layout="fill"
+                loading="lazy"
+                style={{
+                  border: "1px solid white",
+                  borderRadius: "16px",
+                }}
+              />
+            </Box>
             <VStack spacing="0.5">
               <Heading fontSize="18px">
                 {owner?.user?.displayName &&
@@ -44,7 +56,9 @@ export const TopOwnerTable = ({ data }: { data: any }) => {
               owner?.user?.walletAddress.length
             ),
         owned: owner?.user?.owned && owner?.user?.owned,
-        percentageOwned: (owner?.user?.owned / owner?.totalNft) * 100,
+        percentageOwned: ((owner?.user?.owned / owner?.totalNft) * 100).toFixed(
+          2
+        ),
       };
     });
   return (

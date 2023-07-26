@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { pagePaths } from "../../constants";
 import { collectionCardProps } from "../../types/collectionCard";
-import { string } from "yup";
+import NextImage from "next/image";
 
 const CollectionCard = ({
   type,
@@ -78,14 +78,22 @@ const CollectionCard = ({
                   transition=".2s ease-in-out"
                 >
                   {isShowFeatureImage && (
-                    <Image
-                      src={featureImage}
-                      alt="Green double couch with wooden legs"
-                      borderRadius="lg"
-                      w="100%"
-                      h="100%"
+                    <NextImage
+                      src={featureImage ? featureImage : ""}
+                      alt="Picture of the author"
                       objectFit="cover"
+                      layout="fill"
+                      loading="lazy"
                     />
+                    // <Image
+                    //   as={NextImage}
+                    //   src={featureImage}
+                    //   alt="Green double couch with wooden legs"
+                    //   borderRadius="lg"
+                    //   width="100%"
+                    //   height="100%"
+                    //   objectFit="cover"
+                    // />
                   )}
 
                   {isShowLogoImage && (
@@ -98,16 +106,29 @@ const CollectionCard = ({
                       w={88}
                       h={88}
                     >
-                      <Image
+                      <NextImage
                         src={
-                          logoImage? logoImage : "/assets/images/RectangleCardImg.png"
+                          logoImage
+                            ? logoImage
+                            : "/assets/images/RectangleCardImg.png"
                         }
+                        alt="Picture of the author"
+                        objectFit="cover"
+                        layout="fill"
+                        loading="lazy"
+                      />
+                      {/* <LazyLoadImage
                         alt="Green double couch with wooden legs"
+                        effect="blur"
+                        src={
+                          logoImage
+                            ? logoImage
+                            : "/assets/images/RectangleCardImg.png"
+                        }
                         w="100%"
                         h="100%"
-                        borderRadius="16px"
-                        objectFit="cover"
-                      />
+                        delayTime="3000"
+                      /> */}
                     </Box>
                   )}
                 </Box>
@@ -117,7 +138,9 @@ const CollectionCard = ({
                   px={{ base: "24px", sm: "16px", lg: "24px" }}
                   transition=".2s"
                   transform={
-                    isVisible && isEditAble? "translate(0px, -20px)": "translate(0px, 0px)"
+                    isVisible && isEditAble
+                      ? "translate(0px, -20px)"
+                      : "translate(0px, 0px)"
                   }
                   pb="24px"
                 >
@@ -209,14 +232,22 @@ const CollectionCard = ({
               w="100%"
             >
               {isShowFeatureImage && (
-                <Image
-                  src={featureImage}
-                  alt="Green double couch with wooden legs"
-                  borderRadius="lg"
-                  w="100%"
-                  h="100%"
+                <NextImage
+                  src={featureImage ? featureImage : ""}
+                  alt="Picture of the author"
                   objectFit="cover"
+                  layout="fill"
+                  loading="lazy"
+                  onLoadingComplete={(img) => console.log("image", img)}
                 />
+                // <Image
+                //   src={featureImage}
+                //   alt="Green double couch with wooden legs"
+                //   borderRadius="lg"
+                //   w="100%"
+                //   h="100%"
+                //   objectFit="cover"
+                // />
               )}
               <Box
                 position="absolute"

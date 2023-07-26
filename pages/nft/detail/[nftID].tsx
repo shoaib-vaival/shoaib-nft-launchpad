@@ -49,6 +49,7 @@ import { useRouter } from "next/router";
 import { showToaster } from "../../../src/components/Toaster";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDebounce } from "../../../src/hooks/useDebounce";
+import NextImage from "next/image";
 
 const NftDetail = ({ param }: any) => {
   const { provider, account, chainId } = useWeb3React();
@@ -340,14 +341,18 @@ const NftDetail = ({ param }: any) => {
             maxH={{ base: "initial", md: "500px", lg: "600px" }}
             minH={{ base: "initial", md: "500px", lg: "400px" }}
             borderRadius="16px"
+            position="relative"
           >
-            <Image
-              src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${data?.ipfsImageUrl}`}
-              w="100%"
-              h="100%"
-              objectFit="cover"
-              borderRadius="lg"
-            />
+            <Box w="100%" h="100%" borderRadius="lg">
+              <NextImage
+                src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${data?.ipfsImageUrl}`}
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center center"
+                alt="nft image"
+                style={{ borderRadius: "16px" }}
+              />
+            </Box>
           </Box>
           <Box w={{ base: "100%", lg: "50%" }}>
             <Box
@@ -387,7 +392,11 @@ const NftDetail = ({ param }: any) => {
                         ></MenuButton>
                         <MenuList w="191px" minW="191px" p="8px">
                           <MenuItem>
-                            <Box width='100%' color="#393F59" onClick={onReportModalOpen}>
+                            <Box
+                              width="100%"
+                              color="#393F59"
+                              onClick={onReportModalOpen}
+                            >
                               Report
                             </Box>
                           </MenuItem>
@@ -721,8 +730,12 @@ const NftDetail = ({ param }: any) => {
                   activities?.map((activity: any, index: number) => {
                     return (
                       <Tr key={index}>
-                        <Td p={{ base: "12px", md: "17px 25px" }}  display='flex' alignItems='center'>
-                          <Box color="#6863F3" mr='8px'>
+                        <Td
+                          p={{ base: "12px", md: "17px 25px" }}
+                          display="flex"
+                          alignItems="center"
+                        >
+                          <Box color="#6863F3" mr="8px">
                             {activity?.activityType === "buy" && (
                               <i className="icon-transfer"></i>
                             )}
@@ -803,7 +816,7 @@ const NftDetail = ({ param }: any) => {
               href="/categories"
               variant="primary"
             >
-             VIEW ALL
+              VIEW ALL
             </Button>
           </Flex>
           <SlickSlider>

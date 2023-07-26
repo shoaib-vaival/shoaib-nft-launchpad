@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { isNumeric } from "@chakra-ui/utils";
 import { GenericTable } from ".";
 import { ApiUrl } from "../../apis/apiUrl";
@@ -8,6 +8,7 @@ import { POST } from "../../hooks/consts";
 import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { useInfiniteQuery } from "../../hooks/useInfiniteQuery";
 import { useMutation } from "../../hooks/useMutation";
+import NextImage from "next/image";
 
 export const CollectionStatTable = ({
   type,
@@ -38,6 +39,7 @@ export const CollectionStatTable = ({
     method: POST,
     url: ApiUrl.ADD_TO_WATCHLIST,
     token: true,
+    showSuccessToast: true,
     successMessage: "Added to watchlist",
   });
   const { mutate: removeFromWatchlist } = useMutation<any>({
@@ -86,15 +88,21 @@ export const CollectionStatTable = ({
         id: collectionStat?.id,
         collection: (
           <Flex gap="2" alignItems="center" mr="48px">
-            <Image
-              src={collectionStat?.logoImageUrl}
+            <Box
               boxSize="100px"
-              objectFit="cover"
-              border="1px solid white"
-              borderRadius="16px"
+              position="relative"
               w={{ base: "50px", md: "64px" }}
               h={{ base: "50px", md: "64px" }}
-            />
+            >
+              <NextImage
+                src={collectionStat?.logoImageUrl}
+                objectFit="cover"
+                layout="fill"
+                loading="lazy"
+                alt="state table image"
+                style={{ border: "1px solid white", borderRadius: "16px" }}
+              />
+            </Box>
             <VStack spacing="0.5">
               <Heading fontSize="18px">
                 {collectionStat?.name &&
@@ -125,7 +133,7 @@ export const CollectionStatTable = ({
         Sales: <Text>{collectionStat?.sale}</Text>,
         uniqueOwner: (
           <VStack>
-            <Text>{`${collectionStat?.uniqueOwner}`}</Text>
+            <Text>{`${collectionStat?.uniqueOwner}%`}</Text>
             <Text>{`${collectionStat?.totalOwners}`}</Text>
           </VStack>
         ),
