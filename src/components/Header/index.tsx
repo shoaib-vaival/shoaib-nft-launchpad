@@ -48,6 +48,7 @@ import { showToaster } from "../Toaster";
 import { boolean } from "yup";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useRouter } from "next/router";
+import { profileType } from "../../types";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -56,7 +57,6 @@ export const Header = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchBoxRef = useRef(null);
   const router = useRouter();
-
 
   useOutsideClick({
     ref: searchBoxRef,
@@ -72,6 +72,12 @@ export const Header = () => {
 
   const { account, provider } = useWeb3React();
 
+  const { data: profileData } = useQuery<profileType>({
+    queryKey: [QUERY_KEYS.GET_USER],
+    url: ApiUrl.GET_USER,
+    token: true,
+  });
+  // console.log("🚀 PROFILE DATA", profileData);
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.SAVE_SIGNATURE,
@@ -184,7 +190,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pt="30px" pb={{base:'20px',md:'40px'}}>
+        <Box pt="30px" pb={{ base: "20px", md: "40px" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -224,8 +230,11 @@ export const Header = () => {
               >
                 <Input
                   placeholder="Search..."
-                  _hover={{ background: '#6863f305' }}
-                  _focus={{border:'1px solid #6863F3',background: '#6863f305' }}
+                  _hover={{ background: "#6863f305" }}
+                  _focus={{
+                    border: "1px solid #6863F3",
+                    background: "#6863f305",
+                  }}
                   onChange={(e) => {
                     setIsSearching(true);
                     setSearch(e.target.value);
@@ -312,7 +321,17 @@ export const Header = () => {
                         }
                       )
                     ) : (
-                      <Box onClick={()=>setIsSearching(false)}><Link as={NextLink}  href="/categories" textAlign="center"><Text p='10px'_hover={{bg:'gray.100'}}>Click here to view all Collections</Text></Link></Box>
+                      <Box onClick={() => setIsSearching(false)}>
+                        <Link
+                          as={NextLink}
+                          href="/categories"
+                          textAlign="center"
+                        >
+                          <Text p="10px" _hover={{ bg: "gray.100" }}>
+                            Click here to view all Collections
+                          </Text>
+                        </Link>
+                      </Box>
                     )}
 
                     {/* <Link as={NextLink} _hover={{color:'#6863F3'}} href="/categories">
@@ -330,15 +349,18 @@ export const Header = () => {
                 base: toggleMenu ? "visible" : "hidden",
                 lg: "initial",
               }}
-              transform={{base: toggleMenu ? "translateY(5px)" : "translateY(-15px)" ,lg:'initial'}}
-               h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
+              transform={{
+                base: toggleMenu ? "translateY(5px)" : "translateY(-15px)",
+                lg: "initial",
+              }}
+              h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
               // display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
               w={{ base: "100%", lg: "inherit" }}
               bg={{ base: "#ffdafe75", lg: "transparent" }}
               mt={{ base: "5px", lg: "initial" }}
               borderTopLeftRadius={{ base: "16px", lg: "0" }}
               borderTopRightRadius={{ base: "16px", lg: "0" }}
-              transition={toggleMenu ? ".8s" : '0s'}
+              transition={toggleMenu ? ".8s" : "0s"}
               position="relative"
               zIndex="1"
             >
@@ -346,7 +368,7 @@ export const Header = () => {
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
                 alignItems={{ base: "flex-start", lg: "center" }}
-                fontWeight='500'
+                fontWeight="500"
                 flexDirection={{
                   base: "column",
                   sm: "column",
@@ -356,10 +378,14 @@ export const Header = () => {
                 spacing={{ base: "8px", lg: "11px", xl: "24px" }}
                 p={{ base: "10px", lg: "0" }}
               >
-                  <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
-                    Home
-                  </Link>
-                <Link as={NextLink} href="/categories" _hover={{ color: "#6863f3" }}>
+                <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
+                  Home
+                </Link>
+                <Link
+                  as={NextLink}
+                  href="/categories"
+                  _hover={{ color: "#6863f3" }}
+                >
                   Explore
                 </Link>
 
@@ -371,7 +397,7 @@ export const Header = () => {
                     _focusVisible={{ boxShadow: "transparent" }}
                     p={{ base: "0 0 8px 0", md: "0" }}
                     h="auto"
-                    fontWeight='500'
+                    fontWeight="500"
                     lineHeight="1.5"
                     _hover={{ bg: "transparent", color: "#6863f3" }}
                     textTransform="uppercase"
