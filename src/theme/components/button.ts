@@ -31,10 +31,14 @@ export const Button:ComponentStyleConfig = {
             bg:'purple.500',
             color:'white',
             border:'1px solid #6863F3',
+
             _hover: {
                 bg: 'white',
                 color:'purple.500',
                 border:'1px solid #6863F3',
+                transform: 'translateY(-3px) scale(1.01) translateZ(0px)',
+                transition:'all .3s ease',
+
             },
         }, 
         secondary:{
@@ -46,6 +50,10 @@ export const Button:ComponentStyleConfig = {
                 bg: 'purple.500',
                 color:'white',
                 border:'1px solid #6863F3',
+                transform: 'translateY(-3px) scale(1.01) translateZ(0px)',
+                transition:'all .3s ease',
+
+
             },
         }
     }
