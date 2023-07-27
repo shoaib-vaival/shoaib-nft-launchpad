@@ -64,48 +64,40 @@ const ProfileHeader = ({
             pt="40px"
             pl={{ base: "24px", md: "54px" }}
           >
-            <NextImage
-              src={coverPhoto ? coverPhoto : ""}
-              alt="Profile Photo"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center center"
-              style={{
-                borderRadius: "16px",
-              }}
-            />
-            <Box
-              w={{ base: "100px", md: "200px" }}
-              h={{ base: "100px", md: "200px" }}
-              position="absolute"
-              bottom="-35%"
-              transform="translateY(-50%)"
-            >
+            {coverPhoto && (
               <NextImage
-                src={profilePhoto ? profilePhoto : ""}
+                src={coverPhoto ? coverPhoto : ""}
                 alt="Profile Photo"
                 layout="fill"
                 objectFit="cover"
                 objectPosition="center center"
                 style={{
                   borderRadius: "16px",
-                  border: "2px solid white",
                 }}
               />
-            </Box>
+            )}
+            {profilePhoto && (
+              <Box
+                w={{ base: "100px", md: "200px" }}
+                h={{ base: "100px", md: "200px" }}
+                position="absolute"
+                bottom="-35%"
+                transform="translateY(-50%)"
+              >
+                <NextImage
+                  src={profilePhoto ? profilePhoto : ""}
+                  alt="Profile Photo"
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center center"
+                  style={{
+                    borderRadius: "16px",
+                    border: "2px solid white",
+                  }}
+                />
+              </Box>
+            )}
           </Box>
-          {/* <Image
-            src={profilePhoto}
-            w={{ base: "100px", md: "200px" }}
-            h={{ base: "100px", md: "200px" }}
-            borderRadius="16px"
-            border="2px solid white"
-            position="absolute"
-            bottom="-35%"
-            loading="lazy"
-            transform="translateY(-50%)"
-            objectFit="cover"
-          /> */}
         </Container>
       )}
       <Container maxW="8xl" mt={{ base: "50px", md: "8px" }} px="0">
