@@ -203,7 +203,7 @@ const Collection: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box px="0" >
+        {/* <Box px="0"> */}
           <ProfileHeader
             socialIcons={socialIcons}
             showSocialIcons={true}
@@ -214,7 +214,7 @@ const Collection: NextPage = () => {
             showAddToWatchList={true}
             id={`${router?.query?.collectionID}`}
           />
-        </Box>
+        {/* </Box> */}
         <ProfileDetail
           showStats={true}
           data={collectionDetail}
