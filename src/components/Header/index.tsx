@@ -57,7 +57,6 @@ export const Header = () => {
   const searchBoxRef = useRef(null);
   const router = useRouter();
 
-
   useOutsideClick({
     ref: searchBoxRef,
     handler: () => setIsSearching(false),
@@ -146,13 +145,6 @@ export const Header = () => {
     setSearch(value);
   };
 
-  const handleSearchFocus = () => {
-    if (search !== "") {
-      setIsSearching(true);
-    } else {
-      setIsSearching(false);
-    }
-  };
   const signature = async (savedSign: any) => {
     signMessage(provider).then((signature) => {
       if (signature.length == 0) {
@@ -184,7 +176,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pt="30px" pb={{base:'20px',md:'40px'}}>
+        <Box pt="30px" pb={{ base: "20px", md: "40px" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -224,8 +216,11 @@ export const Header = () => {
               >
                 <Input
                   placeholder="Search..."
-                  _hover={{ background: '#6863f305' }}
-                  _focus={{border:'1px solid #6863F3',background: '#6863f305' }}
+                  _hover={{ background: "#6863f305" }}
+                  _focus={{
+                    border: "1px solid #6863F3",
+                    background: "#6863f305",
+                  }}
                   onChange={(e) => {
                     setIsSearching(true);
                     setSearch(e.target.value);
@@ -315,7 +310,11 @@ export const Header = () => {
                       <Text textAlign="center">Record not found</Text>
                     )}
 
-                    <Link as={NextLink} _hover={{color:'#6863F3'}} href="/categories">
+                    <Link
+                      as={NextLink}
+                      _hover={{ color: "#6863F3" }}
+                      href="/categories"
+                    >
                       Explore
                     </Link>
                   </Box>
@@ -330,15 +329,18 @@ export const Header = () => {
                 base: toggleMenu ? "visible" : "hidden",
                 lg: "initial",
               }}
-              transform={{base: toggleMenu ? "translateY(5px)" : "translateY(-15px)" ,lg:'initial'}}
-               h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
+              transform={{
+                base: toggleMenu ? "translateY(5px)" : "translateY(-15px)",
+                lg: "initial",
+              }}
+              h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
               // display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
               w={{ base: "100%", lg: "inherit" }}
               bg={{ base: "#ffdafe75", lg: "transparent" }}
               mt={{ base: "5px", lg: "initial" }}
               borderTopLeftRadius={{ base: "16px", lg: "0" }}
               borderTopRightRadius={{ base: "16px", lg: "0" }}
-              transition={toggleMenu ? ".8s" : '0s'}
+              transition={toggleMenu ? ".8s" : "0s"}
               position="relative"
               zIndex="1"
             >
@@ -355,10 +357,14 @@ export const Header = () => {
                 spacing={{ base: "8px", lg: "11px", xl: "24px" }}
                 p={{ base: "10px", lg: "0" }}
               >
-                  <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
-                    Home
-                  </Link>
-                <Link as={NextLink} href="/categories" _hover={{ color: "#6863f3" }}>
+                <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
+                  Home
+                </Link>
+                <Link
+                  as={NextLink}
+                  href="/categories"
+                  _hover={{ color: "#6863f3" }}
+                >
                   Explore
                 </Link>
 

@@ -11,6 +11,8 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { collectionType, nftType } from "../types";
+import { addEllipsisInMiddle } from "../utils";
+import NextImage from "next/image";
 
 type dataType = collectionType & nftType;
 type nftListProp = {
@@ -53,15 +55,24 @@ const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
                   <Tr key={index}>
                     <Td p={{ base: "12px", md: "17px 25px" }}>
                       <Flex gap="2" alignItems="center" mr="48px">
-                        <Image
-                          src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
-                          boxSize="100px"
-                          objectFit="cover"
-                          border="1px solid white"
-                          borderRadius="16px"
+                        <Box
                           w={{ base: "50px", md: "96px" }}
                           h={{ base: "50px", md: "96px" }}
-                        />
+                          boxSize="100px"
+                          position="relative"
+                        >
+                          <NextImage
+                            src={`${process.env.NEXT_PUBLIC_IMG_BASE_URL}${nft?.ipfsImageUrl}`}
+                            layout="fill"
+                            alt="nft image"
+                            objectFit="cover"
+                            loading="lazy"
+                            style={{
+                              border: "1px solid white",
+                              borderRadius: "16px",
+                            }}
+                          />
+                        </Box>
                         <VStack spacing="0.5" alignItems="flex-start">
                           <Heading fontSize="18px">{nft?.name}</Heading>
                           <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
@@ -73,7 +84,9 @@ const ListView = ({ data, fetchNextPage, hasNextPage }: nftListProp) => {
                     <Td p={{ base: "12px", md: "17px 25px" }}>
                       {nft?.lastTransfer ? nft?.lastTransfer : "#"}
                     </Td>
-                    <Td p={{ base: "12px", md: "17px 25px" }}>{nft?.owner}</Td>
+                    <Td p={{ base: "12px", md: "17px 25px" }}>
+                      {addEllipsisInMiddle(nft?.owner, 16)}
+                    </Td>
                     <Td p={{ base: "12px", md: "17px 25px" }}>3m ago</Td>
                   </Tr>
                 );
