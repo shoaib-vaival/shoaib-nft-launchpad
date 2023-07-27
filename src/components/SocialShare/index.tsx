@@ -28,6 +28,10 @@ const SocialShare = ({ url, title }: { url: string; title: string; }) => {
           aria-label='Send'
           fontSize='20px'
           border='1px solid #c4c3f9'
+          transform= 'rotateY(0deg)'
+          _hover={{
+            transition: '0.5s',transform: 'translateY(-3px) scale(1.01) translateZ(0px)'
+          }}
           bg='#fff'
           icon={<i className='icon-share'></i>}>
         </MenuButton>
