@@ -19,6 +19,7 @@ import CollectionInfoHeaderSkeleton from "../Seketons/infoHeader/Collection";
 import NextImage from "next/image";
 import { useState } from "react";
 import { after } from "node:test";
+import { bg } from "date-fns/locale";
 
 const ProfileHeader = ({
   socialIcons,
@@ -155,8 +156,9 @@ const ProfileHeader = ({
                     colorScheme="#6863F3"
                     aria-label="Send"
                     fontSize="20px"
+                    transform= 'rotateY(0deg)'
                     _hover={{
-                      transition: '0.5s',transform: 'rotateY(180deg)'
+                      transition: '0.5s',transform: 'rotateY(180deg)',bg:'transparent'
                     }}
                     icon={<i className={icon.icon}></i>}
                   />
@@ -185,8 +187,9 @@ const ProfileHeader = ({
                   fontSize="20px"
                   icon={<i className="icon-watch"></i>}
                   onClick={() => mutate({ collectionId: id })}
+                  transform= 'rotateY(0deg)'
                   _hover={{
-                    transition: '0.5s',transform: 'rotateY(180deg)'
+                    transition: '0.5s',transform: 'rotateY(180deg)',bg:'transparent'
                   }}
                 />
               ) : (
@@ -209,9 +212,11 @@ const ProfileHeader = ({
                   colorScheme="#6863F3"
                   aria-label="Send"
                   fontSize="20px"
+                  transform= 'rotateY(0deg)'
                   _hover={{
-                    transition: '0.5s',transform: 'rotateY(180deg) scale(1.2)'
+                    transition: '0.5s',transform: 'translateY(-3px) scale(1.01) translateZ(0px)',bg:'transparent'
                   }}
+                 className="share_menu"
                   icon={<i className="icon-menu"></i>}
                 ></MenuButton>
                 <MenuList w="191px" minW="191px" p="16px 8px">
