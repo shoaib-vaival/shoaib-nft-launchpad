@@ -74,6 +74,7 @@ const InputField = ({
           placeholder={placeholder}
           name={name}
           _focus={{border:'1px solid #6863F3'}}
+          _hover={{border:'1px solid #6863F3'}}
           onChange={(e) => {
             if (onChange) {
               onChange(e);

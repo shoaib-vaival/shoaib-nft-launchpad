@@ -35,6 +35,15 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
+      '.slick-arrow-btn': {
+        display: 'none!important',
+        transition:'all .3s ease'
+      },
+      
+     ' .css-1tdvlph:hover .slick-arrow-btn' :{
+        display: 'block!important',
+        transition:'all .3s ease'
+      },
       body: {
         color: colors.black,
         backgroundImage: 'url("/assets/images/bg.webp")',

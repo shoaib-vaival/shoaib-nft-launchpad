@@ -240,7 +240,7 @@ export const Header = () => {
                   border="1px solid rgba(111, 107, 243, 0.4)"
                   backdropFilter="blur(30px)"
                   borderRadius="16px"
-                  padding="16px"
+                  padding="8px"
                   pe={"0"}
                   bg="white"
                   zIndex={"9"}
@@ -307,16 +307,22 @@ export const Header = () => {
                         }
                       )
                     ) : (
-                      <Text textAlign="center">Record not found</Text>
+                      <Box onClick={() => setIsSearching(false)}>
+                        <Link
+                          as={NextLink}
+                          href="/categories"
+                          textAlign="center"
+                        >
+                          <Text p="10px" _hover={{ bg: "gray.100" }}>
+                            Click here to view all Collections
+                          </Text>
+                        </Link>
+                      </Box>
                     )}
 
-                    <Link
-                      as={NextLink}
-                      _hover={{ color: "#6863F3" }}
-                      href="/categories"
-                    >
+                    {/* <Link as={NextLink} _hover={{color:'#6863F3'}} href="/categories">
                       Explore
-                    </Link>
+                    </Link> */}
                   </Box>
                 </Box>
               ) : (
@@ -348,6 +354,7 @@ export const Header = () => {
                 textTransform="uppercase"
                 fontSize={{ base: "15px", xl: "16px" }}
                 alignItems={{ base: "flex-start", lg: "center" }}
+                fontWeight="500"
                 flexDirection={{
                   base: "column",
                   sm: "column",
@@ -376,6 +383,7 @@ export const Header = () => {
                     _focusVisible={{ boxShadow: "transparent" }}
                     p={{ base: "0 0 8px 0", md: "0" }}
                     h="auto"
+                    fontWeight="500"
                     lineHeight="1.5"
                     _hover={{ bg: "transparent", color: "#6863f3" }}
                     textTransform="uppercase"

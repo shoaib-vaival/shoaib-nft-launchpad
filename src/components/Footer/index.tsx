@@ -29,15 +29,15 @@ export const Footer = () => {
                 <Box pb='8px' maxW='390px'>
                   <Heading mb={{ base: '16px', lg: '32px' }} fontSize='16px' fontWeight='700' >Marketplace</Heading>
                   <Stack spacing={{ base: '16px', lg: '24px' }} fontSize='16px' color='#756C99'>
-                    <Box _hover={{ color: '#6863f3' }}> <Link href='#'>Categories</Link></Box>
-                    <Box _hover={{ color: '#6863f3' }}> <Link href='#'>Collections</Link></Box>
+                    <Box> <Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.2px' }} href='/categories'>Categories</Link></Box>
+                    <Box> <Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.2px' }} href='/collection/my-collection'>Collections</Link></Box>
                   </Stack>
                 </Box>
-                <Box pb='8px' maxW='390px'>
+                <Box pb='8px' maxW='390px' w={{ base: 'initial', md: '70px' }}>
                   <Heading mb={{ base: '16px', lg: '32px' }} fontSize='16px' fontWeight='700' >Stats</Heading>
                   <Stack spacing={{ base: '16px', lg: '24px' }} color='#756C99'>
-                    <Box _hover={{ color: '#6863f3' }}><Link href='/collection/state' color='#756C99'>Ranking</Link></Box>
-                    <Box _hover={{ color: '#6863f3' }}><Link href='/activity' color='#756C99'>Activity</Link></Box>
+                    <Box><Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.2px' }} href='/collection/state' color='#756C99'>Ranking</Link></Box>
+                    <Box><Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.2px' }} href='/activity' color='#756C99'>Activity</Link></Box>
                   </Stack>
                 </Box>
                 <Box pb='8px'>
@@ -50,6 +50,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
+                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
                         icon={<i className='icon-twitter'></i>}
                       />
                     </Box>
@@ -61,6 +62,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
+                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
                         icon={<i className='icon-telegram'></i>}
                       />
                     </Box>
@@ -71,6 +73,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
+                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
                         icon={<i className=' icon-froggy'></i>}
                       />
                     </Box>
@@ -81,6 +84,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
+                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
                         icon={<i className='icon-instagram'></i>}
                       />
                     </Box>
@@ -91,6 +95,7 @@ export const Footer = () => {
                         fontSize='20px'
                         textAlign='center'
                         display='initial'
+                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
                         icon={<i className='icon-medium'></i>}
                       />
                     </Box>
@@ -101,6 +106,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
+                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
                         icon={<i className='icon-reddit'></i>}
                       />
                     </Box>
@@ -118,9 +124,9 @@ export const Footer = () => {
                   </Link>
                 </Text>
                 <HStack flexWrap='wrap' mt={{ base: '20px', lg: '0!important' }} spacing={{ base: '12px', lg: '24px' }} fontSize='16px' color='#756C99' flexDirection='row' alignItems='center'>
-                  <Box _hover={{ color: '#6863f3' }}><Link as={NextLink} href='/terms-conditions' color='#756C99'>Digital Asset Custody</Link></Box>
-                  <Box _hover={{ color: '#6863f3' }}><Link as={NextLink} href='/privacy-policy' color='#756C99'>Privacy Policy</Link></Box>
-                  <Box _hover={{ color: '#6863f3' }}><Link as={NextLink} href='/return-policy' color='#756C99'>Terms Of Service</Link></Box>
+                  <Box><Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.1px' }} href='/terms-conditions' color='#756C99'>Digital Asset Custody</Link></Box>
+                  <Box ><Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.1px' }} href='/privacy-policy' color='#756C99'>Privacy Policy</Link></Box>
+                  <Box ><Link as={NextLink} _hover={{ color: '#6863f3', letterSpacing: '.1px' }} href='/return-policy' color='#756C99'>Terms Of Service</Link></Box>
 
                 </HStack>
               </Flex>
