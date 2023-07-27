@@ -59,9 +59,9 @@ const ProfileHeader = ({
   });
 
   const hoverStyle = {
-    borderRadius: '16px',
-    transform: isHover ? 'scale(1.02)' : 'scale(1)',
-    transition: 'all .1s ease ',
+    borderRadius: "16px",
+    transform: isHover ? "scale(1.02)" : "scale(1)",
+    transition: "all .1s ease ",
   };
   return (
     <>
@@ -75,62 +75,46 @@ const ProfileHeader = ({
           bgSize="cover"
           h={{ base: "220px", md: "400px" }}
         >
-          <Box w={{ base: "100%", md: "100%" }}
+          <Box
+            w={{ base: "100%", md: "100%" }}
             h={{ base: "100%", md: "100%" }}
             position="relative"
-
+            paddingLeft="54px"
           >
-            <Box w={{ base: "100%", md: "100%" }}
-              h={{ base: "100%", md: "100%" }}
-              position="relative"
-              overflow='hidden'
-              borderRadius='16px'
-            >
+            {coverPhoto && (
               <NextImage
                 src={coverPhoto ? coverPhoto : ""}
                 alt="Profile Photo"
                 layout="fill"
                 objectFit="cover"
                 objectPosition="center center"
-
-                style={hoverStyle}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+                style={{
+                  borderRadius: "16px",
+                }}
               />
-            </Box>
+            )}
             <Box
               w={{ base: "100px", md: "200px" }}
               h={{ base: "100px", md: "200px" }}
               position="absolute"
-              bottom="-13%"
-              left='5%'>
-              <NextImage
-                src={profilePhoto ? profilePhoto : ""}
-                alt="Profile Photo"
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center center"
-                style={{
-                  borderRadius: "16px",
-                  border: "2px solid white",
-
-                }}
-
-              />
+              bottom="-35%"
+              transform="translateY(-50%)"
+            >
+              {profilePhoto && (
+                <NextImage
+                  src={profilePhoto ? profilePhoto : ""}
+                  alt="Profile Photo"
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center center"
+                  style={{
+                    borderRadius: "16px",
+                    border: "2px solid white",
+                  }}
+                />
+              )}
             </Box>
           </Box>
-          {/* <Image
-            src={profilePhoto}
-            w={{ base: "100px", md: "200px" }}
-            h={{ base: "100px", md: "200px" }}
-            borderRadius="16px"
-            border="2px solid white"
-            position="absolute"
-            bottom="-35%"
-            loading="lazy"
-            transform="translateY(-50%)"
-            objectFit="cover"
-          /> */}
         </Container>
       )}
       <Container maxW="8xl" mt={{ base: "50px", md: "8px" }} px="0">
@@ -156,9 +140,11 @@ const ProfileHeader = ({
                     colorScheme="#6863F3"
                     aria-label="Send"
                     fontSize="20px"
-                    transform= 'rotateY(0deg)'
+                    transform="rotateY(0deg)"
                     _hover={{
-                      transition: '0.5s',transform: 'rotateY(180deg)',bg:'transparent'
+                      transition: "0.5s",
+                      transform: "rotateY(180deg)",
+                      bg: "transparent",
                     }}
                     icon={<i className={icon.icon}></i>}
                   />
@@ -187,9 +173,11 @@ const ProfileHeader = ({
                   fontSize="20px"
                   icon={<i className="icon-watch"></i>}
                   onClick={() => mutate({ collectionId: id })}
-                  transform= 'rotateY(0deg)'
+                  transform="rotateY(0deg)"
                   _hover={{
-                    transition: '0.5s',transform: 'rotateY(180deg)',bg:'transparent'
+                    transition: "0.5s",
+                    transform: "rotateY(180deg)",
+                    bg: "transparent",
                   }}
                 />
               ) : (
@@ -212,11 +200,13 @@ const ProfileHeader = ({
                   colorScheme="#6863F3"
                   aria-label="Send"
                   fontSize="20px"
-                  transform= 'rotateY(0deg)'
+                  transform="rotateY(0deg)"
                   _hover={{
-                    transition: '0.5s',transform: 'translateY(-3px) scale(1.01) translateZ(0px)',bg:'transparent'
+                    transition: "0.5s",
+                    transform: "translateY(-3px) scale(1.01) translateZ(0px)",
+                    bg: "transparent",
                   }}
-                 className="share_menu"
+                  className="share_menu"
                   icon={<i className="icon-menu"></i>}
                 ></MenuButton>
                 <MenuList w="191px" minW="191px" p="16px 8px">
