@@ -79,6 +79,7 @@ const ProfileHeader = ({
             w={{ base: "100%", md: "100%" }}
             h={{ base: "100%", md: "100%" }}
             position="relative"
+            paddingLeft="54px"
           >
             {coverPhoto && (
               <NextImage
@@ -92,14 +93,14 @@ const ProfileHeader = ({
                 }}
               />
             )}
-            {profilePhoto && (
-              <Box
-                w={{ base: "100px", md: "200px" }}
-                h={{ base: "100px", md: "200px" }}
-                position="absolute"
-                bottom="-35%"
-                transform="translateY(-50%)"
-              >
+            <Box
+              w={{ base: "100px", md: "200px" }}
+              h={{ base: "100px", md: "200px" }}
+              position="absolute"
+              bottom="-35%"
+              transform="translateY(-50%)"
+            >
+              {profilePhoto && (
                 <NextImage
                   src={profilePhoto ? profilePhoto : ""}
                   alt="Profile Photo"
@@ -111,8 +112,8 @@ const ProfileHeader = ({
                     border: "2px solid white",
                   }}
                 />
-              </Box>
-            )}
+              )}
+            </Box>
           </Box>
         </Container>
       )}
