@@ -83,3 +83,17 @@ export const addEllipsis=(str:string) => {
   }
   return str;
 }
+
+export const addEllipsisInMiddle = (str:string, maxLength:number)=> {
+  if (str.length > maxLength) {
+    const ellipsisLength = 3; // Length of the ellipsis ("...")
+    const leftPartLength = Math.ceil((maxLength - ellipsisLength) / 2);
+    const rightPartLength = Math.floor((maxLength - ellipsisLength) / 2);
+    
+    const leftPart = str.slice(0, leftPartLength);
+    const rightPart = str.slice(str.length - rightPartLength);
+
+    return leftPart + "..." + rightPart;
+  }
+  return str;
+}

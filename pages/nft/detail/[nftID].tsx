@@ -388,6 +388,10 @@ const NftDetail = ({ param }: any) => {
                           fontSize="20px"
                           border="1px solid #c4c3f9"
                           bg="#fff"
+                          transform= 'rotateY(0deg)'
+                          _hover={{
+                            transition: '0.5s',transform: 'translateY(-3px) scale(1.01) translateZ(0px)'
+                          }}
                           icon={<i className="icon-menu"></i>}
                         ></MenuButton>
                         <MenuList w="191px" minW="191px" p="8px">

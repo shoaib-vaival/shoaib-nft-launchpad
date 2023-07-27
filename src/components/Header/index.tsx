@@ -152,13 +152,6 @@ export const Header = () => {
     setSearch(value);
   };
 
-  const handleSearchFocus = () => {
-    if (search !== "") {
-      setIsSearching(true);
-    } else {
-      setIsSearching(false);
-    }
-  };
   const signature = async (savedSign: any) => {
     signMessage(provider).then((signature) => {
       if (signature.length == 0) {

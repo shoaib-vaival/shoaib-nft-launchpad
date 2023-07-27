@@ -358,7 +358,6 @@ const CreateCollection = () => {
                   <Field
                     name="description"
                     component={ChakraTextarea}
-                    
                     label="Description"
                     placeholder="Describe your collection, 1000 characters are allowed."
                   />
@@ -384,10 +383,13 @@ const CreateCollection = () => {
                     setNftName={setNftName}
                     nftDesc={values?.description}
                     setNftDesc={setNftDesc}
-                    defaultValue={{
-                      label: getCollectionById?.category?.name,
-                      value: getCollectionById?.category?.id,
-                    }}
+                    defaultValue={
+                      router.query.id &&
+                      getCollectionById?.category?.id && {
+                        label: getCollectionById?.category?.name,
+                        value: getCollectionById?.category?.id,
+                      }
+                    }
                   />
                   {showError && (
                     <Text
@@ -685,6 +687,17 @@ const CreateCollection = () => {
                         type="button"
                         textDecoration="none"
                         variant="link"
+                        isDisabled={
+                          typeof errors["creatorFee"] === "string" ||
+                          values?.creatorFee
+                            ?.map((item: any) => item?.percentage)
+                            ?.reduce(
+                              (partialSum: any, a: any) => partialSum + a,
+                              0
+                            ) > 10
+                            ? true
+                            : false
+                        }
                         onClick={() =>
                           push({ walletAddress: "", percentage: 0 })
                         }

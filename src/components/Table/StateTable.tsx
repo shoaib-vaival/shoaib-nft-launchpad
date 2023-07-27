@@ -134,12 +134,12 @@ export const CollectionStatTable = ({
         uniqueOwner: (
           <VStack>
             <Text>{`${collectionStat?.uniqueOwner}%`}</Text>
-            <Text>{`${collectionStat?.totalOwners}`}</Text>
+            <Text>{`${collectionStat?.totalOwners} owners`}</Text>
           </VStack>
         ),
         itemlisted: (
           <VStack>
-            <Text>{`${collectionStat?.itemListedCount}`}</Text>
+            <Text>{`${collectionStat?.itemListedCount}%`}</Text>
             <Text>{`${collectionStat?.itemListed} of ${collectionStat?.totalListed}`}</Text>
           </VStack>
         ),
