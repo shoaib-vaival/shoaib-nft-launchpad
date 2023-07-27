@@ -55,7 +55,7 @@ export const EditUploadFile = ({
         borderRadius="16px"
         objectFit={objectFit}
       >
-        <Box overflow="hidden" borderRadius="16px" h="100%">
+        <Box overflow="hidden" borderRadius="16px" h="100%" cursor='pointer'>
           <Image src={preview ? preview : image} w="100%" h='100%' objectFit={objectFit} />
         </Box>
         <FormControl
@@ -76,6 +76,7 @@ export const EditUploadFile = ({
             bg="#6863f3cc"
             zIndex="999"
             m="0!important"
+            cursor='pointer'
           >
             <Input
               type="file"
@@ -85,6 +86,7 @@ export const EditUploadFile = ({
               border="0"
               hidden
               onChange={(e) => changeHandler(e)}
+              cursor='pointer'
             />
             <Flex alignItems="center" justifyContent="center" h="100%">
               <Box
