@@ -41,7 +41,7 @@ export const theme = extendTheme({
       },
       
      ' .css-1tdvlph:hover .slick-arrow-btn' :{
-        display: 'block!important',
+        display: 'inline-block!important',
         transition:'all .3s ease'
       },
       body: {

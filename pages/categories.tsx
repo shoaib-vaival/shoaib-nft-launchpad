@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { ApiUrl } from "../src/apis/apiUrl";
-import ExploreInfoHeaderSkeleton from '../src/components/Seketons/infoHeader/Explore'
+import ExploreInfoHeaderSkeleton from "../src/components/Seketons/infoHeader/Explore";
 import CollectionCard from "../src/components/Cards/CollectionCard";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { useQuery } from "../src/hooks/useQuery";
@@ -28,6 +28,7 @@ import {
 import { HorizentalButtonFilter } from "../src/components/HorizentalButtonFilters";
 import { categoriesAndTagsTypes } from "../src/types/collection";
 import { useState } from "react";
+import { addEllipsis, addEllipsisInMiddle } from "../src/utils";
 
 const Categories: NextPage = () => {
   const { data: bannerCollection } = useQuery<collectionType>({
@@ -66,37 +67,49 @@ const Categories: NextPage = () => {
   };
   return (
     <>
-      <Flex justifyContent="center" >
-        <Box  mt={{ base: "20px" }} px={{base:'12px', md:'0'}}>
+      <Flex justifyContent="center">
+        <Box mt={{ base: "20px" }} px={{ base: "12px", md: "0" }}>
           {isLoading ? (
-          <HStack position="relative" flexWrap="wrap" justifyContent='center'>
-          {[...Array(4)]?.map((counter, index) => (
-            <Box key={index} color="gray.200" bg="gray.200" borderRadius="md" py="12px" px="20px">
-              <Text fontSize="14px" fontWeight="600" color="gray.200" bg="gray.200" rounded="md">
-                Loading...
-              </Text>
-            </Box>
-          ))}
-          <Box
-            position="absolute"
-            top="0"
-            left="0"
-            right="0"
-            bottom="0"
-            background="linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)"
-            animation="shimmer 1s infinite"
-          />
-          </HStack>
+            <HStack position="relative" flexWrap="wrap" justifyContent="center">
+              {[...Array(4)]?.map((counter, index) => (
+                <Box
+                  key={index}
+                  color="gray.200"
+                  bg="gray.200"
+                  borderRadius="md"
+                  py="12px"
+                  px="20px"
+                >
+                  <Text
+                    fontSize="14px"
+                    fontWeight="600"
+                    color="gray.200"
+                    bg="gray.200"
+                    rounded="md"
+                  >
+                    Loading...
+                  </Text>
+                </Box>
+              ))}
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                right="0"
+                bottom="0"
+                background="linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)"
+                animation="shimmer 1s infinite"
+              />
+            </HStack>
           ) : (
-        <HorizentalButtonFilter
-          options={categoriesOptions?.options}
-          onChange={(value: string) => setCatFilter(value)}
-          type={categoriesOptions?.type}
-          defaultValue={"defaultValue"}
-        />
-        )}
+            <HorizentalButtonFilter
+              options={categoriesOptions?.options}
+              onChange={(value: string) => setCatFilter(value)}
+              type={categoriesOptions?.type}
+              defaultValue={"defaultValue"}
+            />
+          )}
         </Box>
-       
       </Flex>
       <Container
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
@@ -105,91 +118,94 @@ const Categories: NextPage = () => {
         <Box>
           {isLoading ? (
             <ExploreInfoHeaderSkeleton />
-          ): (
+          ) : (
             <Container
-            p={{ base: "24px", sm: "24px 40px", md: "48px" }}
-            variant="colorful"
-            position="relative"
-            bgSize="cover"
-            bgImage={bannerCollection?.bannerImageUrl}
-            backgroundRepeat="no-repeat"
-            h="400px"
-            bgPos="center"
-          >
-            <Image
-              src={bannerCollection?.logoImageUrl}
-              boxSize="100px"
-              objectFit="cover"    
-              mt="75px"
-              border="1px solid white"
-              borderRadius="16px"
-            />
-            <Flex
-              alignItems={{ base: "baseline", md: "center" }}
-              flexDirection={{ base: "column", md: "row" }}
+              p={{ base: "24px", sm: "24px 40px", md: "48px" }}
+              variant="colorful"
+              position="relative"
+              bgSize="cover"
+              bgImage={bannerCollection?.bannerImageUrl}
+              backgroundRepeat="no-repeat"
+              h="400px"
+              bgPos="center"
             >
-              <Box>
-                <Text
-                  color="white"
-                  marginTop="12px"
-                  fontSize={{ base: "14px", md: "16px" }}
-                >
-                  By{" "}
-                  {bannerCollection?.user?.userName
-                    ? bannerCollection?.user?.userName
-                    : bannerCollection?.user?.walletAddress?.slice(0, 5) +
-                      "..." +
-                      bannerCollection?.user?.walletAddress?.slice(37, 42)}
-                </Text>
-                <Heading
-                  color="white"
-                  marginTop="8px"
-                  marginBottom="10px"
-                  fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
-                >
-                  {bannerCollection?.name}
-                </Heading>
-                <Flex gap="6" alignItems="center">
-                  <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                    {bannerCollection?.nftCount ?? 0} items
-                  </Text>
-                  <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                    {bannerCollection?.price ?? 0} {currencySymbol}
-                  </Text>
-                </Flex>
-              </Box>
-              <Box w='220px' ml={{base:'initial',md:'auto'}}>
-                <Button
-                  as={Link}
-                  href={`collection/${bannerCollection?.id}`}
-                  size={{ base: "md", lg: "lg" }}
-                  mt={{ base: "20px", md: "60px" }}
-                  fontWeight='600'
-                  color="purple.500"
-                  p={{ base: "18px 26px", md: "32px" }}
-                  fontSize='16px'
-                  textTransform='uppercase'
-                  _hover={{
-                    transitionDuration: "0.2s",
-                    transitionTimingFunction: "ease-in-out",
-                  
-                  }}
-                  onMouseOver={over}
-                  onMouseOut={out}
-                >
-                  View Collection{" "}
-                  <Box
-                    ml="8px"
-                    color="#6863F3"
-                    transform={isVisible ? "translateX(0px)" : "translateX(5px)"}
-                    display={isVisible ? "block" : "none"}
+              <Image
+                src={bannerCollection?.logoImageUrl}
+                boxSize="100px"
+                objectFit="cover"
+                mt="75px"
+                border="1px solid white"
+                borderRadius="16px"
+              />
+              <Flex
+                alignItems={{ base: "baseline", md: "center" }}
+                flexDirection={{ base: "column", md: "row" }}
+              >
+                <Box>
+                  <Text
+                    color="white"
+                    marginTop="12px"
+                    fontSize={{ base: "14px", md: "16px" }}
                   >
-                    <i className="icon-right"></i>
-                  </Box>
-                </Button>
-              </Box>
-            </Flex>
-          </Container>
+                    By{" "}
+                    {bannerCollection?.user?.userName
+                      ? addEllipsis(bannerCollection?.user?.userName)
+                      : bannerCollection?.user?.walletAddress &&
+                        addEllipsisInMiddle(
+                          bannerCollection?.user?.walletAddress,
+                          16
+                        )}
+                  </Text>
+                  <Heading
+                    color="white"
+                    marginTop="8px"
+                    marginBottom="10px"
+                    fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
+                  >
+                    {bannerCollection?.name}
+                  </Heading>
+                  <Flex gap="6" alignItems="center">
+                    <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
+                      {bannerCollection?.nftCount ?? 0} items
+                    </Text>
+                    <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
+                      {bannerCollection?.price ?? 0} {currencySymbol}
+                    </Text>
+                  </Flex>
+                </Box>
+                <Box w="220px" ml={{ base: "initial", md: "auto" }}>
+                  <Button
+                    as={Link}
+                    href={`collection/${bannerCollection?.id}`}
+                    size={{ base: "md", lg: "lg" }}
+                    mt={{ base: "20px", md: "60px" }}
+                    fontWeight="600"
+                    color="purple.500"
+                    p={{ base: "18px 26px", md: "32px" }}
+                    fontSize="16px"
+                    textTransform="uppercase"
+                    _hover={{
+                      transitionDuration: "0.2s",
+                      transitionTimingFunction: "ease-in-out",
+                    }}
+                    onMouseOver={over}
+                    onMouseOut={out}
+                  >
+                    View Collection{" "}
+                    <Box
+                      ml="8px"
+                      color="#6863F3"
+                      transform={
+                        isVisible ? "translateX(0px)" : "translateX(5px)"
+                      }
+                      display={isVisible ? "block" : "none"}
+                    >
+                      <i className="icon-right"></i>
+                    </Box>
+                  </Button>
+                </Box>
+              </Flex>
+            </Container>
           )}
         </Box>
       </Container>
@@ -207,13 +223,13 @@ const Categories: NextPage = () => {
             Featured Collections
           </Heading>
         </Flex>
-          <GridView
-            isLoading={isLoadingAllCollections}
-            data={allCollections}
-            type="collection"
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-          />
+        <GridView
+          isLoading={isLoadingAllCollections}
+          data={allCollections}
+          type="collection"
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+        />
       </Container>
     </>
   );
