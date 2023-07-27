@@ -50,7 +50,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
-                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
+                        _hover={{ border: " 1px solid #6863F3",  transition: '0.5s',transform: 'rotateY(180deg)' }}
                         icon={<i className='icon-twitter'></i>}
                       />
                     </Box>
@@ -62,7 +62,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
-                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
+                        _hover={{ border: " 1px solid #6863F3",  transition: '0.5s',transform: 'rotateY(180deg)' }}
                         icon={<i className='icon-telegram'></i>}
                       />
                     </Box>
@@ -73,7 +73,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
-                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
+                        _hover={{ border: " 1px solid #6863F3",  transition: '0.5s',transform: 'rotateY(180deg)' }}
                         icon={<i className=' icon-froggy'></i>}
                       />
                     </Box>
@@ -84,7 +84,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
-                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
+                        _hover={{ border: " 1px solid #6863F3",  transition: '0.5s',transform: 'rotateY(180deg)' }}
                         icon={<i className='icon-instagram'></i>}
                       />
                     </Box>
@@ -95,7 +95,7 @@ export const Footer = () => {
                         fontSize='20px'
                         textAlign='center'
                         display='initial'
-                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
+                        _hover={{ border: " 1px solid #6863F3",  transition: '0.5s',transform: 'rotateY(180deg)' }}
                         icon={<i className='icon-medium'></i>}
                       />
                     </Box>
@@ -106,7 +106,7 @@ export const Footer = () => {
                         fontSize='24px'
                         textAlign='center'
                         display='initial'
-                        _hover={{ border: " 1px solid #6863F3",   transform: ' scale(1.001) translateZ(1px)',transition:'all .3s ease' }}
+                        _hover={{ border: " 1px solid #6863F3",  transition: '0.5s',transform: 'rotateY(180deg)' }}
                         icon={<i className='icon-reddit'></i>}
                       />
                     </Box>
