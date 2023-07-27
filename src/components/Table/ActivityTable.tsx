@@ -1,7 +1,7 @@
 import { Image } from "@chakra-ui/image";
 import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
-import { addEllipsis, dayJs } from "../../utils";
+import { addEllipsis, addEllipsisInMiddle, dayJs } from "../../utils";
 import NextImage from "next/image";
 
 export type tableType = {
@@ -115,13 +115,13 @@ export const ActivityTable = ({
                 {activity && addEllipsis(activity?.nft?.name)}
               </Heading>
               <Text color="rgba(57, 63, 89, 1)" fontSize="14px">
-                {activity && activity?.collection?.name}
+                {activity && activity?.nft?.collection?.name}
               </Text>
             </VStack>
           </Flex>
         ),
-        from: activity?.fromAddress?.substring(0, 16) + "...",
-        to: activity?.toAddress?.substring(0, 16) + "...",
+        from: addEllipsisInMiddle(activity?.fromAddress, 16),
+        to: addEllipsisInMiddle(activity?.toAddress, 16),
         time: dayJs(activity?.insertedDate).fromNow(),
       };
     });
