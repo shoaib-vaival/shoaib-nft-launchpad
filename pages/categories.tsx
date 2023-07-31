@@ -151,10 +151,10 @@ const Categories: NextPage = () => {
                     {bannerCollection?.user?.userName
                       ? addEllipsis(bannerCollection?.user?.userName)
                       : bannerCollection?.user?.walletAddress &&
-                        addEllipsisInMiddle(
-                          bannerCollection?.user?.walletAddress,
-                          16
-                        )}
+                      addEllipsisInMiddle(
+                        bannerCollection?.user?.walletAddress,
+                        16
+                      )}
                   </Text>
                   <Heading
                     color="white"
@@ -184,10 +184,8 @@ const Categories: NextPage = () => {
                     p={{ base: "18px 26px", md: "32px" }}
                     fontSize="16px"
                     textTransform="uppercase"
-                    _hover={{
-                      transitionDuration: "0.2s",
-                      transitionTimingFunction: "ease-in-out",
-                    }}
+                    transition=" all .2s ease-in-out "
+                    // position={'relative'}
                     onMouseOver={over}
                     onMouseOut={out}
                   >
@@ -195,11 +193,13 @@ const Categories: NextPage = () => {
                     <Box
                       ml="8px"
                       color="#6863F3"
-                      transform={
-                        isVisible ? "translateX(0px)" : "translateX(5px)"
+                      transition={isVisible ? " .1s ease-in" : "0s ease-out "}
+                      position={
+                        isVisible ? "relative" : "absolute"
                       }
-                      display={isVisible ? "block" : "none"}
-                    >
+                      right={isVisible ? "0px" : "2px"}
+                      transform={isVisible ? "translateX(0px)" : "translateX(-15px)"}
+                      visibility={isVisible ? "visible" : "hidden"}>
                       <i className="icon-right"></i>
                     </Box>
                   </Button>
