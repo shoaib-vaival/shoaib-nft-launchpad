@@ -166,7 +166,7 @@ const Categories: NextPage = () => {
                   </Heading>
                   <Flex gap="6" alignItems="center">
                     <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                      {bannerCollection?.nftCount ?? 0} items
+                      {bannerCollection?.nftCount ?? 0} Items
                     </Text>
                     <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
                       {bannerCollection?.price ?? 0} {currencySymbol}

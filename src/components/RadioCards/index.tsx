@@ -18,6 +18,7 @@ const RadioCard = (props: any) => {
         color="#6863F3"
         fontSize="14px"
         fontWeight="600"
+        textTransform='uppercase'
         bg="#FFF"
         _checked={{
           bg: "#6863F3",

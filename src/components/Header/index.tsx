@@ -114,6 +114,7 @@ export const Header = () => {
     params: {
       search: debounceValue,
     },
+    enabled: debounceValue ? true : false, 
   });
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
 
@@ -186,7 +187,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pt="30px" pb={{ base: "20px", md: "40px" }}>
+        <Box pt="30px" pb={{ base: "20px", md: "60px" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -254,7 +255,7 @@ export const Header = () => {
                   pe={"0"}
                   bg="white"
                   zIndex={"9"}
-                  w={{ base: "100%", lg: "90%" }}
+                  w={{ base: "100%", lg: "87%" }}
                   ref={searchBoxRef}
                 >
                   <Box
@@ -322,6 +323,7 @@ export const Header = () => {
                           as={NextLink}
                           href="/categories"
                           textAlign="center"
+                          textDecoration='none'
                         >
                           <Text p="10px" _hover={{ bg: "gray.100" }}>
                             Click here to view all Collections
