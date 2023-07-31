@@ -93,7 +93,7 @@ const Collection: NextPage = () => {
   const [queryProcess, setQueryProcess] = useState<boolean>(false)
 
   const filterObj = () => {
-    let dataa = collectionState?.dashboardData?.find((item:any)=>item?.id==`${
+    const dataa = collectionState?.dashboardData?.find((item:any)=>item?.id==`${
       typeof Window !== "undefined" &&
       window.location?.pathname?.split("/")[2]
     }`)
