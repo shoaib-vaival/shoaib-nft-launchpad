@@ -1,4 +1,7 @@
 import type { NextPage } from "next";
+import dynamic from 'next/dynamic';
+import React, { useState, ComponentType } from "react";
+import Link from "next/link";
 
 import {
   Container,
@@ -11,56 +14,47 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  IconButton,
-  TableContainer,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  VStack,
-  Td,
-  Text,
-  Image,
 } from "@chakra-ui/react";
 // skeletons
 import TabsSkeleton from "../src/components/Seketons/Tabs";
 import CardCollectionSkeleton from "../src/components/Seketons/Collection";
 import CardWOBodyCollectionSkeleton from "../src/components/Seketons/Collection/WithOutBody";
 
-import { SlickSlider } from "../src/components/ReactSlick";
-import { Banner } from "../src/components/Banner";
+import { Banner }  from "../src/components/Banner";
+import { SlickSlider }  from "../src/components/ReactSlick";
 import { FilterTabs } from "../src/components/FilterTabs";
-import CustomSlider from "../src/components/Slider";
 import { useQuery } from "../src/hooks/useQuery";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { ApiUrl } from "../src/apis/apiUrl";
 import { categoriesType, collectionType } from "../src/types";
-import Link from "next/link";
 import { dashboardApiType } from "../src/types/response.type";
-import { Loader } from "../src/components/Loader";
-import { ReactSelect } from "../src/components/common";
-import React, { useState } from "react";
-import { HorizentalButtonFilter } from "../src/components/HorizentalButtonFilters";
+import  { HorizentalButtonFilter }  from "../src/components/HorizentalButtonFilters";
 import CollectionCard from "../src/components/Cards/CollectionCard";
 import { timeFilterOptions } from "../src/constants";
-import { TopTenTable } from "../src/components/Table/TopTenTable";
+import { TopTenTable }  from "../src/components/Table/TopTenTable";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 const Home: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const filters = ["trending", "top"];
   const [day, setDay] = useState<string>("30");
+  const collectionState = useStoreState((state: any) => state?.collectionObj?.CollectionObj);
+  const collectionAction = useStoreActions((actions: any) => actions.collectionObj.add);
+
   const { data, isLoading } = useQuery<dashboardApiType>({
     queryKey: [QUERY_KEYS.GET_DASHBOARD_COLLECTIONS],
     url: ApiUrl.GET_DASHBOARD_COLLECTION,
     showToast: false,
+    onSuccess: (data) => collectionAction({dashboardData: data?.recent?.concat(data?.recent, data?.featured, data?.trending, data?.trendingInArt)})
   });
+
   const { data: categories, isLoading: isLoadingBrowsByCat } = useQuery<
     categoriesType[]
   >({
     queryKey: [QUERY_KEYS.GET_CAT],
     url: ApiUrl.GET_CATEGORIES,
   });
+
   const { data: topTenData, isLoading: isTopTenLoading } = useQuery<
     categoriesType[]
   >({
@@ -70,6 +64,7 @@ const Home: NextPage = () => {
       type: filters[tabIndex],
       day: day,
     },
+    onSuccess: (data)=> collectionAction({dashboardData: collectionState?.dashboardData?.concat(data)})
   });
 
   return (

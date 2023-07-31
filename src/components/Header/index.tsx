@@ -111,6 +111,7 @@ export const Header = () => {
     params: {
       search: debounceValue,
     },
+    enabled: debounceValue ? true : false, 
   });
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
 

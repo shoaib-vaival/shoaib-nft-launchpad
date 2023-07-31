@@ -50,6 +50,7 @@ import { ListingTable } from "../../src/components/Table/ListingTable";
 import { TopOwnerTable } from "../../src/components/Table/TopOwnerTable";
 import { useBreakpointValue } from "@chakra-ui/react";
 import { DrawerFilter } from "../../src/components/SidebarFilter/DrawerFilter";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 const Collection: NextPage = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(true);
@@ -57,6 +58,9 @@ const Collection: NextPage = () => {
   const [toggleSideFilter, setToggleSideFilter] = useState<boolean>(false);
   const [toggleActivityFilter, setToggleActivityFilter] =
     useState<boolean>(false);
+    const collectionState = useStoreState((state: any) => state?.collectionObj?.CollectionObj);
+    // const collectionAction = useStoreActions((actions: any) => actions.collectionObj.add);
+    
   const filterBreakPoint = useBreakpointValue(
     {
       base: true,
@@ -85,10 +89,35 @@ const Collection: NextPage = () => {
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
-  const { isLoading: isHeaderLoading, data: collectionDetail } = useQuery<collectionType>({
+  const [collectionDetail, setCollectionDetail] = useState<any>({})
+  const [queryProcess, setQueryProcess] = useState<boolean>(false)
+
+  const filterObj = () => {
+    let dataa = collectionState?.dashboardData?.find((item:any)=>item?.id==`${
+      typeof Window !== "undefined" &&
+      window.location?.pathname?.split("/")[2]
+    }`)
+    if(dataa){
+      setCollectionDetail(dataa)
+    }
+    else{
+      setQueryProcess(true)
+    }
+    console.log("formStateformState11", dataa)
+
+  }
+
+  useEffect(()=>{filterObj()},[])
+
+
+  const { isLoading: isHeaderLoading, data } = useQuery<collectionType>({
     queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL, router.query.collectionID],
     url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
-    enabled: router.query.collectionID ? true : false,
+    enabled: queryProcess ? true : false,
+    onSuccess: (data) => {
+      setCollectionDetail(data)
+      setQueryProcess(false)
+    },
   });
 
   const {
@@ -210,7 +239,7 @@ const Collection: NextPage = () => {
             coverPhoto={collectionDetail?.bannerImageUrl}
             profilePhoto={collectionDetail?.logoImageUrl}
             showReport={false}
-            isLoading={isHeaderLoading}
+            isLoading={queryProcess}
             showAddToWatchList={true}
             id={`${router?.query?.collectionID}`}
           />
