@@ -19,8 +19,8 @@ export const CustomLoader = () => {
           top="50%"
           left="50%"
           transform="translate(-50%, -50%)"
-          height="300px"
-          width="300px"
+          height="250px"
+          width="250px"
           zIndex='1'
         >
           <svg viewBox="0 0 100 100">

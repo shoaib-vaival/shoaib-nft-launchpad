@@ -82,15 +82,13 @@ const ProfileHeader = ({
             paddingLeft="54px"
           >
             {coverPhoto && (
-              <NextImage
+              <NextImage 
                 src={coverPhoto ? coverPhoto : ""}
                 alt="Profile Photo"
                 layout="fill"
                 objectFit="cover"
                 objectPosition="center center"
-                style={{
-                  borderRadius: "16px",
-                }}
+                style={{borderRadius:'16px'}}
               />
             )}
             <Box
@@ -209,7 +207,12 @@ const ProfileHeader = ({
                   className="share_menu"
                   icon={<i className="icon-menu"></i>}
                 ></MenuButton>
-                <MenuList w="191px" minW="191px" p="16px 8px">
+                <MenuList
+                  w="191px"
+                  minW="191px"
+                  p="16px 8px"
+                  boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                >
                   <MenuItem>
                     {" "}
                     <Box w="100%" color="#0D0D0D">
