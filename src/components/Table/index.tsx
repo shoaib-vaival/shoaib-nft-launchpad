@@ -139,8 +139,8 @@ export const GenericTable = ({
             {data &&
               data?.map((item: any, index: any) => (
                 <Tr
-                  _hover={{ background: 'gray.100' }}
-                  bg={selectedRow === index ? 'gray.200' : 'transparent'}
+                  _hover={{ background: '#fff5feb3' }}
+                  bg={selectedRow === index ? '#e9dceb' : 'transparent'}
                  borderRadius='16px'
                   key={item?.id}
                   cursor={tableName === "topTen" || tableName === "stateTable" ? "pointer" : "default"}

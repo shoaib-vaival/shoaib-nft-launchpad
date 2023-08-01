@@ -16,6 +16,10 @@ const MultiValueRemove = (props: any) => {
     </components.MultiValueRemove>
   );
 };
+const hoverEffect={
+  ':hover':{ background: "gray.100",
+   borderRadius: "4px" }
+}
 
 const ReactSelect = ({
   options,
@@ -32,10 +36,10 @@ const ReactSelect = ({
 }: ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(
     () => defaultValue || null
-  );
-  const [isSelected, setIsselected] = useState<boolean>(true);
-
-  const handleChangeCategory = (cat: any) => {
+    );
+    const [isSelected, setIsselected] = useState<boolean>(true);
+    
+    const handleChangeCategory = (cat: any) => {
     setIsselected(false);
     getSelectedData(cat, identifier);
     setValue(cat);
@@ -44,12 +48,12 @@ const ReactSelect = ({
     nftName && setNftName(nftName);
     nftDesc && setNftDesc(nftDesc);
   };
-
+  
   useEffect(() => {
     isSelected && setValue(defaultValue);
     // identifier == "tag" && getSelectedData("tag", identifier);
   }, [defaultValue]);
-
+  
   return (
     <>
       {label && (
@@ -57,7 +61,7 @@ const ReactSelect = ({
           <FormLabel>{label}</FormLabel>
         </Flex>
       )}
-      <Select
+      <Select {...hoverEffect}
         isClearable
         isMulti={isMultiple}
         onChange={(newValue) => handleChangeCategory(newValue)}
@@ -73,6 +77,9 @@ const ReactSelect = ({
           option: (baseStyles, state) => ({
             ...baseStyles,
             cursor: "pointer",
+            background: state?.isFocused
+            ? "#edf2f7"
+            : undefined,
           }),
           control: (baseStyles, state) => ({
             ...baseStyles,
@@ -81,7 +88,7 @@ const ReactSelect = ({
             boxShadow: "none",
             width: "100%",
             borderRadius: "6px",
-            ":hover": { border: "1px solid #6863F3" },
+            ":hover": { border: "1.5px solid #6863F3" },
             cursor: "text",
           }),
           indicatorSeparator: () => ({}),
@@ -100,14 +107,17 @@ const ReactSelect = ({
           multiValueLabel: (styles, { data }) => ({
             ...styles,
             fontSize: "12px",
-            color: "#393F59",
             paddingRight: "8px",
+            ":hover": {
+              backgroundColor: "transparent!important",
+            },
           }),
           multiValueRemove: (styles, { data }) => ({
             ...styles,
             color: "#393F59",
+
             ":hover": {
-              backgroundColor: "transparent",
+              backgroundColor: "transparent!important",
             },
           }),
         }}
