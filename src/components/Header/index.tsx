@@ -530,7 +530,7 @@ export const Header = () => {
               />
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-              <Menu isOpen={isOpenMenu}  closeOnSelect={true} >
+              <Menu   closeOnSelect={true} >
                 {!account ? null : (
                   <MenuButton
                     fontSize="20px"
