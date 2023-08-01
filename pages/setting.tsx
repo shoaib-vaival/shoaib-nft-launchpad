@@ -153,7 +153,7 @@ const Setting: NextPage = () => {
             <TabPanels>
               <TabPanel p={0}>
                 <Box
-                  mt="15px"
+                  mt="30px"
                   px={{ base: "0", md: "17px" }}
                   mb={{ base: "55px", md: "85px" }}
                   position="relative"
@@ -558,7 +558,7 @@ const Setting: NextPage = () => {
                   maxW={{ sm: "2xl", md: "3xl", lg: "4xl", xl: "5xl" }}
                   px={{ base: "0", md: "30px" }}
                 >
-                  <Flex flexDirection="row" mt="15px">
+                  <Flex flexDirection="row" mt="30px">
                     <Box mb="10px">
                       <Heading
                         as="h3"

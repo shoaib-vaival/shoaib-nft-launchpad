@@ -17,7 +17,7 @@ import { useQuery } from "../src/hooks/useQuery";
 import Link from "next/link";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Loader } from "../src/components/Loader";
+import { CustomLoader } from "../src/components/Loader";
 import { collectionType, nftType } from "../src/types";
 import { GridView } from "../src/views/GridView";
 import {
@@ -68,8 +68,9 @@ const Categories: NextPage = () => {
   return (
     <>
       <Flex justifyContent="center">
-        <Box mt={{ base: "20px" }} px={{ base: "12px", md: "0" }}>
-          {isLoading ? (
+        <Box  px={{ base: "12px", md: "0" }}>
+          {isLoading ?
+           (
             <HStack position="relative" flexWrap="wrap" justifyContent="center">
               {[...Array(4)]?.map((counter, index) => (
                 <Box
@@ -151,10 +152,10 @@ const Categories: NextPage = () => {
                     {bannerCollection?.user?.userName
                       ? addEllipsis(bannerCollection?.user?.userName)
                       : bannerCollection?.user?.walletAddress &&
-                        addEllipsisInMiddle(
-                          bannerCollection?.user?.walletAddress,
-                          16
-                        )}
+                      addEllipsisInMiddle(
+                        bannerCollection?.user?.walletAddress,
+                        16
+                      )}
                   </Text>
                   <Heading
                     color="white"
@@ -166,7 +167,7 @@ const Categories: NextPage = () => {
                   </Heading>
                   <Flex gap="6" alignItems="center">
                     <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                      {bannerCollection?.nftCount ?? 0} items
+                      {bannerCollection?.nftCount ?? 0} Items
                     </Text>
                     <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
                       {bannerCollection?.price ?? 0} {currencySymbol}
@@ -184,10 +185,8 @@ const Categories: NextPage = () => {
                     p={{ base: "18px 26px", md: "32px" }}
                     fontSize="16px"
                     textTransform="uppercase"
-                    _hover={{
-                      transitionDuration: "0.2s",
-                      transitionTimingFunction: "ease-in-out",
-                    }}
+                    transition=" all .2s ease-in-out "
+                    // position={'relative'}
                     onMouseOver={over}
                     onMouseOut={out}
                   >
@@ -195,11 +194,13 @@ const Categories: NextPage = () => {
                     <Box
                       ml="8px"
                       color="#6863F3"
-                      transform={
-                        isVisible ? "translateX(0px)" : "translateX(5px)"
+                      transition={isVisible ? " .1s ease-in" : "0s ease-out "}
+                      position={
+                        isVisible ? "relative" : "absolute"
                       }
-                      display={isVisible ? "block" : "none"}
-                    >
+                      right={isVisible ? "0px" : "2px"}
+                      transform={isVisible ? "translateX(0px)" : "translateX(-15px)"}
+                      visibility={isVisible ? "visible" : "hidden"}>
                       <i className="icon-right"></i>
                     </Box>
                   </Button>

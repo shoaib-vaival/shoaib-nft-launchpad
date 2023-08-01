@@ -12,15 +12,24 @@ import { useRouter } from "next/router";
 import { ApiUrl } from "../../src/apis/apiUrl";
 import { QUERY_KEYS } from "../../src/hooks/queryKeys";
 import { collectionType } from "../../src/types";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 const MyCollection: NextPage = (props) => {
+  const collectionState = useStoreState((state: any) => state?.collectionObj?.CollectionObj);
+  const collectionAction = useStoreActions((actions: any) => actions.collectionObj.add);
   const router = useRouter();
   const { data, error, fetchNextPage, status, hasNextPage, isLoading } =
     useInfiniteQuery<collectionType[]>({
       queryKey: [QUERY_KEYS.GET_MY_COLLECTION],
       url: ApiUrl.GET_MY_COLLECTION,
       token: true,
+      onSuccess: (data)=> 
+      console.log("dataaaaaaa12", data)
+      // collectionAction({dashboardData: collectionState?.dashboardData?.concat(data)})
     });
+
+    // console.log("dataaaaaaaaaa", data)
+
   return (
     <div>
       <Box>
