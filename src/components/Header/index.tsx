@@ -409,6 +409,7 @@ export const Header = () => {
                     Stats
                   </MenuButton>
                   <MenuList
+                  boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px'
                     textTransform="capitalize"
                     w="109px"
                     minW="109px"
@@ -465,7 +466,7 @@ export const Header = () => {
                     Create
                   </MenuButton>
                 )}
-                <MenuList w="191px" minW="191px" p="16px 8px">
+                <MenuList w="191px" minW="191px" p="16px 8px" boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px'>
                   <MenuItem
                     as={NextLink}
                     href="/nft/create"
@@ -549,7 +550,7 @@ export const Header = () => {
                          
                   />
                 )}
-                <MenuList w="191px" minW="191px" h="180px" p="16px 8px" onMouseLeave={onCloseMenu} >
+                <MenuList w="191px" minW="191px" h="180px" p="16px 8px" onMouseLeave={onCloseMenu} boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px' >
                   <MenuItem
                     as={NextLink}
                     href="/profile-created"
