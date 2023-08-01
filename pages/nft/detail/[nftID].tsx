@@ -615,7 +615,7 @@ const NftDetail = ({ param }: any) => {
             marginTop={{ base: "20px", lg: "0" }}
           >
             <Heading fontSize="24px" marginBottom="16px">
-              Description
+              Details
             </Heading>
             <Box fontSize="16px">
               <Flex justifyContent="space-between" mb="8px">

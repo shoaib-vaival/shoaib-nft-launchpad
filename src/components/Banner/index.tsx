@@ -30,7 +30,7 @@ export const Banner = () => {
   const out = () => {
     setIsVisible(false);
   };
-  
+
   return (
     <Container
       variant="colorful"
@@ -66,10 +66,7 @@ export const Banner = () => {
               p={{ base: "18px 26px", md: "26px", lg: "32px" }}
               textTransform="uppercase"
               fontSize="16px"
-              _hover={{
-                transitionDuration: "0.2s",
-                transitionTimingFunction: "ease-in-out",
-              }}
+              transition=" all .2s ease-in-out "
               onMouseOver={over}
               onMouseOut={out}
               onClick={() => {
@@ -82,11 +79,15 @@ export const Banner = () => {
             >
               Start Minting{" "}
               <Box
-                ml="5px"
+                ml="8px"
                 color="#6863F3"
-                transform={isVisible ? "translateX(5px)" : "translateX(-5px)"}
-                display={isVisible ? "block" : "none"}
-              >
+                transition={isVisible ? " .1s ease-in" : "0s ease-out "}
+                position={
+                  isVisible ? "relative" : "absolute"
+                }
+                right={isVisible ? "0px" : "2px"}
+                transform={isVisible ? "translateX(0px)" : "translateX(-15px)"}
+                visibility={isVisible ? "visible" : "hidden"}>
                 <i className="icon-right"></i>
               </Box>
             </Button>

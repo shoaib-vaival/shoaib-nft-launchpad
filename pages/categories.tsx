@@ -17,7 +17,7 @@ import { useQuery } from "../src/hooks/useQuery";
 import Link from "next/link";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Loader } from "../src/components/Loader";
+import { CustomLoader } from "../src/components/Loader";
 import { collectionType, nftType } from "../src/types";
 import { GridView } from "../src/views/GridView";
 import NextImage from "next/image";
@@ -84,7 +84,7 @@ const Categories: NextPage = () => {
   return (
     <>
       <Flex justifyContent="center">
-        <Box mt={{ base: "20px" }} px={{ base: "12px", md: "0" }}>
+        <Box px={{ base: "12px", md: "0" }}>
           {isLoading ? (
             <HStack position="relative" flexWrap="wrap" justifyContent="center">
               {[...Array(4)]?.map((counter, index) => (

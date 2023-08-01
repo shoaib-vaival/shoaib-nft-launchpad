@@ -261,7 +261,6 @@ const CreateCollection = () => {
     <Container
       maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "952px" }}
       px={{ base: "17px", sm: "34px", xl: "17px" }}
-      pt={{ base: "10px", xl: "30px" }}
     >
       <Heading mb={{ base: "18px", md: "45px" }} as="h1">
         Create Collection
@@ -280,14 +279,14 @@ const CreateCollection = () => {
         }}
       >
         {({ errors, touched, values }) => (
-          <Form>
+          <Form >
             <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
               <Text mr="8px" color="#E53E3E">
                 *
               </Text>
               Required fields
             </FormLabel>
-            <FormControl>
+            <FormControl mt='0'>
               <Stack direction="column">
                 <FormControl isRequired>
                   <Box mb="40px">
@@ -336,7 +335,7 @@ const CreateCollection = () => {
                 <FormLabel fontSize="24px!important" fontWeight="700">
                   Details
                 </FormLabel>
-                <FormControl mt={{ base: "0", md: "auto" }}>
+                <FormControl mt='0'>
                   <Field
                     readOnly={router?.query?.id ? true : false}
                     as={InputField}
@@ -401,6 +400,7 @@ const CreateCollection = () => {
                     </Text>
                   )}
                 </FormControl>
+                <FormControl m='0'>
                 <ReactSelect
                   options={filtredTags}
                   isMultiple={true}
@@ -414,6 +414,7 @@ const CreateCollection = () => {
                   setNftDesc={setNftDesc}
                   defaultValue={router?.query?.id && filtredTagsById}
                 />
+                </FormControl>
               </Stack>
 
               <Box>

@@ -48,6 +48,7 @@ import { showToaster } from "../Toaster";
 import { boolean } from "yup";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useRouter } from "next/router";
+import { profileType } from "../../types";
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -56,6 +57,9 @@ export const Header = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchBoxRef = useRef(null);
   const router = useRouter();
+  // const [openMenu, setOpenMenu] = useState<boolean>(false)
+  // const [isClosedMenu, setIsCloseMenu] = useState<boolean>(false);
+  const { isOpen:isOpenMenu, onOpen:onOpenMenu, onClose:onCloseMenu } = useDisclosure()
 
   useOutsideClick({
     ref: searchBoxRef,
@@ -71,6 +75,12 @@ export const Header = () => {
 
   const { account, provider } = useWeb3React();
 
+  const { data: profileData } = useQuery<profileType>({
+    queryKey: [QUERY_KEYS.GET_USER],
+    url: ApiUrl.GET_USER,
+    token: true,
+  });
+  // console.log("🚀 PROFILE DATA", profileData);
   const { mutate } = useMutation<any>({
     method: POST,
     url: ApiUrl?.SAVE_SIGNATURE,
@@ -104,6 +114,7 @@ export const Header = () => {
     params: {
       search: debounceValue,
     },
+    enabled: debounceValue ? true : false, 
   });
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
 
@@ -176,7 +187,7 @@ export const Header = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pt="30px" pb={{ base: "20px", md: "40px" }}>
+        <Box pt="30px" pb={{ base: "20px", md: "60px" }}>
           <Stack
             direction="row"
             alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -244,7 +255,7 @@ export const Header = () => {
                   pe={"0"}
                   bg="white"
                   zIndex={"9"}
-                  w={{ base: "100%", lg: "90%" }}
+                  w={{ base: "100%", lg: "87%" }}
                   ref={searchBoxRef}
                 >
                   <Box
@@ -312,6 +323,7 @@ export const Header = () => {
                           as={NextLink}
                           href="/categories"
                           textAlign="center"
+                          textDecoration='none'
                         >
                           <Text p="10px" _hover={{ bg: "gray.100" }}>
                             Click here to view all Collections
@@ -385,7 +397,7 @@ export const Header = () => {
                     h="auto"
                     fontWeight="500"
                     lineHeight="1.5"
-                    _hover={{ bg: "transparent", color: "#6863f3" }}
+                    _hover={{ bg: "transparent"}}
                     textTransform="uppercase"
                     fontSize={{ base: "15px", xl: "16px" }}
                     rightIcon={
@@ -400,21 +412,21 @@ export const Header = () => {
                     textTransform="capitalize"
                     w="109px"
                     minW="109px"
-                    p=" 8px 16px"
+                    p=" 8px 8px"
                   >
                     <MenuItem
                       as={NextLink}
-                      p="8px"
+                      p="8px 16px 8px 8px"
                       href="/collection/state"
-                      _hover={{ color: "#6863f3" }}
+                      _hover={{ background: "gray.100", borderRadius: "4px" }}
                     >
                       Ranking
                     </MenuItem>
                     <MenuItem
                       as={NextLink}
-                      p="8px"
+                      p="8px 16px 8px 8px"
                       href="/activity"
-                      _hover={{ color: "#6863f3" }}
+                      _hover={{ background: "gray.100", borderRadius: "4px" }}
                     >
                       Activity
                     </MenuItem>
@@ -454,10 +466,16 @@ export const Header = () => {
                   </MenuButton>
                 )}
                 <MenuList w="191px" minW="191px" p="16px 8px">
-                  <MenuItem as={NextLink} href="/nft/create">
+                  <MenuItem
+                    as={NextLink}
+                    href="/nft/create"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     Create NFT
                   </MenuItem>
-                  <MenuItem as={NextLink} href="/collection/create">
+                  <MenuItem
+                    as={NextLink}
+                    href="/collection/create"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     Create Collection
                   </MenuItem>
                 </MenuList>
@@ -511,7 +529,7 @@ export const Header = () => {
               />
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-              <Menu>
+              <Menu isOpen={isOpenMenu}  closeOnSelect={true} >
                 {!account ? null : (
                   <MenuButton
                     fontSize="20px"
@@ -526,21 +544,33 @@ export const Header = () => {
                     _active={{ bg: "#6F6BF3", color: "#fff" }}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
+                    onMouseEnter={onOpenMenu} 
+                    onClick={onOpenMenu}
+                         
                   />
                 )}
-
-                <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
-                  <MenuItem as={NextLink} href="/profile-created">
+                <MenuList w="191px" minW="191px" h="180px" p="16px 8px" onMouseLeave={onCloseMenu} >
+                  <MenuItem
+                    as={NextLink}
+                    href="/profile-created"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
+                  >
                     Profile
                   </MenuItem>
-                  <MenuItem as={NextLink} href="/collection/my-collection">
+                  <MenuItem
+                    as={NextLink}
+                    href="/collection/my-collection"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     My Collection
                   </MenuItem>
-                  <MenuItem as={NextLink} href="/setting">
+                  <MenuItem
+                    as={NextLink}
+                    href="/setting"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     Settings
                   </MenuItem>
 
-                  <MenuItem
+                  <MenuItem _hover={{ background: "gray.100", borderRadius: "4px"}}
                     onClick={(a) => {
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
