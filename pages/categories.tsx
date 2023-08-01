@@ -20,6 +20,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Loader } from "../src/components/Loader";
 import { collectionType, nftType } from "../src/types";
 import { GridView } from "../src/views/GridView";
+import NextImage from "next/image";
 import {
   categoriesFilterOptions,
   currencySymbol,
@@ -64,6 +65,21 @@ const Categories: NextPage = () => {
   };
   const out = () => {
     setIsVisible(false);
+  };
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+    // alert("test")
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
+  const hoverStyle = {
+    borderRadius: "16px",
+    transform: isHover ? "scale(1.03)" : "scale(1)",
+    transition: "all .2s ease ",
   };
   return (
     <>
@@ -119,92 +135,124 @@ const Categories: NextPage = () => {
           {isLoading ? (
             <ExploreInfoHeaderSkeleton />
           ) : (
-            <Container
-              p={{ base: "24px", sm: "24px 40px", md: "48px" }}
-              variant="colorful"
-              position="relative"
-              bgSize="cover"
-              bgImage={bannerCollection?.bannerImageUrl}
-              backgroundRepeat="no-repeat"
-              h="400px"
-              bgPos="center"
-            >
-              <Image
-                src={bannerCollection?.logoImageUrl}
-                boxSize="100px"
-                objectFit="cover"
-                mt="75px"
-                border="1px solid white"
-                borderRadius="16px"
-              />
-              <Flex
-                alignItems={{ base: "baseline", md: "center" }}
-                flexDirection={{ base: "column", md: "row" }}
+            <Container variant="colorful" p="0" overflow="hidden">
+              <Box
+                onMouseEnter={() => handleMouseEnter()}
+                onMouseLeave={() => handleMouseLeave()}
+                w={{ base: "100%", md: "100%" }}
+                h={{ base: "100%", md: "100%" }}
+                position="relative"
               >
-                <Box>
-                  <Text
-                    color="white"
-                    marginTop="12px"
-                    fontSize={{ base: "14px", md: "16px" }}
+                <Box
+                  w={{ base: "100%", md: "100%" }}
+                  h={{ base: "350px", md: "400px" }}
+                  position="relative"
+                  overflow="hidden"
+                  borderRadius="16px"
+                >
+                  <Image
+                    src={bannerCollection?.bannerImageUrl}
+                    w={{ base: "100%", md: "100%" }}
+                    h={{ base: "100%", md: "100%" }}
+                    alt="Profile Photo"
+                    objectFit="cover"
+                    objectPosition="center center"
+                    style={{
+                      borderRadius: "16px",
+                      ...(isHover ? hoverStyle : {}),
+                    }}
+                  />
+                </Box>
+                <Box
+                  p={{ base: "24px", sm: "24px 40px", md: "48px" }}
+                  position="absolute"
+                  bottom="0"
+                  w="100%"
+                >
+                  <Image
+                    src={bannerCollection?.logoImageUrl}
+                    boxSize="100px"
+                    objectFit="cover"
+                    // mt="75px"
+                    border="1px solid white"
+                    borderRadius="16px"
+                  />
+                  <Flex
+                    alignItems={{ base: "baseline", md: "center" }}
+                    flexDirection={{ base: "column", md: "row" }}
                   >
-                    By{" "}
-                    {bannerCollection?.user?.userName
-                      ? addEllipsis(bannerCollection?.user?.userName)
-                      : bannerCollection?.user?.walletAddress &&
-                        addEllipsisInMiddle(
-                          bannerCollection?.user?.walletAddress,
-                          16
-                        )}
-                  </Text>
-                  <Heading
-                    color="white"
-                    marginTop="8px"
-                    marginBottom="10px"
-                    fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
-                  >
-                    {bannerCollection?.name}
-                  </Heading>
-                  <Flex gap="6" alignItems="center">
-                    <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                      {bannerCollection?.nftCount ?? 0} items
-                    </Text>
-                    <Text color="white" fontSize={{ base: "14px", md: "16px" }}>
-                      {bannerCollection?.price ?? 0} {currencySymbol}
-                    </Text>
+                    <Box>
+                      <Text
+                        color="white"
+                        marginTop="12px"
+                        fontSize={{ base: "14px", md: "16px" }}
+                      >
+                        By{" "}
+                        {bannerCollection?.user?.userName
+                          ? addEllipsis(bannerCollection?.user?.userName)
+                          : bannerCollection?.user?.walletAddress &&
+                            addEllipsisInMiddle(
+                              bannerCollection?.user?.walletAddress,
+                              16
+                            )}
+                      </Text>
+                      <Heading
+                        color="white"
+                        marginTop={{ base: "0", sm: "5px", md: "8px" }}
+                        marginBottom={{ base: "0", sm: "5px", md: "10px" }}
+                        fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
+                      >
+                        {bannerCollection?.name}
+                      </Heading>
+                      <Flex gap="6" alignItems="center">
+                        <Text
+                          color="white"
+                          fontSize={{ base: "14px", md: "16px" }}
+                        >
+                          {bannerCollection?.nftCount ?? 0} items
+                        </Text>
+                        <Text
+                          color="white"
+                          fontSize={{ base: "14px", md: "16px" }}
+                        >
+                          {bannerCollection?.price ?? 0} {currencySymbol}
+                        </Text>
+                      </Flex>
+                    </Box>
+                    <Box w="220px" ml={{ base: "initial", md: "auto" }}>
+                      <Button
+                        as={Link}
+                        href={`collection/${bannerCollection?.id}`}
+                        size={{ base: "md", lg: "lg" }}
+                        mt={{ base: "20px", md: "60px" }}
+                        fontWeight="600"
+                        color="purple.500"
+                        p={{ base: "18px 26px", md: "32px" }}
+                        fontSize="16px"
+                        textTransform="uppercase"
+                        _hover={{
+                          transitionDuration: "0.2s",
+                          transitionTimingFunction: "ease-in-out",
+                        }}
+                        onMouseOver={over}
+                        onMouseOut={out}
+                      >
+                        View Collection{" "}
+                        <Box
+                          ml="8px"
+                          color="#6863F3"
+                          transform={
+                            isVisible ? "translateX(0px)" : "translateX(5px)"
+                          }
+                          display={isVisible ? "block" : "none"}
+                        >
+                          <i className="icon-right"></i>
+                        </Box>
+                      </Button>
+                    </Box>
                   </Flex>
                 </Box>
-                <Box w="220px" ml={{ base: "initial", md: "auto" }}>
-                  <Button
-                    as={Link}
-                    href={`collection/${bannerCollection?.id}`}
-                    size={{ base: "md", lg: "lg" }}
-                    mt={{ base: "20px", md: "60px" }}
-                    fontWeight="600"
-                    color="purple.500"
-                    p={{ base: "18px 26px", md: "32px" }}
-                    fontSize="16px"
-                    textTransform="uppercase"
-                    _hover={{
-                      transitionDuration: "0.2s",
-                      transitionTimingFunction: "ease-in-out",
-                    }}
-                    onMouseOver={over}
-                    onMouseOut={out}
-                  >
-                    View Collection{" "}
-                    <Box
-                      ml="8px"
-                      color="#6863F3"
-                      transform={
-                        isVisible ? "translateX(0px)" : "translateX(5px)"
-                      }
-                      display={isVisible ? "block" : "none"}
-                    >
-                      <i className="icon-right"></i>
-                    </Box>
-                  </Button>
-                </Box>
-              </Flex>
+              </Box>
             </Container>
           )}
         </Box>

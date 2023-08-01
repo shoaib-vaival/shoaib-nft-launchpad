@@ -60,8 +60,8 @@ const ProfileHeader = ({
 
   const hoverStyle = {
     borderRadius: "16px",
-    transform: isHover ? "scale(1.02)" : "scale(1)",
-    transition: "all .1s ease ",
+    transform: isHover ? "scale(1.03)" : "scale(1)",
+    transition: "all .2s ease ",
   };
   return (
     <>
@@ -79,25 +79,38 @@ const ProfileHeader = ({
             w={{ base: "100%", md: "100%" }}
             h={{ base: "100%", md: "100%" }}
             position="relative"
-            paddingLeft="54px"
+            onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => handleMouseLeave()}
           >
-            {coverPhoto && (
-              <NextImage
-                src={coverPhoto ? coverPhoto : ""}
-                alt="Profile Photo"
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center center"
-                style={{
-                  borderRadius: "16px",
-                }}
-              />
-            )}
+            <Box
+              w={{ base: "100%", md: "100%" }}
+              h={{ base: "100%", md: "100%" }}
+              position="relative"
+              overflow="hidden"
+              borderRadius="16px"
+            >
+              {coverPhoto && (
+                <NextImage
+                  src={coverPhoto ? coverPhoto : ""}
+                  onMouseEnter={() => handleMouseEnter()}
+                  onMouseLeave={() => handleMouseLeave()}
+                  alt="Profile Photo"
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center center"
+                  style={{
+                    borderRadius: "16px",
+                    ...(isHover ? hoverStyle : {}),
+                  }}
+                />
+              )}
+            </Box>
             <Box
               w={{ base: "100px", md: "200px" }}
               h={{ base: "100px", md: "200px" }}
               position="absolute"
               bottom="-35%"
+              left="54px"
               transform="translateY(-50%)"
             >
               {profilePhoto && (
