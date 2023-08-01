@@ -57,6 +57,9 @@ export const Header = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchBoxRef = useRef(null);
   const router = useRouter();
+  // const [openMenu, setOpenMenu] = useState<boolean>(false)
+  // const [isClosedMenu, setIsCloseMenu] = useState<boolean>(false);
+  const { isOpen:isOpenMenu, onOpen:onOpenMenu, onClose:onCloseMenu } = useDisclosure()
 
   useOutsideClick({
     ref: searchBoxRef,
@@ -394,7 +397,7 @@ export const Header = () => {
                     h="auto"
                     fontWeight="500"
                     lineHeight="1.5"
-                    _hover={{ bg: "transparent", color: "#6863f3" }}
+                    _hover={{ bg: "transparent"}}
                     textTransform="uppercase"
                     fontSize={{ base: "15px", xl: "16px" }}
                     rightIcon={
@@ -409,21 +412,21 @@ export const Header = () => {
                     textTransform="capitalize"
                     w="109px"
                     minW="109px"
-                    p=" 8px 16px"
+                    p=" 8px 8px"
                   >
                     <MenuItem
                       as={NextLink}
-                      p="8px"
+                      p="8px 16px 8px 8px"
                       href="/collection/state"
-                      _hover={{ color: "#6863f3" }}
+                      _hover={{ background: "gray.100", borderRadius: "4px" }}
                     >
                       Ranking
                     </MenuItem>
                     <MenuItem
                       as={NextLink}
-                      p="8px"
+                      p="8px 16px 8px 8px"
                       href="/activity"
-                      _hover={{ color: "#6863f3" }}
+                      _hover={{ background: "gray.100", borderRadius: "4px" }}
                     >
                       Activity
                     </MenuItem>
@@ -463,10 +466,16 @@ export const Header = () => {
                   </MenuButton>
                 )}
                 <MenuList w="191px" minW="191px" p="16px 8px">
-                  <MenuItem as={NextLink} href="/nft/create">
+                  <MenuItem
+                    as={NextLink}
+                    href="/nft/create"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     Create NFT
                   </MenuItem>
-                  <MenuItem as={NextLink} href="/collection/create">
+                  <MenuItem
+                    as={NextLink}
+                    href="/collection/create"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     Create Collection
                   </MenuItem>
                 </MenuList>
@@ -520,7 +529,7 @@ export const Header = () => {
               />
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-              <Menu>
+              <Menu isOpen={isOpenMenu}  closeOnSelect={true} >
                 {!account ? null : (
                   <MenuButton
                     fontSize="20px"
@@ -535,21 +544,33 @@ export const Header = () => {
                     _active={{ bg: "#6F6BF3", color: "#fff" }}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
+                    onMouseEnter={onOpenMenu} 
+                    onClick={onOpenMenu}
+                         
                   />
                 )}
-
-                <MenuList w="191px" minW="191px" h="180px" p="16px 8px">
-                  <MenuItem as={NextLink} href="/profile-created">
+                <MenuList w="191px" minW="191px" h="180px" p="16px 8px" onMouseLeave={onCloseMenu} >
+                  <MenuItem
+                    as={NextLink}
+                    href="/profile-created"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
+                  >
                     Profile
                   </MenuItem>
-                  <MenuItem as={NextLink} href="/collection/my-collection">
+                  <MenuItem
+                    as={NextLink}
+                    href="/collection/my-collection"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     My Collection
                   </MenuItem>
-                  <MenuItem as={NextLink} href="/setting">
+                  <MenuItem
+                    as={NextLink}
+                    href="/setting"
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
                     Settings
                   </MenuItem>
 
-                  <MenuItem
+                  <MenuItem _hover={{ background: "gray.100", borderRadius: "4px"}}
                     onClick={(a) => {
                       if (provider?.connection.url == "metamask") {
                         disconnect("");
