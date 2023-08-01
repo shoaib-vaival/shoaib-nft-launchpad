@@ -207,10 +207,12 @@ export const GenericTable = ({
                                       e.stopPropagation();
                                     }}
                                   />
-                                  <MenuList>
+                                  <MenuList  boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px' p='16px 8px'>
                                     {action?.options &&
                                       action?.options?.map((option) => (
                                         <MenuItem
+                                        px='8px'
+                                        _hover={{ background: "gray.100", borderRadius: "4px" }}
                                           key={option?.value}
                                           onClick={(e) => {
                                             e.stopPropagation();
