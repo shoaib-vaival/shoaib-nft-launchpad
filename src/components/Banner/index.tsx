@@ -14,6 +14,7 @@ import {
 import { getFromLocalStorage } from "../../utils";
 import { useRouter } from "next/router";
 import ConnectionModal from "../../Modals/nftProperties/connectionModal";
+import Link from "next/link";
 
 export const Banner = () => {
   const [isVisible, setIsVisible] = useState<boolean>();
@@ -30,13 +31,43 @@ export const Banner = () => {
   const out = () => {
     setIsVisible(false);
   };
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
+  const hoverStyle = {
+    borderRadius: "16px",
+    transform: isHover ? "scale(1.03)" : "scale(1)",
+    transition: "all .4s ease ",
+  };
 
   return (
     <Container
       variant="colorful"
+      overflow='hidden'
+      p='0'
+     
+    >
+      <Box
+      padding={{ base: "25px", md: "25px 54px" }}
+        style={{
+        borderRadius: "16px",
+        ...(isHover ? hoverStyle : {}),
+      }}>
+      <Box
       position="relative"
       padding={{ base: "25px", md: "25px 54px" }}
-    >
+      onMouseEnter={() => handleMouseEnter()}
+      onMouseLeave={() => handleMouseLeave()}
+      
+      as={Link}
+      href={`/collection/create`}>
+        
       <Box position="absolute" bottom="0px" left="0px" opacity="0.4">
         <Image src="/assets/images/banner-lines.png" />
       </Box>
@@ -116,6 +147,8 @@ export const Banner = () => {
           </Box>
         </Box>
       </Flex>
+      </Box>
+      </Box>
     </Container>
   );
 };

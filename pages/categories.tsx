@@ -137,6 +137,8 @@ const Categories: NextPage = () => {
           ) : (
             <Container variant="colorful" p="0" overflow="hidden">
               <Box
+              as={Link}
+              href={`collection/${bannerCollection?.id}`}
                 onMouseEnter={() => handleMouseEnter()}
                 onMouseLeave={() => handleMouseLeave()}
                 w={{ base: "100%", md: "100%" }}
