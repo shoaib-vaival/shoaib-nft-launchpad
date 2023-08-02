@@ -41,6 +41,7 @@ type imagesType = {
 const Setting: NextPage = () => {
   const [coverImage, setCoverImage] = useState<imagesType>();
   const [profileImage, setProfileImage] = useState<imagesType>();
+  const[customLoading,setCustomLoading]=useState<boolean>(false)
   const { account } = useWeb3React<Web3Provider>();
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -73,6 +74,7 @@ const Setting: NextPage = () => {
     showSuccessToast: true,
     token: true,
     successMessage: "Status changed successfuly",
+    onSuccess:(data)=>setTimeout(()=>{setCustomLoading(false)},5000)
   });
 
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
@@ -618,17 +620,18 @@ const Setting: NextPage = () => {
                                   <Field name="switchField">
                                     {({ field }: { field: any }) => (
                                       <Switch
-                                        isDisabled={isLoading}
+                                        isDisabled={customLoading}
                                         id="status"
                                         isChecked={items?.status}
-                                        onChange={() => {
+                                        onClick={() => {
+                                          if((!customLoading || !isLoading)){setCustomLoading(true)
                                           save({
                                             id: items?.id,
                                             status:
                                               items?.status == true
                                                 ? false
                                                 : true,
-                                          });
+                                          });}
                                           setTimeout(() => {
                                             queryClient.invalidateQueries([
                                               QUERY_KEYS.GET_NOTIF_SETTINGS,

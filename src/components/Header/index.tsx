@@ -49,6 +49,8 @@ import { boolean } from "yup";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useRouter } from "next/router";
 import { profileType } from "../../types";
+import NextImage from "next/image";
+
 
 export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -251,8 +253,7 @@ export const Header = () => {
                   border="1px solid rgba(111, 107, 243, 0.4)"
                   backdropFilter="blur(30px)"
                   borderRadius="16px"
-                  padding="8px"
-                  pe={"0"}
+                  padding="12px 8px"
                   bg="white"
                   zIndex={"9"}
                   w={{ base: "100%", lg: "87%" }}
@@ -285,6 +286,9 @@ export const Header = () => {
                               }}
                               cursor="pointer"
                               key={index}
+                              _hover={{bg:'gray.200'}}
+                              padding= '7px 2px 2px 10px'
+                              borderRadius= '8px'
                             >
                               <Flex
                                 alignItems="center"
@@ -529,10 +533,21 @@ export const Header = () => {
                 }}
               />
             </Box>
-            <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-              <Menu   closeOnSelect={true} >
-                {!account ? null : (
+            <Box
+            // onMouseEnter={() => {console.log('open menu 1'); onOpenMenu()}} 
+            // onMouseLeave={() => {console.log('close menu 1'); onCloseMenu()}}
+            order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
+              <Box 
+              className="drop_hover"
+                    onMouseLeave={onCloseMenu}
+                    onMouseEnter={onOpenMenu} 
+              
+              >
+              <Menu isOpen={isOpenMenu}  closeOnSelect={true}
+>
+                {(!account && !isOpenMenu) ? null : (
                   <MenuButton
+                    className="dropdown_hover"
                     fontSize="20px"
                     color="#6F6BF3"
                     bg="#FFFFFF"
@@ -543,14 +558,22 @@ export const Header = () => {
                     as={IconButton}
                     _hover={{ bg: "#6F6BF3", color: "#fff" }}
                     _active={{ bg: "#6F6BF3", color: "#fff" }}
-                    icon={<i className="icon-vector"></i>}
+                    _focusVisible={{boxShadow:'none'}}
+                    icon={profileData?.profileUrl ? <NextImage src={profileData?.profileUrl} alt="Profile Photo"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center center"
+                    style={{
+                      borderRadius: "50px",
+                    }}/> :  <i className="icon-vector"></i>}
                     aria-label="Options"
-                    onMouseEnter={onOpenMenu} 
                     onClick={onOpenMenu}
-                         
+                    // onMouseLeave={onCloseMenu}
                   />
                 )}
-                <MenuList w="191px" minW="191px" h="180px" p="16px 8px" onMouseLeave={onCloseMenu} boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px' >
+                <MenuList className="ope_menu" w="191px" minW="191px" h="180px" p="16px 8px" zIndex={0}
+                //  onMouseLeave={onCloseMenu}  
+                 boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px' >
                   <MenuItem
                     as={NextLink}
                     href="/profile-created"
@@ -584,6 +607,7 @@ export const Header = () => {
                   </MenuItem>
                 </MenuList>
               </Menu>
+              </Box>
             </Box>
           </Stack>
         </Box>

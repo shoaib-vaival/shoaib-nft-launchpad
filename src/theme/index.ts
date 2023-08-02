@@ -35,23 +35,32 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
-      '.slick-arrow-btn': {
-        display: 'none!important',
-        transition:'all .3s ease'
+      ".slick-arrow-btn": {
+        display: "none!important",
+        transition: "all .3s ease",
       },
-      
-     ' .css-1tdvlph:hover .slick-arrow-btn' :{
-        display: 'inline-block!important',
-        transition:'all .3s ease'
+      ".drop_hover::before": {
+       height:'100%',
+       position: 'absolute',
+       width:'50px',
+       content:"''",
+       display:'block',
+        bg:"transparent",
+        zIndex: '-1'
+      },
+
+
+      " .css-1tdvlph:hover .slick-arrow-btn": {
+        display: "inline-block!important",
+        transition: "all .3s ease",
       },
       body: {
         color: colors.black,
         backgroundImage: 'url("/assets/images/bg.webp")',
         backgroundSize: "cover",
       },
-      '.ErrorMessage':{
-        color:'red.700',
-
+      ".ErrorMessage": {
+        color: "red.700",
       },
       h1: {
         fontSize: "56px",
