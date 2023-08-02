@@ -103,7 +103,7 @@ export const ActivityTable = ({
                 objectFit={activity?.nft?.ipfsImageUrl ? "cover" : "contain"}
               />
             </Box>
-            <VStack spacing="0.5">
+            <VStack spacing="0.5" alignItems="start">
               <Heading
                 fontSize="18px"
                 whiteSpace="nowrap"

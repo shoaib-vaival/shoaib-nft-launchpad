@@ -57,9 +57,26 @@ export const Header = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchBoxRef = useRef(null);
   const router = useRouter();
+  const [recentSearch, setRecentSearch] = useState<any>([]);
   // const [openMenu, setOpenMenu] = useState<boolean>(false)
   // const [isClosedMenu, setIsCloseMenu] = useState<boolean>(false);
-  const { isOpen:isOpenMenu, onOpen:onOpenMenu, onClose:onCloseMenu } = useDisclosure()
+  useEffect(() => {
+    const localRecentSearch = getFromLocalStorage("recentSearch");
+    console.log("search", recentSearch);
+    if (localRecentSearch && isSearching === true) {
+      setRecentSearch(JSON.parse(localRecentSearch));
+    }
+  }, [isSearching]);
+  useEffect(() => {
+    if (recentSearch) {
+      setToLocalStorage("recentSearch", JSON.stringify(recentSearch));
+    }
+  }, [recentSearch]);
+  const {
+    isOpen: isOpenMenu,
+    onOpen: onOpenMenu,
+    onClose: onCloseMenu,
+  } = useDisclosure();
 
   useOutsideClick({
     ref: searchBoxRef,
@@ -114,7 +131,7 @@ export const Header = () => {
     params: {
       search: debounceValue,
     },
-    enabled: debounceValue ? true : false, 
+    enabled: debounceValue ? true : false,
   });
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
 
@@ -242,7 +259,7 @@ export const Header = () => {
                   <img src="/assets/images/search.svg" />
                 </InputLeftElement>
               </InputGroup>
-              {search && isSearching ? (
+              {isSearching ? (
                 <Box
                   position="absolute"
                   top="50px"
@@ -274,12 +291,103 @@ export const Header = () => {
                     maxH="400px"
                     overflowY="scroll"
                   >
+                    {search.length <= 0 ? (
+                      <Text mt="10px" ml="10px" pb="10px" fontSize="14px">
+                        RECENT
+                      </Text>
+                    ) : (
+                      <Text mt="10px" ml="10px" pb="10px" fontSize="14px">
+                        COLLECTIONS
+                      </Text>
+                    )}
+                    {search.length <= 0 ? (
+                      recentSearch && recentSearch?.length > 0 ? (
+                        recentSearch?.map((collection: any, index: number) => {
+                          return (
+                            <Box
+                              onClick={() => {
+                                setIsSearching(false);
+                                router.push(`/collection/${collection?.id}`);
+                              }}
+                              cursor="pointer"
+                              key={index}
+                            >
+                              <Flex
+                                justifyContent="space-between"
+                                alignItems="center"
+                              >
+                                <Flex
+                                  alignItems="center"
+                                  gap="2"
+                                  pb="8px"
+                                  flex="85%"
+                                >
+                                  <Image
+                                    src={collection?.logoImageUrl}
+                                    boxSize="100px"
+                                    objectFit="cover"
+                                    border="1px solid white"
+                                    borderRadius="16px"
+                                    w={{ base: "50px", md: "56px" }}
+                                    h={{ base: "50px", md: "56px" }}
+                                  />
+                                  <VStack spacing="0.5" alignItems="start">
+                                    <Heading fontSize="18px">
+                                      {addEllipsis(collection?.name)}
+                                    </Heading>
+                                    <Text
+                                      color="rgba(57, 63, 89, 1)"
+                                      fontSize="14px"
+                                    >
+                                      Items {collection?.nftCount}
+                                    </Text>
+                                  </VStack>
+                                </Flex>
+                                <IconButton
+                                  icon={<i className="icon-close"></i>}
+                                  aria-label="Remove item from recents "
+                                  bg="transparent"
+                                  _hover={{ bg: "transparent" }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const updatedRecentSearch =
+                                      recentSearch?.filter(
+                                        (recentSearchItem: any) => {
+                                          return (
+                                            recentSearchItem?.id !==
+                                            collection?.id
+                                          );
+                                        }
+                                      );
+                                    setRecentSearch(updatedRecentSearch);
+                                  }}
+                                ></IconButton>
+                              </Flex>
+                            </Box>
+                          );
+                        })
+                      ) : (
+                        <></>
+                      )
+                    ) : (
+                      <></>
+                    )}
+
                     {collectionSearch && collectionSearch?.length > 0 ? (
                       collectionSearch?.map(
                         (collection: any, index: number) => {
                           return (
                             <Box
                               onClick={() => {
+                                const isInRecentSearch = recentSearch?.some(
+                                  (item: any) => item.id === collection.id
+                                );
+                                if (!isInRecentSearch) {
+                                  setRecentSearch([
+                                    ...recentSearch,
+                                    collection,
+                                  ]);
+                                }
                                 setIsSearching(false);
                                 router.push(`/collection/${collection?.id}`);
                               }}
@@ -309,7 +417,10 @@ export const Header = () => {
                                     color="rgba(57, 63, 89, 1)"
                                     fontSize="14px"
                                   >
-                                    Items {collection?.nftCount}
+                                    {collection?.nftCount > 1
+                                      ? "Items"
+                                      : "Item"}{" "}
+                                    {collection?.nftCount}
                                   </Text>
                                 </VStack>
                               </Flex>
@@ -323,7 +434,7 @@ export const Header = () => {
                           as={NextLink}
                           href="/categories"
                           textAlign="center"
-                          textDecoration='none'
+                          textDecoration="none"
                         >
                           <Text p="10px" _hover={{ bg: "gray.100" }}>
                             Click here to view all Collections
@@ -331,10 +442,6 @@ export const Header = () => {
                         </Link>
                       </Box>
                     )}
-
-                    {/* <Link as={NextLink} _hover={{color:'#6863F3'}} href="/categories">
-                      Explore
-                    </Link> */}
                   </Box>
                 </Box>
               ) : (
@@ -397,7 +504,7 @@ export const Header = () => {
                     h="auto"
                     fontWeight="500"
                     lineHeight="1.5"
-                    _hover={{ bg: "transparent"}}
+                    _hover={{ bg: "transparent" }}
                     textTransform="uppercase"
                     fontSize={{ base: "15px", xl: "16px" }}
                     rightIcon={
@@ -409,7 +516,7 @@ export const Header = () => {
                     Stats
                   </MenuButton>
                   <MenuList
-                  boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px'
+                    boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
                     textTransform="capitalize"
                     w="109px"
                     minW="109px"
@@ -466,17 +573,24 @@ export const Header = () => {
                     Create
                   </MenuButton>
                 )}
-                <MenuList w="191px" minW="191px" p="16px 8px" boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px'>
+                <MenuList
+                  w="191px"
+                  minW="191px"
+                  p="16px 8px"
+                  boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                >
                   <MenuItem
                     as={NextLink}
                     href="/nft/create"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
+                  >
                     Create NFT
                   </MenuItem>
                   <MenuItem
                     as={NextLink}
                     href="/collection/create"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
+                  >
                     Create Collection
                   </MenuItem>
                 </MenuList>
@@ -530,7 +644,7 @@ export const Header = () => {
               />
             </Box>
             <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-              <Menu   closeOnSelect={true} >
+              <Menu closeOnSelect={true}>
                 {!account ? null : (
                   <MenuButton
                     fontSize="20px"
@@ -545,12 +659,18 @@ export const Header = () => {
                     _active={{ bg: "#6F6BF3", color: "#fff" }}
                     icon={<i className="icon-vector"></i>}
                     aria-label="Options"
-                    onMouseEnter={onOpenMenu} 
+                    onMouseEnter={onOpenMenu}
                     onClick={onOpenMenu}
-                         
                   />
                 )}
-                <MenuList w="191px" minW="191px" h="180px" p="16px 8px" onMouseLeave={onCloseMenu} boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px' >
+                <MenuList
+                  w="191px"
+                  minW="191px"
+                  h="180px"
+                  p="16px 8px"
+                  onMouseLeave={onCloseMenu}
+                  boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                >
                   <MenuItem
                     as={NextLink}
                     href="/profile-created"
@@ -561,17 +681,20 @@ export const Header = () => {
                   <MenuItem
                     as={NextLink}
                     href="/collection/my-collection"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
+                  >
                     My Collection
                   </MenuItem>
                   <MenuItem
                     as={NextLink}
                     href="/setting"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}                  >
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
+                  >
                     Settings
                   </MenuItem>
 
-                  <MenuItem _hover={{ background: "gray.100", borderRadius: "4px"}}
+                  <MenuItem
+                    _hover={{ background: "gray.100", borderRadius: "4px" }}
                     onClick={(a) => {
                       if (provider?.connection.url == "metamask") {
                         disconnect("");

@@ -132,13 +132,13 @@ export const CollectionStatTable = ({
         ),
         Sales: <Text>{collectionStat?.sale}</Text>,
         uniqueOwner: (
-          <VStack>
+          <VStack w="100%" alignItems="revert">
             <Text>{`${collectionStat?.uniqueOwner}%`}</Text>
             <Text>{`${collectionStat?.totalOwners} owners`}</Text>
           </VStack>
         ),
         itemlisted: (
-          <VStack>
+          <VStack alignItems="revert">
             <Text>{`${collectionStat?.itemListedCount}%`}</Text>
             <Text>{`${collectionStat?.itemListed} of ${collectionStat?.totalListed}`}</Text>
           </VStack>
