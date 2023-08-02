@@ -259,7 +259,7 @@ export const Header = () => {
                   <img src="/assets/images/search.svg" />
                 </InputLeftElement>
               </InputGroup>
-              {isSearching ? (
+              {(search.length > 0 || recentSearch.length > 0) && isSearching ? (
                 <Box
                   position="absolute"
                   top="50px"
@@ -291,14 +291,16 @@ export const Header = () => {
                     maxH="400px"
                     overflowY="scroll"
                   >
-                    {search.length <= 0 ? (
-                      <Text mt="10px" ml="10px" pb="10px" fontSize="14px">
+                    {search.length <= 0 && recentSearch.length > 0 ? (
+                      <Text mt="10px" pb="10px" fontSize="14px">
                         RECENT
                       </Text>
-                    ) : (
-                      <Text mt="10px" ml="10px" pb="10px" fontSize="14px">
+                    ) : collectionSearch && collectionSearch?.length > 0 ? (
+                      <Text mt="10px" pb="10px" fontSize="14px">
                         COLLECTIONS
                       </Text>
+                    ) : (
+                      <></>
                     )}
                     {search.length <= 0 ? (
                       recentSearch && recentSearch?.length > 0 ? (
