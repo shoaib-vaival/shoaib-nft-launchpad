@@ -73,6 +73,7 @@ const ReactSelect = ({
             ...baseStyles,
             cursor: "pointer",
             ":focus": { border: "1px solid #6863F3" },
+            
           }),
           option: (baseStyles, state) => ({
             ...baseStyles,
