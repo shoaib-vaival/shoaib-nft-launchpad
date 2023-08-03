@@ -79,7 +79,9 @@ const Setting: NextPage = () => {
     useMutation<UploadFileOnServer>({
       method: POST,
       url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
-      showSuccessToast: false,
+      showSuccessToast: true,
+      successMessage: "Image uploaded successfully",
+      errorMessage: "Only png and jpg files are allowed",
       isFileData: true,
       onSuccess: (data) => {
         if (data?.data?.label === "userCoverPhoto") {
@@ -588,14 +590,18 @@ const Setting: NextPage = () => {
                     <Form>
                       <Box borderRadius="6px" border="1px solid #6F6BF366">
                         {getNotifSetting &&
-                          getNotifSetting?.map((items: any, index:any) => (
+                          getNotifSetting?.map((items: any, index: any) => (
                             <>
                               <FormControl m="0">
                                 <Flex
                                   alignItems="center"
                                   justifyContent="space-between"
                                   p="24px"
-                                  borderBottom={index === getNotifSetting.length-1?"":"1px solid #35353533"}
+                                  borderBottom={
+                                    index === getNotifSetting.length - 1
+                                      ? ""
+                                      : "1px solid #35353533"
+                                  }
                                   bg="#fff"
                                   margin={"1px"}
                                 >

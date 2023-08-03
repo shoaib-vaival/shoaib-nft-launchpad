@@ -76,7 +76,7 @@ const Categories: NextPage = () => {
   return (
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pr={{ base: "0", md: "50px" }} >
+        <Box pr={{ base: "0", md: "50px" }}>
           <Heading
             as="h1"
             fontSize={{
@@ -154,8 +154,8 @@ const Categories: NextPage = () => {
                 >
                   <Input
                     placeholder="Search by Collections…"
-                    _hover={{ background: '#6863f305' }}
-                    _focus={{border:'1px solid #6863F3'}}
+                    _hover={{ background: "#6863f305" }}
+                    _focus={{ border: "1px solid #6863F3" }}
                     onChange={(e) => searchHandler(e)}
                     value={search}
                   />
@@ -172,6 +172,7 @@ const Categories: NextPage = () => {
                   ]}
                   isMultiple={false}
                   identifier="filter"
+                  isSearchable={false}
                   getSelectedData={(selectedOption: any) =>
                     setFilters({
                       ...filters,

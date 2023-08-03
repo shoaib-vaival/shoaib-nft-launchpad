@@ -1,13 +1,13 @@
+import { Box } from "@chakra-ui/layout";
 import { Footer } from "../Footer";
-import { Header } from "../Header"
+import { Header } from "../Header";
 
- 
-export const Layout = ({ children }:any) => {
+export const Layout = ({ children }: any) => {
   return (
     <>
-      <Header/>
-      {children}
-      <Footer/>
+      <Header />
+      <Box marginTop="100px">{children}</Box>
+      <Footer />
     </>
   );
-}
+};

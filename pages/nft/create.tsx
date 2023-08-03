@@ -224,7 +224,7 @@ const CreateNFT = () => {
                   setProperties={setProperties}
                 />
                 <Stack direction="column">
-                  <FormControl isRequired>
+                  <FormControl>
                     <FileUpload
                       label="Image"
                       detail={createnft?.bannerImg}
@@ -256,7 +256,6 @@ const CreateNFT = () => {
                     size="md"
                     label="Name"
                     type="text"
-                    formControlProps={{ isRequired: true }}
                     placeholder="Name your NFT"
                     name="name"
                     errorText={

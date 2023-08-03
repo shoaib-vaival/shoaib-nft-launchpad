@@ -19,7 +19,7 @@ export const EditUploadFile = ({
   isShowLabel,
   objectFit,
 }: {
-  image: string |undefined;
+  image: string | undefined;
   objectFit: any;
   id: string;
   onChange: (e: any) => void;
@@ -34,9 +34,15 @@ export const EditUploadFile = ({
     setIsVisible(false);
   };
   const changeHandler = (e: any) => {
+    console.log(e.target.files[0], "e.target.files[0]");
     onChange(e);
     if (e.target.files[0]) {
-      setPreview(URL.createObjectURL(e.target.files[0]));
+      if (
+        e.target.files[0]?.type === "image/jpeg" ||
+        e.target.files[0]?.type === "image/png"
+      ) {
+        setPreview(URL.createObjectURL(e.target.files[0]));
+      }
     }
   };
 
@@ -55,8 +61,13 @@ export const EditUploadFile = ({
         borderRadius="16px"
         objectFit={objectFit}
       >
-        <Box overflow="hidden" borderRadius="16px" h="100%" cursor='pointer'>
-          <Image src={preview ? preview : image} w="100%" h='100%' objectFit={objectFit} />
+        <Box overflow="hidden" borderRadius="16px" h="100%" cursor="pointer">
+          <Image
+            src={preview ? preview : image}
+            w="100%"
+            h="100%"
+            objectFit={objectFit}
+          />
         </Box>
         <FormControl
           display={isVisible ? "block" : "none"}
@@ -76,7 +87,7 @@ export const EditUploadFile = ({
             bg="#6863f3cc"
             zIndex="999"
             m="0!important"
-            cursor='pointer'
+            cursor="pointer"
           >
             <Input
               type="file"
@@ -85,8 +96,9 @@ export const EditUploadFile = ({
               h="100%"
               border="0"
               hidden
+              accept="image/png, image/jpeg"
               onChange={(e) => changeHandler(e)}
-              cursor='pointer'
+              cursor="pointer"
             />
             <Flex alignItems="center" justifyContent="center" h="100%">
               <Box

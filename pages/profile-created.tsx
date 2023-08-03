@@ -279,6 +279,7 @@ const ProfilCreated: NextPage = () => {
                             { label: "Ascending ", value: "ASC" },
                             { label: "Descending ", value: "DESC" },
                           ]}
+                          isSearchable={false}
                           placeholder="Sort By"
                           isMultiple={false}
                           identifier="filter"
@@ -478,6 +479,7 @@ const ProfilCreated: NextPage = () => {
                             { label: "Ascending ", value: "ASC" },
                             { label: "Descending ", value: "DESC" },
                           ]}
+                          isSearchable={false}
                           placeholder="Sort By"
                           isMultiple={false}
                           identifier="filter"
@@ -640,6 +642,7 @@ const ProfilCreated: NextPage = () => {
                           ]}
                           isMultiple={false}
                           identifier="filter"
+                          isSearchable={false}
                           getSelectedData={(selectedOption: any) =>
                             setFilters({
                               ...filters,

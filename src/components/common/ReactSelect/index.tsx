@@ -16,10 +16,9 @@ const MultiValueRemove = (props: any) => {
     </components.MultiValueRemove>
   );
 };
-const hoverEffect={
-  ':hover':{ background: "gray.100",
-   borderRadius: "4px" }
-}
+const hoverEffect = {
+  ":hover": { background: "gray.100", borderRadius: "4px" },
+};
 
 const ReactSelect = ({
   options,
@@ -33,13 +32,14 @@ const ReactSelect = ({
   nftDesc,
   setNftDesc,
   defaultValue,
+  isSearchable,
 }: ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(
     () => defaultValue || null
-    );
-    const [isSelected, setIsselected] = useState<boolean>(true);
-    
-    const handleChangeCategory = (cat: any) => {
+  );
+  const [isSelected, setIsselected] = useState<boolean>(true);
+
+  const handleChangeCategory = (cat: any) => {
     setIsselected(false);
     getSelectedData(cat, identifier);
     setValue(cat);
@@ -48,12 +48,12 @@ const ReactSelect = ({
     nftName && setNftName(nftName);
     nftDesc && setNftDesc(nftDesc);
   };
-  
+
   useEffect(() => {
     isSelected && setValue(defaultValue);
     // identifier == "tag" && getSelectedData("tag", identifier);
   }, [defaultValue]);
-  
+
   return (
     <>
       {label && (
@@ -61,13 +61,15 @@ const ReactSelect = ({
           <FormLabel>{label}</FormLabel>
         </Flex>
       )}
-      <Select {...hoverEffect}
+      <Select
+        {...hoverEffect}
         isClearable
         isMulti={isMultiple}
         onChange={(newValue) => handleChangeCategory(newValue)}
         options={options}
         value={value}
         placeholder={placeholder}
+        isSearchable={isSearchable}
         styles={{
           indicatorsContainer: (baseStyles, state) => ({
             ...baseStyles,
@@ -77,9 +79,7 @@ const ReactSelect = ({
           option: (baseStyles, state) => ({
             ...baseStyles,
             cursor: "pointer",
-            background: state?.isFocused
-            ? "#edf2f7"
-            : undefined,
+            background: state?.isFocused ? "#edf2f7" : undefined,
           }),
           control: (baseStyles, state) => ({
             ...baseStyles,

@@ -52,7 +52,11 @@ const CollectionCard = ({
         <Container py="12px" px={{ base: "0", sm: "12px" }} key={key}>
           <Box>
             <Card
-            _hover={{transform:'translateY(-10px)',boxShadow:'0px 10px 15px gray', transition:'all .3s linear'}}
+              _hover={{
+                transform: "translateY(-10px)",
+                boxShadow: "0px 10px 15px gray",
+                transition: "all .3s linear",
+              }}
               maxH={{ base: "359px", xl: "459px" }}
               overflow="hidden"
               justifyContent="center"
@@ -105,6 +109,7 @@ const CollectionCard = ({
                       borderRadius="16px"
                       w={88}
                       h={88}
+                      overflow="hidden"
                     >
                       <NextImage
                         src={
@@ -217,7 +222,11 @@ const CollectionCard = ({
           justifyContent="center"
           overflow="hidden"
           p={{ base: "0!important", sm: "12px" }}
-          _hover={{transform:'translateY(-10px)',boxShadow:'0px 10px 15px gray', transition:'all .3s linear'}}
+          _hover={{
+            transform: "translateY(-10px)",
+            boxShadow: "0px 10px 15px gray",
+            transition: "all .3s linear",
+          }}
         >
           <CardBody
             display="flex"
