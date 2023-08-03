@@ -231,7 +231,7 @@ const CreateNFT = () => {
                       height="300px"
                       imgFor="nft"
                       imgUrl={getImgUrl}
-                      maxFileSize={11e6}
+                      maxFileSize={6e6}
                     />
                     {touched["photo"] && errors["photo"] && (
                       <Text
