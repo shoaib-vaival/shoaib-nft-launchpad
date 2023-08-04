@@ -11,6 +11,7 @@ import { showToaster } from "../components/Toaster";
 type UseMutationReturn<T, K> = {
   data?: K;
   isLoading: boolean;
+  isSuccess: boolean;
   mutate: UseMutateFunction<ApiResult<K>, unknown, T, unknown>;
 };
 
@@ -80,6 +81,7 @@ export const useMutation = <T, K = T>({
   const {
     data: fetchedData,
     isLoading,
+    isSuccess,
     mutate,
   } = useRMutation<ApiResult<K>, unknown, T>(
     async (data: T) => {
@@ -120,5 +122,5 @@ export const useMutation = <T, K = T>({
     }
   );
 
-  return { ...fetchedData, isLoading, mutate };
+  return { ...fetchedData, isSuccess,isLoading, mutate };
 };

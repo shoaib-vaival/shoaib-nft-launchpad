@@ -217,7 +217,7 @@ export const Header = () => {
       <Box
         position="fixed"
         top="0"
-        zIndex={colorChange ? "999" : ""}
+        zIndex={colorChange ? "999" : "1"}
         backgroundColor={colorChange ? "#F4F4FE" : ""}
         borderBottom={colorChange ? "1px solid rgba(18, 18, 18, 0.08)" : ""}
         w="100%"

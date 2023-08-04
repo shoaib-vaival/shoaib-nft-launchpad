@@ -18,7 +18,7 @@ export const nftDetail = {
   desc: "Markdown syntax is supported. 0 of 1000 characters used.",
 };
 export const createnft = {
-  bannerImg: "File types supported: JPEG (or JPG), PNG only. Max size: 5 MB",
+  bannerImg: "File types supported: JPEG (or JPG), PNG only. Max size: 6 MB",
 };
 
 export const pagePaths = {

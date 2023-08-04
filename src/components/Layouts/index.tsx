@@ -6,7 +6,7 @@ export const Layout = ({ children }: any) => {
   return (
     <>
       <Header />
-      <Box marginTop="100px">{children}</Box>
+      <Box marginTop="150px">{children}</Box>
       <Footer />
     </>
   );

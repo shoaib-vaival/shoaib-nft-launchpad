@@ -66,15 +66,17 @@ const Setting: NextPage = () => {
       router.push("/profile-created");
     },
   });
-
-  const { mutate: save, isLoading } = useMutation<any>({
+  const {
+    mutate: save,
+    isLoading,
+    isSuccess,
+  } = useMutation<any>({
     method: PATCH,
     url: `${ApiUrl.CREATE_NOTIFICATION}`,
     showSuccessToast: true,
     token: true,
-    successMessage: "Status changed successfuly",
+    successMessage: "Status changed successfully",
   });
-
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
     useMutation<UploadFileOnServer>({
       method: POST,
@@ -627,7 +629,9 @@ const Setting: NextPage = () => {
                                         isDisabled={isLoading}
                                         id="status"
                                         isChecked={items?.status}
-                                        onChange={() => {
+                                        onChange={(e) => {
+                                          console.log(e);
+                                          e.preventDefault();
                                           save({
                                             id: items?.id,
                                             status:
