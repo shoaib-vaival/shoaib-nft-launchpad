@@ -3,12 +3,12 @@ import {
   Heading,
   Flex,
   Box,
-  Button,
   Text,
   Stat,
   StatLabel,
   StatNumber,
   Grid,
+  Skeleton,
 } from "@chakra-ui/react";
 import InputField from "../InputField";
 import { useWeb3React } from "@web3-react/core";
@@ -22,6 +22,7 @@ type profileDetailProps = {
   isCollection: boolean;
   isVerified?: boolean;
   description?: string;
+  isLoading?: boolean;
 };
 const ProfileDetail = ({
   showStats,
@@ -29,8 +30,10 @@ const ProfileDetail = ({
   isVerified,
   isCollection,
   description,
+  isLoading,
 }: profileDetailProps) => {
   const { chainId } = useWeb3React<Web3Provider>();
+  console.log("isLoading", isLoading);
   return (
     <>
       <Container pl={{ base: "0", md: "75px" }} mt="24px" pr="0" pt="0">
@@ -39,9 +42,11 @@ const ProfileDetail = ({
           flexDirection={{ base: "column", sm: "row" }}
         >
           <Flex alignItems="center" mr={{ base: "0", lg: "50px" }}>
-            <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
-              {data?.displayName || data?.name}
-            </Heading>
+            <Skeleton isLoaded={!isLoading}>
+              <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
+                {data?.displayName || data?.name}
+              </Heading>
+            </Skeleton>
             {isVerified ? (
               <Box mx="12px" color="#6863F3">
                 <i className="icon-tick"></i>
@@ -59,7 +64,12 @@ const ProfileDetail = ({
           </Box>
         </Flex>
         <Flex
-          flexDirection={{ base: "column", md: "column", lg: "row", xl: "row" }}
+          flexDirection={{
+            base: "column",
+            md: "column",
+            lg: "row",
+            xl: "row",
+          }}
         >
           <Box
             w={{ base: "100%", lg: "50%" }}

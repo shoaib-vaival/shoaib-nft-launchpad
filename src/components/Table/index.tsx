@@ -14,6 +14,7 @@ import {
   MenuList,
   MenuItem,
   Heading,
+  Skeleton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -52,6 +53,7 @@ interface GenericTableProps {
   variant?: string;
   tableName?: string;
   ActivityTab?: boolean;
+  loader?: any;
 }
 
 export const GenericTable = ({
@@ -63,6 +65,7 @@ export const GenericTable = ({
   variant,
   tableName,
   ActivityTab,
+  loader,
 }: GenericTableProps) => {
   const router = useRouter();
 
@@ -77,16 +80,7 @@ export const GenericTable = ({
       dataLength={data ? data?.length : 0}
       next={() => fetchNextPage && fetchNextPage()}
       hasMore={!!hasNextPage}
-      loader={
-        <Flex
-          width="100%"
-          height="100%"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Loader />
-        </Flex>
-      }
+      loader={<></>}
     >
       <TableContainer>
         <Table variant={variant ? variant : "simple"}>

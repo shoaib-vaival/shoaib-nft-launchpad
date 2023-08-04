@@ -50,7 +50,7 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useRouter } from "next/router";
 import { profileType } from "../../types";
 
-export const Header = () => {
+export const Header = ({ onHeightChange, height }: any) => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const debounceValue = useDebounce(search, 1000);
@@ -58,6 +58,11 @@ export const Header = () => {
   const searchBoxRef = useRef(null);
   const router = useRouter();
   const [recentSearch, setRecentSearch] = useState<any>([]);
+  const headRef = useRef<any>(0);
+  useEffect(() => {
+    console.log(headRef, "headRef");
+    onHeightChange(headRef?.current?.offsetHeight);
+  }, [height, toggleMenu]);
   // const [openMenu, setOpenMenu] = useState<boolean>(false)
   // const [isClosedMenu, setIsCloseMenu] = useState<boolean>(false);
   useEffect(() => {
@@ -218,12 +223,15 @@ export const Header = () => {
         position="fixed"
         top="0"
         zIndex={colorChange ? "999" : "1"}
-        backgroundColor={colorChange ? "#F4F4FE" : ""}
+        backgroundColor={colorChange || toggleMenu ? "#F4F4FE" : ""}
         borderBottom={colorChange ? "1px solid rgba(18, 18, 18, 0.08)" : ""}
         w="100%"
       >
-        <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-          <Box pt="30px" pb={{ base: "20px", md: "30px" }}>
+        <Container
+          maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
+          ref={headRef}
+        >
+          <Box pt="30px" pb={{ base: toggleMenu ? "20px" : "0px", md: "30px" }}>
             <Stack
               direction="row"
               alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
@@ -254,6 +262,11 @@ export const Header = () => {
                 pr={{ base: "0", lg: "15px", xl: "30px" }}
                 pt={{ base: "5px" }}
                 position="relative"
+                visibility={{
+                  base: toggleMenu ? "visible" : "hidden",
+                  lg: "initial",
+                }}
+                h={{ base: toggleMenu ? "auto" : "0px", lg: "100%" }}
               >
                 <InputGroup
                   variant="custom"
@@ -576,6 +589,11 @@ export const Header = () => {
                 justifyContent={{ sm: "flex-end" }}
                 w={{ base: "full", md: "xs", xl: "initial" }}
                 flexDirection={{ base: "column", sm: "row" }}
+                h={{ base: toggleMenu ? "auto" : "0px" }}
+                visibility={{
+                  base: toggleMenu ? "visible" : "hidden",
+                  md: "initial",
+                }}
               >
                 <Menu autoSelect={false}>
                   <ConnectionModal

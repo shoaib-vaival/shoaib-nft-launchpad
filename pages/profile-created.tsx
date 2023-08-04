@@ -34,6 +34,7 @@ import { convertPropertyObject, convertToQueryParam } from "../src/utils";
 import { GridView } from "../src/views/GridView";
 import ListView from "../src/views/ListView";
 import { DrawerFilter } from "./../src/components/SidebarFilter/DrawerFilter";
+import CollectionInfoHeaderSkeleton from "./../src/components/Seketons/infoHeader/Collection";
 import {
   FormControl,
   FormLabel,
@@ -146,14 +147,7 @@ const ProfilCreated: NextPage = () => {
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         <Box px={{ base: "0", sm: "17px" }}>
           {isProfileLoading && data === undefined ? (
-            <Flex
-              width="100%"
-              height="100%"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Loader />
-            </Flex>
+            <CollectionInfoHeaderSkeleton />
           ) : (
             <ProfileHeader
               socialIcons={socialIcons}
@@ -161,6 +155,7 @@ const ProfilCreated: NextPage = () => {
               coverPhoto={data?.profileCoverURL}
               profilePhoto={data?.profileUrl}
               id={`${data?.id}`}
+              isLoading={isProfileLoading}
             />
           )}
         </Box>
@@ -169,6 +164,7 @@ const ProfilCreated: NextPage = () => {
             showStats={false}
             data={{ ...data, description: data?.bio }}
             isCollection={false}
+            isLoading={isProfileLoading}
           />
         </Box>
       </Container>
