@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Loader } from "../Loader";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -80,7 +79,7 @@ export const GenericTable = ({
       dataLength={data ? data?.length : 0}
       next={() => fetchNextPage && fetchNextPage()}
       hasMore={!!hasNextPage}
-      loader={<></>}
+      loader={loader}
     >
       <TableContainer>
         <Table variant={variant ? variant : "simple"}>
@@ -107,14 +106,14 @@ export const GenericTable = ({
             {isLoading && (
               <Tr>
                 <Td colSpan={columns?.length}>
-                  <Flex
+                  {/* <Flex
                     width="100%"
                     height="100%"
                     justifyContent="center"
                     alignItems="center"
-                  >
-                    <Loader />
-                  </Flex>
+                  > */}
+                  {loader}
+                  {/* </Flex> */}
                 </Td>
               </Tr>
             )}

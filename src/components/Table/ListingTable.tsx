@@ -3,6 +3,7 @@ import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { currencySymbol } from "../../constants";
 import NextImage from "next/image";
+import { ListingTableSkeletonLoader } from "../Seketons/Table/ListingTableSkeleton";
 
 export const ListingTable = ({
   data,
@@ -66,6 +67,7 @@ export const ListingTable = ({
       columns={columns}
       isLoading={isLoading}
       variant="borderLess"
+      loader={<ListingTableSkeletonLoader />}
     />
   );
 };

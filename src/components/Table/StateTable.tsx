@@ -9,6 +9,7 @@ import { QUERY_KEYS } from "../../hooks/queryKeys";
 import { useInfiniteQuery } from "../../hooks/useInfiniteQuery";
 import { useMutation } from "../../hooks/useMutation";
 import NextImage from "next/image";
+import { StateTableSkeletonLoader } from "../Seketons/Table/StateTableSkeleton";
 
 export const CollectionStatTable = ({
   type,
@@ -153,6 +154,7 @@ export const CollectionStatTable = ({
       hasNextPage={hasNextPage}
       isLoading={isLoading}
       tableName="stateTable"
+      loader={<StateTableSkeletonLoader />}
     />
   );
 };
