@@ -44,6 +44,7 @@ const Setting: NextPage = () => {
   const { account } = useWeb3React<Web3Provider>();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [allNotifications, setAllNotifications] = useState<any>([]);
 
   const { data: profile } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_PROFILE],
@@ -51,10 +52,17 @@ const Setting: NextPage = () => {
     token: true,
   });
 
-  const { data: getNotifSetting } = useQuery<any>({
+  const {
+    data: getNotifSetting,
+    isLoading: testLoading,
+    isFetching,
+  } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_NOTIF_SETTINGS],
     url: ApiUrl.GET_NOTIF_SETTINGS,
     token: true,
+    onSuccess: (res) => {
+      setAllNotifications(res);
+    },
   });
   const { mutate } = useMutation<profileType>({
     method: PATCH,
@@ -76,6 +84,9 @@ const Setting: NextPage = () => {
     showSuccessToast: true,
     token: true,
     successMessage: "Status changed successfully",
+    onSuccess: (res) => {
+      setAllNotifications(res?.data);
+    },
   });
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
     useMutation<UploadFileOnServer>({
@@ -591,8 +602,8 @@ const Setting: NextPage = () => {
                   >
                     <Form>
                       <Box borderRadius="6px" border="1px solid #6F6BF366">
-                        {getNotifSetting &&
-                          getNotifSetting?.map((items: any, index: any) => (
+                        {allNotifications &&
+                          allNotifications?.map((items: any, index: any) => (
                             <>
                               <FormControl m="0">
                                 <Flex
@@ -600,7 +611,7 @@ const Setting: NextPage = () => {
                                   justifyContent="space-between"
                                   p="24px"
                                   borderBottom={
-                                    index === getNotifSetting.length - 1
+                                    index === allNotifications.length - 1
                                       ? ""
                                       : "1px solid #35353533"
                                   }
@@ -626,12 +637,16 @@ const Setting: NextPage = () => {
                                   <Field name="switchField">
                                     {({ field }: { field: any }) => (
                                       <Switch
-                                        isDisabled={isLoading}
+                                        isDisabled={
+                                          isLoading
+                                            ? true
+                                            : isFetching
+                                            ? true
+                                            : false
+                                        }
                                         id="status"
                                         isChecked={items?.status}
                                         onChange={(e) => {
-                                          console.log(e);
-                                          e.preventDefault();
                                           save({
                                             id: items?.id,
                                             status:
@@ -639,11 +654,6 @@ const Setting: NextPage = () => {
                                                 ? false
                                                 : true,
                                           });
-                                          setTimeout(() => {
-                                            queryClient.invalidateQueries([
-                                              QUERY_KEYS.GET_NOTIF_SETTINGS,
-                                            ]);
-                                          }, 1000);
                                         }}
                                       />
                                     )}
