@@ -10,6 +10,7 @@ export const Layout = ({ children }: any) => {
     <>
       <Header onHeightChange={(h: any) => setHeight(h)} height={height} />
       <Box
+        style={{ transition: "margin-top 1s" }}
         marginTop={{
           base: height ? `${height + 10}px` : "110px",
           lg: "150px",
