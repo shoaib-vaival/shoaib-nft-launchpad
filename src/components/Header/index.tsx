@@ -688,6 +688,12 @@ export const Header = ({ onHeightChange, height }: any) => {
                 />
               </Box>
               <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
+              <Box 
+              className="drop_hover"
+                    onMouseLeave={onCloseMenu}
+                    onMouseEnter={onOpenMenu} 
+              
+              >
                 <Menu closeOnSelect={true}>
                   {!account ? null : (
                     <MenuButton
@@ -707,11 +713,8 @@ export const Header = ({ onHeightChange, height }: any) => {
                       onClick={onOpenMenu}
                     />
                   )}
-                  <MenuList
-                    w="191px"
-                    minW="191px"
-                    h="180px"
-                    p="16px 8px"
+                 <MenuList className="ope_menu" w="191px" minW="191px" h="180px" p="16px 8px" zIndex={0}
+                //  onMouseLeave={onCloseMenu}  
                     onMouseLeave={onCloseMenu}
                     boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
                   >
@@ -751,6 +754,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                     </MenuItem>
                   </MenuList>
                 </Menu>
+                </Box>
               </Box>
             </Stack>
           </Box>

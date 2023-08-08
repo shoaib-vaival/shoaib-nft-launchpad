@@ -41,6 +41,7 @@ type imagesType = {
 const Setting: NextPage = () => {
   const [coverImage, setCoverImage] = useState<imagesType>();
   const [profileImage, setProfileImage] = useState<imagesType>();
+  const[customLoading,setCustomLoading]=useState<boolean>(false)
   const { account } = useWeb3React<Web3Provider>();
   const queryClient = useQueryClient();
   const router = useRouter();
