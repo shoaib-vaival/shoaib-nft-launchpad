@@ -35,6 +35,7 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
+      
       '.slick-arrow-btn': {
         display: 'none!important',
         transition:'all .3s ease'
