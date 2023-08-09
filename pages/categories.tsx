@@ -211,7 +211,7 @@ const Categories: NextPage = () => {
                           color="white"
                           fontSize={{ base: "14px", md: "16px" }}
                         >
-                          {bannerCollection?.nftCount ?? 0} items
+                          {bannerCollection?.nftCount ?? 0} Items
                         </Text>
                         <Text
                           color="white"

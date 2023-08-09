@@ -49,13 +49,13 @@ export const FilterTabs = ({ tabsList, getTabIndex }: FilterTabs) => {
   };
   return (
     <>
-      <Tabs>
+      <Tabs >
         <Menu>
           <TabList
             pl="0"
             overflowX={{ base: "auto", md: "initial" }}
             overflowY={{ base: "hidden", md: "initial" }}
-            mx="17px"
+            mx={{base:'0',md:'17px'}}
             borderBottom={{
               base: "0px solid rgba(53, 53, 53, 0.2)",
               sm: "1px solid rgba(53, 53, 53, 0.2)",

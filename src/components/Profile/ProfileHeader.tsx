@@ -110,7 +110,7 @@ const ProfileHeader = ({
               h={{ base: "100px", md: "200px" }}
               position="absolute"
               bottom="-35%"
-              left="54px"
+              left={{base:'30px',sm:'54px'}}
               transform="translateY(-50%)"
             >
               {profilePhoto && (

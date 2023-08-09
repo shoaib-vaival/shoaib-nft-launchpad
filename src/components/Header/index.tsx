@@ -49,6 +49,7 @@ import { boolean } from "yup";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useRouter } from "next/router";
 import { profileType } from "../../types";
+import NextImage from "next/image";
 
 export const Header = ({ onHeightChange, height }: any) => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -81,6 +82,17 @@ export const Header = ({ onHeightChange, height }: any) => {
     isOpen: isOpenMenu,
     onOpen: onOpenMenu,
     onClose: onCloseMenu,
+  } = useDisclosure();
+   const {
+    isOpen: isOpenSMenu,
+    onOpen: onOpenSMenu,
+    onClose: onCloseSMenu,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenCMenu,
+    onOpen: onOpenCMenu,
+    onClose: onCloseCMenu,
   } = useDisclosure();
 
   useOutsideClick({
@@ -301,8 +313,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                     border="1px solid rgba(111, 107, 243, 0.4)"
                     backdropFilter="blur(30px)"
                     borderRadius="16px"
-                    padding="8px"
-                    pe={"0"}
+                    padding="12px 0px 8px 8px"
                     bg="white"
                     zIndex={"9"}
                     w={{ base: "100%", lg: "87%" }}
@@ -317,12 +328,13 @@ export const Header = ({ onHeightChange, height }: any) => {
                           width: "6px",
                         },
                         "&::-webkit-scrollbar-thumb": {
-                          background: "gray",
+                          background: "#d1d1d1",
                           borderRadius: "24px",
                         },
                       }}
                       maxH="400px"
                       overflowY="scroll"
+                      pr="6px"
                     >
                       {search.length <= 0 && recentSearch.length > 0 ? (
                         <Text mt="10px" pb="10px" fontSize="14px">
@@ -349,6 +361,9 @@ export const Header = ({ onHeightChange, height }: any) => {
                                   }}
                                   cursor="pointer"
                                   key={index}
+                                  _hover={{ bg: "gray.200" }}
+                                  padding="7px 2px 2px 10px"
+                                  borderRadius="8px"
                                 >
                                   <Flex
                                     justifyContent="space-between"
@@ -432,6 +447,9 @@ export const Header = ({ onHeightChange, height }: any) => {
                                 }}
                                 cursor="pointer"
                                 key={index}
+                                _hover={{ bg: "gray.200" }}
+                                padding="7px 2px 2px 10px"
+                                borderRadius="8px"
                               >
                                 <Flex
                                   alignItems="center"
@@ -532,8 +550,13 @@ export const Header = ({ onHeightChange, height }: any) => {
                   >
                     Explore
                   </Link>
-
-                  <Menu>
+                  <Box
+                    className="drop_hover"
+                    onMouseLeave={onCloseSMenu}
+                    onMouseEnter={onOpenSMenu}
+                    _before={{height:'40px', w:'75px'}}
+                  >
+                  <Menu isOpen={isOpenSMenu} closeOnSelect={true}>
                     <MenuButton
                       as={Button}
                       bg="transparent"
@@ -551,10 +574,13 @@ export const Header = ({ onHeightChange, height }: any) => {
                           <i className="icon-ChevronDown"></i>
                         </Box>
                       }
+                      onMouseEnter={onOpenSMenu}
+                      onClick={onOpenSMenu}
                     >
                       Stats
                     </MenuButton>
                     <MenuList
+                      className="ope_menu"
                       boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
                       textTransform="capitalize"
                       w="109px"
@@ -579,6 +605,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                       </MenuItem>
                     </MenuList>
                   </Menu>
+                  </Box>
                 </HStack>
               </Box>
 
@@ -595,7 +622,11 @@ export const Header = ({ onHeightChange, height }: any) => {
                   md: "initial",
                 }}
               >
-                <Menu autoSelect={false}>
+                {/* <Box
+                  className="drop_hover"
+                    onMouseLeave={onCloseCMenu}
+                    onMouseEnter={onOpenCMenu}> */}
+                <Menu autoSelect={false} >
                   <ConnectionModal
                     isOpen={isConnectionModalOpen}
                     onOpen={onConnectionModalOpen}
@@ -639,7 +670,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                     </MenuItem>
                   </MenuList>
                 </Menu>
-
+                {/* </Box> */}
                 {!account ? (
                   <Button
                     variant="secondary"
@@ -687,70 +718,100 @@ export const Header = ({ onHeightChange, height }: any) => {
                   }}
                 />
               </Box>
-              <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-                <Menu closeOnSelect={true}>
-                  {!account ? null : (
-                    <MenuButton
-                      fontSize="20px"
-                      color="#6F6BF3"
-                      bg="#FFFFFF"
-                      border="1px solid #6F6BF3"
-                      borderRadius="50px"
-                      height="40px"
-                      w="40px"
-                      as={IconButton}
-                      _hover={{ bg: "#6F6BF3", color: "#fff" }}
-                      _active={{ bg: "#6F6BF3", color: "#fff" }}
-                      icon={<i className="icon-vector"></i>}
-                      aria-label="Options"
-                      onMouseEnter={onOpenMenu}
-                      onClick={onOpenMenu}
-                    />
-                  )}
-                  <MenuList
-                    w="191px"
-                    minW="191px"
-                    h="180px"
-                    p="16px 8px"
-                    onMouseLeave={onCloseMenu}
-                    boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
-                  >
-                    <MenuItem
-                      as={NextLink}
-                      href="/profile-created"
-                      _hover={{ background: "gray.100", borderRadius: "4px" }}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
-                      as={NextLink}
-                      href="/collection/my-collection"
-                      _hover={{ background: "gray.100", borderRadius: "4px" }}
-                    >
-                      My Collection
-                    </MenuItem>
-                    <MenuItem
-                      as={NextLink}
-                      href="/setting"
-                      _hover={{ background: "gray.100", borderRadius: "4px" }}
-                    >
-                      Settings
-                    </MenuItem>
-
-                    <MenuItem
-                      _hover={{ background: "gray.100", borderRadius: "4px" }}
-                      onClick={(a) => {
-                        if (provider?.connection.url == "metamask") {
-                          disconnect("");
-                        } else {
-                          disconnectWalletConnect("");
+              <Box
+                // onMouseEnter={() => {console.log('open menu 1'); onOpenMenu()}}
+                // onMouseLeave={() => {console.log('close menu 1'); onCloseMenu()}}
+                order={{ base: "2", sm: "2", md: "3", lg: "6" }}
+              >
+                <Box
+                  className="drop_hover"
+                  onMouseLeave={onCloseMenu}
+                  onMouseEnter={onOpenMenu} >
+                  <Menu isOpen={isOpenMenu} closeOnSelect={true}>
+                    {!account && !isOpenMenu ? null : (
+                      <MenuButton
+                        className="dropdown_hover"
+                        fontSize="20px"
+                        color="#6F6BF3"
+                        bg="#FFFFFF"
+                        border="1px solid #6F6BF3"
+                        borderRadius="50px"
+                        height="40px"
+                        w="40px"
+                        as={IconButton}
+                        _hover={{ bg: "#6F6BF3", color: "#fff" }}
+                        _active={{ bg: "#6F6BF3", color: "#fff" }}
+                        _focusVisible={{ boxShadow: "none" }}
+                        icon={
+                          profileData?.profileUrl ? (
+                            <NextImage
+                              src={profileData?.profileUrl}
+                              alt="Profile Photo"
+                              layout="fill"
+                              objectFit="cover"
+                              objectPosition="center center"
+                              style={{
+                                borderRadius: "50px",
+                              }}
+                            />
+                          ) : (
+                            <i className="icon-vector"></i>
+                          )
                         }
-                      }}
+                        aria-label="Options"
+                        onMouseEnter={onOpenMenu}
+                        onClick={onOpenMenu}
+
+                        // onMouseLeave={onCloseMenu}
+                      />
+                    )}
+                    <MenuList
+                      className="ope_menu"
+                      w="191px"
+                      minW="191px"
+                      h="180px"
+                      p="16px 8px"
+                      zIndex={0}
+                      //  onMouseLeave={onCloseMenu}
+                      boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
                     >
-                      Logout
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
+                      <MenuItem
+                        as={NextLink}
+                        href="/profile-created"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem
+                        as={NextLink}
+                        href="/collection/my-collection"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        My Collection
+                      </MenuItem>
+                      <MenuItem
+                        as={NextLink}
+                        href="/setting"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        Settings
+                      </MenuItem>
+
+                      <MenuItem
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                        onClick={(a) => {
+                          if (provider?.connection.url == "metamask") {
+                            disconnect("");
+                          } else {
+                            disconnectWalletConnect("");
+                          }
+                        }}
+                      >
+                        Logout
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Box>
               </Box>
             </Stack>
           </Box>
