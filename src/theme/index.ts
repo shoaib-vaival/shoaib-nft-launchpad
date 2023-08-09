@@ -40,7 +40,7 @@ export const theme = extendTheme({
         display: 'none!important',
         transition:'all .3s ease'
       },
-      ".drop_hover::before": {
+      ".drop_hover::before ": {
        height:'100%',
        position: 'absolute',
        width:'50px',

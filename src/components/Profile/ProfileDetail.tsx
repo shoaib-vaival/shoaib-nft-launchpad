@@ -43,7 +43,7 @@ const ProfileDetail = ({
         >
           <Flex alignItems="center" mr={{ base: "0", lg: "50px" }}>
             <Skeleton isLoaded={!isLoading}>
-              <Heading as="h4" fontSize={{ base: "26px", md: "32px" }}>
+              <Heading as="h4" fontSize={{ base: "26px", md: "32px" }} mr="12px">
                 {data?.displayName || data?.name}
               </Heading>
             </Skeleton>
@@ -55,7 +55,7 @@ const ProfileDetail = ({
               ""
             )}
           </Flex>
-          <Box>
+          <Box >
             {!isCollection ? (
               <CopyWalletAddress value={data?.walletAddress} />
             ) : (

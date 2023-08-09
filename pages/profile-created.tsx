@@ -346,7 +346,7 @@ const ProfilCreated: NextPage = () => {
               </TabPanel>
 
               <TabPanel p={0}>
-                <Box>
+                <Box mb='20px'>
                   {data?.collections && data.collections?.length <= 0 ? (
                     ""
                   ) : (

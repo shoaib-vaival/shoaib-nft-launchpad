@@ -557,7 +557,7 @@ const CreateCollection = () => {
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
                           <Flex
-                            gap={{ base: "0", sm: "6" }}
+                            gap={{ base: "0", sm: "4",md:'6' }}
                             alignItems={{
                               base: "flex-start",
                               sm: "baseline",
@@ -638,18 +638,18 @@ const CreateCollection = () => {
                                 />
                               </Text>
                             </Box>
-                            <Box ml={3}>
+                            <Box  display={index > 0 ? "inline-block" : "none"}ml='0' mt={{base:'3',sm:'0'}}>
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
                                 mb={{ base: "10px", sm: "-80px" }}
-                                ml={{ base: "0", sm: "10px" }}
+                                ml='0'
                                 type="button"
                                 color="#6863F3"
                                 border="1px solid #6863F3"
                                 onClick={() => remove(index)}
                                 icon={<i className="icon-remove"></i>}
-                                visibility={index > 0 ? "visible" : "hidden"}
+                                display={index > 0 ? "inline-block" : "none"}
                               />
                             </Box>
                           </Flex>
