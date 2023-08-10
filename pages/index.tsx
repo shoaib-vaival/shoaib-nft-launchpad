@@ -11,7 +11,7 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useStoreActions, useStoreState } from "easy-peasy";
@@ -20,12 +20,13 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import TabsSkeleton from "../src/components/Seketons/Tabs";
 import CardCollectionSkeleton from "../src/components/Seketons/Collection";
 
-import { Banner }  from "../src/components/Banner";
-const FilterTabs = dynamic(() =>
-import('../src/components/FilterTabs').then((mod) => mod.FilterTabs), {
-  loading: () => <TabsSkeleton />,
-}
-)
+import { Banner } from "../src/components/Banner";
+const FilterTabs = dynamic(
+  () => import("../src/components/FilterTabs").then((mod) => mod.FilterTabs),
+  {
+    loading: () => <TabsSkeleton />,
+  }
+);
 import { useQuery } from "../src/hooks/useQuery";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { ApiUrl } from "../src/apis/apiUrl";
@@ -33,25 +34,43 @@ import { categoriesType } from "../src/types";
 import { dashboardApiType } from "../src/types/response.type";
 
 const HorizentalButtonFilter = dynamic(() =>
-import('../src/components/HorizentalButtonFilters').then((mod) => mod.HorizentalButtonFilter))
+  import("../src/components/HorizentalButtonFilters").then(
+    (mod) => mod.HorizentalButtonFilter
+  )
+);
 import { timeFilterOptions } from "../src/constants";
 import FeaturedCollections from "../src/components/FeaturedCollections";
-const DashboardCollections = dynamic(() => import('../src/components/DashboardCollections'));
+const DashboardCollections = dynamic(
+  () => import("../src/components/DashboardCollections")
+);
 const TopTenTable = dynamic(() =>
-import('../src/components/Table/TopTenTable').then((mod) => mod.TopTenTable));
+  import("../src/components/Table/TopTenTable").then((mod) => mod.TopTenTable)
+);
 
 const Home: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const filters = ["trending", "top"];
   const [day, setDay] = useState<string>("30");
-  const collectionState = useStoreState((state: any) => state?.collectionObj?.CollectionObj);
-  const collectionAction = useStoreActions((actions: any) => actions.collectionObj.add);
+  const collectionState = useStoreState(
+    (state: any) => state?.collectionObj?.CollectionObj
+  );
+  const collectionAction = useStoreActions(
+    (actions: any) => actions.collectionObj.add
+  );
 
   const { data, isLoading } = useQuery<dashboardApiType>({
     queryKey: [QUERY_KEYS.GET_DASHBOARD_COLLECTIONS],
     url: ApiUrl.GET_DASHBOARD_COLLECTION,
     showToast: false,
-    onSuccess: (data) => collectionAction({dashboardData: data?.recent?.concat(data?.recent, data?.featured, data?.trending, data?.trendingInArt)})
+    onSuccess: (data) =>
+      collectionAction({
+        dashboardData: data?.recent?.concat(
+          data?.recent,
+          data?.featured,
+          data?.trending,
+          data?.trendingInArt
+        ),
+      }),
   });
 
   const { data: categories, isLoading: isLoadingBrowsByCat } = useQuery<
@@ -70,14 +89,17 @@ const Home: NextPage = () => {
       type: filters[tabIndex],
       day: day,
     },
-    onSuccess: (data)=> collectionAction({dashboardData: collectionState?.dashboardData?.concat(data)})
+    onSuccess: (data) =>
+      collectionAction({
+        dashboardData: collectionState?.dashboardData?.concat(data),
+      }),
   });
 
   return (
     <>
       <Box position="relative">
         <Box
-          bgImage="/assets/images/bg-lines.png"
+          bgImage="url(https://nft-launchpad.b-cdn.net/bg-lines.png)"
           position="absolute"
           left="0"
           right="0"
@@ -214,7 +236,7 @@ const Home: NextPage = () => {
           </Button>
         </Flex>
         {isLoadingBrowsByCat ? (
-            <CardCollectionSkeleton />
+          <CardCollectionSkeleton />
         ) : (
           <FilterTabs
             tabsList={categories}
@@ -222,9 +244,21 @@ const Home: NextPage = () => {
           />
         )}
       </Container>
-      <DashboardCollections isLoading={isLoading} data={data?.trending} headingTxt="Trending Collections"/>
-      <DashboardCollections isLoading={isLoading} data={data?.trendingInArt} headingTxt="Trending in Art"/>
-      <DashboardCollections isLoading={isLoading} data={data?.recent} headingTxt="Recent Collections"/>
+      <DashboardCollections
+        isLoading={isLoading}
+        data={data?.trending}
+        headingTxt="Trending Collections"
+      />
+      <DashboardCollections
+        isLoading={isLoading}
+        data={data?.trendingInArt}
+        headingTxt="Trending in Art"
+      />
+      <DashboardCollections
+        isLoading={isLoading}
+        data={data?.recent}
+        headingTxt="Recent Collections"
+      />
     </>
   );
 };

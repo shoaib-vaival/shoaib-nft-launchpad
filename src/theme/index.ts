@@ -57,7 +57,7 @@ export const theme = extendTheme({
       },
       body: {
         color: colors.black,
-        backgroundImage: 'url("/assets/images/bg.webp")',
+        backgroundImage: 'url("https://nft-launchpad.b-cdn.net/bg.webp")',
         backgroundSize: "cover",
       },
       ".ErrorMessage": {

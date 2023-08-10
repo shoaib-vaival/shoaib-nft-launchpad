@@ -30,7 +30,11 @@ import { useDebounce } from "../src/hooks/useDebounce";
 import { useInfiniteQuery } from "../src/hooks/useInfiniteQuery";
 import { useQuery } from "../src/hooks/useQuery";
 import { collectionType, filters, nftType, profileType } from "../src/types";
-import { convertPropertyObject, convertToQueryParam } from "../src/utils";
+import {
+  convertPropertyObject,
+  convertToQueryParam,
+  getFromLocalStorage,
+} from "../src/utils";
 import { GridView } from "../src/views/GridView";
 import ListView from "../src/views/ListView";
 import { DrawerFilter } from "./../src/components/SidebarFilter/DrawerFilter";
@@ -82,10 +86,12 @@ const ProfilCreated: NextPage = () => {
   useEffect(() => {
     setFilters({ ...filters, search: debounceValue });
   }, [debounceValue]);
+  const token = getFromLocalStorage("accessToken");
   const { data, isLoading: isProfileLoading } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_USER],
     url: ApiUrl.GET_USER,
     token: true,
+    enabled: token ? true : false,
   });
   const { data: userCollections, isLoading: isLoadingUserCollection } =
     useQuery<collectionType[]>({
@@ -346,7 +352,7 @@ const ProfilCreated: NextPage = () => {
               </TabPanel>
 
               <TabPanel p={0}>
-                <Box mb='20px'>
+                <Box mb="20px">
                   {data?.collections && data.collections?.length <= 0 ? (
                     ""
                   ) : (

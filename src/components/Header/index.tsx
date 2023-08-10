@@ -83,7 +83,7 @@ export const Header = ({ onHeightChange, height }: any) => {
     onOpen: onOpenMenu,
     onClose: onCloseMenu,
   } = useDisclosure();
-   const {
+  const {
     isOpen: isOpenSMenu,
     onOpen: onOpenSMenu,
     onClose: onCloseSMenu,
@@ -108,11 +108,13 @@ export const Header = ({ onHeightChange, height }: any) => {
   const queryClient = useQueryClient();
 
   const { account, provider } = useWeb3React();
-
+  const token = getFromLocalStorage("accessToken");
+  console.log(getFromLocalStorage("accessToken"));
   const { data: profileData } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_USER],
     url: ApiUrl.GET_USER,
     token: true,
+    enabled: token ? true : false,
   });
   // console.log("🚀 PROFILE DATA", profileData);
   const { mutate } = useMutation<any>({
@@ -554,57 +556,63 @@ export const Header = ({ onHeightChange, height }: any) => {
                     className="drop_hover"
                     onMouseLeave={onCloseSMenu}
                     onMouseEnter={onOpenSMenu}
-                    _before={{height:'40px', w:'75px'}}
+                    _before={{ height: "40px", w: "75px" }}
                   >
-                  <Menu isOpen={isOpenSMenu} closeOnSelect={true}>
-                    <MenuButton
-                      as={Button}
-                      bg="transparent"
-                      _active={{ bg: "transparent", color: "#6863f3" }}
-                      _focusVisible={{ boxShadow: "transparent" }}
-                      p={{ base: "0 0 8px 0", md: "0" }}
-                      h="auto"
-                      fontWeight="500"
-                      lineHeight="1.5"
-                      _hover={{ bg: "transparent" }}
-                      textTransform="uppercase"
-                      fontSize={{ base: "15px", xl: "16px" }}
-                      rightIcon={
-                        <Box fontSize="8px">
-                          <i className="icon-ChevronDown"></i>
-                        </Box>
-                      }
-                      onMouseEnter={onOpenSMenu}
-                      onClick={onOpenSMenu}
-                    >
-                      Stats
-                    </MenuButton>
-                    <MenuList
-                      className="ope_menu"
-                      boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
-                      textTransform="capitalize"
-                      w="109px"
-                      minW="109px"
-                      p=" 8px 8px"
-                    >
-                      <MenuItem
-                        as={NextLink}
-                        p="8px 16px 8px 8px"
-                        href="/collection/state"
-                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                    <Menu isOpen={isOpenSMenu} closeOnSelect={true}>
+                      <MenuButton
+                        as={Button}
+                        bg="transparent"
+                        _active={{ bg: "transparent", color: "#6863f3" }}
+                        _focusVisible={{ boxShadow: "transparent" }}
+                        p={{ base: "0 0 8px 0", md: "0" }}
+                        h="auto"
+                        fontWeight="500"
+                        lineHeight="1.5"
+                        _hover={{ bg: "transparent" }}
+                        textTransform="uppercase"
+                        fontSize={{ base: "15px", xl: "16px" }}
+                        rightIcon={
+                          <Box fontSize="8px">
+                            <i className="icon-ChevronDown"></i>
+                          </Box>
+                        }
+                        onMouseEnter={onOpenSMenu}
+                        onClick={onOpenSMenu}
                       >
-                        Ranking
-                      </MenuItem>
-                      <MenuItem
-                        as={NextLink}
-                        p="8px 16px 8px 8px"
-                        href="/activity"
-                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                        Stats
+                      </MenuButton>
+                      <MenuList
+                        className="ope_menu"
+                        boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                        textTransform="capitalize"
+                        w="109px"
+                        minW="109px"
+                        p=" 8px 8px"
                       >
-                        Activity
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
+                        <MenuItem
+                          as={NextLink}
+                          p="8px 16px 8px 8px"
+                          href="/collection/state"
+                          _hover={{
+                            background: "gray.100",
+                            borderRadius: "4px",
+                          }}
+                        >
+                          Ranking
+                        </MenuItem>
+                        <MenuItem
+                          as={NextLink}
+                          p="8px 16px 8px 8px"
+                          href="/activity"
+                          _hover={{
+                            background: "gray.100",
+                            borderRadius: "4px",
+                          }}
+                        >
+                          Activity
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
                   </Box>
                 </HStack>
               </Box>
@@ -626,7 +634,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                   className="drop_hover"
                     onMouseLeave={onCloseCMenu}
                     onMouseEnter={onOpenCMenu}> */}
-                <Menu autoSelect={false} >
+                <Menu autoSelect={false}>
                   <ConnectionModal
                     isOpen={isConnectionModalOpen}
                     onOpen={onConnectionModalOpen}
@@ -726,7 +734,8 @@ export const Header = ({ onHeightChange, height }: any) => {
                 <Box
                   className="drop_hover"
                   onMouseLeave={onCloseMenu}
-                  onMouseEnter={onOpenMenu} >
+                  onMouseEnter={onOpenMenu}
+                >
                   <Menu isOpen={isOpenMenu} closeOnSelect={true}>
                     {!account && !isOpenMenu ? null : (
                       <MenuButton
