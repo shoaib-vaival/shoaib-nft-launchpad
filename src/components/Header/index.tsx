@@ -622,11 +622,11 @@ export const Header = ({ onHeightChange, height }: any) => {
                   md: "initial",
                 }}
               >
-                {/* <Box
+                <Box w={{base:'100%',md:'initial'}}
                   className="drop_hover"
                     onMouseLeave={onCloseCMenu}
-                    onMouseEnter={onOpenCMenu}> */}
-                <Menu autoSelect={false} >
+                    onMouseEnter={onOpenCMenu}>
+                <Menu autoSelect={false} isOpen={isOpenCMenu} closeOnSelect={true}>
                   <ConnectionModal
                     isOpen={isConnectionModalOpen}
                     onOpen={onConnectionModalOpen}
@@ -644,6 +644,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                       h="42px"
                       w={{ base: "full", sm: "50%", md: "75%", xl: "100px" }}
                       size="md"
+                      _hover={{transform:'none'}}
                     >
                       Create
                     </MenuButton>
@@ -670,7 +671,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                     </MenuItem>
                   </MenuList>
                 </Menu>
-                {/* </Box> */}
+                </Box>
                 {!account ? (
                   <Button
                     variant="secondary"
@@ -771,7 +772,7 @@ export const Header = ({ onHeightChange, height }: any) => {
                       minW="191px"
                       h="180px"
                       p="16px 8px"
-                      zIndex={0}
+                      zIndex={1}
                       //  onMouseLeave={onCloseMenu}
                       boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
                     >
