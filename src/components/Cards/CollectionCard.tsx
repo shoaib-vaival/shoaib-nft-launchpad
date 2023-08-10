@@ -1,19 +1,14 @@
 import {
   Card,
   CardBody,
-  Image,
   Stack,
   Heading,
   Text,
-  Divider,
   CardFooter,
-  ButtonGroup,
   Button,
   SimpleGrid,
   Box,
   Container,
-  Flex,
-  transition,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -30,12 +25,10 @@ const CollectionCard = ({
   price,
   isShowFeatureImage,
   isShowLogoImage,
-  isShowBody,
   height,
   isEditAble,
   key,
   nftCollectionId,
-  isEditable,
   identifier,
 }: collectionCardProps) => {
   const router = useRouter();
@@ -46,92 +39,88 @@ const CollectionCard = ({
   const onOut = () => {
     setIsVisible(false);
   };
-  if (type === "withBody") {
-    return (
-      <div>
-        <Container py="12px" px={{ base: "0", sm: "12px" }} key={key}>
-          <Box>
-            <Card
-            _hover={{transform:'translateY(-10px)',boxShadow:'0px 10px 15px gray', transition:'all .3s linear'}}
-              maxH={{ base: "359px", xl: "459px" }}
-              overflow="hidden"
+
+  return (
+    <>
+      <Container py="12px" px={{ base: "0", sm: "12px" }} key={key}>
+        <Box>
+          <Card
+            _hover={{
+              transform: "translateY(-10px)",
+              boxShadow: "0px 10px 15px gray",
+              transition: "all .3s linear",
+            }}
+            maxH={{ base: "359px", xl: "459px" }}
+            overflow="hidden"
+            justifyContent="center"
+            p={{ base: "0!important", sm: "12px" }}
+            onMouseOver={onOver}
+            onMouseOut={onOut}
+            h={height}
+          >
+            <CardBody
+              display="flex"
+              flexDirection="column"
               justifyContent="center"
-              p={{ base: "0!important", sm: "12px" }}
-              onMouseOver={onOver}
-              onMouseOut={onOut}
-              h={height}
             >
-              <CardBody
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
+              <Box
+                position="relative"
+                height={{ base: "225px", md: "250px", xl: "342px" }}
+                w="100%"
+                transform={
+                  isVisible && isEditAble
+                    ? "translate(0px, -25px)"
+                    : "translate(0px, 0px)"
+                }
+                transition=".2s ease-in-out"
               >
-                <Box
-                  position="relative"
-                  height={{ base: "225px", md: "250px", xl: "342px" }}
-                  w="100%"
-                  transform={
-                    isVisible && isEditAble
-                      ? "translate(0px, -25px)"
-                      : "translate(0px, 0px)"
-                  }
-                  transition=".2s ease-in-out"
-                >
-                  {isShowFeatureImage && (
+                {isShowFeatureImage && (
+                  <NextImage
+                    src={featureImage ? featureImage : ""}
+                    alt="Picture of the author"
+                    objectFit="cover"
+                    layout="fill"
+                    loading="lazy"
+                  />
+                )}
+
+                {isShowLogoImage && (
+                  <Box
+                    position="absolute"
+                    bottom="-16px"
+                    left="24px"
+                    border="1px solid #fff"
+                    borderRadius="16px"
+                    w={88}
+                    h={88}
+                  >
                     <NextImage
-                      src={featureImage ? featureImage : ""}
+                      src={
+                        logoImage
+                          ? logoImage
+                          : "/assets/images/RectangleCardImg.png"
+                      }
                       alt="Picture of the author"
                       objectFit="cover"
                       layout="fill"
                       loading="lazy"
                     />
-                    // <Image
-                    //   as={NextImage}
-                    //   src={featureImage}
-                    //   alt="Green double couch with wooden legs"
-                    //   borderRadius="lg"
-                    //   width="100%"
-                    //   height="100%"
-                    //   objectFit="cover"
-                    // />
-                  )}
-
-                  {isShowLogoImage && (
-                    <Box
-                      position="absolute"
-                      bottom="-16px"
-                      left="24px"
-                      border="1px solid #fff"
-                      borderRadius="16px"
-                      w={88}
-                      h={88}
-                    >
-                      <NextImage
-                        src={
-                          logoImage
-                            ? logoImage
-                            : "/assets/images/RectangleCardImg.png"
-                        }
-                        alt="Picture of the author"
-                        objectFit="cover"
-                        layout="fill"
-                        loading="lazy"
-                      />
-                      {/* <LazyLoadImage
-                        alt="Green double couch with wooden legs"
-                        effect="blur"
-                        src={
-                          logoImage
-                            ? logoImage
-                            : "/assets/images/RectangleCardImg.png"
-                        }
-                        w="100%"
-                        h="100%"
-                        delayTime="3000"
-                      /> */}
-                    </Box>
-                  )}
+                  </Box>
+                )}
+              </Box>
+              {type !== "withBody" && (
+                <Box
+                  position="absolute"
+                  bottom="32px"
+                  px={{ base: "16px", md: "32px" }}
+                  w="100%"
+                >
+                  <Heading fontSize="20px" fontWeight="700" color="white">
+                    {name}
+                  </Heading>
                 </Box>
+              )}
+              {type === "withBody" && (
                 <Stack
                   pt="24px"
                   spacing="3"
@@ -170,7 +159,9 @@ const CollectionCard = ({
                     </Box>
                   </SimpleGrid>
                 </Stack>
-              </CardBody>
+              )}
+            </CardBody>
+            {type === "withBody" && (
               <CardFooter
                 transition=".4s"
                 h={isVisible && isEditAble ? "auto" : "0"}
@@ -203,69 +194,12 @@ const CollectionCard = ({
                   ""
                 )}
               </CardFooter>
-            </Card>
-          </Box>
-        </Container>
-      </div>
-    );
-  }
-  if (type === "withoutBody") {
-    return (
-      <Container py="12px" px={{ base: "0", sm: "12px" }}>
-        <Card
-          maxW="sm"
-          justifyContent="center"
-          overflow="hidden"
-          p={{ base: "0!important", sm: "12px" }}
-          _hover={{transform:'translateY(-10px)',boxShadow:'0px 10px 15px gray', transition:'all .3s linear'}}
-        >
-          <CardBody
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box
-              position="relative"
-              height={{ base: "225px", md: "250px", xl: "342px" }}
-              maxW="100%"
-              w="100%"
-            >
-              {isShowFeatureImage && (
-                <NextImage
-                  src={featureImage ? featureImage : ""}
-                  alt="Picture of the author"
-                  objectFit="cover"
-                  layout="fill"
-                  loading="lazy"
-                  onLoadingComplete={(img) => console.log("image", img)}
-                />
-                // <Image
-                //   src={featureImage}
-                //   alt="Green double couch with wooden legs"
-                //   borderRadius="lg"
-                //   w="100%"
-                //   h="100%"
-                //   objectFit="cover"
-                // />
-              )}
-              <Box
-                position="absolute"
-                bottom="32px"
-                px={{ base: "16px", md: "32px" }}
-                w="100%"
-              >
-                <Heading fontSize="20px" fontWeight="700" color="white">
-                  {name}
-                </Heading>
-              </Box>
-            </Box>
-          </CardBody>
-        </Card>
+            )}
+          </Card>
+        </Box>
       </Container>
-    );
-  }
-  return <></>;
+    </>
+  );
 };
 
 export default CollectionCard;

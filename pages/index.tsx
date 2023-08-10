@@ -1,8 +1,3 @@
-import type { NextPage } from "next";
-import dynamic from 'next/dynamic';
-import React, { useState, ComponentType } from "react";
-import Link from "next/link";
-
 import {
   Container,
   Heading,
@@ -15,24 +10,35 @@ import {
   TabPanels,
   TabPanel,
 } from "@chakra-ui/react";
+import type { NextPage } from "next";
+import dynamic from 'next/dynamic';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useStoreActions, useStoreState } from "easy-peasy";
+
 // skeletons
 import TabsSkeleton from "../src/components/Seketons/Tabs";
 import CardCollectionSkeleton from "../src/components/Seketons/Collection";
-import CardWOBodyCollectionSkeleton from "../src/components/Seketons/Collection/WithOutBody";
 
 import { Banner }  from "../src/components/Banner";
-import { SlickSlider }  from "../src/components/ReactSlick";
-import { FilterTabs } from "../src/components/FilterTabs";
+const FilterTabs = dynamic(() =>
+import('../src/components/FilterTabs').then((mod) => mod.FilterTabs), {
+  loading: () => <TabsSkeleton />,
+}
+)
 import { useQuery } from "../src/hooks/useQuery";
 import { QUERY_KEYS } from "../src/hooks/queryKeys";
 import { ApiUrl } from "../src/apis/apiUrl";
-import { categoriesType, collectionType } from "../src/types";
+import { categoriesType } from "../src/types";
 import { dashboardApiType } from "../src/types/response.type";
-import  { HorizentalButtonFilter }  from "../src/components/HorizentalButtonFilters";
-import CollectionCard from "../src/components/Cards/CollectionCard";
+
+const HorizentalButtonFilter = dynamic(() =>
+import('../src/components/HorizentalButtonFilters').then((mod) => mod.HorizentalButtonFilter))
 import { timeFilterOptions } from "../src/constants";
-import { TopTenTable }  from "../src/components/Table/TopTenTable";
-import { useStoreActions, useStoreState } from "easy-peasy";
+import FeaturedCollections from "../src/components/FeaturedCollections";
+const DashboardCollections = dynamic(() => import('../src/components/DashboardCollections'));
+const TopTenTable = dynamic(() =>
+import('../src/components/Table/TopTenTable').then((mod) => mod.TopTenTable));
 
 const Home: NextPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -68,7 +74,7 @@ const Home: NextPage = () => {
   });
 
   return (
-    <div>
+    <>
       <Box position="relative">
         <Box
           bgImage="/assets/images/bg-lines.png"
@@ -88,35 +94,8 @@ const Home: NextPage = () => {
         </Container>
       </Box>
 
-      <Container
-        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-        mt={{ base: "40px", lg: "80px" }}
-      >
-        <Heading
-          px={{ base: "0", md: "12px" }}
-          fontSize={{ base: "24px", md: "36px", xl: "48px" }}
-        >
-          Featured Collections
-        </Heading>
-        {isLoading && data === undefined ? (
-          <CardWOBodyCollectionSkeleton />
-        ) : (
-          <SlickSlider>
-            {data?.featured &&
-              data?.featured.map((item: collectionType, index: number) => (
-                <Link href={`collection/${item?.id}`} key={index}>
-                  <CollectionCard
-                    type="withoutBody"
-                    featureImage={item?.logoImageUrl}
-                    isShowFeatureImage={true}
-                    isShowLogoImage={false}
-                    name={item?.name}
-                  />
-                </Link>
-              ))}
-          </SlickSlider>
-        )}
-      </Container>
+      <FeaturedCollections isLoading={isLoading} data={data?.featured} />
+
       <Container
         maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
         mt={{ base: "40px", lg: "80px" }}
@@ -235,10 +214,7 @@ const Home: NextPage = () => {
           </Button>
         </Flex>
         {isLoadingBrowsByCat ? (
-          <>
-            <TabsSkeleton />
             <CardCollectionSkeleton />
-          </>
         ) : (
           <FilterTabs
             tabsList={categories}
@@ -246,123 +222,10 @@ const Home: NextPage = () => {
           />
         )}
       </Container>
-      <Container
-        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-        mt={{ base: "40px", lg: "80px" }}
-      >
-        <Flex
-          justifyContent="space-between"
-          alignItems="center"
-          mb={{ base: "20px", lg: "40px" }}
-          px={{ base: "0", md: "12px" }}
-        >
-          <Heading fontSize={{ base: "24px", md: "36px", xl: "48px" }}>
-            Trending Collections
-          </Heading>
-          <Button
-            p={{ base: "15px", md: "20px 32px" }}
-            as={Link}
-            href="/categories"
-            variant="primary"
-            textTransform="uppercase"
-          >
-            View All
-          </Button>
-        </Flex>
-        {isLoading && data === undefined ? (
-          <CardCollectionSkeleton />
-        ) : (
-          <SlickSlider>
-            {data?.trending?.map((item: collectionType, index: number) => {
-              return (
-                <Link href={`collection/${item?.id}`} key={index}>
-                  <CollectionCard
-                    type="withBody"
-                    featureImage={item?.logoImageUrl}
-                    isShowFeatureImage={true}
-                    isShowLogoImage={false}
-                    name={item.name}
-                  />
-                </Link>
-              );
-            })}
-          </SlickSlider>
-        )}
-      </Container>
-      <Container
-        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-        mt={{ base: "40px", lg: "80px" }}
-      >
-        <Flex
-          justifyContent="space-between"
-          alignItems="center"
-          mb={{ base: "20px", lg: "40px" }}
-          px={{ base: "0", md: "12px" }}
-        >
-          <Heading fontSize={{ base: "24px", md: "36px", xl: "48px" }}>
-            Trending in Art
-          </Heading>
-          <Button
-            p={{ base: "15px", md: "20px 32px" }}
-            as={Link}
-            href="/categories"
-            variant="primary"
-            textTransform="uppercase"
-          >
-            View All
-          </Button>
-        </Flex>
-        {isLoading && data === undefined ? (
-          <CardCollectionSkeleton />
-        ) : (
-          <SlickSlider>
-            {data?.trendingInArt?.map((item: collectionType, index: number) => {
-              return (
-                <Link href={`collection/${item?.id}`} key={index}>
-                  <CollectionCard
-                    type="withBody"
-                    featureImage={item.logoImageUrl}
-                    isShowFeatureImage={true}
-                    isShowLogoImage={false}
-                    name={item.name}
-                  />
-                </Link>
-              );
-            })}
-          </SlickSlider>
-        )}
-      </Container>
-      <Container
-        maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
-        mt={{ base: "40px", lg: "80px" }}
-      >
-        <Heading
-          fontSize={{ base: "24px", md: "36px", xl: "48px" }}
-          px={{ base: "0", md: "12px" }}
-        >
-          Recent Collections
-        </Heading>
-        {isLoading && data === undefined ? (
-          <CardCollectionSkeleton />
-        ) : (
-          <SlickSlider>
-            {data?.recent?.map((item: collectionType, index: number) => {
-              return (
-                <Link href={`collection/${item?.id}`} key={index}>
-                  <CollectionCard
-                    type="withBody"
-                    featureImage={item.logoImageUrl}
-                    isShowFeatureImage={true}
-                    isShowLogoImage={false}
-                    name={item.name}
-                  />
-                </Link>
-              );
-            })}
-          </SlickSlider>
-        )}
-      </Container>
-    </div>
+      <DashboardCollections isLoading={isLoading} data={data?.trending} headingTxt="Trending Collections"/>
+      <DashboardCollections isLoading={isLoading} data={data?.trendingInArt} headingTxt="Trending in Art"/>
+      <DashboardCollections isLoading={isLoading} data={data?.recent} headingTxt="Recent Collections"/>
+    </>
   );
 };
 
