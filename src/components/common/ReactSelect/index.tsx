@@ -16,10 +16,9 @@ const MultiValueRemove = (props: any) => {
     </components.MultiValueRemove>
   );
 };
-const hoverEffect={
-  ':hover':{ background: "gray.100",
-   borderRadius: "4px" }
-}
+const hoverEffect = {
+  ":hover": { background: "gray.100", borderRadius: "4px" },
+};
 
 const ReactSelect = ({
   options,
@@ -33,13 +32,14 @@ const ReactSelect = ({
   nftDesc,
   setNftDesc,
   defaultValue,
+  isSearchable,
 }: ReactSelectPropsTypes) => {
   const [value, setValue] = useState<customTypes | null | undefined>(
     () => defaultValue || null
-    );
-    const [isSelected, setIsselected] = useState<boolean>(true);
-    
-    const handleChangeCategory = (cat: any) => {
+  );
+  const [isSelected, setIsselected] = useState<boolean>(true);
+
+  const handleChangeCategory = (cat: any) => {
     setIsselected(false);
     getSelectedData(cat, identifier);
     setValue(cat);
@@ -48,12 +48,12 @@ const ReactSelect = ({
     nftName && setNftName(nftName);
     nftDesc && setNftDesc(nftDesc);
   };
-  
+
   useEffect(() => {
     isSelected && setValue(defaultValue);
     // identifier == "tag" && getSelectedData("tag", identifier);
   }, [defaultValue]);
-  
+
   return (
     <>
       {label && (
@@ -61,31 +61,65 @@ const ReactSelect = ({
           <FormLabel>{label}</FormLabel>
         </Flex>
       )}
-      <Select {...hoverEffect}
+      <Select
+      required
+        {...hoverEffect}
         isClearable
         isMulti={isMultiple}
         onChange={(newValue) => handleChangeCategory(newValue)}
         options={options}
         value={value}
         placeholder={placeholder}
+        isSearchable={isSearchable}
+        // className='react_select'
+       
         styles={{
+          menuList: (baseStyles, state) => ({
+            ...baseStyles,
+            
+            paddingLeft: "12px",
+            paddingRight: "8px",
+            maxHeight: '300px', // Set the maximum height for the menu
+            overflowY:'scroll',
+            '&::-webkit-scrollbar':{
+              width:'4px',
+            },
+        
+            '&::-webkit-scrollbar-track':{
+              width: '12px',
+              
+            },
+        
+            '&::-webkit-scrollbar-thumb':{
+              background: '#d1d1d1',
+              borderRadius: '24px',
+            },
+          }),
+            menu: (baseStyles, state) => ({
+            ...baseStyles,
+            paddingTop:'12px',
+            paddingBottom:'12px'
+          }),
+          
           indicatorsContainer: (baseStyles, state) => ({
             ...baseStyles,
             cursor: "pointer",
             ":focus": { border: "1px solid #6863F3" },
+            
           }),
           option: (baseStyles, state) => ({
             ...baseStyles,
             cursor: "pointer",
-            background: state?.isFocused
-            ? "#edf2f7"
-            : undefined,
+            background: state?.isFocused ? "#edf2f7" : undefined,
+            
+            borderRadius:'4px',
           }),
           control: (baseStyles, state) => ({
             ...baseStyles,
             borderColor: state.isFocused ? "#6863F3" : "#6f6bf366",
             padding: "0.07rem",
             boxShadow: "none",
+            color:'#393f5994',
             width: "100%",
             borderRadius: "6px",
             ":hover": { border: "1.5px solid #6863F3" },
@@ -114,7 +148,7 @@ const ReactSelect = ({
           }),
           multiValueRemove: (styles, { data }) => ({
             ...styles,
-            color: "#393F59",
+            color: "#393f5994",
 
             ":hover": {
               backgroundColor: "transparent!important",

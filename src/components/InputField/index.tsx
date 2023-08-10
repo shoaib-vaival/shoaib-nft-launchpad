@@ -90,13 +90,13 @@ const InputField = ({
           _placeholder={
             type === "password"
               ? {
-                  color: "gray.500",
+                  color: "#393f5994",
                   position: "absolute",
                   top: "12px",
                   fontWeight: "500",
                 }
               : {
-                  color: "gray.500",
+                  color: "#393f5994",
                 }
           }
           {...restProps}

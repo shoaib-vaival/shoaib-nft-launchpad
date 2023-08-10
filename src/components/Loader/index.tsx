@@ -13,7 +13,7 @@ export const Loader = () => {
 export const CustomLoader = () => {
   return (
     <>
-      <Box w={'100%'} h={'100vh'} position={'fixed'} top='0' bottom='100%' bg={'#feedfc'} zIndex={'1'}>
+      <Box w={'100%'} h={'100vh'} position={'fixed'} top='0' bottom='100%' bg={'#feedfc'} zIndex={'9999'}>
         <Box
           position="fixed"
           top="50%"

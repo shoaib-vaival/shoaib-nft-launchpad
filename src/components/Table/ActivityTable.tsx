@@ -3,6 +3,7 @@ import { Flex, Heading, Text, VStack, Box } from "@chakra-ui/layout";
 import { GenericTable } from ".";
 import { addEllipsis, addEllipsisInMiddle, dayJs } from "../../utils";
 import NextImage from "next/image";
+import { ActivityTableSkeletonLoader } from "../Seketons/Table/ActivityTableSkeleton";
 
 export type tableType = {
   data: any;
@@ -19,8 +20,8 @@ export const ActivityTable = ({
   const columns = [
     { key: "status", title: "" },
     { key: "item", title: "Item" },
-    { key: "from", title: "From" },
-    { key: "to", title: "To" },
+    { key: "from", title: "From", isNumeric: true },
+    { key: "to", title: "To", isNumeric: true },
     { key: "time", title: "Time" },
   ];
   const getActivityStatus = (status: string) => {
@@ -133,6 +134,7 @@ export const ActivityTable = ({
       hasNextPage={hasNextPage}
       isLoading={isLoading}
       ActivityTab={true}
+      loader={<ActivityTableSkeletonLoader />}
     />
   );
 };

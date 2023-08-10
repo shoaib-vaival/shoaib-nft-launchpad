@@ -49,8 +49,9 @@ import { boolean } from "yup";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useRouter } from "next/router";
 import { profileType } from "../../types";
+import NextImage from "next/image";
 
-export const Header = () => {
+export const Header = ({ onHeightChange, height }: any) => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const debounceValue = useDebounce(search, 1000);
@@ -58,6 +59,11 @@ export const Header = () => {
   const searchBoxRef = useRef(null);
   const router = useRouter();
   const [recentSearch, setRecentSearch] = useState<any>([]);
+  const headRef = useRef<any>(0);
+  useEffect(() => {
+    console.log(headRef, "headRef");
+    onHeightChange(headRef?.current?.offsetHeight);
+  }, [height, toggleMenu]);
   // const [openMenu, setOpenMenu] = useState<boolean>(false)
   // const [isClosedMenu, setIsCloseMenu] = useState<boolean>(false);
   useEffect(() => {
@@ -76,6 +82,17 @@ export const Header = () => {
     isOpen: isOpenMenu,
     onOpen: onOpenMenu,
     onClose: onCloseMenu,
+  } = useDisclosure();
+   const {
+    isOpen: isOpenSMenu,
+    onOpen: onOpenSMenu,
+    onClose: onCloseSMenu,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenCMenu,
+    onOpen: onOpenCMenu,
+    onClose: onCloseCMenu,
   } = useDisclosure();
 
   useOutsideClick({
@@ -200,121 +217,239 @@ export const Header = () => {
     },
     enabled: account ? true : false,
   });
+  const [colorChange, setColorchange] = useState(false);
+  if (typeof window !== "undefined") {
+    const changeNavbarColor = () => {
+      if (window.scrollY >= 30) {
+        setColorchange(true);
+      } else {
+        setColorchange(false);
+      }
+    };
+    window.addEventListener("scroll", changeNavbarColor);
+  }
 
   return (
     <>
-      <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
-        <Box pt="30px" pb={{ base: "20px", md: "60px" }}>
-          <Stack
-            direction="row"
-            alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
-            justifyContent={{ base: "flex-start", xl: "initial" }}
-            flexWrap="wrap"
-            gap={{ base: "0", md: "initial" }}
-            zIndex="1"
-            position="relative"
-          >
-            <Box
-              pb="8px"
-              order={{ base: "1", sm: "1" }}
-              marginRight={{ base: "auto", md: "initial" }}
-              as={NextLink}
-              href="/"
-            >
-              <Image
-                src="/assets/images/Logo.png"
-                alt="logo"
-                maxW="138"
-                maxH="45px"
-              />
-            </Box>
-            <Box
-              order={{ base: "5", sm: "5", md: "6", lg: "2" }}
-              w={{ base: "full", lg: "initial" }}
-              pl={{ base: "0", lg: "10px", xl: "30px" }}
-              pr={{ base: "0", lg: "15px", xl: "30px" }}
-              pt={{ base: "5px" }}
+      <Box
+        position="fixed"
+        top="0"
+        zIndex={colorChange ? "999" : "1"}
+        backgroundColor={colorChange || toggleMenu ? "#F4F4FE" : ""}
+        borderBottom={colorChange ? "1px solid rgba(18, 18, 18, 0.08)" : ""}
+        w="100%"
+      >
+        <Container
+          maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}
+          ref={headRef}
+        >
+          <Box pt="30px" pb={{ base: toggleMenu ? "20px" : "0px", md: "30px" }}>
+            <Stack
+              direction="row"
+              alignItems={{ base: "flex-start", sm: "center", xl: "center" }}
+              justifyContent={{ base: "flex-start", xl: "initial" }}
+              flexWrap="wrap"
+              gap={{ base: "0", md: "initial" }}
+              zIndex="1"
               position="relative"
             >
-              <InputGroup
-                variant="custom"
-                colorScheme="purple"
-                w={{ base: "full", md: "full", lg: "200px", xl: "422px" }}
-                marginBottom={{ base: "3", md: "initial", xl: "initial" }}
+              <Box
+                pb="8px"
+                order={{ base: "1", sm: "1" }}
+                marginRight={{ base: "auto", md: "initial" }}
+                as={NextLink}
+                href="/"
               >
-                <Input
-                  placeholder="Search..."
-                  _hover={{ background: "#6863f305" }}
-                  _focus={{
-                    border: "1px solid #6863F3",
-                    background: "#6863f305",
-                  }}
-                  onChange={(e) => {
-                    setIsSearching(true);
-                    setSearch(e.target.value);
-                  }}
-                  onClick={() => setIsSearching(true)}
+                <Image
+                  src="/assets/images/Logo.png"
+                  alt="logo"
+                  maxW="138"
+                  maxH="45px"
                 />
-                <InputLeftElement>
-                  <img src="/assets/images/search.svg" />
-                </InputLeftElement>
-              </InputGroup>
-              {isSearching ? (
-                <Box
-                  position="absolute"
-                  top="50px"
-                  boxShadow="2px 2px 8px 0px #0D0D0D1A"
-                  background="rgba(255, 255, 255, 0.4)"
-                  border="1px solid rgba(111, 107, 243, 0.4)"
-                  backdropFilter="blur(30px)"
-                  borderRadius="16px"
-                  padding="8px"
-                  pe={"0"}
-                  bg="white"
-                  zIndex={"9"}
-                  w={{ base: "100%", lg: "87%" }}
-                  ref={searchBoxRef}
+              </Box>
+              <Box
+                order={{ base: "5", sm: "5", md: "6", lg: "2" }}
+                w={{ base: "full", lg: "initial" }}
+                pl={{ base: "0", lg: "10px", xl: "30px" }}
+                pr={{ base: "0", lg: "15px", xl: "30px" }}
+                pt={{ base: "5px" }}
+                position="relative"
+                visibility={{
+                  base: toggleMenu ? "visible" : "hidden",
+                  lg: "initial",
+                }}
+                h={{ base: toggleMenu ? "auto" : "0px", lg: "100%" }}
+              >
+                <InputGroup
+                  variant="custom"
+                  colorScheme="purple"
+                  w={{ base: "full", md: "full", lg: "200px", xl: "422px" }}
+                  marginBottom={{ base: "3", md: "initial", xl: "initial" }}
                 >
-                  <Box
-                    css={{
-                      "&::-webkit-scrollbar": {
-                        width: "4px",
-                      },
-                      "&::-webkit-scrollbar-track": {
-                        width: "6px",
-                      },
-                      "&::-webkit-scrollbar-thumb": {
-                        background: "gray",
-                        borderRadius: "24px",
-                      },
+                  <Input
+                    placeholder="Search..."
+                    _hover={{ background: "#6863f305" }}
+                    _focus={{
+                      border: "1px solid #6863F3",
+                      background: "#6863f305",
                     }}
-                    maxH="400px"
-                    overflowY="scroll"
+                    onChange={(e) => {
+                      setIsSearching(true);
+                      setSearch(e.target.value);
+                    }}
+                    onClick={() => setIsSearching(true)}
+                  />
+                  <InputLeftElement>
+                    <img src="/assets/images/search.svg" />
+                  </InputLeftElement>
+                </InputGroup>
+                {(search.length > 0 || recentSearch.length > 0) &&
+                isSearching ? (
+                  <Box
+                    position="absolute"
+                    top="50px"
+                    boxShadow="2px 2px 8px 0px #0D0D0D1A"
+                    background="rgba(255, 255, 255, 0.4)"
+                    border="1px solid rgba(111, 107, 243, 0.4)"
+                    backdropFilter="blur(30px)"
+                    borderRadius="16px"
+                    padding="12px 0px 8px 8px"
+                    bg="white"
+                    zIndex={"9"}
+                    w={{ base: "100%", lg: "87%" }}
+                    ref={searchBoxRef}
                   >
-                    {search.length <= 0 ? (
-                      <Text mt="10px" ml="10px" pb="10px" fontSize="14px">
-                        RECENT
-                      </Text>
-                    ) : (
-                      <Text mt="10px" ml="10px" pb="10px" fontSize="14px">
-                        COLLECTIONS
-                      </Text>
-                    )}
-                    {search.length <= 0 ? (
-                      recentSearch && recentSearch?.length > 0 ? (
-                        recentSearch?.map((collection: any, index: number) => {
-                          return (
-                            <Box
-                              onClick={() => {
-                                setIsSearching(false);
-                                router.push(`/collection/${collection?.id}`);
-                              }}
-                              cursor="pointer"
-                              key={index}
-                            >
-                              <Flex
-                                justifyContent="space-between"
-                                alignItems="center"
+                    <Box
+                      css={{
+                        "&::-webkit-scrollbar": {
+                          width: "4px",
+                        },
+                        "&::-webkit-scrollbar-track": {
+                          width: "6px",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          background: "#d1d1d1",
+                          borderRadius: "24px",
+                        },
+                      }}
+                      maxH="400px"
+                      overflowY="scroll"
+                      pr="6px"
+                    >
+                      {search.length <= 0 && recentSearch.length > 0 ? (
+                        <Text mt="10px" pb="10px" fontSize="14px">
+                          RECENT
+                        </Text>
+                      ) : collectionSearch && collectionSearch?.length > 0 ? (
+                        <Text mt="10px" pb="10px" fontSize="14px">
+                          COLLECTIONS
+                        </Text>
+                      ) : (
+                        <></>
+                      )}
+                      {search.length <= 0 ? (
+                        recentSearch && recentSearch?.length > 0 ? (
+                          recentSearch?.map(
+                            (collection: any, index: number) => {
+                              return (
+                                <Box
+                                  onClick={() => {
+                                    setIsSearching(false);
+                                    router.push(
+                                      `/collection/${collection?.id}`
+                                    );
+                                  }}
+                                  cursor="pointer"
+                                  key={index}
+                                  _hover={{ bg: "gray.200" }}
+                                  padding="7px 2px 2px 10px"
+                                  borderRadius="8px"
+                                >
+                                  <Flex
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                  >
+                                    <Flex
+                                      alignItems="center"
+                                      gap="2"
+                                      pb="8px"
+                                      flex="85%"
+                                    >
+                                      <Image
+                                        src={collection?.logoImageUrl}
+                                        boxSize="100px"
+                                        objectFit="cover"
+                                        border="1px solid white"
+                                        borderRadius="16px"
+                                        w={{ base: "50px", md: "56px" }}
+                                        h={{ base: "50px", md: "56px" }}
+                                      />
+                                      <VStack spacing="0.5" alignItems="start">
+                                        <Heading fontSize="18px">
+                                          {addEllipsis(collection?.name)}
+                                        </Heading>
+                                        <Text
+                                          color="rgba(57, 63, 89, 1)"
+                                          fontSize="14px"
+                                        >
+                                          Items {collection?.nftCount}
+                                        </Text>
+                                      </VStack>
+                                    </Flex>
+                                    <IconButton
+                                      icon={<i className="icon-close"></i>}
+                                      aria-label="Remove item from recents "
+                                      bg="transparent"
+                                      _hover={{ bg: "transparent" }}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        const updatedRecentSearch =
+                                          recentSearch?.filter(
+                                            (recentSearchItem: any) => {
+                                              return (
+                                                recentSearchItem?.id !==
+                                                collection?.id
+                                              );
+                                            }
+                                          );
+                                        setRecentSearch(updatedRecentSearch);
+                                      }}
+                                    ></IconButton>
+                                  </Flex>
+                                </Box>
+                              );
+                            }
+                          )
+                        ) : (
+                          <></>
+                        )
+                      ) : (
+                        <></>
+                      )}
+
+                      {collectionSearch && collectionSearch?.length > 0 ? (
+                        collectionSearch?.map(
+                          (collection: any, index: number) => {
+                            return (
+                              <Box
+                                onClick={() => {
+                                  const isInRecentSearch = recentSearch?.some(
+                                    (item: any) => item.id === collection.id
+                                  );
+                                  if (!isInRecentSearch) {
+                                    setRecentSearch([
+                                      ...recentSearch,
+                                      collection,
+                                    ]);
+                                  }
+                                  setIsSearching(false);
+                                  router.push(`/collection/${collection?.id}`);
+                                }}
+                                cursor="pointer"
+                                key={index}
+                                _hover={{ bg: "gray.200" }}
+                                padding="7px 2px 2px 10px"
+                                borderRadius="8px"
                               >
                                 <Flex
                                   alignItems="center"
@@ -339,378 +474,349 @@ export const Header = () => {
                                       color="rgba(57, 63, 89, 1)"
                                       fontSize="14px"
                                     >
-                                      Items {collection?.nftCount}
+                                      {collection?.nftCount > 1
+                                        ? "Items"
+                                        : "Item"}{" "}
+                                      {collection?.nftCount}
                                     </Text>
                                   </VStack>
                                 </Flex>
-                                <IconButton
-                                  icon={<i className="icon-close"></i>}
-                                  aria-label="Remove item from recents "
-                                  bg="transparent"
-                                  _hover={{ bg: "transparent" }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    const updatedRecentSearch =
-                                      recentSearch?.filter(
-                                        (recentSearchItem: any) => {
-                                          return (
-                                            recentSearchItem?.id !==
-                                            collection?.id
-                                          );
-                                        }
-                                      );
-                                    setRecentSearch(updatedRecentSearch);
-                                  }}
-                                ></IconButton>
-                              </Flex>
-                            </Box>
-                          );
-                        })
+                              </Box>
+                            );
+                          }
+                        )
                       ) : (
-                        <></>
-                      )
-                    ) : (
-                      <></>
-                    )}
-
-                    {collectionSearch && collectionSearch?.length > 0 ? (
-                      collectionSearch?.map(
-                        (collection: any, index: number) => {
-                          return (
-                            <Box
-                              onClick={() => {
-                                const isInRecentSearch = recentSearch?.some(
-                                  (item: any) => item.id === collection.id
-                                );
-                                if (!isInRecentSearch) {
-                                  setRecentSearch([
-                                    ...recentSearch,
-                                    collection,
-                                  ]);
-                                }
-                                setIsSearching(false);
-                                router.push(`/collection/${collection?.id}`);
-                              }}
-                              cursor="pointer"
-                              key={index}
-                            >
-                              <Flex
-                                alignItems="center"
-                                gap="2"
-                                pb="8px"
-                                flex="85%"
-                              >
-                                <Image
-                                  src={collection?.logoImageUrl}
-                                  boxSize="100px"
-                                  objectFit="cover"
-                                  border="1px solid white"
-                                  borderRadius="16px"
-                                  w={{ base: "50px", md: "56px" }}
-                                  h={{ base: "50px", md: "56px" }}
-                                />
-                                <VStack spacing="0.5" alignItems="start">
-                                  <Heading fontSize="18px">
-                                    {addEllipsis(collection?.name)}
-                                  </Heading>
-                                  <Text
-                                    color="rgba(57, 63, 89, 1)"
-                                    fontSize="14px"
-                                  >
-                                    {collection?.nftCount > 1
-                                      ? "Items"
-                                      : "Item"}{" "}
-                                    {collection?.nftCount}
-                                  </Text>
-                                </VStack>
-                              </Flex>
-                            </Box>
-                          );
-                        }
-                      )
-                    ) : (
-                      <Box onClick={() => setIsSearching(false)}>
-                        <Link
-                          as={NextLink}
-                          href="/categories"
-                          textAlign="center"
-                          textDecoration="none"
-                        >
-                          <Text p="10px" _hover={{ bg: "gray.100" }}>
-                            Click here to view all Collections
-                          </Text>
-                        </Link>
-                      </Box>
-                    )}
+                        <Box onClick={() => setIsSearching(false)}>
+                          <Link
+                            as={NextLink}
+                            href="/categories"
+                            textAlign="center"
+                            textDecoration="none"
+                          >
+                            <Text p="10px" _hover={{ bg: "gray.100" }}>
+                              Click here to view all Collections
+                            </Text>
+                          </Link>
+                        </Box>
+                      )}
+                    </Box>
                   </Box>
-                </Box>
-              ) : (
-                ""
-              )}
-            </Box>
-            <Box
-              order={{ base: "4", sm: "4", md: "5", lg: "3" }}
-              visibility={{
-                base: toggleMenu ? "visible" : "hidden",
-                lg: "initial",
-              }}
-              transform={{
-                base: toggleMenu ? "translateY(5px)" : "translateY(-15px)",
-                lg: "initial",
-              }}
-              h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
-              // display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
-              w={{ base: "100%", lg: "inherit" }}
-              bg={{ base: "#ffdafe75", lg: "transparent" }}
-              mt={{ base: "5px", lg: "initial" }}
-              borderTopLeftRadius={{ base: "16px", lg: "0" }}
-              borderTopRightRadius={{ base: "16px", lg: "0" }}
-              transition={toggleMenu ? ".8s" : "0s"}
-              position="relative"
-              zIndex="1"
-            >
-              <HStack
-                textTransform="uppercase"
-                fontSize={{ base: "15px", xl: "16px" }}
-                alignItems={{ base: "flex-start", lg: "center" }}
-                fontWeight="500"
-                flexDirection={{
-                  base: "column",
-                  sm: "column",
-                  lg: "row",
+                ) : (
+                  ""
+                )}
+              </Box>
+              <Box
+                order={{ base: "4", sm: "4", md: "5", lg: "3" }}
+                visibility={{
+                  base: toggleMenu ? "visible" : "hidden",
+                  lg: "initial",
                 }}
-                w={{ base: "100%", lg: "initial" }}
-                spacing={{ base: "8px", lg: "11px", xl: "24px" }}
-                p={{ base: "10px", lg: "0" }}
+                transform={{
+                  base: toggleMenu ? "translateY(5px)" : "translateY(-15px)",
+                  lg: "initial",
+                }}
+                h={{ base: toggleMenu ? "auto" : "0px", lg: "initial" }}
+                // display={{ base: toggleMenu ? "block" : "none", lg: "initial" }}
+                w={{ base: "100%", lg: "inherit" }}
+                bg={{ base: "#ffdafe75", lg: "transparent" }}
+                mt={{ base: "5px", lg: "initial" }}
+                borderTopLeftRadius={{ base: "16px", lg: "0" }}
+                borderTopRightRadius={{ base: "16px", lg: "0" }}
+                transition={toggleMenu ? ".8s" : "0s"}
+                position="relative"
+                zIndex="1"
               >
-                <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
-                  Home
-                </Link>
-                <Link
-                  as={NextLink}
-                  href="/categories"
-                  _hover={{ color: "#6863f3" }}
+                <HStack
+                  textTransform="uppercase"
+                  fontSize={{ base: "15px", xl: "16px" }}
+                  alignItems={{ base: "flex-start", lg: "center" }}
+                  fontWeight="500"
+                  flexDirection={{
+                    base: "column",
+                    sm: "column",
+                    lg: "row",
+                  }}
+                  w={{ base: "100%", lg: "initial" }}
+                  spacing={{ base: "8px", lg: "11px", xl: "24px" }}
+                  p={{ base: "10px", lg: "0" }}
                 >
-                  Explore
-                </Link>
-
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    bg="transparent"
-                    _active={{ bg: "transparent", color: "#6863f3" }}
-                    _focusVisible={{ boxShadow: "transparent" }}
-                    p={{ base: "0 0 8px 0", md: "0" }}
-                    h="auto"
-                    fontWeight="500"
-                    lineHeight="1.5"
-                    _hover={{ bg: "transparent" }}
-                    textTransform="uppercase"
-                    fontSize={{ base: "15px", xl: "16px" }}
-                    rightIcon={
-                      <Box fontSize="8px">
-                        <i className="icon-ChevronDown"></i>
-                      </Box>
-                    }
+                  <Link as={NextLink} href="/" _hover={{ color: "#6863f3" }}>
+                    Home
+                  </Link>
+                  <Link
+                    as={NextLink}
+                    href="/categories"
+                    _hover={{ color: "#6863f3" }}
                   >
-                    Stats
-                  </MenuButton>
+                    Explore
+                  </Link>
+                  <Box
+                    className="drop_hover"
+                    onMouseLeave={onCloseSMenu}
+                    onMouseEnter={onOpenSMenu}
+                    _before={{height:'40px', w:'75px'}}
+                  >
+                  <Menu isOpen={isOpenSMenu} closeOnSelect={true}>
+                    <MenuButton
+                      as={Button}
+                      bg="transparent"
+                      _active={{ bg: "transparent", color: "#6863f3" }}
+                      _focusVisible={{ boxShadow: "transparent" }}
+                      p={{ base: "0 0 8px 0", md: "0" }}
+                      h="auto"
+                      fontWeight="500"
+                      lineHeight="1.5"
+                      _hover={{ bg: "transparent" }}
+                      textTransform="uppercase"
+                      fontSize={{ base: "15px", xl: "16px" }}
+                      rightIcon={
+                        <Box fontSize="8px">
+                          <i className="icon-ChevronDown"></i>
+                        </Box>
+                      }
+                      onMouseEnter={onOpenSMenu}
+                      onClick={onOpenSMenu}
+                    >
+                      Stats
+                    </MenuButton>
+                    <MenuList
+                      className="ope_menu"
+                      boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                      textTransform="capitalize"
+                      w="109px"
+                      minW="109px"
+                      p=" 8px 8px"
+                    >
+                      <MenuItem
+                        as={NextLink}
+                        p="8px 16px 8px 8px"
+                        href="/collection/state"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        Ranking
+                      </MenuItem>
+                      <MenuItem
+                        as={NextLink}
+                        p="8px 16px 8px 8px"
+                        href="/activity"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        Activity
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                  </Box>
+                </HStack>
+              </Box>
+
+              <Flex
+                order={{ base: "6", sm: "6", md: "2", lg: "4" }}
+                marginLeft={{ base: "auto", md: "auto !important" }}
+                alignItems="center"
+                justifyContent={{ sm: "flex-end" }}
+                w={{ base: "full", md: "xs", xl: "initial" }}
+                flexDirection={{ base: "column", sm: "row" }}
+                h={{ base: toggleMenu ? "auto" : "0px" }}
+                visibility={{
+                  base: toggleMenu ? "visible" : "hidden",
+                  md: "initial",
+                }}
+              >
+                {/* <Box
+                  className="drop_hover"
+                    onMouseLeave={onCloseCMenu}
+                    onMouseEnter={onOpenCMenu}> */}
+                <Menu autoSelect={false} >
+                  <ConnectionModal
+                    isOpen={isConnectionModalOpen}
+                    onOpen={onConnectionModalOpen}
+                    onClose={onConnectionModalClose}
+                  />
+                  {!account ? null : (
+                    <MenuButton
+                      as={Button}
+                      textTransform="uppercase"
+                      fontSize="16px"
+                      ml={{ base: "0", md: "30px", lg: "0" }}
+                      mr={{ base: "0", sm: "25px", md: "0" }}
+                      p={{ base: "initial", lg: "12px 16px" }}
+                      variant="primary"
+                      h="42px"
+                      w={{ base: "full", sm: "50%", md: "75%", xl: "100px" }}
+                      size="md"
+                    >
+                      Create
+                    </MenuButton>
+                  )}
                   <MenuList
+                    w="191px"
+                    minW="191px"
+                    p="16px 8px"
                     boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
-                    textTransform="capitalize"
-                    w="109px"
-                    minW="109px"
-                    p=" 8px 8px"
                   >
                     <MenuItem
                       as={NextLink}
-                      p="8px 16px 8px 8px"
-                      href="/collection/state"
+                      href="/nft/create"
                       _hover={{ background: "gray.100", borderRadius: "4px" }}
                     >
-                      Ranking
+                      Create NFT
                     </MenuItem>
                     <MenuItem
                       as={NextLink}
-                      p="8px 16px 8px 8px"
-                      href="/activity"
+                      href="/collection/create"
                       _hover={{ background: "gray.100", borderRadius: "4px" }}
                     >
-                      Activity
+                      Create Collection
                     </MenuItem>
                   </MenuList>
                 </Menu>
-              </HStack>
-            </Box>
-
-            <Flex
-              order={{ base: "6", sm: "6", md: "2", lg: "4" }}
-              marginLeft={{ base: "auto", md: "auto !important" }}
-              alignItems="center"
-              justifyContent={{ sm: "flex-end" }}
-              w={{ base: "full", md: "xs", xl: "initial" }}
-              flexDirection={{ base: "column", sm: "row" }}
-            >
-              <Menu autoSelect={false}>
-                <ConnectionModal
-                  isOpen={isConnectionModalOpen}
-                  onOpen={onConnectionModalOpen}
-                  onClose={onConnectionModalClose}
-                />
-                {!account ? null : (
-                  <MenuButton
-                    as={Button}
+                {/* </Box> */}
+                {!account ? (
+                  <Button
+                    variant="secondary"
                     textTransform="uppercase"
-                    fontSize="16px"
-                    ml={{ base: "0", md: "30px", lg: "0" }}
-                    mr={{ base: "0", sm: "25px", md: "0" }}
-                    p={{ base: "initial", lg: "12px 16px" }}
-                    variant="primary"
-                    h="42px"
-                    w={{ base: "full", sm: "50%", md: "75%", xl: "100px" }}
+                    mx={{ base: "0", md: "10px", lg: "16px" }}
+                    fontSize="14px"
+                    fontWeight="600"
+                    w={{ base: "full", sm: "100%", md: "100%", xl: "initial" }}
                     size="md"
+                    mt={{ base: "10px", sm: "0" }}
+                    onClick={onConnectionModalOpen}
                   >
-                    Create
-                  </MenuButton>
+                    Connect Wallet
+                  </Button>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    textTransform="uppercase"
+                    disabled={true}
+                    mx={{ base: "0", md: "10px", lg: "16px" }}
+                    fontSize="14px"
+                    fontWeight="600"
+                    letterSpacing="0.84px"
+                    w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
+                    size="md"
+                    mt={{ base: "10px", sm: "0" }}
+                  >
+                    {account?.slice(0, 5) + "..." + account?.slice(37, 42)}
+                  </Button>
                 )}
-                <MenuList
-                  w="191px"
-                  minW="191px"
-                  p="16px 8px"
-                  boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
-                >
-                  <MenuItem
-                    as={NextLink}
-                    href="/nft/create"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}
-                  >
-                    Create NFT
-                  </MenuItem>
-                  <MenuItem
-                    as={NextLink}
-                    href="/collection/create"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}
-                  >
-                    Create Collection
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-
-              {!account ? (
-                <Button
-                  variant="secondary"
-                  textTransform="uppercase"
-                  mx={{ base: "0", md: "10px", lg: "16px" }}
-                  fontSize="14px"
-                  fontWeight="600"
-                  w={{ base: "full", sm: "100%", md: "100%", xl: "initial" }}
-                  size="md"
-                  mt={{ base: "10px", sm: "0" }}
-                  onClick={onConnectionModalOpen}
-                >
-                  Connect Wallet
-                </Button>
-              ) : (
-                <Button
-                  variant="secondary"
-                  textTransform="uppercase"
-                  disabled={true}
-                  mx={{ base: "0", md: "10px", lg: "16px" }}
-                  fontSize="14px"
-                  fontWeight="600"
-                  letterSpacing="0.84px"
-                  w={{ base: "full", sm: "50%", md: "100%", xl: "initial" }}
-                  size="md"
-                  mt={{ base: "10px", sm: "0" }}
-                >
-                  {account?.slice(0, 5) + "..." + account?.slice(37, 42)}
-                </Button>
-              )}
-            </Flex>
-            <Box
-              order={{ base: "3", sm: "3", md: "4", lg: "5" }}
-              display={{ base: "block", lg: "none" }}
-            >
-              <IconButton
-                mr="0"
-                ml="8px"
-                colorScheme="purple"
-                variant="outline"
-                icon={<HamburgerIcon />}
-                aria-label="Options"
-                onClick={() => {
-                  setToggleMenu(!toggleMenu);
-                }}
-              />
-            </Box>
-            <Box order={{ base: "2", sm: "2", md: "3", lg: "6" }}>
-              <Menu closeOnSelect={true}>
-                {!account ? null : (
-                  <MenuButton
-                    fontSize="20px"
-                    color="#6F6BF3"
-                    bg="#FFFFFF"
-                    border="1px solid #6F6BF3"
-                    borderRadius="50px"
-                    height="40px"
-                    w="40px"
-                    as={IconButton}
-                    _hover={{ bg: "#6F6BF3", color: "#fff" }}
-                    _active={{ bg: "#6F6BF3", color: "#fff" }}
-                    icon={<i className="icon-vector"></i>}
-                    aria-label="Options"
-                    onMouseEnter={onOpenMenu}
-                    onClick={onOpenMenu}
-                  />
-                )}
-                <MenuList
-                  w="191px"
-                  minW="191px"
-                  h="180px"
-                  p="16px 8px"
+              </Flex>
+              <Box
+                order={{ base: "3", sm: "3", md: "4", lg: "5" }}
+                display={{ base: "block", lg: "none" }}
+              >
+                <IconButton
+                  mr="0"
+                  ml="8px"
+                  colorScheme="purple"
+                  variant="outline"
+                  icon={<HamburgerIcon />}
+                  aria-label="Options"
+                  onClick={() => {
+                    setToggleMenu(!toggleMenu);
+                  }}
+                />
+              </Box>
+              <Box
+                // onMouseEnter={() => {console.log('open menu 1'); onOpenMenu()}}
+                // onMouseLeave={() => {console.log('close menu 1'); onCloseMenu()}}
+                order={{ base: "2", sm: "2", md: "3", lg: "6" }}
+              >
+                <Box
+                  className="drop_hover"
                   onMouseLeave={onCloseMenu}
-                  boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
-                >
-                  <MenuItem
-                    as={NextLink}
-                    href="/profile-created"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    as={NextLink}
-                    href="/collection/my-collection"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}
-                  >
-                    My Collection
-                  </MenuItem>
-                  <MenuItem
-                    as={NextLink}
-                    href="/setting"
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}
-                  >
-                    Settings
-                  </MenuItem>
+                  onMouseEnter={onOpenMenu} >
+                  <Menu isOpen={isOpenMenu} closeOnSelect={true}>
+                    {!account && !isOpenMenu ? null : (
+                      <MenuButton
+                        className="dropdown_hover"
+                        fontSize="20px"
+                        color="#6F6BF3"
+                        bg="#FFFFFF"
+                        border="1px solid #6F6BF3"
+                        borderRadius="50px"
+                        height="40px"
+                        w="40px"
+                        as={IconButton}
+                        _hover={{ bg: "#6F6BF3", color: "#fff" }}
+                        _active={{ bg: "#6F6BF3", color: "#fff" }}
+                        _focusVisible={{ boxShadow: "none" }}
+                        icon={
+                          profileData?.profileUrl ? (
+                            <NextImage
+                              src={profileData?.profileUrl}
+                              alt="Profile Photo"
+                              layout="fill"
+                              objectFit="cover"
+                              objectPosition="center center"
+                              style={{
+                                borderRadius: "50px",
+                              }}
+                            />
+                          ) : (
+                            <i className="icon-vector"></i>
+                          )
+                        }
+                        aria-label="Options"
+                        onMouseEnter={onOpenMenu}
+                        onClick={onOpenMenu}
 
-                  <MenuItem
-                    _hover={{ background: "gray.100", borderRadius: "4px" }}
-                    onClick={(a) => {
-                      if (provider?.connection.url == "metamask") {
-                        disconnect("");
-                      } else {
-                        disconnectWalletConnect("");
-                      }
-                    }}
-                  >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Box>
-          </Stack>
-        </Box>
-      </Container>
+                        // onMouseLeave={onCloseMenu}
+                      />
+                    )}
+                    <MenuList
+                      className="ope_menu"
+                      w="191px"
+                      minW="191px"
+                      h="180px"
+                      p="16px 8px"
+                      zIndex={0}
+                      //  onMouseLeave={onCloseMenu}
+                      boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                    >
+                      <MenuItem
+                        as={NextLink}
+                        href="/profile-created"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem
+                        as={NextLink}
+                        href="/collection/my-collection"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        My Collection
+                      </MenuItem>
+                      <MenuItem
+                        as={NextLink}
+                        href="/setting"
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                      >
+                        Settings
+                      </MenuItem>
+
+                      <MenuItem
+                        _hover={{ background: "gray.100", borderRadius: "4px" }}
+                        onClick={(a) => {
+                          if (provider?.connection.url == "metamask") {
+                            disconnect("");
+                          } else {
+                            disconnectWalletConnect("");
+                          }
+                        }}
+                      >
+                        Logout
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Box>
+              </Box>
+            </Stack>
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 };

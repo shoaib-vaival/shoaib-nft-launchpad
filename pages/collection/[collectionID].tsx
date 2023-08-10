@@ -58,9 +58,11 @@ const Collection: NextPage = () => {
   const [toggleSideFilter, setToggleSideFilter] = useState<boolean>(false);
   const [toggleActivityFilter, setToggleActivityFilter] =
     useState<boolean>(false);
-    const collectionState = useStoreState((state: any) => state?.collectionObj?.CollectionObj);
-    // const collectionAction = useStoreActions((actions: any) => actions.collectionObj.add);
-    
+  const collectionState = useStoreState(
+    (state: any) => state?.collectionObj?.CollectionObj
+  );
+  // const collectionAction = useStoreActions((actions: any) => actions.collectionObj.add);
+
   const filterBreakPoint = useBreakpointValue(
     {
       base: true,
@@ -89,34 +91,37 @@ const Collection: NextPage = () => {
   const changeViewMode = (viewMode: string) => {
     setView(viewMode);
   };
-  const [collectionDetail, setCollectionDetail] = useState<any>({})
-  const [queryProcess, setQueryProcess] = useState<boolean>(false)
+  const [collectionDetail, setCollectionDetail] = useState<any>({});
+  const [queryProcess, setQueryProcess] = useState<boolean>(false);
 
   const filterObj = () => {
-    const dataa = collectionState?.dashboardData?.find((item:any)=>item?.id==`${
-      typeof Window !== "undefined" &&
-      window.location?.pathname?.split("/")[2]
-    }`)
-    if(dataa){
-      setCollectionDetail(dataa)
+    const dataa = collectionState?.dashboardData?.find(
+      (item: any) =>
+        item?.id ==
+        `${
+          typeof Window !== "undefined" &&
+          window.location?.pathname?.split("/")[2]
+        }`
+    );
+    if (dataa) {
+      setCollectionDetail(dataa);
+    } else {
+      setQueryProcess(true);
     }
-    else{
-      setQueryProcess(true)
-    }
-    console.log("formStateformState11", dataa)
+    console.log("formStateformState11", dataa);
+  };
 
-  }
-
-  useEffect(()=>{filterObj()},[])
-
+  useEffect(() => {
+    filterObj();
+  }, []);
 
   const { isLoading: isHeaderLoading, data } = useQuery<collectionType>({
     queryKey: [QUERY_KEYS.GET_COLLECTION_DETAIL, router.query.collectionID],
     url: `${ApiUrl.GET_COLLECTION_DETAIL}/${router.query.collectionID}`,
     enabled: queryProcess ? true : false,
     onSuccess: (data) => {
-      setCollectionDetail(data)
-      setQueryProcess(false)
+      setCollectionDetail(data);
+      setQueryProcess(false);
     },
   });
 
@@ -233,16 +238,16 @@ const Collection: NextPage = () => {
     <>
       <Container maxW={{ sm: "xl", md: "3xl", lg: "5xl", xl: "8xl" }}>
         {/* <Box px="0"> */}
-          <ProfileHeader
-            socialIcons={socialIcons}
-            showSocialIcons={true}
-            coverPhoto={collectionDetail?.bannerImageUrl}
-            profilePhoto={collectionDetail?.logoImageUrl}
-            showReport={false}
-            isLoading={queryProcess}
-            showAddToWatchList={true}
-            id={`${router?.query?.collectionID}`}
-          />
+        <ProfileHeader
+          socialIcons={socialIcons}
+          showSocialIcons={true}
+          coverPhoto={collectionDetail?.bannerImageUrl}
+          profilePhoto={collectionDetail?.logoImageUrl}
+          showReport={false}
+          isLoading={queryProcess}
+          showAddToWatchList={true}
+          id={`${router?.query?.collectionID}`}
+        />
         {/* </Box> */}
         <ProfileDetail
           showStats={true}
@@ -318,7 +323,7 @@ const Collection: NextPage = () => {
                       justifyContent={"end"}
                       alignItems="center"
                       flexWrap="wrap"
-                      px={{base:'0px',md:'12px'}}
+                      px={{ base: "0px", md: "12px" }}
                     >
                       <Box order="1" onClick={toggleFilterVisibility}>
                         <IconButton
@@ -348,8 +353,8 @@ const Collection: NextPage = () => {
                         >
                           <Input
                             placeholder="Search by Collections…"
-                            _focus={{border:'1px solid #6863F3'}}
-                            _hover={{ background: '#6863f305' }}
+                            _focus={{ border: "1px solid #6863F3" }}
+                            _hover={{ background: "#6863f305" }}
                             onChange={(e) => searchHandler(e)}
                             value={search}
                           />
@@ -368,6 +373,7 @@ const Collection: NextPage = () => {
                             { label: "Ascending ", value: "ASC" },
                             { label: "Descending ", value: "DESC" },
                           ]}
+                          isSearchable={false}
                           isMultiple={false}
                           identifier="filter"
                           getSelectedData={(selectedOption: any) =>
@@ -506,8 +512,8 @@ const Collection: NextPage = () => {
                         >
                           <Input
                             placeholder="Search..."
-                            _hover={{ background: '#6863f312' }}
-                            _focus={{border:'1px solid #6863F3'}}
+                            _hover={{ background: "#6863f312" }}
+                            _focus={{ border: "1px solid #6863F3" }}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                           />
@@ -526,6 +532,7 @@ const Collection: NextPage = () => {
                             { label: "Ascending ", value: "ASC" },
                             { label: "Descending ", value: "DESC" },
                           ]}
+                          isSearchable={false}
                           isMultiple={false}
                           identifier="filter"
                           getSelectedData={(selectedOption: any) =>
@@ -689,6 +696,7 @@ const Collection: NextPage = () => {
                               ]}
                               isMultiple={false}
                               identifier="filter"
+                              isSearchable={false}
                               getSelectedData={(selectedOption: any) => {
                                 setListingFilter(selectedOption?.value);
                               }}

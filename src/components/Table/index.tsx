@@ -14,10 +14,10 @@ import {
   MenuList,
   MenuItem,
   Heading,
+  Skeleton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Loader } from "../Loader";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -52,6 +52,7 @@ interface GenericTableProps {
   variant?: string;
   tableName?: string;
   ActivityTab?: boolean;
+  loader?: any;
 }
 
 export const GenericTable = ({
@@ -63,32 +64,22 @@ export const GenericTable = ({
   variant,
   tableName,
   ActivityTab,
+  loader,
 }: GenericTableProps) => {
   const router = useRouter();
 
-  const handleClick = (e: any, id: string) => { 
+  const handleClick = (e: any, id: string) => {
     if (tableName === "topTen" || tableName === "stateTable") {
       router.push(`/collection/${id}`);
     }
   };
-
-  const [selectedRow, setSelectedRow] = useState(null);
 
   return (
     <InfiniteScroll
       dataLength={data ? data?.length : 0}
       next={() => fetchNextPage && fetchNextPage()}
       hasMore={!!hasNextPage}
-      loader={
-        <Flex
-          width="100%"
-          height="100%"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Loader />
-        </Flex>
-      }
+      loader={loader}
     >
       <TableContainer>
         <Table variant={variant ? variant : "simple"}>
@@ -98,7 +89,13 @@ export const GenericTable = ({
                 <Th
                   textTransform="uppercase"
                   key={column?.key}
-                  style={{ textAlign: (index == 0 || (ActivityTab && index == 1)) ? "initial" : "right", paddingLeft: '17px' }}
+                  style={{
+                    textAlign:
+                      index == 0 || (ActivityTab && index == 1)
+                        ? "initial"
+                        : "right",
+                    paddingLeft: "17px",
+                  }}
                 >
                   {column?.title}
                 </Th>
@@ -109,14 +106,14 @@ export const GenericTable = ({
             {isLoading && (
               <Tr>
                 <Td colSpan={columns?.length}>
-                  <Flex
+                  {/* <Flex
                     width="100%"
                     height="100%"
                     justifyContent="center"
                     alignItems="center"
-                  >
-                    <Loader />
-                  </Flex>
+                  > */}
+                  {loader}
+                  {/* </Flex> */}
                 </Td>
               </Tr>
             )}
@@ -139,14 +136,17 @@ export const GenericTable = ({
             {data &&
               data?.map((item: any, index: any) => (
                 <Tr
-                  _hover={{ background: '#fff5feb3' }}
-                  bg={selectedRow === index ? '#e9dceb' : 'transparent'}
-                 borderRadius='16px'
+                  _hover={{ background: "#fff5feb3" }}
+                  borderRadius="16px"
                   key={item?.id}
-                  cursor={tableName === "topTen" || tableName === "stateTable" ? "pointer" : "default"}
+                  cursor={
+                    tableName === "topTen" || tableName === "stateTable"
+                      ? "pointer"
+                      : "default"
+                  }
                   onClick={(e) => {
-                    setSelectedRow(index);
-                     handleClick(e, item?.id)}}
+                    handleClick(e, item?.id);
+                  }}
                 >
                   {columns?.map((column, index: number) => (
                     <Td
@@ -156,83 +156,89 @@ export const GenericTable = ({
                     >
                       {column?.actions
                         ? column?.actions?.map((action) => {
-                          switch (action.type) {
-                            case "button":
-                              return (
-                                <IconButton
-                                  key={action.label}
-                                  aria-label={action.label}
-                                  icon={action.icon}
-                                  bg="transparent"
-                                  textAlign="center"
-                                  _hover={{
-                                    bg: "transparent",
-                                    color: "#6863F3",
-                                  }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    action.onClick && action.onClick(item.id);
-                                  }}
-                                  mr={2}
-                                />
-                              );
-                            case "checkbox":
-                              return (
-                                <Checkbox
-                                  key={action?.label}
-                                  defaultChecked={item[column?.key]}
-                                  onChange={(e) =>
-                                    action?.onChange &&
-                                    action?.onChange(
-                                      item.id,
-                                      e.target.checked
-                                    )
-                                  }
-                                >
-                                  {action?.label}
-                                </Checkbox>
-                              );
-                            case "menu":
-                              return (
-                                <Menu key={action?.label}>
-                                  <MenuButton
-                                    as={IconButton}
-                                    aria-label={action?.label}
+                            switch (action.type) {
+                              case "button":
+                                return (
+                                  <IconButton
+                                    key={action.label}
+                                    aria-label={action.label}
+                                    icon={action.icon}
                                     bg="transparent"
                                     textAlign="center"
-                                    _hover={{ bg: "transparent" }}
-                                    icon={action.icon}
-                                    mr={2}
+                                    _hover={{
+                                      bg: "transparent",
+                                      color: "#6863F3",
+                                    }}
                                     onClick={(e) => {
                                       e.stopPropagation();
+                                      action.onClick && action.onClick(item.id);
                                     }}
+                                    mr={2}
                                   />
-                                  <MenuList  boxShadow='rgba(0, 0, 0, 0.25) 4px 10px 20px' p='16px 8px'>
-                                    {action?.options &&
-                                      action?.options?.map((option) => (
-                                        <MenuItem
-                                        px='8px'
-                                        _hover={{ background: "gray.100", borderRadius: "4px" }}
-                                          key={option?.value}
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            action.onSelect &&
-                                              action.onSelect(
-                                                item?.id,
-                                                option?.value
-                                              );
-                                          }}
-                                        >
-                                          {option?.label}
-                                        </MenuItem>
-                                      ))}
-                                  </MenuList>
-                                </Menu>
-                              );
-                            default:
-                              return null;
-                          }
-                        })
+                                );
+                              case "checkbox":
+                                return (
+                                  <Checkbox
+                                    key={action?.label}
+                                    defaultChecked={item[column?.key]}
+                                    onChange={(e) =>
+                                      action?.onChange &&
+                                      action?.onChange(
+                                        item.id,
+                                        e.target.checked
+                                      )
+                                    }
+                                  >
+                                    {action?.label}
+                                  </Checkbox>
+                                );
+                              case "menu":
+                                return (
+                                  <Menu key={action?.label}>
+                                    <MenuButton
+                                      as={IconButton}
+                                      aria-label={action?.label}
+                                      bg="transparent"
+                                      textAlign="center"
+                                      _hover={{ bg: "transparent" }}
+                                      icon={action.icon}
+                                      mr={2}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    />
+                                    <MenuList
+                                      boxShadow="rgba(0, 0, 0, 0.25) 4px 10px 20px"
+                                      p="16px 8px"
+                                    >
+                                      {action?.options &&
+                                        action?.options?.map((option) => (
+                                          <MenuItem
+                                            px="8px"
+                                            _hover={{
+                                              background: "gray.100",
+                                              borderRadius: "4px",
+                                            }}
+                                            key={option?.value}
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              action.onSelect &&
+                                                action.onSelect(
+                                                  item?.id,
+                                                  option?.value
+                                                );
+                                            }}
+                                          >
+                                            {option?.label}
+                                          </MenuItem>
+                                        ))}
+                                    </MenuList>
+                                  </Menu>
+                                );
+                              default:
+                                return null;
+                            }
+                          })
                         : item[column?.key]}
                     </Td>
                   ))}

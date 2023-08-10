@@ -17,6 +17,7 @@ export type ReactSelectPropsTypes = {
   setNftName?: any;
   setNftDesc?: any;
   defaultValue?: any;
+  isSearchable?:any
 };
 
 export type ReactSelectCatMap = {

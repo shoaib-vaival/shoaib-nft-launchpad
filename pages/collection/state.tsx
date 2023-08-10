@@ -99,6 +99,7 @@ const CollectionStat: NextPage = () => {
                   isMultiple={false}
                   identifier="cat"
                   placeholder="All Categories"
+                  isSearchable={false}
                   getSelectedData={(selectedOption: any) => {
                     setCatFilter(selectedOption?.value);
                   }}
@@ -131,6 +132,7 @@ const CollectionStat: NextPage = () => {
                   isMultiple={false}
                   identifier="cat"
                   placeholder="All Categories"
+                  isSearchable={false}
                   getSelectedData={(selectedOption: any) => {
                     setCatFilter(selectedOption?.value);
                   }}
@@ -163,6 +165,7 @@ const CollectionStat: NextPage = () => {
                   isMultiple={false}
                   identifier="cat"
                   placeholder="All Categories"
+                  isSearchable={false}
                   getSelectedData={(selectedOption: any) => {
                     setCatFilter(selectedOption?.value);
                   }}

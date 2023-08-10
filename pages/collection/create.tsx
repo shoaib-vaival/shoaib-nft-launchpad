@@ -279,16 +279,16 @@ const CreateCollection = () => {
         }}
       >
         {({ errors, touched, values }) => (
-          <Form >
+          <Form>
             <FormLabel m="0" display="flex" fontSize="16px" color="#393F59">
               <Text mr="8px" color="#E53E3E">
                 *
               </Text>
               Required fields
             </FormLabel>
-            <FormControl mt='0'>
+            <FormControl mt="0">
               <Stack direction="column">
-                <FormControl isRequired>
+                <FormControl>
                   <Box mb="40px">
                     <FileUpload
                       label="Logo Image"
@@ -335,7 +335,7 @@ const CreateCollection = () => {
                 <FormLabel fontSize="24px!important" fontWeight="700">
                   Details
                 </FormLabel>
-                <FormControl mt='0'>
+                <FormControl mt="0">
                   <Field
                     readOnly={router?.query?.id ? true : false}
                     as={InputField}
@@ -344,7 +344,6 @@ const CreateCollection = () => {
                     type="text"
                     placeholder="Name your collection"
                     name="name"
-                    formControlProps={{ isRequired: true }}
                     errorText={
                       touched["name"] && errors["name"]
                         ? errors["name"]
@@ -370,7 +369,7 @@ const CreateCollection = () => {
                     </Text>
                   )}
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl>
                   <ReactSelect
                     options={filtredCat}
                     isMultiple={false}
@@ -400,20 +399,20 @@ const CreateCollection = () => {
                     </Text>
                   )}
                 </FormControl>
-                <FormControl m='0'>
-                <ReactSelect
-                  options={filtredTags}
-                  isMultiple={true}
-                  getSelectedData={getSelectedData}
-                  identifier="tag"
-                  label="Tags"
-                  placeholder="Select Tag"
-                  nftName={values?.name}
-                  setNftName={setNftName}
-                  nftDesc={values?.description}
-                  setNftDesc={setNftDesc}
-                  defaultValue={router?.query?.id && filtredTagsById}
-                />
+                <FormControl m="0">
+                  <ReactSelect
+                    options={filtredTags}
+                    isMultiple={true}
+                    getSelectedData={getSelectedData}
+                    identifier="tag"
+                    label="Tags"
+                    placeholder="Select Tag"
+                    nftName={values?.name}
+                    setNftName={setNftName}
+                    nftDesc={values?.description}
+                    setNftDesc={setNftDesc}
+                    defaultValue={router?.query?.id && filtredTagsById}
+                  />
                 </FormControl>
               </Stack>
 
@@ -558,7 +557,7 @@ const CreateCollection = () => {
                       values?.creatorFee?.map((field: any, index: number) => (
                         <div key={index}>
                           <Flex
-                            gap={{ base: "0", sm: "6" }}
+                            gap={{ base: "0", sm: "4",md:'6' }}
                             alignItems={{
                               base: "flex-start",
                               sm: "baseline",
@@ -576,13 +575,12 @@ const CreateCollection = () => {
                               alignItems="baseline"
                               flexDirection="column"
                             >
-                              <FormControl isRequired mb="0">
+                              <FormControl mb="0">
                                 <Field
                                   as={InputField}
                                   size="md"
                                   label="Wallet Address"
                                   type="text"
-                                  formControlProps={{ isRequired: true }}
                                   maxLength={50}
                                   placeholder="e.g: 0x1dff … 3845"
                                   name={`creatorFee.${[index]}.walletAddress`}
@@ -616,7 +614,6 @@ const CreateCollection = () => {
                                 label="Percentage"
                                 type="number"
                                 ispercent={true}
-                                formControlProps={{ isRequired: true }}
                                 placeholder="0"
                                 maxLength={2}
                                 name={`creatorFee.${[index]}.percentage`}
@@ -641,18 +638,18 @@ const CreateCollection = () => {
                                 />
                               </Text>
                             </Box>
-                            <Box ml={3}>
+                            <Box  display={index > 0 ? "inline-block" : "none"}ml='0' mt={{base:'3',sm:'0'}}>
                               <IconButton
                                 aria-label="close"
                                 bg="#6863F34D"
                                 mb={{ base: "10px", sm: "-80px" }}
-                                ml={{ base: "0", sm: "10px" }}
+                                ml='0'
                                 type="button"
                                 color="#6863F3"
                                 border="1px solid #6863F3"
                                 onClick={() => remove(index)}
                                 icon={<i className="icon-remove"></i>}
-                                visibility={index > 0 ? "visible" : "hidden"}
+                                display={index > 0 ? "inline-block" : "none"}
                               />
                             </Box>
                           </Flex>

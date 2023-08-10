@@ -41,9 +41,11 @@ type imagesType = {
 const Setting: NextPage = () => {
   const [coverImage, setCoverImage] = useState<imagesType>();
   const [profileImage, setProfileImage] = useState<imagesType>();
+  const[customLoading,setCustomLoading]=useState<boolean>(false)
   const { account } = useWeb3React<Web3Provider>();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [allNotifications, setAllNotifications] = useState<any>([]);
 
   const { data: profile } = useQuery<profileType>({
     queryKey: [QUERY_KEYS.GET_PROFILE],
@@ -51,10 +53,17 @@ const Setting: NextPage = () => {
     token: true,
   });
 
-  const { data: getNotifSetting } = useQuery<any>({
+  const {
+    data: getNotifSetting,
+    isLoading: testLoading,
+    isFetching,
+  } = useQuery<any>({
     queryKey: [QUERY_KEYS.GET_NOTIF_SETTINGS],
     url: ApiUrl.GET_NOTIF_SETTINGS,
     token: true,
+    onSuccess: (res) => {
+      setAllNotifications(res);
+    },
   });
   const { mutate } = useMutation<profileType>({
     method: PATCH,
@@ -66,20 +75,27 @@ const Setting: NextPage = () => {
       router.push("/profile-created");
     },
   });
-
-  const { mutate: save, isLoading } = useMutation<any>({
+  const {
+    mutate: save,
+    isLoading,
+    isSuccess,
+  } = useMutation<any>({
     method: PATCH,
     url: `${ApiUrl.CREATE_NOTIFICATION}`,
     showSuccessToast: true,
     token: true,
-    successMessage: "Status changed successfuly",
+    successMessage: "Status changed successfully",
+    onSuccess: (res) => {
+      setAllNotifications(res?.data);
+    },
   });
-
   const { mutate: uploadFileOnServerFunc, isLoading: imgUploadLoading } =
     useMutation<UploadFileOnServer>({
       method: POST,
       url: ApiUrl?.UPLOAD_FILE_TO_SERVER,
-      showSuccessToast: false,
+      showSuccessToast: true,
+      successMessage: "Image uploaded successfully",
+      errorMessage: "Only png and jpg files are allowed",
       isFileData: true,
       onSuccess: (data) => {
         if (data?.data?.label === "userCoverPhoto") {
@@ -587,15 +603,19 @@ const Setting: NextPage = () => {
                   >
                     <Form>
                       <Box borderRadius="6px" border="1px solid #6F6BF366">
-                        {getNotifSetting &&
-                          getNotifSetting?.map((items: any, index:any) => (
+                        {allNotifications &&
+                          allNotifications?.map((items: any, index: any) => (
                             <>
                               <FormControl m="0">
                                 <Flex
                                   alignItems="center"
                                   justifyContent="space-between"
                                   p="24px"
-                                  borderBottom={index === getNotifSetting.length-1?"":"1px solid #35353533"}
+                                  borderBottom={
+                                    index === allNotifications.length - 1
+                                      ? ""
+                                      : "1px solid #35353533"
+                                  }
                                   bg="#fff"
                                   margin={"1px"}
                                 >
@@ -618,10 +638,16 @@ const Setting: NextPage = () => {
                                   <Field name="switchField">
                                     {({ field }: { field: any }) => (
                                       <Switch
-                                        isDisabled={isLoading}
+                                        isDisabled={
+                                          isLoading
+                                            ? true
+                                            : isFetching
+                                            ? true
+                                            : false
+                                        }
                                         id="status"
                                         isChecked={items?.status}
-                                        onChange={() => {
+                                        onChange={(e) => {
                                           save({
                                             id: items?.id,
                                             status:
@@ -629,11 +655,6 @@ const Setting: NextPage = () => {
                                                 ? false
                                                 : true,
                                           });
-                                          setTimeout(() => {
-                                            queryClient.invalidateQueries([
-                                              QUERY_KEYS.GET_NOTIF_SETTINGS,
-                                            ]);
-                                          }, 1000);
                                         }}
                                       />
                                     )}
