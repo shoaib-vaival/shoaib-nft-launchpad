@@ -99,7 +99,7 @@ const Home: NextPage = () => {
     <>
       <Box position="relative">
         <Box
-          bgImage="url(https://nft-launchpad.b-cdn.net/bg-lines.png)"
+          // bgImage="url(https://nft-launchpad.b-cdn.net/bg-lines.png)"
           position="absolute"
           left="0"
           right="0"

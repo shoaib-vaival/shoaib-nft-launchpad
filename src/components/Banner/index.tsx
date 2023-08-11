@@ -64,7 +64,7 @@ export const Banner = () => {
           href={`/collection/create`}
         >
           <Box position="absolute" bottom="0px" left="0px" opacity="0.4">
-            <Image src="https://nft-launchpad.b-cdn.net/banner-lines.png" />
+            {/* <Image src="https://nft-launchpad.b-cdn.net/banner-lines.png" /> */}
           </Box>
           <Flex justifyContent="space-between" flexWrap="wrap">
             <VStack
@@ -134,13 +134,13 @@ export const Banner = () => {
                 ml="auto"
                 mr="20px"
               >
-                <Image
+                {/* <Image
                   display={{ base: "none", xl: "block" }}
                   src="https://nft-launchpad.b-cdn.net/banner-block.png"
                   objectFit="cover"
                   w="100%"
                   h="100%"
-                />
+                /> */}
               </Box>
             </Box>
           </Flex>

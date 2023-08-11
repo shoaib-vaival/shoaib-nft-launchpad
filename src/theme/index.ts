@@ -40,15 +40,15 @@ export const theme = extendTheme({
         display: 'none!important',
         transition:'all .3s ease'
       },
-      ".drop_hover::before ": {
-       height:'100%',
-       position: 'absolute',
-       width:'50px',
-       content:"''",
-       display:'block',
-        bg:"transparent",
-        zIndex: '-1'
-      },
+      // ".drop_hover::before ": {
+      //  height:'100%',
+      //  position: 'absolute',
+      //  width:'50px',
+      //  content:"''",
+      //  display:'block',
+      //   bg:"transparent",
+      //   zIndex: '-1'
+      // },
 
 
       " .css-1tdvlph:hover .slick-arrow-btn": {
@@ -57,7 +57,7 @@ export const theme = extendTheme({
       },
       body: {
         color: colors.black,
-        backgroundImage: 'url("https://nft-launchpad.b-cdn.net/bg.webp")',
+        // backgroundImage: 'url("https://nft-launchpad.b-cdn.net/bg.webp")',
         backgroundSize: "cover",
       },
       ".ErrorMessage": {
